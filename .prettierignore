@@ -1,0 +1,8 @@
+node_modules
+vendor
+kirby
+dist
+.git
+*.log
+composer.lock
+pnpm-lock.yaml

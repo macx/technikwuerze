@@ -6,7 +6,7 @@ Website of the first ever podcast for developers in Germany. Since 2005.
 
 - **CMS**: Kirby CMS 5.x (Plainkit)
 - **Build Tool**: Vite 5.x
-- **Package Managers**: 
+- **Package Managers**:
   - Composer for PHP dependencies
   - pnpm for Node dependencies
 - **Integration**: kirby-vite plugin for seamless Vite integration
@@ -21,12 +21,14 @@ Website of the first ever podcast for developers in Germany. Since 2005.
 ## Installation
 
 1. Clone the repository:
+
    ```bash
    git clone https://github.com/macx/technikwuerze.git
    cd technikwuerze
    ```
 
 2. Install PHP dependencies:
+
    ```bash
    composer install
    ```
@@ -51,6 +53,7 @@ php -S localhost:8000
 Then open http://localhost:8000 in your browser.
 
 The Vite dev server will automatically:
+
 - Process your CSS and JavaScript
 - Enable hot module replacement (HMR)
 - Watch for changes in Kirby templates, snippets, and content
@@ -64,6 +67,7 @@ pnpm run build
 ```
 
 This will:
+
 - Bundle and minify your CSS and JavaScript
 - Generate hashed filenames for cache busting
 - Create a manifest.json file for asset loading
@@ -104,4 +108,3 @@ The plugin automatically detects the mode using a `.dev` file that's created by 
 ## License
 
 MIT
-

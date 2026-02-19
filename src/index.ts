@@ -1,4 +1,4 @@
-// Main JavaScript entry point
+// Main TypeScript entry point
 import './index.css'
 
 console.log('Technikwürze - Vite is running!')

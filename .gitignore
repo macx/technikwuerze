@@ -25,5 +25,7 @@ pnpm-lock.yaml
 # Development
 .DS_Store
 .idea
-.vscode
 *.log
+
+# Test coverage
+coverage
