@@ -1,0 +1,239 @@
+# Cursor Rules for Technikwürze Project
+
+You are an expert in Kirby CMS, TypeScript, Vite, and modern web development.
+
+## Project Context
+
+This is **Technikwürze**, a podcast website built with:
+- Kirby CMS 5.x (PHP-based CMS)
+- TypeScript (transpiled by Vite)
+- Vite for asset building
+- GitHub Actions for CI/CD
+
+## Critical Architecture Understanding
+
+### TWO SEPARATE GIT REPOSITORIES
+
+1. **Main Repository** (macx/technikwuerze)
+   - Code: PHP, TypeScript, CSS, templates
+   - Deployment: rsync via GitHub Actions
+   - You are currently in this repo
+
+2. **Content Repository** (content/ subdirectory)
+   - Separate Git repository (not a submodule!)
+   - Managed by kirby-git-content plugin
+   - Panel changes → auto-commit → auto-push
+   - **DO NOT** commit content/ to main repo
+
+### Deployment Flow
+
+**Code Deployment (rsync):**
+```
+Local → GitHub → CI (test/build) → rsync → Production
+```
+- Excludes: content/, media/, accounts/
+
+**Content Sync (Git):**
+```
+Panel → kirby-git-content → GitHub → git pull (local)
+```
+- Bidirectional via Git
+- Never via rsync
+
+## Code Style
+
+### TypeScript
+- Strict mode enabled
+- ES2020+ features
+- Explicit types (no `any`)
+- Use modern syntax
+
+### PHP (Kirby)
+- PSR-2 style guide
+- 4-space indentation
+- Kirby helper functions
+- Prettier formatted
+
+### CSS
+- Plain CSS (no frameworks)
+- CSS custom properties
+- 2-space indentation
+- Mobile-first
+
+## Key Commands
+
+```bash
+# Dev
+pnpm run dev          # Vite HMR
+php -S localhost:8000 # PHP server
+
+# Test
+pnpm run test         # Full suite (type-check + format + vitest)
+pnpm run type-check   # TypeScript only
+pnpm run format       # Format all files
+
+# Build
+pnpm run build        # Production (runs tests first)
+```
+
+## Important Rules
+
+### When Writing Code:
+
+1. **TypeScript**: Always use types, no `any`
+2. **Testing**: Write tests for new functions
+3. **Formatting**: Use Prettier (auto-formats)
+4. **Content**: Never edit content/ directly (use Panel)
+5. **Build assets**: Don't commit dist/
+
+### When Suggesting Changes:
+
+1. **Ask which repo**: Code (main) or content (separate)?
+2. **Consider deployment**: rsync or Git plugin?
+3. **Check tests**: Will tests pass?
+4. **Verify types**: TypeScript strict mode OK?
+5. **Format check**: Run Prettier?
+
+### File Locations:
+
+- TypeScript: `src/*.ts`
+- CSS: `src/*.css`
+- Tests: `src/*.test.ts`
+- Templates: `site/templates/*.php`
+- Config: `site/config/config.php`
+- Workflows: `.github/workflows/*.yml`
+
+## Tech Stack Details
+
+### Dependencies Management
+- **PHP**: Composer (`composer.json`)
+- **Node**: pnpm (`package.json`)
+
+### Key Plugins
+- `arnoson/kirby-vite`: Vite integration
+- `thathoff/kirby-git-content`: Content Git sync
+
+### Testing Stack
+- Vitest (unit tests)
+- TypeScript compiler (type checking)
+- Prettier (code formatting)
+
+## Kirby CMS Specifics
+
+### Templates
+- PHP files in `site/templates/`
+- Use Kirby's templating: `$page->title()`, etc.
+- Vite assets: `vite()->css()`, `vite()->js()`
+
+### Configuration
+- Base: `site/config/config.php`
+- Production: `site/config/config.production.php`
+- Environment: Set via `KIRBY_MODE` in `.env`
+
+### Content Structure
+- Content in `content/` (separate repo!)
+- Media in `media/` (uploaded files)
+- Blueprints define structure
+
+## Common Patterns
+
+### Adding New Features
+
+```typescript
+// 1. Write TypeScript with types
+export function myFeature(input: string): boolean {
+  return input.length > 0
+}
+
+// 2. Write test
+import { describe, it, expect } from 'vitest'
+describe('myFeature', () => {
+  it('returns true for non-empty strings', () => {
+    expect(myFeature('test')).toBe(true)
+  })
+})
+
+// 3. Use in main file
+import { myFeature } from './myFeature'
+```
+
+### Kirby Template Pattern
+
+```php
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <title><?= $page->title() ?></title>
+    <?= vite()->css('src/index.ts') ?>
+    <?= vite()->js('src/index.ts') ?>
+  </head>
+  <body>
+    <h1><?= $page->title() ?></h1>
+    <?= $page->text()->kt() ?>
+  </body>
+</html>
+```
+
+## Debugging
+
+### Vite Issues
+- Check `vite.config.ts`
+- Verify `dist/` is being generated
+- Check browser console
+
+### Kirby Issues
+- Check PHP error logs
+- Verify `kirby/` is installed via Composer
+- Check `site/config/config.php`
+
+### Content Sync Issues
+- Verify content/.git exists
+- Check kirby-git-content config
+- Ensure Git is configured on server
+
+## Deployment Notes
+
+### GitHub Actions
+- `test.yml`: Runs on every push/PR
+- `deploy.yml`: Deploys on push to main
+
+### rsync Excludes (Important!)
+These are NEVER deployed:
+- `content/` (Git plugin handles this)
+- `media/` (uploaded files)
+- `site/accounts/` (user data)
+- `site/cache/` (temporary)
+- `node_modules/` (dependencies)
+
+## Quick Checks Before Suggesting Code
+
+- [ ] Is TypeScript properly typed?
+- [ ] Will tests pass?
+- [ ] Is Prettier formatting correct?
+- [ ] Does it work with Kirby 5.x?
+- [ ] Is content/ handled correctly (separate repo)?
+- [ ] Will rsync deployment work?
+
+## Documentation References
+
+- Kirby Docs: https://getkirby.com/docs
+- Vite Docs: https://vitejs.dev
+- kirby-vite: https://github.com/arnoson/kirby-vite
+- kirby-git-content: https://github.com/thathoff/kirby-git-content
+
+## Project Docs
+
+- [README.md](README.md) - Overview
+- [TODO.md](TODO.md) - Setup guide
+- [DEPLOYMENT.md](DEPLOYMENT.md) - Deployment details
+- [DEPLOYMENT_EXPLAINED.md](DEPLOYMENT_EXPLAINED.md) - Architecture
+- [.github/copilot-instructions.md](.github/copilot-instructions.md) - Full context
+
+## Summary
+
+Remember: This project has a **hybrid architecture**:
+- Code → rsync (automated via GitHub Actions)
+- Content → Git (automated via kirby-git-content)
+
+Always consider which system is affected by your suggestions!

@@ -1,0 +1,25 @@
+{
+  "name": "technikwuerze",
+  "version": "1.0.0",
+  "description": "Website of the first ever podcast for developers in Germany",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "pnpm run test && vite build && cp dist/.vite/manifest.json dist/manifest.json",
+    "preview": "vite preview",
+    "test": "pnpm run type-check && pnpm run format:check && vitest run",
+    "test:watch": "vitest",
+    "type-check": "tsc --noEmit",
+    "format": "prettier --write \"**/*.{ts,js,css,json,md,php}\"",
+    "format:check": "prettier --check \"**/*.{ts,js,css,json,md,php}\""
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "@prettier/plugin-php": "^0.22.2",
+    "prettier": "^3.4.2",
+    "typescript": "^5.7.2",
+    "vite": "^5.4.11",
+    "vite-plugin-kirby": "^4.0.0",
+    "vitest": "^2.1.8"
+  }
+}

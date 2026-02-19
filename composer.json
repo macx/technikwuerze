@@ -1,0 +1,24 @@
+{
+  "name": "macx/technikwuerze",
+  "description": "Website of the first ever podcast for developers in Germany",
+  "type": "project",
+  "license": "MIT",
+  "require": {
+    "php": ">=8.2",
+    "getkirby/cms": "^5.0",
+    "arnoson/kirby-vite": "^4.0",
+    "thathoff/kirby-git-content": "^5.4",
+    "mauricerenck/podcaster": "^3.4"
+  },
+  "config": {
+    "optimize-autoloader": true,
+    "allow-plugins": {
+      "getkirby/composer-installer": true
+    }
+  },
+  "extra": {
+    "kirby": {
+      "install": true
+    }
+  }
+}

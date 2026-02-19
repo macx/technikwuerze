@@ -1,0 +1,25 @@
+{
+  "recommendations": [
+    // Essential
+    "esbenp.prettier-vscode",
+    "github.copilot",
+    "github.copilot-chat",
+    
+    // TypeScript/JavaScript
+    "dbaeumer.vscode-eslint",
+    "vitest.explorer",
+    
+    // PHP (Kirby)
+    "bmewburn.vscode-intelephense-client",
+    "xdebug.php-debug",
+    
+    // Git
+    "eamodio.gitlens",
+    
+    // Utilities
+    "editorconfig.editorconfig",
+    "streetsidesoftware.code-spell-checker",
+    "ms-vscode.live-server"
+  ],
+  "unwantedRecommendations": []
+}

@@ -1,0 +1,73 @@
+{
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[php]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[css]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "prettier.enable": true,
+  "prettier.requireConfig": true,
+  "typescript.tsdk": "node_modules/typescript/lib",
+  
+  // Project context for AI assistants
+  "github.copilot.advanced": {
+    "inlineSuggestCount": 3
+  },
+  
+  // Workspace recommendations
+  "files.associations": {
+    "*.php": "php"
+  },
+  
+  // Exclude patterns (for search/file tree)
+  "files.exclude": {
+    "**/node_modules": true,
+    "**/vendor": true,
+    "**/kirby": true,
+    "**/dist": true,
+    "**/.git": true
+  },
+  
+  // Search exclude
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/vendor": true,
+    "**/kirby": true,
+    "**/dist": true,
+    "**/media": true,
+    "**/site/cache": true
+  },
+  
+  // Git configuration hints
+  "git.ignoredRepositories": [
+    "${workspaceFolder}/content"
+  ],
+  
+  // TypeScript/JavaScript
+  "typescript.preferences.importModuleSpecifier": "relative",
+  "javascript.preferences.importModuleSpecifier": "relative",
+  
+  // Terminal
+  "terminal.integrated.cwd": "${workspaceFolder}",
+  
+  // File nesting for better organization
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.patterns": {
+    "*.ts": "${capture}.test.ts",
+    "package.json": "pnpm-lock.yaml, .prettierrc, .prettierignore, tsconfig.json, vite.config.ts, vitest.config.ts",
+    "composer.json": "composer.lock",
+    ".gitignore": ".gitattributes, .editorconfig"
+  }
+}

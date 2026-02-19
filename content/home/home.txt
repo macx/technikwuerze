@@ -1,0 +1,9 @@
+Title: Technikwürze
+
+----
+
+Text: 
+
+Welcome to Technikwürze - the first ever podcast for developers in Germany. Since 2005.
+
+This website is powered by Kirby CMS and Vite.
