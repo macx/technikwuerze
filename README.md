@@ -174,7 +174,7 @@ This project uses automated GitHub Actions workflows for testing and deployment.
 
 ### Content Sync
 
-The project uses the `oblik/kirby-git` plugin to automatically commit and sync content changes made via the Kirby Panel. Content uploaded through the panel is automatically versioned in Git and can be pulled locally.
+The project uses the `thathoff/kirby-git-content` plugin to automatically commit and sync content changes made via the Kirby Panel. Content uploaded through the panel is automatically versioned in Git and can be pulled locally.
 
 **Content Flow:**
 - Panel changes on server → Auto-committed to Git → Push to GitHub → Pull locally

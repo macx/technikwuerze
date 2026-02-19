@@ -7,24 +7,19 @@ return [
         'install' => true,
     ],
 
-    // Kirby Git plugin configuration
-    // Automatically commits content changes to Git when using the panel
-    'oblik.git' => [
+    // Kirby Git Content plugin configuration
+    // More actively maintained alternative with panel UI
+    'thathoff.git-content' => [
         'commit' => [
             'enabled' => true,
-            'message' => 'Content updated via Kirby Panel',
         ],
         'push' => [
-            'enabled' => false, // Enable this on production server only
+            'enabled' => false, // Enable on production server only
         ],
         'pull' => [
             'enabled' => false,
         ],
-        'paths' => [
-            'content' => true,
-            'site/blueprints' => true,
-            'site/templates' => true,
-            'site/snippets' => true,
-        ],
+        'gitBinary' => 'git',
+        'branch' => 'main',
     ],
 ];

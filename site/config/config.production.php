@@ -5,17 +5,16 @@ return [
     'debug' => false,
 
     // Enable Git push on production server
-    'oblik.git' => [
+    'thathoff.git-content' => [
         'commit' => [
             'enabled' => true,
-            'message' => 'Content updated via Kirby Panel',
         ],
         'push' => [
             'enabled' => true,
-            'branch' => 'main',
         ],
         'pull' => [
             'enabled' => false,
         ],
+        'branch' => 'main',
     ],
 ];

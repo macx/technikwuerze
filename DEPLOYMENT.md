@@ -1,5 +1,8 @@
 # Deployment Guide
 
+> **🚀 Quick Start:** Für eine Schritt-für-Schritt Anleitung zur Einrichtung, siehe [TODO.md](TODO.md)
+
+
 This document explains how to set up and use the automated deployment process for the Technikwürze website.
 
 ## Overview
@@ -75,9 +78,12 @@ Steps:
 
 ## Content Sync Strategy
 
-### Kirby Git Plugin (oblik/kirby-git)
+### Kirby Git Content Plugin (thathoff/kirby-git-content)
 
 The `oblik/kirby-git` plugin is configured to automatically commit content changes:
+
+**Note:** This project uses `thathoff/kirby-git-content` instead of `oblik/kirby-git` because it is more actively maintained and has better Kirby 5 support.
+
 
 #### On Production Server:
 - ✅ Auto-commit enabled
@@ -292,5 +298,5 @@ To rollback to a previous deployment:
 For issues:
 1. Check GitHub Actions logs
 2. Review server error logs
-3. Check Kirby Git plugin documentation: https://github.com/OblikStudio/kirby-git
+3. Check Kirby Git plugin documentation: https://github.com/thathoff/kirby-git-content
 4. Verify all secrets are correctly configured in GitHub

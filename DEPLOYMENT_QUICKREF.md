@@ -116,7 +116,7 @@ cd /path/to/site && git pull origin main
 3. Test SSH manually: `ssh -i ~/.ssh/key user@host`
 
 ### Content Not Syncing
-1. Verify plugin installed: `composer show oblik/kirby-git`
+1. Verify plugin installed: `composer show thathoff/kirby-git-content`
 2. Check Git configured on server
 3. Verify write permissions on content/
 4. Check server logs
@@ -139,7 +139,7 @@ cd /path/to/site && git pull origin main
 
 - Full guide: [DEPLOYMENT.md](DEPLOYMENT.md)
 - README: [README.md](README.md)
-- Kirby Git plugin: https://github.com/OblikStudio/kirby-git
+- Kirby Git plugin: https://github.com/thathoff/kirby-git-content
 
 ## Support
 
