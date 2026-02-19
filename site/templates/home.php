@@ -4,10 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $page->title() ?> | <?= $site->title() ?></title>
-    <?php vite([
-        'src/index.js',
-        'src/index.css'
-    ]) ?>
+    <?= vite()->css('src/index.js') ?>
+    <?= vite()->js('src/index.js') ?>
 </head>
 <body>
     <header>

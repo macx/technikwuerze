@@ -19,7 +19,8 @@ node_modules
 pnpm-lock.yaml
 
 # Vite
-/public/dist
+/dist
+.dev
 
 # Development
 .DS_Store

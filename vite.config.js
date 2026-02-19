@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite'
 import { resolve } from 'path'
+import kirby from 'vite-plugin-kirby'
 
 export default defineConfig({
   root: '.',
@@ -7,14 +8,13 @@ export default defineConfig({
   publicDir: false,
   
   build: {
-    outDir: resolve(__dirname, 'public/dist'),
+    outDir: resolve(__dirname, 'dist'),
     assetsDir: '',
     emptyOutDir: true,
-    manifest: true,
+    manifest: 'manifest.json',
     rollupOptions: {
       input: {
-        main: resolve(__dirname, 'src/index.js'),
-        styles: resolve(__dirname, 'src/index.css')
+        main: resolve(__dirname, 'src/index.js')
       }
     }
   },
@@ -25,5 +25,12 @@ export default defineConfig({
     origin: 'http://localhost:5173'
   },
   
-  plugins: []
+  plugins: [
+    kirby({
+      watch: [
+        './site/(templates|snippets|controllers|models|layouts)/**/*.php',
+        './content/**/*',
+      ]
+    })
+  ]
 })

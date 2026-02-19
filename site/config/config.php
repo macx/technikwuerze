@@ -8,10 +8,6 @@ return [
     ],
     
     'arnoson.kirby-vite' => [
-        'outDir' => 'public/dist',
-        'entry' => [
-            'src/index.js',
-            'src/index.css'
-        ]
+        'outDir' => 'public/dist'
     ]
 ];

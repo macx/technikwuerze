@@ -1,0 +1,11 @@
+{
+  "src/index.js": {
+    "file": "main-CXPj7nXb.js",
+    "name": "main",
+    "src": "src/index.js",
+    "isEntry": true,
+    "css": [
+      "main-DBcT8kgv.css"
+    ]
+  }
+}
