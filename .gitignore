@@ -1,0 +1,26 @@
+# Kirby
+/kirby
+/site/cache/*
+!/site/cache/index.html
+/site/config/.license
+/site/sessions/*
+!/site/sessions/index.html
+/media/*
+!/media/index.html
+
+# Composer
+/vendor
+composer.lock
+
+# Node
+node_modules
+pnpm-lock.yaml
+
+# Vite
+/public/dist
+
+# Development
+.DS_Store
+.idea
+.vscode
+*.log
