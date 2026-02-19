@@ -22,6 +22,9 @@ pnpm-lock.yaml
 /dist
 .dev
 
+# Environment
+.env
+
 # Development
 .DS_Store
 .idea

@@ -163,6 +163,38 @@ TypeScript files are automatically transpiled by Vite during development and bui
 
 The project uses `@prettier/plugin-php` to format PHP templates consistently. This ensures that Kirby templates maintain the same code quality standards as the TypeScript code.
 
+## Deployment
+
+This project uses automated GitHub Actions workflows for testing and deployment.
+
+### Automated Workflows
+
+- **Tests**: Runs on every push and PR (TypeScript, Prettier, Vitest)
+- **Deployment**: Automatically deploys to production on push to `main` branch
+
+### Content Sync
+
+The project uses the `oblik/kirby-git` plugin to automatically commit and sync content changes made via the Kirby Panel. Content uploaded through the panel is automatically versioned in Git and can be pulled locally.
+
+**Content Flow:**
+- Panel changes on server → Auto-committed to Git → Push to GitHub → Pull locally
+- Local content changes → Push to GitHub → Deployed to server
+
+For detailed deployment setup instructions, see [DEPLOYMENT.md](DEPLOYMENT.md).
+
+### Quick Deployment Setup
+
+1. Configure GitHub Secrets (Settings → Secrets):
+   - `DEPLOY_SSH_KEY`: SSH private key for server access
+   - `DEPLOY_HOST`: Server hostname
+   - `DEPLOY_USER`: SSH username
+   - `DEPLOY_PATH`: Deployment directory path
+
+2. Setup Git on production server for content sync
+3. Push to `main` branch to trigger deployment
+
+See [DEPLOYMENT.md](DEPLOYMENT.md) for complete setup instructions.
+
 ## License
 
 MIT

@@ -6,7 +6,8 @@
   "require": {
     "php": ">=8.2",
     "getkirby/cms": "^5.0",
-    "arnoson/kirby-vite": "^4.0"
+    "arnoson/kirby-vite": "^4.0",
+    "oblik/kirby-git": "^4.0"
   },
   "config": {
     "optimize-autoloader": true,
