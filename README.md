@@ -195,6 +195,41 @@ For detailed deployment setup instructions, see [DEPLOYMENT.md](DEPLOYMENT.md).
 
 See [DEPLOYMENT.md](DEPLOYMENT.md) for complete setup instructions.
 
+## AI Assistant Setup
+
+This project includes comprehensive instructions for AI coding assistants:
+
+### GitHub Copilot
+- Instructions: [.github/copilot-instructions.md](.github/copilot-instructions.md)
+- Full project context, architecture, and coding guidelines
+
+### Cursor IDE
+- Rules: [.cursorrules](.cursorrules)
+- Quick reference for Cursor AI
+
+### VS Code
+- Settings: [.vscode/settings.json](.vscode/settings.json)
+- Extensions: [.vscode/extensions.json](.vscode/extensions.json)
+- Recommended extensions and project-specific configuration
+
+**Key Context for AI:**
+- Two separate Git repositories (code + content)
+- Hybrid deployment (rsync for code, Git for content)
+- TypeScript strict mode with comprehensive testing
+- Kirby CMS 5.x specific patterns
+
+## Documentation
+
+- 📖 [README.md](README.md) - This file (project overview)
+- 📖 [TODO.md](TODO.md) - Step-by-step deployment setup guide
+- 📖 [DEPLOYMENT.md](DEPLOYMENT.md) - Complete deployment documentation
+- 📖 [DEPLOYMENT_EXPLAINED.md](DEPLOYMENT_EXPLAINED.md) - Architecture deep-dive
+- 📖 [DEPLOYMENT_QUICKREF.md](DEPLOYMENT_QUICKREF.md) - Quick reference commands
+- 📖 [PLUGIN_COMPARISON.md](PLUGIN_COMPARISON.md) - Plugin selection rationale
+- 📖 [CONTENT_REPOSITORY.md](CONTENT_REPOSITORY.md) - Content repo setup guide
+- 🤖 [.github/copilot-instructions.md](.github/copilot-instructions.md) - AI assistant context
+- 🤖 [.cursorrules](.cursorrules) - Cursor IDE rules
+
 ## License
 
 MIT
