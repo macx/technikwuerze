@@ -5,7 +5,10 @@ Website of the first ever podcast for developers in Germany. Since 2005.
 ## Tech Stack
 
 - **CMS**: Kirby CMS 5.x (Plainkit)
+- **Language**: TypeScript (transpiled via Vite)
 - **Build Tool**: Vite 5.x
+- **Testing**: Vitest
+- **Code Formatting**: Prettier (with PHP support)
 - **Package Managers**:
   - Composer for PHP dependencies
   - pnpm for Node dependencies
@@ -43,7 +46,7 @@ Website of the first ever podcast for developers in Germany. Since 2005.
 To start the development server with hot module replacement:
 
 ```bash
-# Start Vite dev server (processes CSS and JS)
+# Start Vite dev server (processes TypeScript and CSS)
 pnpm run dev
 
 # In a separate terminal, start PHP development server
@@ -54,7 +57,8 @@ Then open http://localhost:8000 in your browser.
 
 The Vite dev server will automatically:
 
-- Process your CSS and JavaScript
+- Transpile TypeScript to JavaScript
+- Process your CSS
 - Enable hot module replacement (HMR)
 - Watch for changes in Kirby templates, snippets, and content
 
@@ -68,9 +72,49 @@ pnpm run build
 
 This will:
 
-- Bundle and minify your CSS and JavaScript
+- Run TypeScript type checking
+- Validate code formatting with Prettier
+- Run all tests with Vitest
+- Bundle and minify your TypeScript and CSS
 - Generate hashed filenames for cache busting
 - Create a manifest.json file for asset loading
+
+## Testing
+
+Run tests:
+
+```bash
+pnpm run test        # Run all tests (type-check + format + unit tests)
+pnpm run test:watch  # Run tests in watch mode
+```
+
+Run individual checks:
+
+```bash
+pnpm run type-check      # TypeScript type checking
+pnpm run format:check    # Check code formatting
+pnpm run format          # Format all files
+```
+
+## Code Quality
+
+This project uses:
+
+- **TypeScript** for type safety
+- **Prettier** for consistent code formatting (including PHP templates)
+- **Vitest** for unit testing
+- **EditorConfig** for consistent editor settings
+
+### VS Code Setup
+
+The project includes VS Code settings for automatic formatting on save with Prettier support for:
+
+- TypeScript/JavaScript
+- CSS
+- JSON
+- PHP templates
+
+Install the [Prettier VS Code extension](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) for the best experience.
 
 ## Project Structure
 
@@ -87,12 +131,18 @@ This will:
 │   ├── snippets/     # Reusable template parts
 │   └── ...
 ├── src/              # Source files for Vite
-│   ├── index.js      # Main JavaScript entry point
-│   └── index.css     # Main CSS entry point
+│   ├── index.ts      # Main TypeScript entry point
+│   ├── index.css     # Main CSS entry point
+│   └── *.test.ts     # Test files
 ├── vendor/           # PHP dependencies (Composer)
+├── .vscode/          # VS Code settings
 ├── composer.json     # PHP dependencies configuration
 ├── package.json      # Node dependencies configuration
-├── vite.config.js    # Vite configuration
+├── tsconfig.json     # TypeScript configuration
+├── vite.config.ts    # Vite configuration
+├── vitest.config.ts  # Vitest configuration
+├── .prettierrc       # Prettier configuration
+├── .editorconfig     # EditorConfig settings
 └── index.php         # Kirby entry point
 ```
 
@@ -104,6 +154,14 @@ The project uses the [kirby-vite plugin](https://github.com/arnoson/kirby-vite) 
 - In **production mode**: Assets are loaded from the `dist/` directory using the manifest.json file
 
 The plugin automatically detects the mode using a `.dev` file that's created by vite-plugin-kirby.
+
+### TypeScript Support
+
+TypeScript files are automatically transpiled by Vite during development and build. Type checking is performed separately using `tsc` and is integrated into the build pipeline.
+
+### Prettier for PHP Templates
+
+The project uses `@prettier/plugin-php` to format PHP templates consistently. This ensures that Kirby templates maintain the same code quality standards as the TypeScript code.
 
 ## License
 

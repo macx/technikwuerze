@@ -1,9 +1,9 @@
 <?php
 
 return [
-  'debug' => true,
+    'debug' => true,
 
-  'panel' => [
-    'install' => true,
-  ],
+    'panel' => [
+        'install' => true,
+    ],
 ];

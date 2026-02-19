@@ -12,7 +12,8 @@
         "parser": "php",
         "phpVersion": "8.2",
         "trailingCommaPHP": true,
-        "braceStyle": "psr-2"
+        "braceStyle": "psr-2",
+        "tabWidth": 4
       }
     }
   ]
