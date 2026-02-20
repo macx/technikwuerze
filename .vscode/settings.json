@@ -65,9 +65,12 @@
   // File nesting for better organization
   "explorer.fileNesting.enabled": true,
   "explorer.fileNesting.patterns": {
-    "*.ts": "${capture}.test.ts",
-    "package.json": "pnpm-lock.yaml, .prettierrc, .prettierignore, tsconfig.json, vite.config.ts, vitest.config.ts",
+    "*.ts": "${capture}.test.ts, ${capture}.spec.ts, ${capture}.d.ts",
+    "README.md": "*.md",
+    ".prettierrc": ".prettierignore",
+    "package.json": "pnpm-lock.yaml",
+    "tsconfig.json": "tsconfig.*.json",
     "composer.json": "composer.lock",
-    ".gitignore": ".gitattributes, .editorconfig"
+    ".gitignore": ".gitattributes"
   }
 }

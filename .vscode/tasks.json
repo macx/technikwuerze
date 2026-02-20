@@ -1,0 +1,31 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Prepare Development Environment",
+      "dependsOn": ["🖥️ PHP Server"]
+    },
+    {
+      "label": "🖥️ PHP Server",
+      "type": "shell",
+      "command": "rm -f .dev && php -S localhost:8000 kirby/router.php",
+      "isBackground": true,
+      "problemMatcher": {
+        "owner": "php-server",
+        "pattern": {
+          "regexp": "."
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": ".",
+          "endsPattern": "started"
+        }
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "focus": false
+      }
+    }
+  ]
+}

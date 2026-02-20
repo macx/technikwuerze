@@ -1,0 +1,13 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "🚀 Development",
+      "type": "node-terminal",
+      "request": "launch",
+      "preLaunchTask": "Prepare Development Environment",
+      "command": "sh -c '(while ! [ -f .dev ] || ! (nc -z localhost 5173 || nc -z 127.0.0.1 5173) || ! nc -z localhost 8000; do sleep 0.25; done; open -na \"Google Chrome\" --args --incognito --new-window http://localhost:8000/ http://localhost:8000/panel) >/dev/null 2>&1 & pnpm run dev'",
+      "cwd": "${workspaceFolder}"
+    }
+  ]
+}

@@ -2,9 +2,9 @@ import { defineConfig } from 'vite'
 import { resolve } from 'path'
 import kirby from 'vite-plugin-kirby'
 
-export default defineConfig({
+export default defineConfig(({ command }) => ({
   root: '.',
-  base: '/dist/',
+  base: command === 'serve' ? '/' : '/dist/',
   publicDir: false,
 
   build: {
@@ -20,9 +20,15 @@ export default defineConfig({
   },
 
   server: {
+    host: 'localhost',
     strictPort: true,
     port: 5173,
     origin: 'http://localhost:5173',
+    hmr: {
+      host: 'localhost',
+      clientPort: 5173,
+      protocol: 'ws',
+    },
   },
 
   plugins: [
@@ -30,4 +36,4 @@ export default defineConfig({
       watch: ['./site/(templates|snippets|controllers|models|layouts)/**/*.php', './content/**/*'],
     }),
   ],
-})
+}))
