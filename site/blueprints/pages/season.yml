@@ -1,0 +1,20 @@
+title: Season
+
+columns:
+  - width: 2/3
+    sections:
+      content:
+        type: fields
+        fields:
+          text:
+            label: Beschreibung
+            type: textarea
+            size: medium
+  - width: 1/3
+    sections:
+      episodes:
+        type: pages
+        label: Folgen
+        templates:
+          - episode
+        sortBy: date desc

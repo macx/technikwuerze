@@ -1,0 +1,24 @@
+title: Start
+
+columns:
+  - width: 2/3
+    sections:
+      content:
+        type: fields
+        fields:
+          text:
+            label: Intro
+            type: textarea
+            size: medium
+  - width: 1/3
+    sections:
+      featured:
+        type: fields
+        fields:
+          popularEpisodes:
+            label: Beliebteste Folgen (manuell)
+            type: pages
+            multiple: true
+            max: 3
+            query: site.find('mediathek').index.filterBy('intendedTemplate', 'episode')
+            help: Optional. Wenn leer, werden die neuesten Folgen als Fallback genutzt.

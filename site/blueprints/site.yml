@@ -1,0 +1,11 @@
+title: Site
+
+tabs:
+  content:
+    sections:
+      pages:
+        type: pages
+        templates:
+          - home
+          - mediathek
+          - team

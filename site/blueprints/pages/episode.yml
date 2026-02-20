@@ -1,0 +1,21 @@
+title: Episode
+num: '{{ page.date.toDate("YmdHi") }}'
+
+tabs:
+  podcast:
+    extends: tabs/podcasterepisode
+  content:
+    sections:
+      basic_stuff:
+        type: fields
+        fields:
+          date:
+            label: Date
+            type: date
+            time: true
+            default: now
+            required: true
+          text:
+            label: Text
+            type: textarea
+            size: large

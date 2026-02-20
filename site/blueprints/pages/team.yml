@@ -1,0 +1,26 @@
+title: Team
+
+columns:
+  - width: 1/1
+    sections:
+      content:
+        type: fields
+        fields:
+          text:
+            label: Intro
+            type: textarea
+            size: medium
+          members:
+            label: Mitglieder
+            type: structure
+            fields:
+              name:
+                label: Name
+                type: text
+              role:
+                label: Rolle
+                type: text
+              bio:
+                label: Kurzbeschreibung
+                type: textarea
+                size: small
