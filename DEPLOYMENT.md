@@ -80,9 +80,7 @@ Steps:
 
 ### Kirby Git Content Plugin (thathoff/kirby-git-content)
 
-The `oblik/kirby-git` plugin is configured to automatically commit content changes:
-
-**Note:** This project uses `thathoff/kirby-git-content` instead of `oblik/kirby-git` because it is more actively maintained and has better Kirby 5 support.
+The `thathoff/kirby-git-content` plugin is configured to automatically commit content changes.
 
 
 #### On Production Server:
@@ -118,8 +116,10 @@ The deployment process **excludes** the following directories to prevent overwri
 #### Scenario 2: Content created locally
 1. Developer modifies content locally (in `content/` directory)
 2. Developer commits and pushes to GitHub
-3. GitHub Action deploys to server
-4. Content is updated on production (via rsync, preserving media files)
+3. Production content repository pulls latest changes (`cd content && git pull origin main`)
+4. Content is updated on production
+
+**Important:** `content/` is excluded from rsync and is not deployed via the code deployment workflow.
 
 #### Scenario 3: Media files uploaded via Panel
 1. Media files are uploaded via Kirby Panel on production
@@ -147,12 +147,14 @@ composer install --no-dev --optimize-autoloader
 The Kirby Git plugin needs Git configured on the server:
 
 ```bash
-cd /path/to/deployment
+cd /path/to/deployment/content
 git config user.email "panel@technikwuerze.de"
 git config user.name "Kirby Panel"
 
 # If not already initialized
-git remote add origin git@github.com:macx/technikwuerze.git
+git init
+git remote add origin git@github.com:macx/technikwuerze-content.git
+git pull origin main
 ```
 
 ### 3. Setup Git Authentication
@@ -254,9 +256,9 @@ rsync -avz --delete \
 
 ### Content not syncing
 
-- Verify the plugin is installed: `composer show oblik/kirby-git`
+- Verify the plugin is installed: `composer show thathoff/kirby-git-content`
 - Check plugin is enabled in config
-- Ensure Git is initialized in the deployment directory
+- Ensure Git is initialized in `/content` on the server
 - Check write permissions on content directories
 
 ### Build fails in GitHub Actions

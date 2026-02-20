@@ -54,7 +54,7 @@ Panel Edit → Auto-commit → Auto-push to GitHub → git pull locally
 
 ### Content Created Locally
 ```
-Local Edit → git push → GitHub Deploy → Server Updated
+Local Edit → git push (content repo) → server/content git pull → Server Updated
 ```
 
 ### Sync Media Files to Local
@@ -66,7 +66,8 @@ rsync -avz user@server:/path/to/media/ ./media/
 
 ### Local Development
 ```bash
-pnpm run dev          # Start dev server
+php -S localhost:8000 kirby/router.php  # Kirby PHP server
+pnpm run dev                             # Vite HMR server
 pnpm run test         # Run all tests
 pnpm run build        # Build for production
 ```
@@ -95,7 +96,7 @@ rm -rf /path/to/site/site/cache/*
 cd /path/to/site && git status
 
 # Pull latest (if auto-push disabled)
-cd /path/to/site && git pull origin main
+cd /path/to/site/content && git pull origin main
 ```
 
 ## Workflow Triggers
@@ -118,8 +119,9 @@ cd /path/to/site && git pull origin main
 ### Content Not Syncing
 1. Verify plugin installed: `composer show thathoff/kirby-git-content`
 2. Check Git configured on server
-3. Verify write permissions on content/
-4. Check server logs
+3. Verify `content/` is its own Git repo on server
+4. Verify write permissions on `content/`
+5. Check server logs
 
 ### Build Fails
 1. Run locally: `pnpm run test`
