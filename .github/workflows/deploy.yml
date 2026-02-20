@@ -64,6 +64,7 @@ jobs:
             --exclude '.env' \
             --exclude 'content' \
             --exclude 'media' \
+            # Keep panel users/password hashes on server (do not sync from CI)
             --exclude 'site/accounts' \
             --exclude 'site/cache' \
             --exclude 'site/sessions' \

@@ -5,6 +5,8 @@
 /site/config/.license
 /site/sessions/*
 !/site/sessions/index.html
+/site/accounts/*
+!/site/accounts/.gitkeep
 /site/plugins/*
 !/site/plugins/.gitkeep
 /media/*
