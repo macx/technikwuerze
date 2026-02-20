@@ -9,8 +9,8 @@ $episodes = $page->children()->filterBy('intendedTemplate', 'episode')->publishe
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><?= $page->title() ?> | <?= $site->title() ?></title>
-    <?= vite()->css('src/index.ts') ?>
-    <?= vite()->js('src/index.ts') ?>
+    <?= vite()->css('src/index.ts', [], true) ?>
+    <?= vite()->js('src/index.ts', [], true) ?>
   </head>
   <body>
     <header>

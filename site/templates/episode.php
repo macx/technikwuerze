@@ -9,8 +9,8 @@ $teamUrl = page('team')?->url() ?? '#';
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><?= $page->title() ?> | <?= $site->title() ?></title>
     <?php snippet('podcaster-ogaudio'); ?>
-    <?= vite()->css('src/index.ts') ?>
-    <?= vite()->js('src/index.ts') ?>
+    <?= vite()->css('src/index.ts', [], true) ?>
+    <?= vite()->js('src/index.ts', [], true) ?>
   </head>
   <body>
     <header>

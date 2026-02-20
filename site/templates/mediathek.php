@@ -9,8 +9,8 @@ $seasons = $page->children()->filterBy('intendedTemplate', 'season')->published(
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><?= $page->title() ?> | <?= $site->title() ?></title>
-    <?= vite()->css('src/index.ts') ?>
-    <?= vite()->js('src/index.ts') ?>
+    <?= vite()->css('src/index.ts', [], true) ?>
+    <?= vite()->js('src/index.ts', [], true) ?>
   </head>
   <body>
     <header>
