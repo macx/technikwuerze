@@ -24,6 +24,15 @@ export default defineConfig(({ command }) => ({
     strictPort: true,
     port: 5173,
     origin: 'http://localhost:5173',
+    watch: {
+      ignored: [
+        '**/content/.git/**',
+        '**/content/**/*.sqlite',
+        '**/content/**/*.mp3',
+        '**/content/**/*.m4a',
+        '**/content/**/*.wav',
+      ],
+    },
     hmr: {
       host: 'localhost',
       clientPort: 5173,
@@ -33,7 +42,13 @@ export default defineConfig(({ command }) => ({
 
   plugins: [
     kirby({
-      watch: ['./site/(templates|snippets|controllers|models|layouts)/**/*.php', './content/**/*'],
+      watch: [
+        './site/(templates|snippets|controllers|models|layouts)/**/*.php',
+        './content/**/*.txt',
+        './content/**/*.yml',
+        './content/**/*.yaml',
+        './content/**/*.json',
+      ],
     }),
   ],
 }))
