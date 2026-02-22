@@ -1,0 +1,11 @@
+@charset "UTF-8";
+
+@layer base, components;
+
+@import './base/variables.css' layer(base);
+@import './base/layout.css' layer(base);
+@import './base/icons.css' layer(base);
+
+@import './components/header.css' layer(components);
+@import './components/theme-switch.css' layer(components);
+@import './components/podcaster-player.css' layer(components);

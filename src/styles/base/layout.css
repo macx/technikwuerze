@@ -1,0 +1,52 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-block-start: var(--header-size);
+}
+
+body {
+  font-family: var(--ff);
+  background-color: var(--clr-surface);
+  color: var(--clr-text);
+  line-height: var(--lh);
+
+  margin: 0;
+  padding-block-start: calc(var(--header-size) + var(--sp));
+
+  &:has(#main-nav [aria-expanded='true']) {
+    overflow: hidden;
+
+    &::after {
+      content: '';
+      display: block;
+      position: absolute;
+      inset: 0;
+      z-index: 19;
+    }
+  }
+}
+
+input,
+textarea,
+select,
+button {
+  font: inherit;
+}
+
+main {
+  max-width: var(--main-max-width);
+  margin: var(--main-margin);
+  padding: 0 var(--main-padding-inline);
+}
+
+footer {
+  text-align: var(--footer-text-align);
+  padding: var(--footer-padding);
+  margin-top: var(--footer-margin-top);
+  border-top: var(--footer-border-width) var(--footer-border-style) var(--footer-border-color);
+}

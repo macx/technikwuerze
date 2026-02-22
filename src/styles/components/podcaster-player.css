@@ -1,0 +1,7 @@
+.podcaster-html5-player audio {
+  width: 100%;
+}
+
+[id^='podlovePlayerContainer-'] {
+  margin-top: var(--podlove-player-margin-top);
+}
