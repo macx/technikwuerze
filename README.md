@@ -57,9 +57,27 @@ git pull origin main
 
 ### Use the Kirby Panel
 
-The Kirby Panel is available at `http://localhost:8000/panel`. Create an account to log in and manage your content. The panel accounts are NOT in sync with the production server.
+The Kirby Panel is available at `http://localhost:8000/panel` by default. Create an account to log in and manage your content. The panel accounts are NOT in sync with the production server.
 
 > Please note: Do not push changes directly to the `content/` repository. Always use the Kirby Panel for content changes, which ensures proper commits and synchronization.
+
+### Local dev ports (optional)
+
+You can override the default local host/ports for both PHP and Vite.
+
+```bash
+cp .env.example .env
+```
+
+Then edit `.env`:
+
+```bash
+DEV_HOST=localhost
+DEV_PHP_PORT=8000
+DEV_VITE_PORT=5173
+```
+
+VS Code tasks (`Run and Debug`) and Vite use these values automatically.
 
 ## Development (VS Code)
 
@@ -73,13 +91,13 @@ Use the **Run and Debug** panel in Visual Studio Code:
 
 What starts automatically:
 
-- PHP server on `http://localhost:8000` (`kirby/router.php`)
-- Vite dev server on `http://localhost:5173` (HMR assets)
+- PHP server on `http://localhost:8000` by default (`kirby/router.php`)
+- Vite dev server on `http://localhost:5173` by default (HMR assets)
 - Chrome incognito window with:
-  - `http://localhost:8000/`
-  - `http://localhost:8000/panel`
+  - `http://<DEV_HOST>:<DEV_PHP_PORT>/`
+  - `http://<DEV_HOST>:<DEV_PHP_PORT>/panel`
 
-> Note: The actual site runs on `:8000`. `:5173` serves Vite/HMR assets.
+> Note: The actual site runs on `DEV_PHP_PORT`. `DEV_VITE_PORT` serves Vite/HMR assets.
 
 ### Development fallback
 

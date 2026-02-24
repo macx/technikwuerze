@@ -6,7 +6,7 @@
       "type": "node-terminal",
       "request": "launch",
       "preLaunchTask": "Prepare Development Environment",
-      "command": "sh -c '(while ! nc -z localhost 5173 || ! nc -z localhost 8000; do sleep 1; done; open -na \"Google Chrome\" --args --incognito --new-window http://localhost:8000/ http://localhost:8000/panel) >/dev/null 2>&1 & pnpm run dev'",
+      "command": ". ./.env 2>/dev/null || true; [ -n \"$DEV_HOST\" ] || DEV_HOST=localhost; [ -n \"$DEV_PHP_PORT\" ] || DEV_PHP_PORT=8000; [ -n \"$DEV_VITE_PORT\" ] || DEV_VITE_PORT=5173; (while ! nc -z \"$DEV_HOST\" \"$DEV_VITE_PORT\" || ! nc -z \"$DEV_HOST\" \"$DEV_PHP_PORT\"; do sleep 1; done; open -na \"Google Chrome\" --args --incognito --new-window \"http://$DEV_HOST:$DEV_PHP_PORT/\" \"http://$DEV_HOST:$DEV_PHP_PORT/panel\") >/dev/null 2>&1 & pnpm run dev",
       "cwd": "${workspaceFolder}"
     }
   ]

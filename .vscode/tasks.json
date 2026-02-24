@@ -8,7 +8,7 @@
     {
       "label": "🖥️ PHP Server",
       "type": "shell",
-      "command": "rm -f .dev && php -S localhost:8000 kirby/router.php",
+      "command": ". ./.env 2>/dev/null || true; [ -n \"$DEV_HOST\" ] || DEV_HOST=localhost; [ -n \"$DEV_PHP_PORT\" ] || DEV_PHP_PORT=8000; rm -f .dev && php -S \"$DEV_HOST:$DEV_PHP_PORT\" kirby/router.php",
       "isBackground": true,
       "problemMatcher": {
         "owner": "php-server",
