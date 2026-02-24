@@ -1,0 +1,117 @@
+name:
+  en: Brand Emblem
+  de: Markenemblem
+icon: star
+label:
+  en: 'Optional: Podcast-Networks'
+  de: 'Optional: Podcast-Netzwerke'
+fields:
+  brand_logo_section:
+    type: headline
+    label:
+      en: Brand-Logo
+      de: Brand-Logo
+
+  settings:
+    type: checkboxes
+    label:
+      en: Settings
+      de: Einstellungen
+    options:
+      networks:
+        en: 'Show Networks'
+        de: 'Netzwerke anzeigen'
+
+  byline:
+    type: text
+    label:
+      en: Byline
+      de: Unterzeile
+
+  network_story_section:
+    type: headline
+    label:
+      en: Netzwerke
+      de: Netzwerke
+
+  favorite_network:
+    type: select
+    label:
+      en: Favorite Network
+      de: Favorisiertes Netzwerk
+    default: none
+    options:
+      none:
+        en: Ohne Favorit
+        de: Ohne Favorit
+      rss: RSS Feed
+      overcast: Overcast
+      applepodcasts: Apple Podcasts
+      youtubemusic: YouTube Music
+      amazonmusic: Amazon Music
+      spotify: Spotify
+      pocketcasts: Pocket Casts
+
+  listento_start:
+    type: text
+    width: 1/2
+    label:
+      en: 'Now listen on (start)'
+      de: 'Jetzt hören auf (Start)'
+    placeholder: 'Jetzt auf'
+
+  listento_end:
+    type: text
+    width: 1/2
+    label:
+      en: 'Now listen on (end)'
+      de: 'Jetzt hören auf (Ende)'
+    placeholder: 'anhören'
+
+  rss_text:
+    type: text
+    label:
+      en: 'RSS Feed Text'
+      de: 'RSS-Feed Text'
+    placeholder: 'RSS-Adresse kopieren'
+
+  rss_text_copied:
+    type: text
+    label:
+      en: 'RSS Feed Text Copied'
+      de: 'RSS-Feed Text kopiert'
+    placeholder: 'kopiert!'
+
+  networks_section:
+    type: headline
+    label:
+      en: Netzwerke
+      de: Netzwerke
+
+  rss:
+    type: url
+    label: RSS Feed
+
+  overcast:
+    type: url
+    label: Overcast
+
+  applepodcasts:
+    type: url
+    label: Apple Podcasts
+
+  youtubemusic:
+    type: url
+    label: YouTube Music
+
+  amazonmusic:
+    type: url
+    label: Amazon Music
+
+  spotify:
+    type: url
+    label: Spotify
+
+  pocketcasts:
+    type: url
+    label: Pocket Casts

@@ -16,8 +16,8 @@ export const initBrandNetworks = (): void => {
     const defaultLink =
       linksArray.find((link) => link.classList.contains('is-pointer-target')) ?? linksArray[0]
     const firstLabel = defaultLink.dataset.networkLabel?.trim()
-    const firstNetworkKey = defaultLink.dataset.networkKey?.trim()
-    const firstRssText = defaultLink.dataset.rssText?.trim()
+    const firstMode = defaultLink.dataset.networkMode?.trim()
+    const firstHoverText = defaultLink.dataset.networkHoverText?.trim()
     const defaultLabel =
       firstLabel && firstLabel.length > 0 ? firstLabel : (pointerLabel.textContent?.trim() ?? '')
     const secondHalfStart = Math.floor(linksArray.length / 2)
@@ -57,8 +57,8 @@ export const initBrandNetworks = (): void => {
     }
 
     const resetToDefault = (): void => {
-      if (firstNetworkKey === 'rss' && firstRssText) {
-        showRssCustomText(firstRssText)
+      if (firstMode === 'copy' && firstHoverText) {
+        showRssCustomText(firstHoverText)
       } else {
         showStandardText(defaultLabel)
       }
@@ -68,12 +68,12 @@ export const initBrandNetworks = (): void => {
     }
 
     const updatePointerFromLink = (link: HTMLAnchorElement): void => {
-      const networkKey = link.dataset.networkKey?.trim()
-      const rssText = link.dataset.rssText?.trim()
+      const mode = link.dataset.networkMode?.trim()
+      const hoverText = link.dataset.networkHoverText?.trim()
       const label = link.dataset.networkLabel?.trim()
 
-      if (networkKey === 'rss' && rssText) {
-        showRssCustomText(rssText)
+      if (mode === 'copy' && hoverText) {
+        showRssCustomText(hoverText)
       } else if (label) {
         showStandardText(label)
       }
@@ -163,7 +163,7 @@ export const initBrandNetworks = (): void => {
       })
 
       link.addEventListener('click', async (event) => {
-        if (link.dataset.networkKey?.trim() !== 'rss') {
+        if (link.dataset.networkMode?.trim() !== 'copy') {
           return
         }
 
@@ -171,8 +171,8 @@ export const initBrandNetworks = (): void => {
         const copied = await copyTextToClipboard(link.href)
 
         if (copied) {
-          const copiedText = link.dataset.rssTextCopied?.trim()
-          const hoverText = link.dataset.rssText?.trim()
+          const copiedText = link.dataset.networkCopiedText?.trim()
+          const hoverText = link.dataset.networkHoverText?.trim()
           showRssCustomText(copiedText || hoverText || 'Copied')
           triggerCopyHide()
         }

@@ -1,0 +1,259 @@
+@scope (.tw-brand) {
+  :scope {
+    text-align: center;
+    margin-block: var(--sp-l);
+  }
+
+  :scope .animation {
+    font-family: var(--ff-brand);
+    font-size: clamp(3.2rem, 10vw + 1rem, 8rem);
+    letter-spacing: -0.03em;
+    text-rendering: geometricPrecision;
+    will-change: font-variation-settings;
+    color: var(--clr-primary);
+    text-box: trim-both cap alphabetic;
+  }
+
+  :scope .word:nth-of-type(1) {
+    font-variation-settings:
+      'wght' 460,
+      'wdth' 98,
+      'opsz' 46;
+    animation: twBrandPulse 10s ease-in-out infinite both;
+    animation-delay: -5s;
+  }
+
+  :scope .word:nth-of-type(2) {
+    font-variation-settings:
+      'wght' 620,
+      'wdth' 104,
+      'opsz' 58;
+    animation: twBrandPulse 10s ease-in-out infinite both;
+  }
+
+  :scope .byline {
+    font-size: var(--c-fs);
+    color: var(--clr-primary);
+    font-weight: var(--fw-bold);
+    margin-block-start: var(--sp-s);
+    margin-inline-end: 1em;
+    text-align: end;
+  }
+}
+
+@scope (.tw-brand-networks) {
+  :scope {
+    position: relative;
+    --pointer-font-size: 1.25rem;
+    --pointer-arrow-inline-size: 2.25rem;
+    --pointer-arrow-block-size: 1.4rem;
+    --pointer-arrow-gap: 0.5em;
+    --pointer-text-max-inline-size: 12ch;
+  }
+
+  :scope ul {
+    list-style: none;
+    margin: 0;
+    padding-inline-start: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+
+    a {
+      display: block;
+      padding: var(--sp-m);
+      border-radius: var(--radius-button);
+      transition: background-color 120ms var(--ease-out-quad);
+
+      &:hover,
+      &:focus-visible {
+        background-color: var(--clr-hover);
+      }
+    }
+
+    svg {
+      --c-icon-size: 2.5rem;
+
+      display: block;
+      block-size: var(--c-icon-size);
+      inline-size: var(--c-icon-size);
+      color: var(--clr-primary);
+    }
+  }
+
+  :scope .pointer {
+    font-family: var(--ff-hand);
+    font-size: var(--pointer-font-size);
+    color: var(--clr-secondary);
+    display: none;
+    pointer-events: none;
+    position: absolute;
+    z-index: 2;
+    inline-size: 0;
+    block-size: 0;
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateY(0.25rem);
+    transition:
+      opacity 140ms ease-out,
+      transform 220ms var(--ease-drawer-transform);
+  }
+
+  :scope .pointer-text {
+    position: absolute;
+    inset-block-end: 1.1rem;
+    inset-inline-end: calc(var(--pointer-arrow-inline-size) + var(--pointer-arrow-gap));
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35ch;
+    align-items: flex-end;
+    max-inline-size: var(--pointer-text-max-inline-size);
+    line-height: 0.95;
+    text-align: right;
+    justify-content: flex-end;
+    transform: translateY(0.5em);
+  }
+
+  :scope .pointer-custom {
+    display: none;
+  }
+
+  :scope .pointer-text.is-rss-custom .pointer-start,
+  :scope .pointer-text.is-rss-custom .pointer-network,
+  :scope .pointer-text.is-rss-custom .pointer-end {
+    display: none;
+  }
+
+  :scope .pointer-text.is-rss-custom .pointer-custom {
+    display: inline;
+  }
+
+  :scope .pointer.is-left .pointer-text {
+    inset-inline-end: auto;
+    inset-inline-start: calc(var(--pointer-arrow-inline-size) + var(--pointer-arrow-gap));
+    text-align: left;
+    justify-content: flex-start;
+  }
+
+  :scope .pointer-arrow {
+    position: absolute;
+    inset-block-end: -0.25em;
+    inline-size: var(--pointer-arrow-inline-size);
+    block-size: var(--pointer-arrow-block-size);
+    flex: 0 0 auto;
+    color: currentColor;
+    display: block;
+    inset-inline-end: 0;
+    transform-origin: center;
+  }
+
+  :scope .pointer-arrow .arrow-line {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2.25;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  :scope .pointer-arrow .arrow-head {
+    fill: currentColor;
+  }
+
+  :scope .pointer.is-left .pointer-arrow {
+    inset-inline-start: 0;
+    inset-inline-end: auto;
+    transform: scaleX(-1);
+  }
+
+  @media (min-width: 64rem) {
+    :scope {
+      --pointer-font-size: clamp(1.5rem, 1.1vw + 1rem, 1.875rem);
+      --pointer-arrow-inline-size: clamp(2.6rem, 2vw + 1.4rem, 3.25rem);
+      --pointer-arrow-block-size: clamp(1.6rem, 1.1vw + 0.9rem, 2rem);
+      --pointer-text-max-inline-size: none;
+    }
+
+    :scope .pointer-text {
+      flex-wrap: nowrap;
+      line-height: 1;
+      transform: translateY(0.35em);
+    }
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    :scope {
+      padding-block-start: clamp(3rem, 2.4vw + 1.2rem, 4rem);
+    }
+
+    :scope .pointer {
+      display: block;
+      inset-inline-start: 50%;
+      inset-block-start: 0;
+    }
+
+    :scope:hover .pointer,
+    :scope.has-default-pointer .pointer,
+    :scope:has(a:focus-visible) .pointer {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    :scope .pointer.is-copy-hide {
+      animation: twPointerHideAfterCopy 180ms ease-out 2s forwards;
+    }
+
+    @supports (anchor-name: --network-default) and (inset-inline-start: anchor(left)) {
+      :scope ul a:first-child {
+        anchor-name: --network-default;
+      }
+
+      :scope ul a.is-pointer-target {
+        anchor-name: --network-target;
+      }
+
+      :scope .pointer {
+        position-anchor: --network-default;
+        inset-inline-start: anchor(center);
+        inset-block-start: calc(anchor(top) - 0.6rem);
+      }
+
+      :scope:has(ul a.is-pointer-target) .pointer {
+        position-anchor: --network-target;
+      }
+    }
+  }
+}
+
+@keyframes twPointerHideAfterCopy {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(0.25rem);
+  }
+}
+
+@keyframes twBrandPulse {
+  0% {
+    font-variation-settings:
+      'wght' 620,
+      'wdth' 104,
+      'opsz' 58;
+  }
+  50% {
+    font-variation-settings:
+      'wght' 460,
+      'wdth' 98,
+      'opsz' 46;
+  }
+  100% {
+    font-variation-settings:
+      'wght' 620,
+      'wdth' 104,
+      'opsz' 58;
+  }
+}

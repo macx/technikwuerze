@@ -9,6 +9,8 @@
 !/site/accounts/.gitkeep
 /site/plugins/*
 !/site/plugins/.gitkeep
+!/site/plugins/technikwuerze/
+!/site/plugins/technikwuerze/**
 /media/*
 !/media/index.html
 

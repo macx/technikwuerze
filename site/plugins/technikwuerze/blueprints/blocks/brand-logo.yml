@@ -1,0 +1,16 @@
+name:
+  en: Brand Logo
+  de: Brand-Logo
+icon: star
+label:
+  en: Animated brand logo
+  de: Animiertes Brand-Logo
+fields:
+  byline:
+    type: text
+    label:
+      en: Byline
+      de: Unterzeile
+    placeholder:
+      en: for media creators since 2005 (with short break)
+      de: für Medienschaffende seit 2005 (mit kurzer Pause)

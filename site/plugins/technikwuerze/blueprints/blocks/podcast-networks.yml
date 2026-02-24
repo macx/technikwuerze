@@ -1,0 +1,115 @@
+name:
+  en: Podcast Networks
+  de: Podcast-Netzwerke
+icon: audio
+label:
+  en: Podcast network links with pointer
+  de: Podcast-Netzwerk-Links mit Pointer
+fields:
+  listento_start:
+    type: text
+    width: 1/3
+    label:
+      en: 'Pointer text (start)'
+      de: 'Pointer-Text (Start)'
+    placeholder: 'Jetzt auf'
+
+  listento_end:
+    type: text
+    width: 1/3
+    label:
+      en: 'Pointer text (end)'
+      de: 'Pointer-Text (Ende)'
+    placeholder: 'anhören'
+
+  networks:
+    type: structure
+    label:
+      en: Networks
+      de: Netzwerke
+    fields:
+      network:
+        type: select
+        label:
+          en: Network
+          de: Netzwerk
+        required: true
+        validate:
+          required: true
+        placeholder: '-'
+        options:
+          rss: RSS Feed
+          overcast: Overcast
+          applepodcasts: Apple Podcasts
+          youtubemusic: YouTube Music
+          amazonmusic: Amazon Music
+          spotify: Spotify
+          pocketcasts: Pocket Casts
+        width: 1/3
+
+      mode:
+        type: select
+        label:
+          en: Click behavior
+          de: Klickverhalten
+        width: 1/3
+        default: open
+        options:
+          open:
+            en: Open URL
+            de: URL öffnen
+          copy:
+            en: Copy URL
+            de: URL kopieren
+
+      url:
+        type: url
+        label:
+          en: URL
+          de: URL
+        required: true
+        validate:
+          url: true
+
+      hover_text:
+        type: text
+        label:
+          en: Copy hover text
+          de: Kopier-Hovertext
+        placeholder:
+          en: RSS address copy
+          de: RSS-Adresse kopieren
+        when:
+          mode: copy
+
+      copied_text:
+        type: text
+        label:
+          en: Copied text
+          de: Kopiert-Text
+        placeholder:
+          en: copied!
+          de: kopiert!
+        when:
+          mode: copy
+
+  favorite_network:
+    type: select
+    label:
+      en: Favorite network
+      de: Favorisiertes Netzwerk
+    help:
+      en: Determines which network is highlighted as a favorite. Selection is based on the defined networks (may require page reload).
+      de: Legt fest, welches Netzwerk als Favorit hervorgehoben wird. Auswahl basiert auf den definierten Netzwerken (ggf. Seite neu laden).
+    default: ''
+    placeholder:
+      en: Ohne Favorit
+      de: Ohne Favorit
+    options:
+      rss: RSS Feed
+      overcast: Overcast
+      applepodcasts: Apple Podcasts
+      youtubemusic: YouTube Music
+      amazonmusic: Amazon Music
+      spotify: Spotify
+      pocketcasts: Pocket Casts
