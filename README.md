@@ -101,17 +101,6 @@ pnpm run build
 - `content/`, `media/`, `site/accounts/`, cache and sessions are excluded.
 - `site/accounts/` is intentionally not versioned in the main repository.
 
-## Documentation
-
-- [/docs/CONTENT_REPOSITORY.md](CONTENT_REPOSITORY.md)\
-  How the content repository works and how to set it up.
--
-- DEPLOYMENT.md`
-- `DEPLOYMENT_EXPLAINED.md`
-- `DEPLOYMENT_QUICKREF.md`
-- `CONTENT_REPOSITORY.md`
-- `PLUGIN_COMPARISON.md`
-
 ## License
 
 MIT
