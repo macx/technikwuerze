@@ -1,11 +1,5 @@
 # Deployment-Prozess erklärt: rsync vs Git-only
 
-## Die zentrale Frage: Brauchen wir überhaupt rsync?
-
-**Kurze Antwort:** Aktuell JA, für Code-Deployment. Aber es gibt Alternativen!
-
-**Lange Antwort:** Es gibt zwei getrennte Prozesse - Content und Code. Lass uns beide genau anschauen.
-
 ---
 
 ## Der aktuelle Prozess
@@ -41,6 +35,7 @@ Lokale Entwicklung:
 ```
 
 **Wichtig:** Content wird NICHT via rsync deployed!
+
 - Content entsteht auf Production (Panel)
 - Plugin pusht zu GitHub
 - Lokal: git pull holt Content
@@ -84,6 +79,7 @@ Production Server:
 ```
 
 **Wichtig:** Code wird via rsync deployed!
+
 - Code-Änderungen lokal
 - GitHub Actions baut & testet
 - rsync überträgt zu Production
@@ -114,6 +110,7 @@ Production Server:
    - `composer install --no-dev` → vendor/ optimiert
 
 2. **rsync synchronisiert selektiv**
+
    ```bash
    rsync -avz --delete \
      --exclude 'content' \      # ← Content bleibt auf Server!
@@ -155,11 +152,11 @@ Lokale Entwicklung:
 GitHub Repository:
   │
   └─ Code + Built Assets sind in Git
-  
+
 GitHub Webhook:
   │
   └─ Trigger an Production Server
-  
+
 Production Server:
   │
   ├─ git pull origin main
@@ -189,11 +186,12 @@ Production Server:
 **Benötigt:**
 
 1. **Webhook auf Production:**
+
    ```php
    // webhook.php auf Production
    if ($_GET['secret'] === getenv('WEBHOOK_SECRET')) {
-       shell_exec('cd /path && git pull origin main');
-       shell_exec('cd /path && composer install --no-dev');
+     shell_exec('cd /path && git pull origin main');
+     shell_exec('cd /path && composer install --no-dev');
    }
    ```
 
@@ -203,10 +201,11 @@ Production Server:
    - Trigger: Push events
 
 3. **Built Assets committen:**
+
    ```bash
    # .gitignore ändern
    # /dist → dist/ rausnehmen
-   
+
    git add dist/
    git commit -m "Add built assets"
    ```
@@ -215,15 +214,15 @@ Production Server:
 
 ## Vergleich: rsync vs Git-only
 
-| Aspekt | rsync (aktuell) | Git-only |
-|--------|-----------------|----------|
-| **Komplexität** | ⚠️ Mittel (SSH + Excludes) | ✅ Niedrig (nur Git) |
-| **Setup** | ⚠️ SSH-Keys, rsync-Config | ✅ Webhook, Git-Config |
-| **Built Assets** | ✅ Nicht in Git | ⚠️ Müssen in Git |
-| **Rollback** | ✅ Einfach (rsync vorherige Version) | ⚠️ Git revert |
-| **Merge-Konflikte** | ✅ Keine | ⚠️ Möglich |
-| **Trennung Code/Content** | ✅ Klar getrennt | ⚠️ Beide in Git |
-| **GitHub Actions Last** | ⚠️ Baut + deployed | ✅ Nur Webhook |
+| Aspekt                    | rsync (aktuell)                      | Git-only               |
+| ------------------------- | ------------------------------------ | ---------------------- |
+| **Komplexität**           | ⚠️ Mittel (SSH + Excludes)           | ✅ Niedrig (nur Git)   |
+| **Setup**                 | ⚠️ SSH-Keys, rsync-Config            | ✅ Webhook, Git-Config |
+| **Built Assets**          | ✅ Nicht in Git                      | ⚠️ Müssen in Git       |
+| **Rollback**              | ✅ Einfach (rsync vorherige Version) | ⚠️ Git revert          |
+| **Merge-Konflikte**       | ✅ Keine                             | ⚠️ Möglich             |
+| **Trennung Code/Content** | ✅ Klar getrennt                     | ⚠️ Beide in Git        |
+| **GitHub Actions Last**   | ⚠️ Baut + deployed                   | ✅ Nur Webhook         |
 
 ---
 
@@ -252,10 +251,12 @@ Production Server:
 Es gibt auch einen Hybrid:
 
 ### Content: Git (automatisch)
+
 - kirby-git-content Plugin pusht Content
 - Production ist Git-Quelle für Content
 
 ### Code: rsync (CI-built)
+
 - GitHub Actions baut Assets
 - rsync deployed nur Code/Assets
 - Excludes schützen Content
@@ -350,6 +351,7 @@ Wenn Editor Content im Panel erstellt und wir dann rsync laufen lassen, würde d
 ### Was passiert bei git pull auf Production?
 
 Wenn Production `git pull` macht:
+
 - Content Updates werden geholt
 - Aber: Kann Merge-Konflikte geben
 - Wenn Panel zur gleichen Zeit ändert
@@ -361,12 +363,14 @@ Wenn Production `git pull` macht:
 **JA!** Für kirby-git-content Plugin.
 
 Das Plugin braucht `.git/` um:
+
 - Content zu committen
 - Zu GitHub zu pushen
 
 ### Was wird überhaupt mit rsync deployed?
 
 **Deployed:**
+
 - ✅ PHP-Files (index.php, site/templates/, etc.)
 - ✅ JavaScript/TypeScript (dist/)
 - ✅ CSS (dist/)
@@ -375,6 +379,7 @@ Das Plugin braucht `.git/` um:
 - ✅ Config (site/config/)
 
 **NICHT deployed (excluded):**
+
 - ❌ content/ (Panel-Content)
 - ❌ media/ (Uploads)
 - ❌ site/accounts/ (User-Daten)
@@ -398,6 +403,7 @@ Das Plugin braucht `.git/` um:
 ### Alternativen?
 
 **Git-only ist möglich, aber:**
+
 - Built Assets müssen in Git
 - Webhook/Cronjob für auto-pull
 - Komplexer bei Merge-Konflikten
@@ -406,6 +412,7 @@ Das Plugin braucht `.git/` um:
 ### Empfehlung:
 
 ✅ **Bleib beim aktuellen Hybrid-Ansatz:**
+
 - Content: Git (automatisch via Plugin)
 - Code: rsync (CI-built, tested)
 - Klare Trennung

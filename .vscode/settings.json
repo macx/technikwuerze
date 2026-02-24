@@ -2,7 +2,7 @@
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "[php]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "intelephense.environment.includePaths": [
     "${workspaceFolder}/kirby",
@@ -67,9 +67,7 @@
   },
 
   // Git configuration hints
-  "git.ignoredRepositories": [
-    "${workspaceFolder}/content"
-  ],
+  "git.ignoredRepositories": ["${workspaceFolder}/content"],
 
   // TypeScript/JavaScript
   "typescript.preferences.importModuleSpecifier": "relative",
@@ -82,7 +80,7 @@
   "explorer.fileNesting.enabled": true,
   "explorer.fileNesting.patterns": {
     "*.ts": "${capture}.test.ts, ${capture}.spec.ts, ${capture}.d.ts",
-    "README.md": "*.md",
+    "README.md": "*.md, docs, docs/*.md",
     ".prettierrc": ".prettierignore",
     "package.json": "pnpm-lock.yaml",
     "tsconfig.json": "tsconfig.*.json",
