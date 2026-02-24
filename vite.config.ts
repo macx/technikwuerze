@@ -6,6 +6,11 @@ export default defineConfig(({ command }) => ({
   root: '.',
   base: command === 'serve' ? '/' : '/dist/',
   publicDir: false,
+  resolve: {
+    alias: {
+      '@plugins': resolve(__dirname, 'site/plugins'),
+    },
+  },
 
   build: {
     outDir: resolve(__dirname, 'dist'),
@@ -44,6 +49,9 @@ export default defineConfig(({ command }) => ({
     kirby({
       watch: [
         './site/(templates|snippets|controllers|models|layouts)/**/*.php',
+        './site/plugins/**/*.php',
+        './site/plugins/**/*.html',
+        './site/plugins/**/*.css',
         './content/**/*.txt',
         './content/**/*.yml',
         './content/**/*.yaml',

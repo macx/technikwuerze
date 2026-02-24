@@ -3,12 +3,22 @@
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "[php]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.formatOnSave": true
   },
   "intelephense.environment.includePaths": [
     "${workspaceFolder}/kirby",
-    "${workspaceFolder}/vendor",
-    "${workspaceFolder}/stubs"
+    "${workspaceFolder}/vendor"
+  ],
+  "intelephense.files.exclude": [
+    "**/.git/**",
+    "**/.svn/**",
+    "**/.hg/**",
+    "**/CVS/**",
+    "**/.DS_Store/**",
+    "**/node_modules/**",
+    "**/bower_components/**",
+    "**/dist/**",
+    "**/media/**",
+    "**/site/cache/**"
   ],
   "[typescript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
@@ -22,20 +32,21 @@
   "[json]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "prettier.enable": true,
-  "prettier.requireConfig": true,
+  "prettier.documentSelectors": [
+    "**/*.{js,jsx,ts,tsx,vue,html,css,scss,less,json,md,mdx,graphql,yaml,yml,php}"
+  ],
   "typescript.tsdk": "node_modules/typescript/lib",
-  
+
   // Project context for AI assistants
   "github.copilot.advanced": {
     "inlineSuggestCount": 3
   },
-  
+
   // Workspace recommendations
   "files.associations": {
     "*.php": "php"
   },
-  
+
   // Exclude patterns (for search/file tree)
   "files.exclude": {
     "**/node_modules": true,
@@ -44,7 +55,7 @@
     "**/dist": true,
     "**/.git": true
   },
-  
+
   // Search exclude
   "search.exclude": {
     "**/node_modules": true,
@@ -54,19 +65,19 @@
     "**/media": true,
     "**/site/cache": true
   },
-  
+
   // Git configuration hints
   "git.ignoredRepositories": [
     "${workspaceFolder}/content"
   ],
-  
+
   // TypeScript/JavaScript
   "typescript.preferences.importModuleSpecifier": "relative",
   "javascript.preferences.importModuleSpecifier": "relative",
-  
+
   // Terminal
   "terminal.integrated.cwd": "${workspaceFolder}",
-  
+
   // File nesting for better organization
   "explorer.fileNesting.enabled": true,
   "explorer.fileNesting.patterns": {
