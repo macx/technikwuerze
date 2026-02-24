@@ -19,6 +19,10 @@ body {
   margin: 0;
   padding-block-start: calc(var(--header-size) + var(--sp));
 
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+
   &:has(#main-nav [aria-expanded='true']) {
     overflow: hidden;
 
@@ -42,7 +46,9 @@ body {
 }
 
 main {
-  max-width: var(--main-max-width);
-  margin: var(--main-margin);
-  padding: 0 var(--main-padding-inline);
+  flex: 1;
+  inline-size: 100%;
+  max-inline-size: var(--content-max-size);
+  margin-inline: auto;
+  padding-inline: var(--sp-content);
 }

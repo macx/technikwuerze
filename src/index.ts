@@ -22,4 +22,10 @@ document.addEventListener('DOMContentLoaded', () => {
       initBrandNetworks()
     })
   }
+
+  if (document.querySelector('.tw-brand')) {
+    void import('./scripts/components/brand-logo').then(({ initBrandLogo }) => {
+      initBrandLogo()
+    })
+  }
 })

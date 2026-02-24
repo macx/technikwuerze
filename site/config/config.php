@@ -19,16 +19,11 @@ return [
 
   // Kirby Git Content plugin configuration
   'thathoff.git-content' => [
-    'commit' => [
-      'enabled' => true,
-    ],
-    'push' => [
-      'enabled' => false, // Enable on production server only
-    ],
-    'pull' => [
-      'enabled' => false,
-    ],
-    'gitBinary' => 'git',
+    // Local/develop: no automatic git writes from panel edits.
+    'commit' => false,
+    'push' => false,
+    'pull' => false,
+    'gitBin' => 'git',
     'branch' => 'main',
   ],
 ];

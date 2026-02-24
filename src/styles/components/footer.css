@@ -1,0 +1,28 @@
+.site-footer {
+  --c-logo-size: 15rem;
+  --c-text-size: 1.25rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  text-align: center;
+  padding-block: var(--sp-l);
+  padding-inline: var(--sp-content);
+
+  .site-footer-label {
+    font-family: var(--ff-hand);
+    font-size: var(--c-text-size);
+    color: var(--clr-secondary);
+  }
+
+  .site-footer-logo {
+    display: inline-block;
+    color: var(--clr-secondary);
+
+    svg {
+      display: block;
+      inline-size: var(--c-logo-size);
+    }
+  }
+}
