@@ -163,6 +163,10 @@
     display: block;
     inset-inline-end: 0;
     transform-origin: center;
+
+    svg {
+      color: var(--clr-secondary);
+    }
   }
 
   :scope .pointer-arrow .arrow-line {
