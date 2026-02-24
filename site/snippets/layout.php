@@ -33,11 +33,27 @@ $sharing = [
   <title><?= $sharing['title'] ?></title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="HandheldFriendly" content="true">
 
   <?php if ($viteHasDevServer || $viteHasManifest): ?>
     <?= vite()->css('src/index.ts', [], true) ?>
     <?= vite()->js('src/index.ts', [], true) ?>
   <?php endif; ?>
+
+  <?php if (!$page->is('error')): ?>
+    <link rel="canonical" href="<?php echo $sharing['url']; ?>">
+  <?php endif; ?>
+  <link rel="icon" href="/assets/images/favicon.ico">
+
+  <meta name="theme-color" content="#fff">
+
+  <meta name="description" content="<?php echo $sharing['description']; ?>">
+  <?php if ($page->metaKeywords()): ?>
+    <meta name="keywords" content="<?php echo $page->metaKeywords(); ?>">
+  <?php endif; ?>
+  <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
 </head>
 
 <body>
