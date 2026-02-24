@@ -48,14 +48,18 @@ rm -rf content # if it already exists
 git clone git@github.com:macx/technikwuerze-content.git content
 ```
 
-> Please note: Do not push changes directly to the `content/` repository. Always use the Kirby Panel for content changes, which ensures proper commits and synchronization.
-
 ### Keep content up to date
 
 ```bash
 cd content
 git pull origin main
 ```
+
+### Use the Kirby Panel
+
+The Kirby Panel is available at `http://localhost:8000/panel`. Create an account to log in and manage your content. The panel accounts are NOT in sync with the production server.
+
+> Please note: Do not push changes directly to the `content/` repository. Always use the Kirby Panel for content changes, which ensures proper commits and synchronization.
 
 ## Development (VS Code)
 
