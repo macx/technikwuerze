@@ -6,9 +6,8 @@
 .theme-switch-select {
   min-inline-size: 12rem;
   border: 1px solid var(--clr-border);
-  border-radius: var(--mode-select-border-radius);
+  border-radius: var(--radius-button);
   color: var(--clr-text);
-  padding: var(--mode-select-padding-block) var(--mode-select-padding-inline);
 }
 
 @supports (appearance: base-select) {
@@ -34,7 +33,7 @@
       padding: var(--sp-s);
       background-color: var(--clr-bg-light);
       color: var(--clr-text);
-      box-shadow: 8px 8px 0 0 var(--clr-shadow);
+      box-shadow: var(--shadow-size) var(--shadow-size) 0 0 var(--clr-shadow);
     }
 
     option {

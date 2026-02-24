@@ -8,8 +8,8 @@
   inset: 0 0 auto 0;
   z-index: 20;
   block-size: var(--header-size);
-  background-color: color-mix(in srgb, var(--clr-surface) 80%, transparent);
-  backdrop-filter: blur(3px);
+  background-color: color-mix(in srgb, var(--clr-surface) 30%, transparent);
+  backdrop-filter: blur(10px);
 }
 
 .website-title {
@@ -73,6 +73,10 @@
   opacity: 0;
   transition: none;
   visibility: var(--nav-list-visibility, hidden);
+
+  @media (width >= 48em) {
+    background-color: transparent;
+  }
 }
 
 .main-nav-button {
