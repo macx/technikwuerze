@@ -1,4 +1,11 @@
 <?php
+/**
+ * @var Kirby\Cms\App $kirby
+ * @var Kirby\Cms\Site $site
+ * @var Kirby\Cms\Page $page
+ * @var Kirby\Cms\Pages $pages
+ */
+
 $episodes = $page->children()->filterBy('intendedTemplate', 'episode')->published()->sortBy('date', 'desc');
 
 snippet('layout/podcast', slots: true);

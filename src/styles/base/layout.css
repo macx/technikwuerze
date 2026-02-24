@@ -11,6 +11,7 @@ html {
 
 body {
   font-family: var(--ff);
+  font-feature-settings: 'wght' var(--fw);
   background-color: var(--clr-surface);
   color: var(--clr-text);
   line-height: var(--lh);
@@ -31,22 +32,17 @@ body {
   }
 }
 
-input,
-textarea,
-select,
-button {
-  font: inherit;
+:is(input, select, textarea) {
+  font-family: inherit;
+  font-size: inherit;
+  background-color: var(--clr-surface);
+  color: var(--clr-text);
+  line-height: var(--lh);
+  overflow-y: scroll;
 }
 
 main {
   max-width: var(--main-max-width);
   margin: var(--main-margin);
   padding: 0 var(--main-padding-inline);
-}
-
-footer {
-  text-align: var(--footer-text-align);
-  padding: var(--footer-padding);
-  margin-top: var(--footer-margin-top);
-  border-top: var(--footer-border-width) var(--footer-border-style) var(--footer-border-color);
 }

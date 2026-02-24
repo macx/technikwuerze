@@ -1,11 +1,136 @@
 title: Site
 
 tabs:
-  content:
-    sections:
-      pages:
-        type: pages
-        templates:
-          - home
-          - mediathek
-          - team
+  dashboard:
+    label:
+      en: Dashboard
+      de: Dashboard
+    icon: dashboard
+    columns:
+      - width: 1/3
+        sections:
+          pages:
+            type: pages
+            parent: site.find("mediathek/staffel-01")
+            label:
+              en: Episodes in this Season
+              de: Folgen in dieser Saison
+            sortBy: episode desc
+
+      - width: 1/3
+        sections:
+          listed:
+            label:
+              en: Pages
+              de: Seiten
+            type: pages
+            templates:
+              - home
+              - mediathek
+              - team
+            status: listed
+            layout: list
+            info: "{{ page.children.count }}"
+            columns:
+              subpages:
+                label: Seiten
+                align: center
+                value: "{{ page.children.count }}"
+                width: 1/6
+            image:
+              query: page.cover.tofile
+              cover: true
+
+      - width: 1/3
+        sections:
+          draft:
+            type: pages
+            label:
+              en: Drafts
+              de: Entwürfe
+            status: drafts
+            image:
+              query: page.cover.tofile
+              cover: true
+          unlisted:
+            type: pages
+            label:
+              en: Not listed
+              de: Nicht gelistet
+            layout: list
+            status: unlisted
+            image:
+              query: page.cover.tofile
+              cover: true
+
+
+  settings:
+    label:
+      en: Settings
+      de: Einstellungen
+    icon: cog
+    columns:
+        - width: 2/3
+          fields:
+            description:
+              label:
+                en: Description
+                de: Kurzbeschreibung
+              type: textarea
+              size: small
+              minlength: 50
+              maxlength: 190
+              buttons: false
+            tags:
+              label: Tags
+              type: tags
+
+        - width: 1/4
+          fields:
+            mastodon:
+              label: Mastodon
+              type: text
+              before: "@"
+              icon: mastodon
+            instagram:
+              label: Instagram
+              type: text
+              before: "@"
+              icon: instagram
+
+  email:
+    label:
+      en: Form
+      de: Formular
+    icon: email
+    columns:
+      - width: 1/2
+        fields:
+          recipient:
+            label:
+              en: Recipient
+              de: Empfänger
+            type: email
+            icon: email
+            width: 1/2
+          sender:
+            label:
+              en: Sender
+              de: Absender
+            type: email
+            icon: email
+            width: 1/2
+          subject:
+            label:
+              en: Subject Contact
+              de: Betreff Kontakt
+            type: text
+            help:
+              en: Use variables like {{email}}
+              de: Variablen wie {{email}} sind erlaubt
+          messageSentText:
+            label:
+              en: Message sent text
+              de: Nachricht gesendet Text
+            type: textarea
+            size: medium

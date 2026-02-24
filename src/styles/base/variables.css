@@ -1,73 +1,44 @@
 :root {
+  /* LAYOUT */
   --header-size: 5rem;
-
-  --ff: 'Manrope Variable', system-ui, -apple-system, sans-serif;
-  --fh-brand: 'Bricolage Grotesque Variable', sans-serif;
-  --ff-hand: 'Caveat Variable', cursive;
-
-  --clr-surface: light-dark(hsl(56 100% 79%), hsl(0 0% 18%));
-  --clr-text: light-dark(hsl(0 0% 18%), hsl(0 0% 100%));
-  --clr-primary: light-dark(hsl(129 100% 26%), hsl(56 100% 79%));
-  --clr-secondary: light-dark(hsl(263 60% 50%), hsl(263 100% 82%));
-
-  --lh: 1.4;
-
-  /* Derived semantic colors: don't override these per mode */
-  --clr-on-primary: hsl(0 0% 100%);
-
-  --color-background: var(--clr-surface);
-  --color-text: var(--clr-text);
-  --color-primary: var(--clr-primary);
-  --color-on-primary: var(--clr-on-primary);
-  --color-surface: color-mix(in srgb, var(--clr-surface) 90%, var(--clr-text));
-  --color-border: color-mix(in srgb, var(--clr-surface) 65%, var(--clr-text));
-
-  --header-padding: 2rem;
-  --header-title-margin: 0;
-  --header-title-font-size: 2.5rem;
-
-  --nav-gap: 0.5rem;
-
   --main-max-width: 800px;
   --main-margin: 2rem auto;
   --main-padding-inline: 1rem;
 
+  /* TYPOGRAPHY */
+  --ff: 'Manrope Variable', system-ui, -apple-system, sans-serif;
+  --ff-brand: 'Bricolage Grotesque Variable', sans-serif;
+  --ff-hand: 'Caveat Variable', cursive;
+
+  --fw: 400;
+  --fw-bold: 600;
+
+  --lh: 1.4;
+
+  /* COLORS */
+  --clr-surface: light-dark(hsl(56 100% 79%), hsl(0 0% 18%));
+  --clr-bg-light: light-dark(hsl(56 100% 91%), hsl(0 0% 45%));
+  --clr-text: light-dark(hsl(0 0% 18%), hsl(0 0% 100%));
+  --clr-text-bright: light-dark(hsl(0 0% 100%), hsl(0 0% 18%));
+  --clr-primary: light-dark(hsl(129 100% 26%), hsl(56 100% 79%));
+  --clr-secondary: light-dark(hsl(263 60% 50%), hsl(263 100% 82%));
+  --clr-border: light-dark(hsl(0 0% 0% / 0.1), hsl(0 0% 100% / 0.1));
+  --clr-shadow: light-dark(hsl(0 0% 0% / 0.25), hsl(0 0% 0% / 0.25));
+  --clr-hover: light-dark(hsl(0 0% 0% / 0.1), hsl(0 0% 100% / 0.1));
+
+  /* SPACING */
+  --sp-xs: 0.5rem;
+  --sp-s: 0.625rem;
   --sp: 1rem;
+  --sp-m: 1.25rem;
+  --sp-l: 1.875rem;
   --sp-content: max(1.875rem, 2vw);
 
-  --footer-text-align: center;
-  --footer-padding: 2rem;
-  --footer-margin-top: 4rem;
-  --footer-border-width: 1px;
-  --footer-border-style: solid;
-  --footer-border-color: #e0e0e0;
+  /* OTHER */
+  --radius-button: 1.25rem;
+  --radius-button-inner: 0.75rem;
 
   --podlove-player-margin-top: 1rem;
-
-  --theme-switch-margin-top: 1rem;
-  --theme-switch-gap: 0.5rem;
-  --theme-switch-padding-block: 0.375rem;
-  --theme-switch-padding-inline: 0.5rem;
-  --theme-switch-border-width: 1px;
-  --theme-switch-border-style: solid;
-  --theme-switch-border-radius: 0.625rem;
-  --theme-switch-border-color: var(--color-border);
-  --theme-switch-background: var(--color-surface);
-  --theme-switch-backdrop-blur: 6px;
-
-  --mode-toggle-size: 2rem;
-  --mode-toggle-border-width: 1px;
-  --mode-toggle-border-style: solid;
-  --mode-toggle-border-radius: 0.5rem;
-  --mode-toggle-cursor: pointer;
-
-  --mode-label-font-size: 0.875rem;
-
-  --mode-select-border-width: 1px;
-  --mode-select-border-style: solid;
-  --mode-select-border-radius: 0.5rem;
-  --mode-select-padding-block: 0.375rem;
-  --mode-select-padding-inline: 0.625rem;
 
   --ease-drawer-transform: cubic-bezier(0.2, 0.8, 0.2, 1);
   --dur-drawer-transform: 280ms;

@@ -1,4 +1,13 @@
-<?php snippet('layout', slots: true); ?>
+<?php
+/**
+ * @var Kirby\Cms\App $kirby
+ * @var Kirby\Cms\Site $site
+ * @var Kirby\Cms\Page $page
+ * @var Kirby\Cms\Pages $pages
+ */
+
+snippet('layout', slots: true);
+?>
 <?php slot('header') ?>
   <?php snippet('header'); ?>
 <?php endslot() ?>

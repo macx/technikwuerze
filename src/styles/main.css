@@ -2,10 +2,27 @@
 
 @layer base, components;
 
+/*
+┌──────────────────────────────────┐
+  BASE
+└──────────────────────────────────┘
+*/
 @import './base/variables.css' layer(base);
 @import './base/layout.css' layer(base);
 @import './base/icons.css' layer(base);
 
+/*
+┌──────────────────────────────────┐
+  COMPONENTS
+└──────────────────────────────────┘
+*/
 @import './components/header.css' layer(components);
 @import './components/theme-switch.css' layer(components);
 @import './components/podcaster-player.css' layer(components);
+
+/*
+┌──────────────────────────────────┐
+  PLUGINS
+└──────────────────────────────────┘
+*/
+@import '@plugins/technikwuerze/assets/brand.css' layer(components);

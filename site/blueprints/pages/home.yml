@@ -7,9 +7,24 @@ columns:
         type: fields
         fields:
           text:
-            label: Intro
-            type: textarea
-            size: medium
+            type: blocks
+            label:
+              en: Content
+              de: Inhalt
+            fieldsets:
+              text:
+                label: Text
+                type: group
+                fieldsets:
+                  - heading
+                  - text
+                  - list
+              snippet:
+                label: Snippet
+                type: group
+                fieldsets:
+                  - brand
+
   - width: 1/3
     sections:
       featured:

@@ -1,15 +1,19 @@
 <?php
+
 $navItems = $site->children()->listed(); ?>
 <header class="main-header">
   <a href="<?= $site->url() ?>" class="website-title">
-    Technikwürze
+    <?= $site->title()->value() ?>
   </a>
 
   <nav aria-label="Hauptnavigation" id="main-nav">
     <ul id="main-nav-list">
       <?php foreach ($navItems as $item): ?>
         <li>
-          <a href="<?= $item->url() ?>"<?= e($item->isOpen(), ' aria-current="page"') ?>>
+          <a href="<?= $item->url() ?>"<?= e(
+  $item->isOpen(),
+  ' aria-current="page"',
+) ?> class="main-nav-link">
             <?= $item->title()->html() ?>
           </a>
         </li>
@@ -27,3 +31,5 @@ $navItems = $site->children()->listed(); ?>
     <?php snippet('theme-switch'); ?>
   </div>
 </header>
+
+
