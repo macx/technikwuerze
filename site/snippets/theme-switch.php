@@ -10,8 +10,8 @@
       <selectedcontent></selectedcontent>
     </button>
     <option value="system">
-      <i class="msi-monitor" aria-hidden="true"></i>
-      <span>Standard (System)</span>
+      <i class="msi-routine" aria-hidden="true"></i>
+      <span>Automatisch</span>
     </option>
     <option value="dark">
       <i class="msi-dark-mode" aria-hidden="true"></i>
