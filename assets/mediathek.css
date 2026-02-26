@@ -1,0 +1,66 @@
+.mediathek-view {
+  display: grid;
+  gap: 2.5rem;
+  margin: 2rem 0;
+}
+
+.mediathek-featured {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.mediathek-featured-item {
+  border: 1px solid #d6d9df;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  background: #fff;
+}
+
+.mediathek-featured-header {
+  margin-bottom: 0.75rem;
+}
+
+.mediathek-featured-header h3 {
+  margin: 0 0 0.25rem;
+}
+
+.mediathek-featured-header p {
+  margin: 0;
+  color: #5f6a7a;
+  font-size: 0.95rem;
+}
+
+.mediathek-list ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.mediathek-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  border-bottom: 1px solid #e8ebf0;
+  padding-bottom: 0.5rem;
+}
+
+.mediathek-list li span {
+  color: #5f6a7a;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.episode-view .episode-player {
+  margin: 1.5rem 0 2rem;
+}
+
+@media (max-width: 800px) {
+  .mediathek-list li {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+}

@@ -8,7 +8,8 @@
     "getkirby/cms": "^5.0",
     "arnoson/kirby-vite": "^4.0",
     "thathoff/kirby-git-content": "^5.4",
-    "mauricerenck/podcaster": "^3.4"
+    "mauricerenck/podcaster": "^3.4",
+    "mauricerenck/komments": "^3.7"
   },
   "config": {
     "optimize-autoloader": true,

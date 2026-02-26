@@ -1,0 +1,13 @@
+name:
+  en: Last Episode
+  de: Letzte Episode
+icon: audio
+label:
+  en: 'Shows the last episode of the podcast'
+  de: 'Zeigt die letzte Episode des Podcasts an'
+fields:
+  header:
+    type: text
+    label:
+      en: Title
+      de: Titel

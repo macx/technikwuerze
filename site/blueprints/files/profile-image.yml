@@ -1,0 +1,7 @@
+title:
+  de: Profilbild
+  en: Profile image
+
+accept:
+  type: image
+  extension: jpg, jpeg, png, webp, avif

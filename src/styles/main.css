@@ -18,6 +18,7 @@ COMPONENTS
 */
 @import './components/header.css' layer(components);
 @import './components/theme-switch.css' layer(components);
+@import './components/button.css' layer(components);
 @import './components/podcaster-player.css' layer(components);
 @import './components/footer.css' layer(base);
 
@@ -27,3 +28,4 @@ COMPONENTS
 └──────────────────────────────────┘
 */
 @import '@plugins/technikwuerze/assets/brand.css' layer(components);
+@import '@plugins/technikwuerze/assets/last-episode.css' layer(components);

@@ -25,6 +25,7 @@ columns:
                 fieldsets:
                   - brand-logo
                   - podcast-networks
+                  - last-episode
 
   - width: 1/3
     sections:

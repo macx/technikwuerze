@@ -10,6 +10,7 @@
   block-size: var(--header-size);
   background-color: color-mix(in srgb, var(--clr-surface) 30%, transparent);
   backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--clr-border-bright);
 }
 
 .website-title {

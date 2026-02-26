@@ -42,3 +42,11 @@
 .msi-close {
   --msi-icon: 'close';
 }
+
+.msi-arrow-forward {
+  --msi-icon: 'arrow_forward';
+}
+
+.msi-arrow-back {
+  --msi-icon: 'arrow_back';
+}

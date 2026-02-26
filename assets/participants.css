@@ -1,0 +1,64 @@
+.teilnehmende-intro {
+  margin: 1.5rem 0;
+}
+
+.participant-list-columns {
+  columns: 3;
+  column-gap: 2rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.participant-list-columns li {
+  break-inside: avoid;
+  margin: 0 0 0.5rem;
+}
+
+.participant-list-columns a {
+  text-decoration: none;
+}
+
+.participant-list-columns a:hover,
+.participant-list-columns a:focus-visible {
+  text-decoration: underline;
+}
+
+.participant-detail {
+  max-width: 760px;
+  margin: 2rem 0;
+}
+
+.participant-profession {
+  margin-top: 0.25rem;
+}
+
+.participant-image img {
+  width: 240px;
+  max-width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 0.5rem;
+}
+
+.participant-profiles ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.participant-profiles li {
+  margin: 0.35rem 0;
+}
+
+@media (max-width: 900px) {
+  .participant-list-columns {
+    columns: 2;
+  }
+}
+
+@media (max-width: 600px) {
+  .participant-list-columns {
+    columns: 1;
+  }
+}

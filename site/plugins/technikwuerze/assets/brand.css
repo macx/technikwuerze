@@ -19,7 +19,7 @@
     text-box: trim-both cap alphabetic;
   }
 
-  @media (width >= 64rem) {
+  @media (width >= 64em) {
     :scope .animation {
       font-size: var(--brand-logo-size, clamp(3.2rem, 10vw + 1rem, 8rem));
     }
@@ -51,7 +51,7 @@
     margin-inline: auto;
     text-align: end;
 
-    @media (width >= 64rem) {
+    @media (width >= 64em) {
       font-size: 1rem;
     }
   }
@@ -187,7 +187,7 @@
     transform: scaleX(-1);
   }
 
-  @media (width >= 64rem) {
+  @media (width >= 64em) {
     :scope {
       --pointer-font-size: clamp(1.5rem, 1.1vw + 1rem, 1.875rem);
       --pointer-arrow-inline-size: clamp(2.6rem, 2vw + 1.4rem, 3.25rem);

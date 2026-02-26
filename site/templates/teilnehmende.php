@@ -8,21 +8,26 @@
 
 snippet('layout', slots: true);
 ?>
-<?php slot('header') ?>
-  <?php snippet('header'); ?>
-<?php endslot() ?>
-
 <?php slot() ?>
-  <ul>
-    <?php foreach ($page->members()->toStructure() as $member): ?>
+  <?php
+  $participants = $page
+    ->children()
+    ->listed()
+    ->sortBy('last_name', 'asc', 'first_name', 'asc');
+  ?>
+
+  <?php if ($page->text()->isNotEmpty()): ?>
+    <div class="teilnehmende-intro">
+      <?= $page->text()->kt() ?>
+    </div>
+  <?php endif; ?>
+
+  <ul class="participant-list-columns">
+    <?php foreach ($participants as $participant): ?>
       <li>
-        <strong><?= $member->name()->html() ?></strong>
-        <?php if ($member->role()->isNotEmpty()): ?>
-          - <?= $member->role()->html() ?>
-        <?php endif ?>
-        <?php if ($member->bio()->isNotEmpty()): ?>
-          <p><?= $member->bio()->kt() ?></p>
-        <?php endif ?>
+        <a href="<?= $participant->url() ?>">
+          <?= esc(trim($participant->first_name()->value() . ' ' . $participant->last_name()->value())) ?>
+        </a>
       </li>
     <?php endforeach ?>
   </ul>

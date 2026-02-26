@@ -1,0 +1,64 @@
+title:
+  de: Teilnehmende
+  en: Participants
+icon: users
+
+tabs:
+  page_content:
+    label:
+      de: Seiteninhalt
+      en: Page content
+    sections:
+      details:
+        type: fields
+        fields:
+          text:
+            label:
+              de: Introtext
+              en: Intro text
+            type: textarea
+            size: medium
+
+  participants:
+    label:
+      de: Teilnehmende
+      en: Participants
+    columns:
+      - width: 1/2
+        sections:
+          hosts:
+            label:
+              de: Moderatoren (Hosts)
+              en: Moderators (Hosts)
+            type: pages
+            query: page.children.filterBy("participant_role", "host")
+            status: all
+            layout: cards
+            search: true
+            sortBy: last_name asc
+            create: participant
+            text: "{{ page.first_name }} {{ page.last_name }}"
+            info: "{{ page.profession }}"
+            image:
+              query: page.profile_image.toFile
+              cover: true
+              ratio: 1/1
+      - width: 1/2
+        sections:
+          guests:
+            label:
+              de: Gäste
+              en: Guests
+            type: pages
+            query: page.children.filterBy("participant_role", "guest")
+            status: all
+            layout: cards
+            search: true
+            sortBy: last_name asc
+            create: participant
+            text: "{{ page.first_name }} {{ page.last_name }}"
+            info: "{{ page.profession }}"
+            image:
+              query: page.profile_image.toFile
+              cover: true
+              ratio: 1/1

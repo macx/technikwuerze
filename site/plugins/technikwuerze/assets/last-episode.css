@@ -1,0 +1,70 @@
+@scope (.tw-last-episode) {
+  :scope {
+    --c-max-size: 55rem;
+
+    container-type: inline-size;
+    border-radius: var(--radius-button);
+    background-color: var(--clr-bg-dark);
+    border: 2px solid var(--clr-border);
+    box-shadow: var(--shadow-size) var(--shadow-size) 0 0 var(--clr-shadow);
+
+    max-inline-size: var(--c-max-size);
+    margin-block: var(--sp-xl);
+    margin-inline: auto;
+    padding: clamp(var(--sp), 1vw + var(--sp-s), var(--sp-l));
+  }
+
+  :scope .tw-last-episode-layout {
+    display: grid;
+    gap: clamp(var(--sp), 1vw + var(--sp-s), var(--sp-l));
+  }
+
+  :scope .tw-last-episode-intro h2 {
+    margin-block: 0 var(--sp-s);
+    font-size: clamp(1.75rem, 2.2cqw, 3rem);
+    line-height: 1.05;
+    color: var(--clr-secondary);
+  }
+
+  :scope .tw-last-episode-text {
+    max-inline-size: 38ch;
+    margin-block: 0 var(--sp);
+    text-wrap: pretty;
+  }
+
+  :scope .tw-last-episode-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sp-s);
+  }
+
+  :scope .tw-last-episode-player {
+    min-inline-size: 0;
+    overflow: hidden;
+    border-radius: var(--radius-button);
+    background-color: var(--clr-bg-light);
+    border: 1px solid color-mix(in srgb, var(--clr-border) 60%, transparent);
+    padding: clamp(var(--sp), 0.5vw + var(--sp-s), var(--sp-m));
+  }
+
+  :scope .tw-last-episode-player :where([id^='podlove-player-']) {
+    min-inline-size: 0;
+    inline-size: 100%;
+    max-inline-size: 100%;
+  }
+
+  :scope .tw-last-episode-player :where([id^='podlove-player-'] iframe) {
+    display: block;
+    min-inline-size: 0;
+    inline-size: 100% !important;
+    max-inline-size: 100% !important;
+    border: 0;
+  }
+
+  @container (width >= 40em) {
+    :scope .tw-last-episode-layout {
+      grid-template-columns: minmax(0, 1fr) minmax(30rem, 1.4fr);
+      align-items: center;
+    }
+  }
+}

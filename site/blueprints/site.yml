@@ -11,11 +11,12 @@ tabs:
         sections:
           pages:
             type: pages
-            parent: site.find("mediathek/staffel-01")
+            query: site.find("mediathek").index.filterBy("intendedTemplate", "episode").sortBy("date", "desc").limit(20)
             label:
-              en: Episodes in this Season
-              de: Folgen in dieser Saison
-            sortBy: episode desc
+              en: Latest Episodes
+              de: Letzte Folgen
+            layout: list
+            info: "{{ page.date.toDate('d.m.Y H:i') }}"
 
       - width: 1/3
         sections:
@@ -27,7 +28,7 @@ tabs:
             templates:
               - home
               - mediathek
-              - team
+              - teilnehmende
             status: listed
             layout: list
             info: "{{ page.children.count }}"

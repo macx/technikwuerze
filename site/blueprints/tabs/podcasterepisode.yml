@@ -1,0 +1,199 @@
+label: Episode
+icon: file-audio
+columns:
+    - width: 1/3
+      sections:
+          podcasterFiles:
+              type: fields
+              fields:
+                  podcasterAudio:
+                      type: files
+                      label: Episode audio file
+                      multiple: false
+                      required: true
+                      layout: cardlets
+                      info: 'Duration: {{ file.duration }}'
+                      query: site.find("audio").audio
+                      uploads:
+                          template: podcaster-episode
+                          parent: site.find("audio")
+                  podcasterTranscript:
+                      type: structure
+                      label: Transcripts
+                      fields:
+                          podcasterTranscriptLanguage:
+                              label: Language
+                              type: select
+                              options:
+                                  type: query
+                                  query: site.getAppleMetadata('languages')
+                                  value: '{{ item.value }}'
+                                  text: '{{ item.text }}'
+                              required: true
+                          podcasterTranscriptFile:
+                              type: files
+                              label: Transcript file
+                              layout: list
+                              multiple: false
+                              required: true
+                              # query: page.images
+                              help: Upload a transcript file in VTT or SRT format.
+                              uploads: podcaster-transcript
+                              accept: text/vtt, text/srt
+                  podcasterCover:
+                      type: files
+                      label: Cover Image
+                      layout: cards
+                      multiple: false
+                      query: page.images
+                      help: You can set a cover for this single episode here, but Apple recommends to do this in your mp3-metadata (Id3).
+                      image:
+                          cover: true
+                          ratio: 1/1
+                      uploads: podcaster-cover
+
+          podcasterMp3: sections/podcastermp3
+          podcasterCover: sections/podcasterimage
+
+    - width: 2/3
+      sections:
+          podcasterInfo:
+              type: fields
+              fields:
+                  headlineSeasonEpisode:
+                      label: Season & Episode
+                      type: headline
+                  podcasterSeason:
+                      label: Season
+                      type: number
+                      width: 1/4
+                  podcasterEpisode:
+                      label: Episode
+                      type: number
+                      width: 1/4
+                  podcasterEpisodeType:
+                      label: Episode type
+                      type: select
+                      default: full
+                      required: true
+                      options:
+                          full: Regular Episode
+                          trailer: Trailer
+                          bonus: Bonus Material
+                      width: 1/4
+                  podcasterEpisodeTypeTrailerInfo:
+                      label: Trailer rules
+                      type: info
+                      text: |
+                          - No season or episode number: a show trailer
+                          - A season number and no episode number: a season trailer. (Note: an episode trailer should have a different <guid> than the actual episode)
+                          - Episode number and optionally a season number: an  episode trailer/teaser, later replaced with the actual episode
+                      when:
+                          podcasterEpisodeType: trailer
+                  podcasterEpisodeTypeBonusInfo:
+                      label: Bonus rules
+                      type: info
+                      text: |
+                          - No season or episode number: a show bonus
+                          - A season number: a season bonus
+                          - Episode number and optionally a season number: a bonus episode related to a specific episode
+                      when:
+                          podcasterEpisodeType: bonus
+
+                  line2:
+                      type: line
+                  headlineEpisodeDetails:
+                      label: Episode Details
+                      type: headline
+                  podcasterTitle:
+                      label: Episode Title
+                      type: text
+                      width: 1/2
+                      help: 'Hint: do not use episode numbers in here, use this in combination with the episode/season info.'
+                  podcasterSubtitle:
+                      label: Subtitle
+                      type: text
+                      width: 1/2
+                  podcasterDescription:
+                      label: Podcast summary
+                      type: textarea
+                      size: medium
+                  podcasterChapters:
+                      label: Chapters
+                      type: structure
+                      fields:
+                          podcasterChapterTimestamp:
+                              label: Timestamp
+                              type: text
+                              help: hh:mm:ss
+                              required: true
+                          podcasterChapterTitle:
+                              label: Title
+                              type: text
+                              required: true
+                          podcasterChapterUrl:
+                              label: URL
+                              type: url
+                          podcasterChapterImage:
+                              label: Image
+                              type: files
+                              multiple: false
+                              max: 1
+                              query: page.images
+                  headlineContributors:
+                      label:
+                          de: Mitwirkende
+                          en: Contributors
+                      type: headline
+                  podcasterAuthor:
+                      label:
+                          de: Autor (Kirby-Account)
+                          en: Author (Kirby account)
+                      type: users
+                      max: 1
+                      help:
+                          de: Leer lassen, wenn derselbe Autor wie in den Feed-Einstellungen gelten soll.
+                          en: Leave empty if the author is the same as in feed settings.
+                      width: 1/3
+                  podcasterHosts:
+                      label:
+                          de: Moderatoren (Hosts)
+                          en: Moderators (Hosts)
+                      type: pages
+                      width: 1/3
+                      multiple: true
+                      query: site.find("teilnehmende").children
+                      text: "{{ page.first_name }} {{ page.last_name }}"
+                      info: "{{ page.profession }}"
+                  podcasterGuests:
+                      label:
+                          de: Gäste
+                          en: Guests
+                      type: pages
+                      width: 1/3
+                      multiple: true
+                      query: site.find("teilnehmende").children
+                      text: "{{ page.first_name }} {{ page.last_name }}"
+                      info: "{{ page.profession }}"
+                  line:
+                      type: line
+                  headlineBreakingchanges:
+                      label: Dangerzone
+                      type: headline
+                  podcasterExplicit:
+                      label: Explicit
+                      type: toggle
+                      width: 1/4
+                      default: no
+                      text:
+                          - Disabled
+                          - Explicit
+                  podcasterBlock:
+                      label: Block
+                      type: toggle
+                      default: no
+                      text:
+                          - Episode is visible
+                          - Episode is BLOCKED
+                      help: Enabling this will prevent your Episode from appearing on the Apple and other podcast directories.
+                      width: 2/4

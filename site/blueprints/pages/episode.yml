@@ -10,12 +10,23 @@ tabs:
         type: fields
         fields:
           date:
-            label: Date
+            label:
+              de: Datum
+              en: Date
             type: date
             time: true
             default: now
             required: true
           text:
-            label: Text
+            label:
+              de: Text
+              en: Text
             type: textarea
             size: large
+  comments:
+    label:
+      de: Kommentare
+      en: Comments
+    sections:
+      komments:
+        extends: sections/komments

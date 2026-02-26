@@ -1,0 +1,206 @@
+title:
+  de: Teilnehmende Person
+  en: Participant
+icon: user
+
+status:
+  draft:
+    label:
+      de: Entwurf
+      en: Draft
+    text:
+      de: Internes Profil, nicht in Listen sichtbar.
+      en: Internal profile, not visible in lists.
+  unlisted:
+    label:
+      de: Intern
+      en: Internal
+    text:
+      de: In Zuweisungen und Queries nutzbar, ohne öffentliche Listenansicht.
+      en: Usable in assignments and queries, no public listing.
+  listed:
+    label:
+      de: Öffentlich
+      en: Public
+    text:
+      de: Öffentliches Profil kann gelistet und verlinkt werden.
+      en: Public profile page can be listed and linked.
+
+tabs:
+  profile:
+    columns:
+      - width: 2/3
+        sections:
+          profile_fields:
+            type: fields
+            fields:
+              first_name:
+                label:
+                  de: Vorname
+                  en: First name
+                type: text
+                width: 1/2
+                required: true
+              last_name:
+                label:
+                  de: Nachname
+                  en: Last name
+                type: text
+                width: 1/2
+                required: true
+              profession:
+                label:
+                  de: Beruf
+                  en: Profession
+                type: text
+                width: 1/1
+              description:
+                label:
+                  de: Beschreibung
+                  en: Description
+                type: textarea
+                size: medium
+              external_profiles:
+                label:
+                  de: Externe Profile
+                  en: External profiles
+                type: structure
+                fields:
+                  network:
+                    label:
+                      de: Netzwerk
+                      en: Network
+                    type: select
+                    options:
+                      instagram:
+                        de: Instagram
+                        en: Instagram
+                      x:
+                        de: X
+                        en: X
+                      mastodon:
+                        de: Mastodon
+                        en: Mastodon
+                      youtube:
+                        de: YouTube
+                        en: YouTube
+                      blog:
+                        de: Blog
+                        en: Blog
+                      linkedin:
+                        de: LinkedIn
+                        en: LinkedIn
+                      github:
+                        de: GitHub
+                        en: GitHub
+                      amazon:
+                        de: Amazon
+                        en: Amazon
+                      website:
+                        de: Website
+                        en: Website
+                      other:
+                        de: Sonstiges
+                        en: Other
+                  url:
+                    label:
+                      de: URL
+                      en: URL
+                    type: url
+                    required: true
+                  profile_label:
+                    label:
+                      de: Bezeichnung
+                      en: Label
+                    type: text
+                    help:
+                      de: Optionaler Anzeigetext für die Frontend-Ausgabe.
+                      en: Optional display text for frontend output.
+              linked_user:
+                label:
+                  de: Verknüpfter Benutzeraccount
+                  en: Linked user account
+                type: users
+                max: 1
+                help:
+                  de: Optionaler Link auf einen Kirby-Benutzeraccount für Herausgeber/Hosts.
+                  en: Optional link to a Kirby user account for publishers/hosts.
+      - width: 1/3
+        sections:
+          media_fields:
+            type: fields
+            fields:
+              profile_image:
+                label:
+                  de: Profilbild
+                  en: Profile image
+                type: files
+                multiple: false
+                query: page.images
+                uploads:
+                  template: profile-image
+                  parent: page
+              participant_role:
+                label:
+                  de: Rolle
+                  en: Role
+                type: radio
+                required: true
+                options:
+                  host:
+                    de: Host (Moderator)
+                    en: Host (Moderator)
+                  guest:
+                    de: Gast
+                    en: Guest
+              additional_roles:
+                label:
+                  de: Zusätzliche Rollen
+                  en: Additional roles
+                type: checkboxes
+                options:
+                  publisher:
+                    de: Herausgeber
+                    en: Publisher
+                max: 1
+                when:
+                  participant_role: host
+              gender_identities:
+                label:
+                  de: Geschlechtsidentitäten
+                  en: Gender identities
+                type: select
+                options:
+                  female:
+                    de: Weiblich
+                    en: Female
+                  male:
+                    de: Männlich
+                    en: Male
+                  non_binary:
+                    de: Nicht-binär
+                    en: Non-binary
+                  agender:
+                    de: Agender
+                    en: Agender
+                  genderfluid:
+                    de: Genderfluid
+                    en: Genderfluid
+                  self_described:
+                    de: Selbstbezeichnet
+                    en: Self-described
+                  prefer_not_to_say:
+                    de: Keine Angabe
+                    en: Prefer not to say
+              self_described_gender:
+                label:
+                  de: Selbstbezeichnetes Geschlecht
+                  en: Self-described gender
+                type: text
+                when:
+                  gender_identities: self_described
+              pronouns:
+                label:
+                  de: Pronomen
+                  en: Pronouns
+                type: text

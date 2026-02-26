@@ -36,6 +36,10 @@ pnpm-lock.yaml
 .DS_Store
 .idea
 *.log
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+/.sqlite/
 
 # Test coverage
 coverage

@@ -1,0 +1,23 @@
+title:
+  de: Audio
+  en: Audio
+icon: audio
+
+options:
+  delete: false
+  changeSlug: false
+
+tabs:
+  files:
+    label:
+      de: Audiodateien
+      en: Audio files
+    sections:
+      audio_files:
+        type: files
+        layout: cards
+        template: podcaster-episode
+        query: page.audio
+        image:
+          cover: true
+          ratio: 1/1

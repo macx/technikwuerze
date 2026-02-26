@@ -123,6 +123,24 @@ pnpm run build
 - `content/`, `media/`, `site/accounts/`, cache and sessions are excluded.
 - `site/accounts/` is intentionally not versioned in the main repository.
 
+## Binary Data Policy (Audio + SQLite)
+
+- MP3 files are stored centrally in `content/audio/` (not per episode folder).
+- Episodes reference audio via `Podcasteraudio: - file://<uuid>`.
+- SQLite databases (`content/.db/*.sqlite`, `content/podcaster.sqlite`) are not versioned.
+- Git keeps only text/meta files (e.g. `*.txt`, `.gitkeep`), not binaries.
+
+Use `rsync` for binaries and runtime DB files, not Git:
+
+```bash
+# pull production runtime data to local
+rsync -avz user@server:/path/to/project/content/.db/ ./content/.db/
+rsync -avz user@server:/path/to/project/content/audio/*.mp3 ./content/audio/
+
+# push local audio binaries to production (if needed)
+rsync -avz ./content/audio/*.mp3 user@server:/path/to/project/content/audio/
+```
+
 ## License
 
 MIT

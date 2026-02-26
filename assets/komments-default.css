@@ -1,0 +1,72 @@
+.episode-comments {
+  margin-top: 2rem;
+}
+
+.list-comments,
+.list-comments ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.list-comments > li,
+.list-comments ul > li {
+  border: 1px solid #d8dee4;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-top: 1rem;
+  background: #fff;
+}
+
+.list-comments ul {
+  margin-top: 1rem;
+  margin-left: 1.25rem;
+}
+
+.list-comments .comment-replies {
+  border-left: 2px solid #e5e7eb;
+  padding-left: 0.9rem;
+}
+
+.list-comments .comment-depth-1 > li {
+  background: #fafafa;
+}
+
+.list-comments .comment-depth-2 > li {
+  background: #f6f8fb;
+}
+
+.list-comments li > header {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.5rem;
+}
+
+.list-comments li > header img,
+.list-comments li > header svg,
+.list-comments li > header .komment-avatar-initials {
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  object-fit: cover;
+}
+
+.list-comments .p-content {
+  margin: 0.5rem 0 0.75rem;
+}
+
+.list-comments footer {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  font-size: 0.875rem;
+}
+
+.list-comments footer time {
+  color: #6b7280;
+}
+
+#kommentform {
+  margin-top: 1.5rem;
+}
