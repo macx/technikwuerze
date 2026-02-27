@@ -6,15 +6,12 @@
  * @var Kirby\Cms\Pages $pages
  */
 
-snippet('layout', slots: true);
-?>
-<?php slot() ?>
-  <?php
-  $participants = $page
+snippet('layout', slots: true); ?>
+<?php slot(); ?>
+  <?php $participants = $page
     ->children()
     ->listed()
-    ->sortBy('last_name', 'asc', 'first_name', 'asc');
-  ?>
+    ->sortBy('last_name', 'asc', 'first_name', 'asc'); ?>
 
   <?php if ($page->text()->isNotEmpty()): ?>
     <div class="teilnehmende-intro">
@@ -26,10 +23,12 @@ snippet('layout', slots: true);
     <?php foreach ($participants as $participant): ?>
       <li>
         <a href="<?= $participant->url() ?>">
-          <?= esc(trim($participant->first_name()->value() . ' ' . $participant->last_name()->value())) ?>
+          <?= esc(
+            trim($participant->first_name()->value() . ' ' . $participant->last_name()->value()),
+          ) ?>
         </a>
       </li>
-    <?php endforeach ?>
+    <?php endforeach; ?>
   </ul>
-<?php endslot() ?>
+<?php endslot(); ?>
 <?php endsnippet(); ?>

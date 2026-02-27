@@ -11,10 +11,9 @@ $fullName = trim($page->first_name()->value() . ' ' . $page->last_name()->value(
 $image = $page->profile_image()->toFile();
 $profiles = $page->external_profiles()->toStructure();
 
-$allEpisodes = site()->find('mediathek')
-  ?->index()
-  ->filterBy('intendedTemplate', 'episode')
-  ->published() ?? new Kirby\Cms\Pages([]);
+$allEpisodes =
+  site()->find('mediathek')?->index()->filterBy('intendedTemplate', 'episode')->published() ??
+  new Kirby\Cms\Pages([]);
 
 $hostCount = 0;
 $guestCount = 0;
@@ -37,7 +36,7 @@ foreach ($allEpisodes as $episode) {
 
 snippet('layout', slots: true);
 ?>
-<?php slot() ?>
+<?php slot(); ?>
   <article class="participant-detail">
     <header>
       <h1><?= esc($fullName !== '' ? $fullName : $page->title()->value()) ?></h1>
@@ -82,12 +81,12 @@ snippet('layout', slots: true);
         <ul>
           <?php foreach ($profiles as $profile): ?>
             <?php
-            $url = trim((string)$profile->url()->value());
+            $url = trim((string) $profile->url()->value());
             if ($url === '') {
               continue;
             }
-            $label = trim((string)$profile->profile_label()->value());
-            $network = trim((string)$profile->network()->value());
+            $label = trim((string) $profile->profile_label()->value());
+            $network = trim((string) $profile->network()->value());
             ?>
             <li>
               <a href="<?= esc($url) ?>" target="_blank" rel="noopener nofollow">
@@ -99,5 +98,5 @@ snippet('layout', slots: true);
       </section>
     <?php endif; ?>
   </article>
-<?php endslot() ?>
+<?php endslot(); ?>
 <?php endsnippet(); ?>

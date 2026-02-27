@@ -42,13 +42,11 @@ $seasons = $page
       </section>
 
       <?php foreach ($seasons as $season): ?>
-        <?php
-        $seasonEpisodes = $season
+        <?php $seasonEpisodes = $season
           ->children()
           ->filterBy('intendedTemplate', 'episode')
           ->published()
-          ->sortBy('date', 'desc');
-        ?>
+          ->sortBy('date', 'desc'); ?>
         <?php if ($seasonEpisodes->isNotEmpty()): ?>
           <section class="mediathek-list">
             <h2><a href="<?= $season->url() ?>"><?= $season->title()->html() ?></a></h2>

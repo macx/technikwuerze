@@ -3,6 +3,7 @@
 The project runs two independent lifecycles:
 
 1. **Code lifecycle (main repository)**
+
 - Commit code -> push `main`
 - GitHub Actions `CI` runs checks/build
 - Trigger `Create Release Tag` manually (e.g. `1.4.0`)
@@ -11,11 +12,13 @@ The project runs two independent lifecycles:
 - Code is synced to production via `rsync`
 
 2. **Content lifecycle (content repository)**
+
 - Editors change content in production Kirby Panel
 - `thathoff/kirby-git-content` commits and pushes to `technikwuerze-content`
 - Local/dev syncs content by pulling content repo
 
 Why this split:
+
 - avoids overwriting panel-managed content during code deploy
 - keeps runtime files (audio, sqlite) out of Git
 - allows safe code releases without content conflicts

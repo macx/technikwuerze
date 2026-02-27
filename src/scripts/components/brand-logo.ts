@@ -5,9 +5,7 @@ const clamp = (value: number, min: number, max: number): number => {
 }
 
 const getRemSize = (): number => {
-  const rootSize = Number.parseFloat(
-    globalThis.getComputedStyle(document.documentElement).fontSize
-  )
+  const rootSize = Number.parseFloat(globalThis.getComputedStyle(document.documentElement).fontSize)
 
   return Number.isFinite(rootSize) && rootSize > 0 ? rootSize : 16
 }

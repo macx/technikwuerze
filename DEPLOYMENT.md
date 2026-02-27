@@ -8,12 +8,14 @@ This project uses a split deployment model:
 ## CI/CD Architecture
 
 1. `CI` workflow runs on PR/push (`main`, `develop`):
+
 - install dependencies
 - run tests/checks
 - build assets
 - validate composer config
 
 2. `Create Release Tag` workflow runs manually:
+
 - validates SemVer input (`1.4.0`)
 - runs checks/build
 - updates `package.json` version
@@ -22,6 +24,7 @@ This project uses a split deployment model:
 - creates GitHub Release
 
 3. `Deploy From Tag` workflow runs only on `v*` tags:
+
 - runs checks/build again
 - installs production Composer dependencies
 - deploys via `rsync` to production server
@@ -55,6 +58,7 @@ bash ops/bootstrap-production.sh
 Or execute manually:
 
 1. Deploy user and directory:
+
 ```bash
 sudo adduser deploy
 sudo mkdir -p /var/www/technikwuerze
@@ -62,6 +66,7 @@ sudo chown -R deploy:deploy /var/www/technikwuerze
 ```
 
 2. Add GitHub Actions public key to server:
+
 ```bash
 mkdir -p ~/.ssh
 chmod 700 ~/.ssh
@@ -70,23 +75,27 @@ chmod 600 ~/.ssh/authorized_keys
 ```
 
 3. Initial code bootstrap (one-time, before first workflow run):
+
 ```bash
 cd /var/www/technikwuerze
 # optional: copy current project structure once, workflow will overwrite code files later
 ```
 
 4. Content repository setup (mandatory, separate lifecycle):
+
 ```bash
 cd /var/www/technikwuerze
 git clone git@github.com:macx/technikwuerze-content.git content
 ```
 
 5. Runtime folders:
+
 ```bash
 mkdir -p content/.db content/audio site/cache site/sessions site/accounts
 ```
 
 6. PHP/webserver permissions: ensure webserver can write to:
+
 - `content/`
 - `media/`
 - `site/cache/`
@@ -97,6 +106,7 @@ mkdir -p content/.db content/audio site/cache site/sessions site/accounts
 Production edits happen in Kirby Panel and are pushed by `thathoff/kirby-git-content`.
 
 Expected production config (`site/config/config.production.php`):
+
 - `thathoff.git-content.commit => true`
 - `thathoff.git-content.push => true`
 - `thathoff.git-content.pull => false`
@@ -114,6 +124,7 @@ Expected production config (`site/config/config.production.php`):
 ## Release Trigger
 
 Use GitHub Actions `Create Release Tag` workflow and pass `version` without prefix, for example:
+
 - `1.4.0` (creates tag `v1.4.0`)
 
 Manual fallback from local machine:

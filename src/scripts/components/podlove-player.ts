@@ -98,7 +98,11 @@ const applyThemeTokensFromCss = (config: unknown): unknown => {
     return config
   }
 
-  if (!podloveConfig.theme || typeof podloveConfig.theme !== 'object' || Array.isArray(podloveConfig.theme)) {
+  if (
+    !podloveConfig.theme ||
+    typeof podloveConfig.theme !== 'object' ||
+    Array.isArray(podloveConfig.theme)
+  ) {
     podloveConfig.theme = {}
   }
 
@@ -237,7 +241,8 @@ const mountPlayer = (payload: PodlovePayload): void => {
       if (payload.debug) {
         const logProgressState = (label: string): void => {
           const progress = element.querySelector('progress-bar,[data-test="progress-bar"]')
-          const wrapper = progress?.parentElement ?? element.querySelector('progress-bar')?.parentElement
+          const wrapper =
+            progress?.parentElement ?? element.querySelector('progress-bar')?.parentElement
           console.debug('[podlove-debug]', label, {
             selector: payload.selector,
             hasProgressNode: Boolean(progress),

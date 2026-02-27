@@ -6,22 +6,26 @@
  * @var Kirby\Cms\Pages $pages
  */
 
-$episodes = $page->children()->filterBy('intendedTemplate', 'episode')->published()->sortBy('date', 'desc');
+$episodes = $page
+  ->children()
+  ->filterBy('intendedTemplate', 'episode')
+  ->published()
+  ->sortBy('date', 'desc');
 
 snippet('layout/podcast', slots: true);
 ?>
 
-<?php slot() ?>
+<?php slot(); ?>
   <?php foreach ($episodes as $episode): ?>
     <article>
       <h3>
         <a href="<?= $episode->url() ?>"><?= $episode->title()->html() ?></a>
         <?php if ($episode->date()->isNotEmpty()): ?>
           (<?= $episode->date()->toDate('d.m.Y') ?>)
-        <?php endif ?>
+        <?php endif; ?>
       </h3>
       <?php snippet('podcaster-player', ['page' => $episode]); ?>
     </article>
-  <?php endforeach ?>
-<?php endslot() ?>
+  <?php endforeach; ?>
+<?php endslot(); ?>
 <?php endsnippet(); ?>
