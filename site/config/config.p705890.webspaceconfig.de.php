@@ -23,10 +23,10 @@ return [
   'mauricerenck.komments.privacy.storeEmail' => true,
   'mauricerenck.komments.autoDisable.datefield' => 'date',
 
-  // Enable Git push on production server
+  // Git Content on production: manual commits/pushes via panel area
   'thathoff.git-content' => [
-    'commit' => true,
-    'push' => true,
+    'commit' => false,
+    'push' => false,
     'pull' => false,
     'gitBin' => 'git',
     'branch' => 'main',
