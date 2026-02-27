@@ -154,6 +154,8 @@ Maintain and evolve the Technikwürze Kirby site safely and consistently:
   - deployment docs,
   - this `AGENTS.md`.
 - Never introduce a deploy step that writes `content/` from main repo CI.
+- Never use `rsync --delete-excluded` in deploy flows. With `content/` in excludes, this can delete production content.
+- Keep a deploy preflight check that requires `${DEPLOY_PATH}/content/.git` to exist before any rsync runs.
 - Validate workflow YAML syntax and run a local sanity check of referenced paths.
 - Keep `ops/bootstrap-production.sh` and `ops/deploy-manual-rsync.sh` aligned with docs/workflows.
 - Prefer a dedicated deploy SSH user with write access limited to the deployment target (`html`) only.

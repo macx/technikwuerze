@@ -7,7 +7,12 @@ set -euo pipefail
 
 DEPLOY_PORT="${DEPLOY_PORT:-22}"
 
-rsync -az --delete --delete-excluded \
+# Safety preflight: never deploy to a target without separate content repository
+ssh -p "${DEPLOY_PORT}" "${DEPLOY_USER}@${DEPLOY_HOST}" \
+  "test -d '${DEPLOY_PATH}/content/.git'" \
+  || { echo "ERROR: ${DEPLOY_PATH}/content/.git is missing. Aborting deploy."; exit 1; }
+
+rsync -az --delete \
   --exclude-from='.rsyncignore' \
   -e "ssh -p ${DEPLOY_PORT}" \
   ./ "${DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_PATH}/"
