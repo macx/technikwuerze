@@ -42,7 +42,6 @@ $sharing = [
     <?= vite()->js('src/index.ts', [], true) ?>
   <?php endif; ?>
   <?= css('/assets/mediathek.css') ?>
-  <?= css('/assets/participants.css') ?>
   <?= css('/media/plugins/mauricerenck/komments/komments.css', ['defer' => true]) ?>
   <?= css('/assets/komments-default.css') ?>
 

@@ -41,6 +41,17 @@ push_db() {
     "${SYNC_USER}@${SYNC_HOST}:${REMOTE_CONTENT_PATH}/.db/"
 }
 
+push_comments() {
+  if [[ ! -f "./content/.db/komments.sqlite" ]]; then
+    echo "Missing local file: ./content/.db/komments.sqlite" >&2
+    exit 1
+  fi
+
+  rsync -avz -e "${RSYNC_SSH[*]}" \
+    "./content/.db/komments.sqlite" \
+    "${SYNC_USER}@${SYNC_HOST}:${REMOTE_CONTENT_PATH}/.db/komments.sqlite"
+}
+
 push_audio() {
   rsync -avz --delete -e "${RSYNC_SSH[*]}" \
     "./content/audio/" \
@@ -48,6 +59,9 @@ push_audio() {
 }
 
 case "$MODE" in
+  comments)
+    push_comments
+    ;;
   db)
     push_db
     ;;
@@ -55,11 +69,11 @@ case "$MODE" in
     push_audio
     ;;
   all|runtime)
-    push_db
+    push_comments
     push_audio
     ;;
   *)
-    echo "Unknown mode: $MODE (use: db|audio|all)" >&2
+    echo "Unknown mode: $MODE (use: comments|db|audio|all)" >&2
     exit 1
     ;;
 esac

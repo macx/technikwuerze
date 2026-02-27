@@ -141,14 +141,20 @@ pnpm run build
 ### Keep Local Runtime Data in Sync
 
 ```bash
-# pull only DB
-pnpm run sync:pull:db
+# pull all DB files from content/.db
+pnpm run sync:pull:comments
 
 # pull only audio
 pnpm run sync:pull:audio
 
 # pull both
 pnpm run sync:pull:runtime
+
+# push only komments.sqlite
+pnpm run sync:push:comments
+
+# push komments.sqlite + audio
+pnpm run sync:push:runtime
 ```
 
 ## License

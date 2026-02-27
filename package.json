@@ -17,10 +17,10 @@
     "release:patch": "release-it patch",
     "release:minor": "release-it minor",
     "release:major": "release-it major",
-    "sync:pull:db": "bash ops/sync-runtime-from-prod.sh db",
+    "sync:pull:comments": "bash ops/sync-runtime-from-prod.sh comments",
     "sync:pull:audio": "bash ops/sync-runtime-from-prod.sh audio",
     "sync:pull:runtime": "bash ops/sync-runtime-from-prod.sh all",
-    "sync:push:db": "bash ops/sync-runtime-to-prod.sh db",
+    "sync:push:comments": "bash ops/sync-runtime-to-prod.sh comments",
     "sync:push:audio": "bash ops/sync-runtime-to-prod.sh audio",
     "sync:push:runtime": "bash ops/sync-runtime-to-prod.sh all"
   },

@@ -24,7 +24,7 @@ tabs:
       de: Teilnehmende
       en: Participants
     columns:
-      - width: 1/2
+      - width: 1/3
         sections:
           hosts:
             label:
@@ -33,17 +33,17 @@ tabs:
             type: pages
             query: page.children.filterBy("participant_role", "host")
             status: all
-            layout: cards
+            layout: cardlets
             search: true
             sortBy: last_name asc
             create: participant
-            text: "{{ page.first_name }} {{ page.last_name }}"
-            info: "{{ page.profession }}"
+            text: '{{ page.first_name }} {{ page.last_name }}'
+            info: '{{ page.profession }}'
             image:
               query: page.profile_image.toFile
               cover: true
               ratio: 1/1
-      - width: 1/2
+      - width: 2/3
         sections:
           guests:
             label:
@@ -52,12 +52,12 @@ tabs:
             type: pages
             query: page.children.filterBy("participant_role", "guest")
             status: all
-            layout: cards
+            layout: cardlets
             search: true
             sortBy: last_name asc
             create: participant
-            text: "{{ page.first_name }} {{ page.last_name }}"
-            info: "{{ page.profession }}"
+            text: '{{ page.first_name }} {{ page.last_name }}'
+            info: '{{ page.profession }}'
             image:
               query: page.profile_image.toFile
               cover: true

@@ -4,5 +4,5 @@
 return [
   'outDir' => 'dist',
   'assetsDir' => '',
-  'legacy' => false,
+  'legacy' => false
 ];

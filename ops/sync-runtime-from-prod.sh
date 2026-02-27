@@ -46,7 +46,7 @@ pull_audio() {
 }
 
 case "$MODE" in
-  db)
+  comments|db)
     pull_db
     ;;
   audio)
@@ -57,7 +57,7 @@ case "$MODE" in
     pull_audio
     ;;
   *)
-    echo "Unknown mode: $MODE (use: db|audio|all)" >&2
+    echo "Unknown mode: $MODE (use: comments|db|audio|all)" >&2
     exit 1
     ;;
 esac

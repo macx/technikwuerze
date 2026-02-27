@@ -21,6 +21,7 @@ COMPONENTS
 @import './components/button.css' layer(components);
 @import './components/podcaster-player.css' layer(components);
 @import './components/footer.css' layer(base);
+@import './components/participants.css' layer(base);
 
 /*
 ┌──────────────────────────────────┐

@@ -135,6 +135,7 @@ tabs:
                   de: Profilbild
                   en: Profile image
                 type: files
+                layout: cardlets
                 multiple: false
                 query: page.images
                 uploads:
