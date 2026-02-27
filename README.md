@@ -121,10 +121,12 @@ pnpm run build
 
 - `CI` validates PRs and pushes.
 - Production deploys only from tags `v*` via workflow `Deploy From Tag`.
-- Create release PR: `pnpm release` (requires `gh auth login -h github.com` once).
+- Create your normal `develop` -> `main` PR with `pnpm release` (or manually in GitHub).
 - Optional browser fallback: `pnpm release:open`.
-- After merge to `main`, run workflow `Create Release Tag` with `version` (example: `1.4.0`).
-- `Create Release Tag` updates `package.json`, pushes tag `vX.Y.Z`, then `Deploy From Tag` runs automatically.
+- PR title/body template is stored in `.github/release-pr-body.md`.
+- After merge to `main`, `Release Please` opens/updates a release PR automatically.
+- Merge the release PR to create tag + GitHub Release.
+- Tag creation triggers `Deploy From Tag` automatically.
 - Deploy excludes are defined in `.rsyncignore`; `content/`, `media/`, `site/accounts/`, cache, and sessions are never deployed from this repo.
 
 ## Runtime Data Policy

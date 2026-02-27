@@ -3,7 +3,7 @@
 ## Workflows
 
 - `CI`: checks PR/push (`main`, `develop`)
-- `Create Release Tag`: manual semver release (`1.4.0` -> `v1.4.0`)
+- `Release Please`: auto-creates/updates release PR after merges to `main`
 - `Deploy From Tag`: production `rsync` on tag push (`v*`)
 
 ## Required Secrets
@@ -13,7 +13,6 @@
 - `DEPLOY_USER`
 - `DEPLOY_PATH`
 - `DEPLOY_PORT` (optional)
-- `RELEASE_TOKEN` (required for `Create Release Tag`)
 
 ## Important Excludes (`.rsyncignore`)
 
@@ -42,5 +41,5 @@ rsync -avz ./content/audio/ user@host:/var/www/technikwuerze/content/audio/
 
 ## Release Tags
 
-- format: `vX.Y.Z`
-- created by `Create Release Tag` workflow input `version` (without `v`)
+- format: `vX.Y.Z` (or `technikwuerze-vX.Y.Z`)
+- created when the `Release Please` PR is merged

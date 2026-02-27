@@ -125,7 +125,7 @@ Maintain and evolve the Technikwürze Kirby site safely and consistently:
 
 - Keep three workflows:
   - `CI` (`.github/workflows/test.yml`) for PR/push checks
-  - `Create Release Tag` (`.github/workflows/release-tag.yml`) for manual version bump + tag (`vX.Y.Z`)
+  - `Release Please` (`.github/workflows/release-please.yml`) for release PR + tag orchestration
   - `Deploy From Tag` (`.github/workflows/deploy.yml`) for production rollouts from tags only
 - Use Corepack-managed pnpm from `package.json` (`packageManager`) in CI.
 - Keep `pnpm-lock.yaml` versioned; CI uses `pnpm install --frozen-lockfile`.
@@ -135,9 +135,8 @@ Maintain and evolve the Technikwürze Kirby site safely and consistently:
 ### Release policy
 
 - Releases are semantic tags (`vX.Y.Z`).
-- `Create Release Tag` updates `package.json` version and creates/pushes the tag.
-- Deployments run only when a `v*` tag is pushed.
-- `Create Release Tag` requires `RELEASE_TOKEN` secret for push operations that must trigger downstream workflows.
+- `Release Please` manages release PRs and release tags from `main`.
+- Deployments run only when a release tag is pushed (`v*`, `technikwuerze-v*`).
 
 ### Server model
 
