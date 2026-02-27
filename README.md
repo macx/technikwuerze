@@ -123,6 +123,20 @@ pnpm run build
 - `content/`, `media/`, `site/accounts/`, cache and sessions are excluded.
 - `site/accounts/` is intentionally not versioned in the main repository.
 
+## Release and Deploy (Step by Step)
+
+1. Develop on `develop` and push your commits.
+2. Open a pull request: `develop` -> `main`.
+3. Wait until `CI` is green.
+4. Merge the pull request to `main`.
+5. Open `Actions` -> `Create Release Tag` -> `Run workflow`.
+6. Enter `version` without `v` (example: `1.4.0`) and start the workflow.
+7. The workflow updates `package.json`, commits the version bump to `main`, creates and pushes tag `v1.4.0`, and creates a GitHub release.
+8. Tag push triggers `Deploy From Tag` automatically.
+9. Verify production: homepage, panel login, one episode page with player, comments.
+No deployment is triggered by regular commits.
+Deployment only happens from semantic tags (`v*`).
+
 ## Binary Data Policy (Audio + SQLite)
 
 - MP3 files are stored centrally in `content/audio/` (not per episode folder).
