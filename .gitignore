@@ -23,7 +23,6 @@ composer.lock
 
 # Node
 node_modules
-pnpm-lock.yaml
 
 # Vite
 /dist

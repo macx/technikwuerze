@@ -124,6 +124,8 @@ Maintain and evolve the Technikwürze Kirby site safely and consistently:
   - `CI` (`.github/workflows/test.yml`) for PR/push checks
   - `Create Release Tag` (`.github/workflows/release-tag.yml`) for manual version bump + tag (`vX.Y.Z`)
   - `Deploy From Tag` (`.github/workflows/deploy.yml`) for production rollouts from tags only
+- Use Corepack-managed pnpm from `package.json` (`packageManager`) in CI.
+- Keep `pnpm-lock.yaml` versioned; CI uses `pnpm install --frozen-lockfile`.
 - Production deployment method is `rsync` over SSH.
 - Deployment excludes are centralized in `.rsyncignore` (single source of truth).
 
