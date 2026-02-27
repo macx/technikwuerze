@@ -1,4 +1,4 @@
-# Production Deployment (Tag-based Releases + rsync)
+# Production Deployment (Release Please + rsync)
 
 This project uses a split deployment model:
 
@@ -14,16 +14,13 @@ This project uses a split deployment model:
 - build assets
 - validate composer config
 
-2. `Create Release Tag` workflow runs manually:
+2. `Release Please` workflow runs on pushes to `main`:
 
-- validates SemVer input (`1.4.0`)
-- runs checks/build
-- updates `package.json` version
-- commits release bump to `main`
-- creates/pushes tag (`v1.4.0`)
-- creates GitHub Release
+- opens or updates a release PR
+- proposes version bump + changelog updates
+- creates tag + GitHub release when the release PR is merged
 
-3. `Deploy From Tag` workflow runs only on `v*` tags:
+3. `Deploy From Tag` workflow runs on release tags (`v*`, `technikwuerze-v*`):
 
 - runs checks/build again
 - installs production Composer dependencies
@@ -43,7 +40,6 @@ Configure in `Repository -> Settings -> Secrets and variables -> Actions`:
 - `DEPLOY_USER` (SSH user)
 - `DEPLOY_PATH` (absolute project path on server)
 - `DEPLOY_PORT` (optional, defaults to `22`)
-- `RELEASE_TOKEN` (PAT/Fine-grained token with `contents:write` for tag + version-bump push)
 
 ## First-Time Server Setup
 
@@ -123,9 +119,9 @@ Expected production config (`site/config/config.production.php`):
 
 ## Release Trigger
 
-Use GitHub Actions `Create Release Tag` workflow and pass `version` without prefix, for example:
-
-- `1.4.0` (creates tag `v1.4.0`)
+1. Merge your `develop` -> `main` PR.
+2. Let `Release Please` create/update the release PR.
+3. Merge the release PR to create the release tag and GitHub Release.
 
 Manual fallback from local machine:
 

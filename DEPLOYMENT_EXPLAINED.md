@@ -6,8 +6,8 @@ The project runs two independent lifecycles:
 
 - Commit code -> push `main`
 - GitHub Actions `CI` runs checks/build
-- Trigger `Create Release Tag` manually (e.g. `1.4.0`)
-- Workflow commits version bump + creates tag `v1.4.0`
+- `Release Please` creates/updates a release PR automatically
+- Merging the release PR creates the release tag
 - `Deploy From Tag` is triggered by the tag push
 - Code is synced to production via `rsync`
 
@@ -41,7 +41,7 @@ These rules are centralized in `.rsyncignore`.
 ## Release model
 
 - Versioning is semantic (`vX.Y.Z`).
-- `Create Release Tag` creates the GitHub Release entry.
+- `Release Please` creates the GitHub Release entry when the release PR is merged.
 - `Deploy From Tag` deploys exactly that tagged revision.
 
 ## Practical rollback
