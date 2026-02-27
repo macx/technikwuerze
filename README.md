@@ -123,6 +123,7 @@ pnpm run build
 - Production deploys only from tags `v*` via workflow `Deploy From Tag`.
 - Create your normal `develop` -> `main` PR with `pnpm release` (or manually in GitHub).
 - Optional browser fallback: `pnpm release:open`.
+- PR title/body template is stored in `.github/release-pr-body.md`.
 - After merge to `main`, `Release Please` opens/updates a release PR automatically.
 - Merge the release PR to create tag + GitHub Release.
 - Tag creation triggers `Deploy From Tag` automatically.
