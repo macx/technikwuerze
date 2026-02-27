@@ -140,8 +140,8 @@ pnpm run build
 7. The workflow updates `package.json`, commits the version bump to `main`, creates and pushes tag `v1.4.0`, and creates a GitHub release.
 8. Tag push triggers `Deploy From Tag` automatically.
 9. Verify production: homepage, panel login, one episode page with player, comments.
-No deployment is triggered by regular commits.
-Deployment only happens from semantic tags (`v*`).
+   No deployment is triggered by regular commits.
+   Deployment only happens from semantic tags (`v*`).
 
 ## Binary Data Policy (Audio + SQLite)
 

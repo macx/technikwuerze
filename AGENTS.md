@@ -92,6 +92,9 @@ Maintain and evolve the Technikwürze Kirby site safely and consistently:
 - Do not revert user changes you did not create.
 - Prefer minimal diffs and maintain existing style.
 - For bulk transforms, add safeguards and verify with spot checks.
+- Run Prettier after edits on touched files before finishing work:
+  - `pnpm exec prettier --write <files...>`
+  - or `pnpm run format` for broader sweeps when appropriate.
 - If changing content at scale:
   - protect technical fields/references,
   - run pattern checks before/after.
