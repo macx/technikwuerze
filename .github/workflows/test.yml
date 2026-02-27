@@ -37,5 +37,8 @@ jobs:
           php-version: '8.4'
           tools: composer:v2
 
+      - name: Run PHP lint smoke checks
+        run: pnpm run test:php
+
       - name: Validate Composer files
         run: composer validate --strict

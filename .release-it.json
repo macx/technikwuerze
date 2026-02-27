@@ -15,6 +15,6 @@
     "release": false
   },
   "hooks": {
-    "before:init": "pnpm run test"
+    "before:init": "pnpm run test && pnpm run test:php"
   }
 }

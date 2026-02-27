@@ -13,6 +13,7 @@
     "format": "prettier --write \"**/*.{ts,js,css,json,md,php}\"",
     "format:check": "prettier --check \"**/*.{ts,js,css,json,md,php}\"",
     "release": "release-it",
+    "test:php": "find site -type f -name '*.php' -print0 | xargs -0 -n1 php -l >/dev/null",
     "release:patch": "release-it patch",
     "release:minor": "release-it minor",
     "release:major": "release-it major"
