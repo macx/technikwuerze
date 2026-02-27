@@ -8,14 +8,12 @@
 
 $hosts = $page->podcasterhosts()->toPages();
 $guests = $page->podcasterguests()->toPages();
-$summary = $page->podcasterdescription()->isNotEmpty()
-  ? $page->podcasterdescription()->kt()
-  : '';
+$summary = $page->podcasterdescription()->isNotEmpty() ? $page->podcasterdescription()->kt() : '';
 
 snippet('layout', slots: true);
 ?>
 
-<?php slot() ?>
+<?php slot(); ?>
   <article class="episode-view">
     <header>
       <h1><?= $page->title()->html() ?></h1>
@@ -72,5 +70,5 @@ snippet('layout', slots: true);
       </section>
     <?php endif; ?>
   </article>
-<?php endslot() ?>
+<?php endslot(); ?>
 <?php endsnippet(); ?>

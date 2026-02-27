@@ -209,6 +209,7 @@ nano .env
 ```
 
 Inhalt der `.env` Datei:
+
 ```env
 KIRBY_MODE=production
 ```
@@ -267,6 +268,7 @@ git push origin main
 4. Beobachte die einzelnen Steps
 
 **Erwartete Steps:**
+
 - ✅ Checkout code
 - ✅ Setup Node.js & pnpm
 - ✅ Run tests
@@ -315,6 +317,7 @@ https://dein-server.de/panel
 ### 6.2 Im Panel einloggen oder Account erstellen
 
 Falls noch kein Account vorhanden:
+
 ```bash
 # SSH auf Production Server
 cd /var/www/technikwuerze  # Dein DEPLOY_PATH
@@ -409,7 +412,8 @@ git commit -m "Content update from local"
 git push origin main
 ```
 
-**Erwartung:** 
+**Erwartung:**
+
 - GitHub Action deployt
 - Änderungen sind auf dem Server sichtbar
 
@@ -422,6 +426,7 @@ git push origin main
 Falls etwas nicht funktioniert:
 
 ### rsync schlägt fehl:
+
 - [ ] Alle 4 GitHub Secrets korrekt gesetzt?
 - [ ] SSH-Key (Private) komplett kopiert? (inkl. BEGIN/END)
 - [ ] Public Key auf Server in authorized_keys?
@@ -429,24 +434,28 @@ Falls etwas nicht funktioniert:
 - [ ] Server-User hat Schreibrechte?
 
 ### Git Push vom Server funktioniert nicht:
+
 - [ ] SSH-Key für GitHub erstellt?
 - [ ] Public Key zu GitHub hinzugefügt?
 - [ ] `ssh -T git@github.com` auf Server erfolgreich?
 - [ ] Git Remote korrekt konfiguriert?
 
 ### Kirby Panel zeigt Git-Button nicht:
+
 - [ ] Plugin installiert? (`composer show thathoff/kirby-git-content`)
 - [ ] Config korrekt? (`site/config/config.production.php`)
 - [ ] KIRBY_MODE=production gesetzt?
 - [ ] Cache geleert? (`rm -rf site/cache/*`)
 
 ### Website zeigt 500 Error:
+
 - [ ] Composer Dependencies installiert?
 - [ ] Datei-Berechtigungen korrekt?
 - [ ] PHP-Version >= 8.2?
 - [ ] Error-Log prüfen: `tail -f /var/log/apache2/error.log`
 
 ### Tests schlagen fehl:
+
 - [ ] Lokal: `pnpm install` ausgeführt?
 - [ ] Lokal: `pnpm run test` erfolgreich?
 - [ ] TypeScript-Fehler? (`pnpm run type-check`)
@@ -521,6 +530,7 @@ pnpm update
 - 🔌 Plugin-Doku: https://github.com/thathoff/kirby-git-content
 
 Bei Problemen:
+
 1. Workflow-Logs in GitHub Actions prüfen
 2. Server Error-Logs prüfen
 3. Diese TODO.md Schritt für Schritt durchgehen

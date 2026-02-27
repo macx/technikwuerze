@@ -42,7 +42,7 @@ Technikwürze is a website for Germany's first developer podcast (since 2005). B
 - **CSS**: Plain CSS (no framework)
 - **Testing**: Vitest + TypeScript checking + Prettier
 - **Deployment**: GitHub Actions → rsync (code) + Git plugin (content)
-- **Package Managers**: 
+- **Package Managers**:
   - Composer (PHP dependencies)
   - pnpm (Node dependencies)
 
@@ -71,12 +71,14 @@ pnpm run format      # Format code
 ### Content Workflow
 
 **On Production:**
+
 1. Editor creates content via Kirby Panel
 2. kirby-git-content auto-commits
 3. Plugin auto-pushes to GitHub
 4. Content is versioned
 
 **Locally:**
+
 ```bash
 cd content/
 git pull  # Get latest content from production
@@ -153,6 +155,7 @@ git pull  # Get latest content from production
 ## Important Rules
 
 ### DO:
+
 ✅ Format code with Prettier before committing
 ✅ Run tests before pushing (`pnpm run test`)
 ✅ Use TypeScript for all JavaScript
@@ -160,6 +163,7 @@ git pull  # Get latest content from production
 ✅ Keep built assets out of Git (dist/ is gitignored)
 
 ### DON'T:
+
 ❌ Commit content/ to main repository (separate repo!)
 ❌ Commit built assets (dist/)
 ❌ Commit node_modules or vendor/
@@ -170,12 +174,14 @@ git pull  # Get latest content from production
 ## rsync Deployment Details
 
 **Deployed via rsync:**
+
 - PHP code & templates
 - Built TypeScript/CSS assets (dist/)
 - Composer dependencies (vendor/)
 - Kirby core (kirby/)
 
 **EXCLUDED from rsync:**
+
 - content/ (managed by Git plugin)
 - media/ (uploaded files)
 - site/accounts/ (user data)
@@ -185,6 +191,7 @@ git pull  # Get latest content from production
 ## Environment Configuration
 
 ### Local (Development)
+
 ```php
 'debug' => true,
 'thathoff.git-content' => [
@@ -194,6 +201,7 @@ git pull  # Get latest content from production
 ```
 
 ### Production
+
 ```php
 'debug' => false,
 'thathoff.git-content' => [
@@ -238,6 +246,7 @@ git pull origin main
 ## GitHub Actions Secrets
 
 Required for deployment (already configured):
+
 - `DEPLOY_SSH_KEY`: SSH private key
 - `DEPLOY_HOST`: Server hostname
 - `DEPLOY_USER`: SSH username
@@ -286,6 +295,7 @@ git push origin main  # Triggers GitHub Actions
 ## Summary
 
 This is a **hybrid deployment architecture**:
+
 - **Code**: Managed in main repo, deployed via rsync
 - **Content**: Managed in separate repo, synced via Git plugin
 - **Best of both worlds**: Clean separation, automated workflows

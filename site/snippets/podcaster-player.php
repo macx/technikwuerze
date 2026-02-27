@@ -6,9 +6,9 @@ namespace mauricerenck\Podcaster;
 
 $podcast = new Podcast();
 $episode = $episode ?? $page;
-$variant = isset($variant) ? trim((string)$variant) : '';
-$template = isset($template) ? trim((string)$template) : '';
-$templateInline = isset($templateInline) ? trim((string)$templateInline) : '';
+$variant = isset($variant) ? trim((string) $variant) : '';
+$template = isset($template) ? trim((string) $template) : '';
+$templateInline = isset($templateInline) ? trim((string) $templateInline) : '';
 $transparent = !empty($transparent);
 $debug = !empty($debug);
 
@@ -20,6 +20,7 @@ $customPlayerRequested =
   $debug === true;
 
 if ($customPlayerRequested) {
+
   $playerContainerId = 'podlove-player-' . uniqid();
   $configJson = json_encode(
     $podcast->getPodloveConfigJson($episode),
@@ -63,8 +64,7 @@ if ($customPlayerRequested) {
       <?= $templateInline ?>
     <?php endif; ?>
   </div>
-  <?php
-  return;
+  <?php return;
 }
 
 $feed = isset($feed) ? $feed : $podcast->getFeedOfEpisode($episode);

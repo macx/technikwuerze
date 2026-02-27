@@ -119,9 +119,15 @@ pnpm run build
 
 ## Deployment Notes
 
-- Code is deployed via GitHub Actions + `rsync`.
-- `content/`, `media/`, `site/accounts/`, cache and sessions are excluded.
+- Production pipeline:
+  - `CI` workflow validates PR/push.
+  - `Create Release Tag` workflow bumps `package.json` version and creates a `vX.Y.Z` tag.
+  - `Deploy From Tag` workflow deploys via `rsync` only when a `v*` tag is pushed.
+  - `Create Release Tag` uses `RELEASE_TOKEN` secret for pushing version bump + tag.
+- Deployment excludes are managed in `.rsyncignore`.
+- `content/`, `media/`, `site/accounts/`, cache and sessions are excluded from code deployment.
 - `site/accounts/` is intentionally not versioned in the main repository.
+- The production `content/` folder must be its own Git repository (`technikwuerze-content`).
 
 ## Release and Deploy (Step by Step)
 

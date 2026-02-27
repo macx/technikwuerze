@@ -1,304 +1,155 @@
-# Deployment Guide
+# Production Deployment (Tag-based Releases + rsync)
 
-> **🚀 Quick Start:** Für eine Schritt-für-Schritt Anleitung zur Einrichtung, siehe [TODO.md](TODO.md)
+This project uses a split deployment model:
 
+- `main` repository: code, templates, assets, config, vendor, dist
+- `content` repository: Kirby content (`content/`), maintained separately in production
 
-This document explains how to set up and use the automated deployment process for the Technikwürze website.
+## CI/CD Architecture
 
-## Overview
+1. `CI` workflow runs on PR/push (`main`, `develop`):
 
-The deployment process consists of:
+- install dependencies
+- run tests/checks
+- build assets
+- validate composer config
 
-1. **Automated Testing**: Every push runs TypeScript checks, Prettier validation, and unit tests
-2. **Automated Deployment**: Pushes to `main` branch automatically deploy to production server via SSH
-3. **Content Sync**: Content changes made via Kirby Panel are automatically committed to Git
+2. `Create Release Tag` workflow runs manually:
 
-## GitHub Secrets Required
+- validates SemVer input (`1.4.0`)
+- runs checks/build
+- updates `package.json` version
+- commits release bump to `main`
+- creates/pushes tag (`v1.4.0`)
+- creates GitHub Release
 
-You need to configure the following secrets in your GitHub repository settings:
+3. `Deploy From Tag` workflow runs only on `v*` tags:
 
-### Navigate to: Repository Settings → Secrets and variables → Actions → New repository secret
+- runs checks/build again
+- installs production Composer dependencies
+- deploys via `rsync` to production server
+- clears Kirby cache on server
 
-1. **DEPLOY_SSH_KEY**: Private SSH key for server access
-   ```bash
-   # Generate a new SSH key pair on your local machine:
-   ssh-keygen -t ed25519 -C "github-actions@technikwuerze" -f ~/.ssh/deploy_key
-   
-   # Copy the private key content (entire file):
-   cat ~/.ssh/deploy_key
-   
-   # Add the public key to your server's authorized_keys:
-   ssh-copy-id -i ~/.ssh/deploy_key.pub user@your-server.com
-   ```
+`content/`, `media/`, accounts, cache and sessions are excluded from `rsync` via `.rsyncignore`.
 
-2. **DEPLOY_HOST**: Your server hostname or IP address
-   ```
-   Example: technikwuerze.de or 123.45.67.89
-   ```
+## Required GitHub Secrets
 
-3. **DEPLOY_USER**: SSH username on the server
-   ```
-   Example: webuser or technikwuerze
-   ```
+Use a dedicated deploy SSH user with least privilege (target path only, e.g. `html`).
 
-4. **DEPLOY_PATH**: Absolute path to deployment directory on server
-   ```
-   Example: /var/www/technikwuerze or /home/webuser/public_html
-   ```
+Configure in `Repository -> Settings -> Secrets and variables -> Actions`:
 
-## Workflows
+- `DEPLOY_SSH_KEY` (private key used by Actions for server SSH)
+- `DEPLOY_HOST` (hostname/IP)
+- `DEPLOY_USER` (SSH user)
+- `DEPLOY_PATH` (absolute project path on server)
+- `DEPLOY_PORT` (optional, defaults to `22`)
+- `RELEASE_TOKEN` (PAT/Fine-grained token with `contents:write` for tag + version-bump push)
 
-### Test Workflow (test.yml)
+## First-Time Server Setup
 
-Runs on:
-- Every push to `main` or `develop` branches
-- Every pull request to `main`
-
-Steps:
-1. Checkout code
-2. Setup Node.js and pnpm
-3. Install dependencies
-4. Run TypeScript type checking
-5. Run Prettier format checking
-6. Run Vitest unit tests
-7. Build production assets
-
-### Deploy Workflow (deploy.yml)
-
-Runs on:
-- Every push to `main` branch
-- Manual trigger via GitHub Actions UI
-
-Steps:
-1. Run all tests
-2. Build production assets
-3. Install PHP/Composer dependencies (production mode)
-4. Deploy to server via rsync over SSH
-5. Clear Kirby cache on server
-
-## Content Sync Strategy
-
-### Kirby Git Content Plugin (thathoff/kirby-git-content)
-
-The `thathoff/kirby-git-content` plugin is configured to automatically commit content changes.
-
-
-#### On Production Server:
-- ✅ Auto-commit enabled
-- ✅ Auto-push to Git enabled (pushes to `main` branch)
-- Content changes in panel → Git commit → Git push → Available everywhere
-
-#### On Local/Development:
-- ✅ Auto-commit enabled
-- ❌ Auto-push disabled (manual git push)
-- Pull latest content: `git pull origin main`
-
-### Protected Content
-
-The deployment process **excludes** the following directories to prevent overwriting server content:
-
-- `content/` - Kirby content files (managed by Git plugin)
-- `media/` - Uploaded media files
-- `site/accounts/` - User accounts
-- `site/cache/` - Cache files
-- `site/sessions/` - Session data
-- `storage/` - Any storage directory
-
-### Content Workflow
-
-#### Scenario 1: Content created on production server
-1. Editor creates/modifies content via Kirby Panel on production
-2. Kirby Git plugin automatically commits changes
-3. Plugin automatically pushes to GitHub
-4. Developer pulls changes locally: `git pull origin main`
-5. Content is now available locally
-
-#### Scenario 2: Content created locally
-1. Developer modifies content locally (in `content/` directory)
-2. Developer commits and pushes to GitHub
-3. Production content repository pulls latest changes (`cd content && git pull origin main`)
-4. Content is updated on production
-
-**Important:** `content/` is excluded from rsync and is not deployed via the code deployment workflow.
-
-#### Scenario 3: Media files uploaded via Panel
-1. Media files are uploaded via Kirby Panel on production
-2. Files are stored in `media/` and `content/` directories
-3. Kirby Git plugin commits the content file changes
-4. Media files: Manually download or use FTP/rsync to sync locally if needed
-   ```bash
-   # Download media from server to local
-   rsync -avz user@server:/path/to/media/ ./media/
-   ```
-
-## Server Setup
-
-### 1. Install Composer Dependencies
-
-On the production server, ensure Composer dependencies are installed:
+You can run the helper script on server:
 
 ```bash
-cd /path/to/deployment
-composer install --no-dev --optimize-autoloader
+DEPLOY_PATH=/var/www/technikwuerze \
+CONTENT_REPO=git@github.com:macx/technikwuerze-content.git \
+bash ops/bootstrap-production.sh
 ```
 
-### 2. Configure Git for Kirby Plugin
+Or execute manually:
 
-The Kirby Git plugin needs Git configured on the server:
+1. Deploy user and directory:
 
 ```bash
-cd /path/to/deployment/content
-git config user.email "panel@technikwuerze.de"
-git config user.name "Kirby Panel"
-
-# If not already initialized
-git init
-git remote add origin git@github.com:macx/technikwuerze-content.git
-git pull origin main
+sudo adduser deploy
+sudo mkdir -p /var/www/technikwuerze
+sudo chown -R deploy:deploy /var/www/technikwuerze
 ```
 
-### 3. Setup Git Authentication
-
-For the plugin to push to GitHub, set up SSH key authentication:
+2. Add GitHub Actions public key to server:
 
 ```bash
-# Generate SSH key on server
-ssh-keygen -t ed25519 -C "server@technikwuerze.de"
-
-# Add public key to GitHub
-cat ~/.ssh/id_ed25519.pub
-# Copy this and add to: GitHub → Settings → SSH and GPG keys → New SSH key
+mkdir -p ~/.ssh
+chmod 700 ~/.ssh
+cat >> ~/.ssh/authorized_keys
+chmod 600 ~/.ssh/authorized_keys
 ```
 
-Or use a GitHub Personal Access Token:
+3. Initial code bootstrap (one-time, before first workflow run):
 
 ```bash
-# Set up Git credential helper
-git config credential.helper store
-git config remote.origin.url https://github-token@github.com/macx/technikwuerze.git
+cd /var/www/technikwuerze
+# optional: copy current project structure once, workflow will overwrite code files later
 ```
 
-### 4. Set Environment
-
-Create a `.env` file on the server to set the environment:
+4. Content repository setup (mandatory, separate lifecycle):
 
 ```bash
-# /path/to/deployment/.env
-KIRBY_MODE=production
+cd /var/www/technikwuerze
+git clone git@github.com:macx/technikwuerze-content.git content
 ```
 
-Or configure in your web server:
-
-**Apache (.htaccess):**
-```apache
-SetEnv KIRBY_MODE production
-```
-
-**Nginx:**
-```nginx
-fastcgi_param KIRBY_MODE production;
-```
-
-### 5. File Permissions
-
-Ensure proper permissions:
+5. Runtime folders:
 
 ```bash
-# Set ownership (adjust user/group as needed)
-chown -R www-data:www-data /path/to/deployment
-
-# Set directory permissions
-find /path/to/deployment -type d -exec chmod 755 {} \;
-
-# Set file permissions
-find /path/to/deployment -type f -exec chmod 644 {} \;
-
-# Make these writable by web server
-chmod -R 775 content media site/cache site/sessions
+mkdir -p content/.db content/audio site/cache site/sessions site/accounts
 ```
 
-## Manual Deployment
+6. PHP/webserver permissions: ensure webserver can write to:
 
-If you need to deploy manually:
+- `content/`
+- `media/`
+- `site/cache/`
+- `site/sessions/`
+
+## Content Repo in Production
+
+Production edits happen in Kirby Panel and are pushed by `thathoff/kirby-git-content`.
+
+Expected production config (`site/config/config.production.php`):
+
+- `thathoff.git-content.commit => true`
+- `thathoff.git-content.push => true`
+- `thathoff.git-content.pull => false`
+- `thathoff.git-content.branch => main`
+
+## Audio and Database Runtime Policy
+
+- Central audio storage: `content/audio/`
+- Episode references use file UUID (`file://...`), not local episode MP3 copies
+- Runtime sqlite DBs in `content/.db/`:
+  - `komments.sqlite`
+  - podcaster stats sqlite
+- Binary/runtime files are not versioned in Git; sync with `rsync` when needed.
+
+## Release Trigger
+
+Use GitHub Actions `Create Release Tag` workflow and pass `version` without prefix, for example:
+
+- `1.4.0` (creates tag `v1.4.0`)
+
+Manual fallback from local machine:
 
 ```bash
-# Build locally
-pnpm install
-pnpm run build
-
-# Deploy via rsync
-rsync -avz --delete \
-  --exclude 'node_modules' \
-  --exclude '.git' \
-  --exclude 'content' \
-  --exclude 'media' \
-  --exclude 'site/accounts' \
-  --exclude 'site/cache' \
-  --exclude 'site/sessions' \
-  -e "ssh -i ~/.ssh/deploy_key" \
-  ./ user@server:/path/to/deployment/
+DEPLOY_HOST=example.org DEPLOY_USER=deploy DEPLOY_PATH=/var/www/technikwuerze \
+bash ops/deploy-manual-rsync.sh
 ```
-
-## Troubleshooting
-
-### Deployment fails with SSH authentication error
-
-- Verify SSH key is correctly added to GitHub secrets
-- Ensure the public key is in server's `~/.ssh/authorized_keys`
-- Check file permissions: `chmod 600 ~/.ssh/authorized_keys`
-
-### Kirby Git plugin not pushing
-
-- Check Git is configured on server
-- Verify SSH key is added to GitHub (for the server)
-- Check `site/config/config.production.php` has `push.enabled => true`
-- Review server logs: `tail -f /var/log/apache2/error.log`
-
-### Content not syncing
-
-- Verify the plugin is installed: `composer show thathoff/kirby-git-content`
-- Check plugin is enabled in config
-- Ensure Git is initialized in `/content` on the server
-- Check write permissions on content directories
-
-### Build fails in GitHub Actions
-
-- Check all tests pass locally: `pnpm run test`
-- Verify `pnpm-lock.yaml` is committed
-- Review workflow logs in GitHub Actions tab
 
 ## Rollback
 
-To rollback to a previous deployment:
+1. Pick a previous GitHub release artifact.
+2. Extract and deploy via `rsync` to `DEPLOY_PATH` (same excludes/rules).
+3. Clear `site/cache/*`.
 
-1. Find the commit hash you want to rollback to
-2. SSH into the server
-3. Run:
-   ```bash
-   cd /path/to/deployment
-   git fetch origin
-   git reset --hard <commit-hash>
-   composer install --no-dev
-   ```
+## Post-Deploy Validation
 
-## Monitoring
+- Homepage loads
+- `/panel` login works
+- podcast episode page + player works
+- comments visible
+- production `content/.git` exists and points to content repo
+- production writes to `content/.db` and `media`
 
-- GitHub Actions logs: Repository → Actions tab
-- Server logs: Check your web server error logs
-- Git plugin activity: Check Git commit history
+## Notes
 
-## Security Notes
-
-- Never commit `.env` files or secrets
-- Rotate SSH keys periodically
-- Use strong passwords for Kirby Panel accounts
-- Keep dependencies updated: `composer update` and `pnpm update`
-- Monitor GitHub security alerts
-
-## Support
-
-For issues:
-1. Check GitHub Actions logs
-2. Review server error logs
-3. Check Kirby Git plugin documentation: https://github.com/thathoff/kirby-git-content
-4. Verify all secrets are correctly configured in GitHub
+- Never deploy `content/` from the main repo pipeline.
+- Keep `.rsyncignore` as the single source of truth for deployment excludes.

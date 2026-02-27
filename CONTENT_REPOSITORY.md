@@ -7,12 +7,14 @@ Following the [kirby-git-content documentation](https://github.com/thathoff/kirb
 ## Why Separate Repository?
 
 ### Benefits:
+
 ✅ **Clean separation**: Code changes don't mix with content changes
 ✅ **Better history**: Content commits are isolated
 ✅ **Flexible deployment**: Content syncs via Git, code via rsync
 ✅ **Team workflow**: Content editors don't need main repo access
 
 ### Architecture:
+
 ```
 Main Repository (macx/technikwuerze)
 ├── Code, templates, assets
@@ -162,6 +164,7 @@ git push origin main
 ## Current Status
 
 ✅ **rsync excludes content/**: Verified in `.github/workflows/deploy.yml`
+
 ```yaml
 --exclude 'content'
 ```
@@ -256,7 +259,7 @@ Or setup webhook: `yourdomain.com/git-content/push`
 The content repository setup follows kirby-git-content best practices:
 
 1. ✅ Separate Git repository in content/
-2. ✅ .gitignore for Kirby 5 (_changes)
+2. ✅ .gitignore for Kirby 5 (\_changes)
 3. ✅ Excluded from main repo
 4. ✅ rsync doesn't deploy it
 5. ✅ Plugin manages Git operations

@@ -1,0 +1,24 @@
+# VCS and CI
+.git/
+.github/
+
+# local dependencies/tooling
+node_modules/
+.env
+.env.*
+
+# local-only migration workspace
+migration/
+build/
+
+# runtime-managed content and state
+content/
+media/
+site/accounts/
+site/cache/
+site/sessions/
+storage/
+
+# local dev/runtime files
+.DS_Store
+*.log
