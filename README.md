@@ -129,10 +129,14 @@ pnpm run build
 - `site/accounts/` is intentionally not versioned in the main repository.
 - The production `content/` folder must be its own Git repository (`technikwuerze-content`).
 
-## Release and Deploy (Step by Step)
+## Release and Deploy
 
-1. Develop on `develop` and push your commits.
-2. Open a pull request: `develop` -> `main`.
+1. Develop on `develop` branch and push your commits.
+2. Create a Pull Request (PR) to `main` using one of these options:
+   - Run `pnpm release` locally\
+     (opens `https://github.com/macx/technikwuerze/compare/main...develop` in your browser).
+   - Open GitHub manually and create a pull request\
+     `develop` -> `main`.
 3. Wait until `CI` is green.
 4. Merge the pull request to `main`.
 5. Open `Actions` -> `Create Release Tag` -> `Run workflow`.
