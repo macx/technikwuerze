@@ -138,6 +138,19 @@ pnpm run build
 - Runtime DBs live in `content/.db/`.
 - Binary runtime files (audio/sqlite) are synced with `rsync`, not Git.
 
+### Keep Local Runtime Data in Sync
+
+```bash
+# pull only DB
+pnpm run sync:pull:db
+
+# pull only audio
+pnpm run sync:pull:audio
+
+# pull both
+pnpm run sync:pull:runtime
+```
+
 ## License
 
 MIT
