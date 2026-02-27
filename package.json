@@ -7,6 +7,7 @@
     "dev": "vite",
     "build": "pnpm run test && vite build && cp dist/.vite/manifest.json dist/manifest.json",
     "preview": "vite preview",
+    "release": "node --input-type=module -e \"import open from 'open'; await open('https://github.com/macx/technikwuerze/compare/main...develop');\"",
     "test": "pnpm run type-check && pnpm run format:check && vitest run",
     "test:watch": "vitest",
     "type-check": "tsc --noEmit",

@@ -129,6 +129,24 @@ pnpm run build
 - `site/accounts/` is intentionally not versioned in the main repository.
 - The production `content/` folder must be its own Git repository (`technikwuerze-content`).
 
+## Release and Deploy
+
+1. Develop on `develop` branch and push your commits.
+2. Create a Pull Request (PR) to `main` using one of these options:
+   - Run `pnpm release` locally\
+     (opens `https://github.com/macx/technikwuerze/compare/main...develop` in your browser).
+   - Open GitHub manually and create a pull request\
+     `develop` -> `main`.
+3. Wait until `CI` is green.
+4. Merge the pull request to `main`.
+5. Open `Actions` -> `Create Release Tag` -> `Run workflow`.
+6. Enter `version` without `v` (example: `1.4.0`) and start the workflow.
+7. The workflow updates `package.json`, commits the version bump to `main`, creates and pushes tag `v1.4.0`, and creates a GitHub release.
+8. Tag push triggers `Deploy From Tag` automatically.
+9. Verify production: homepage, panel login, one episode page with player, comments.
+   No deployment is triggered by regular commits.
+   Deployment only happens from semantic tags (`v*`).
+
 ## Binary Data Policy (Audio + SQLite)
 
 - MP3 files are stored centrally in `content/audio/` (not per episode folder).
