@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "pnpm run test && vite build && cp dist/.vite/manifest.json dist/manifest.json",
     "preview": "vite preview",
-    "release": "node --input-type=module -e \"import open from 'open'; await open('https://github.com/macx/technikwuerze/compare/main...develop');\"",
+    "release": "node --input-type=module -e \"import open from 'open'; const title = encodeURIComponent('Release: merge develop into main'); const body = encodeURIComponent('## Summary\\n-\\n\\n## Checks\\n- [x] CI is green\\n\\n## Notes\\n- Release tag will be created after merge via Actions.'); await open(`https://github.com/macx/technikwuerze/compare/main...develop?quick_pull=1&title=${title}&body=${body}`);\"",
     "test": "pnpm run type-check && pnpm run format:check && vitest run",
     "test:watch": "vitest",
     "type-check": "tsc --noEmit",
