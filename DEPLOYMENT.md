@@ -14,11 +14,12 @@ This project uses a split deployment model:
 - build assets
 - validate composer config
 
-2. `Release Please` workflow runs on pushes to `main`:
+2. Release is created locally with `release-it`:
 
-- opens or updates a release PR
-- proposes version bump + changelog updates
-- creates tag + GitHub release when the release PR is merged
+- runs tests before release
+- bumps `package.json` version
+- creates release commit + tag (`vX.Y.Z`)
+- pushes commit and tag
 
 3. `Deploy From Tag` workflow runs on release tags (`v*`, `technikwuerze-v*`):
 
@@ -119,9 +120,10 @@ Expected production config (`site/config/config.production.php`):
 
 ## Release Trigger
 
-1. Merge your `develop` -> `main` PR.
-2. Let `Release Please` create/update the release PR.
-3. Merge the release PR to create the release tag and GitHub Release.
+1. Work on `develop` as usual and push your commits.
+2. Run `pnpm release` (or `pnpm release:patch|minor|major`).
+3. `release-it` creates and pushes the release commit + tag.
+4. Tag push triggers `Deploy From Tag` automatically.
 
 Manual fallback from local machine:
 

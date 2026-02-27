@@ -2,8 +2,8 @@
 
 ## Workflows
 
-- `CI`: checks PR/push (`main`, `develop`)
-- `Release Please`: auto-creates/updates release PR after merges to `main`
+- `CI`: checks pull requests to `main` and pushes to `main`
+- `release-it`: local release command (version bump + commit + tag push)
 - `Deploy From Tag`: production `rsync` on tag push (`v*`)
 
 ## Required Secrets
@@ -42,4 +42,4 @@ rsync -avz ./content/audio/ user@host:/var/www/technikwuerze/content/audio/
 ## Release Tags
 
 - format: `vX.Y.Z` (or `technikwuerze-vX.Y.Z`)
-- created when the `Release Please` PR is merged
+- created by `release-it` and pushed from local
