@@ -117,53 +117,22 @@ pnpm run test
 pnpm run build
 ```
 
-## Deployment Notes
+## Release and Deployment
 
-- Production pipeline:
-  - `CI` workflow validates PR/push.
-  - `Create Release Tag` workflow bumps `package.json` version and creates a `vX.Y.Z` tag.
-  - `Deploy From Tag` workflow deploys via `rsync` only when a `v*` tag is pushed.
-  - `Create Release Tag` uses `RELEASE_TOKEN` secret for pushing version bump + tag.
-- Deployment excludes are managed in `.rsyncignore`.
-- `content/`, `media/`, `site/accounts/`, cache and sessions are excluded from code deployment.
-- `site/accounts/` is intentionally not versioned in the main repository.
-- The production `content/` folder must be its own Git repository (`technikwuerze-content`).
+- `CI` validates PRs and pushes.
+- Production deploys only from tags `v*` via workflow `Deploy From Tag`.
+- Create release PR: `pnpm release` (requires `gh auth login -h github.com` once).
+- Optional browser fallback: `pnpm release:open`.
+- After merge to `main`, run workflow `Create Release Tag` with `version` (example: `1.4.0`).
+- `Create Release Tag` updates `package.json`, pushes tag `vX.Y.Z`, then `Deploy From Tag` runs automatically.
+- Deploy excludes are defined in `.rsyncignore`; `content/`, `media/`, `site/accounts/`, cache, and sessions are never deployed from this repo.
 
-## Release and Deploy
+## Runtime Data Policy
 
-1. Develop on `develop` branch and push your commits.
-2. Create a Pull Request (PR) to `main` using one of these options:
-   - Run `pnpm release` locally\
-     (opens `https://github.com/macx/technikwuerze/compare/main...develop` in your browser).
-   - Open GitHub manually and create a pull request\
-     `develop` -> `main`.
-3. Wait until `CI` is green.
-4. Merge the pull request to `main`.
-5. Open `Actions` -> `Create Release Tag` -> `Run workflow`.
-6. Enter `version` without `v` (example: `1.4.0`) and start the workflow.
-7. The workflow updates `package.json`, commits the version bump to `main`, creates and pushes tag `v1.4.0`, and creates a GitHub release.
-8. Tag push triggers `Deploy From Tag` automatically.
-9. Verify production: homepage, panel login, one episode page with player, comments.
-   No deployment is triggered by regular commits.
-   Deployment only happens from semantic tags (`v*`).
-
-## Binary Data Policy (Audio + SQLite)
-
-- MP3 files are stored centrally in `content/audio/` (not per episode folder).
-- Episodes reference audio via `Podcasteraudio: - file://<uuid>`.
-- SQLite databases (`content/.db/*.sqlite`, `content/podcaster.sqlite`) are not versioned.
-- Git keeps only text/meta files (e.g. `*.txt`, `.gitkeep`), not binaries.
-
-Use `rsync` for binaries and runtime DB files, not Git:
-
-```bash
-# pull production runtime data to local
-rsync -avz user@server:/path/to/project/content/.db/ ./content/.db/
-rsync -avz user@server:/path/to/project/content/audio/*.mp3 ./content/audio/
-
-# push local audio binaries to production (if needed)
-rsync -avz ./content/audio/*.mp3 user@server:/path/to/project/content/audio/
-```
+- Content is managed in the separate `technikwuerze-content` repository.
+- Audio files are centralized in `content/audio/`.
+- Runtime DBs live in `content/.db/`.
+- Binary runtime files (audio/sqlite) are synced with `rsync`, not Git.
 
 ## License
 
