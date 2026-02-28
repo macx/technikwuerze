@@ -14,6 +14,13 @@ $profiles = $page->external_profiles()->toStructure();
 $allEpisodes =
   site()->find('mediathek')?->index()->filterBy('intendedTemplate', 'episode')->published() ??
   new Kirby\Cms\Pages([]);
+$recentParticipations = $allEpisodes
+  ->filter(function ($episode) use ($page) {
+    return $episode->podcasterhosts()->toPages()->has($page) ||
+      $episode->podcasterguests()->toPages()->has($page);
+  })
+  ->sortBy('date', 'desc')
+  ->limit(5);
 
 $hostCount = 0;
 $guestCount = 0;
@@ -92,6 +99,22 @@ snippet('layout', slots: true);
               <a href="<?= esc($url) ?>" target="_blank" rel="noopener nofollow">
                 <?= esc($label !== '' ? $label : ($network !== '' ? $network : $url)) ?>
               </a>
+            </li>
+          <?php endforeach; ?>
+        </ul>
+      </section>
+    <?php endif; ?>
+
+    <?php if ($recentParticipations->isNotEmpty()): ?>
+      <section class="participant-episodes">
+        <h2>Letzte Folgen mit Beteiligung</h2>
+        <ul>
+          <?php foreach ($recentParticipations as $episode): ?>
+            <li>
+              <a href="<?= $episode->url() ?>"><?= $episode->title()->html() ?></a>
+              <?php if ($episode->date()->isNotEmpty()): ?>
+                (<?= $episode->date()->toDate('d.m.Y') ?>)
+              <?php endif; ?>
             </li>
           <?php endforeach; ?>
         </ul>
