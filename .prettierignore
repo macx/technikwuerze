@@ -3,6 +3,10 @@ vendor
 kirby
 dist
 .git
+media
+public/media
+site/cache
+site/sessions
 *.log
 composer.lock
 pnpm-lock.yaml

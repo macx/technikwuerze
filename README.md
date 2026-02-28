@@ -91,7 +91,7 @@ Use the **Run and Debug** panel in Visual Studio Code:
 
 What starts automatically:
 
-- PHP server on `http://localhost:8000` by default (`kirby/router.php`)
+- PHP server on `http://localhost:8000` by default (`php -S ... -t public kirby/router.php`)
 - Vite dev server on `http://localhost:5173` by default (HMR assets)
 - Chrome incognito window with:
   - `http://<DEV_HOST>:<DEV_PHP_PORT>/`
@@ -104,7 +104,7 @@ What starts automatically:
 If you prefer to start the servers manually, run the following commands in separate terminal windows:
 
 ```bash
-php -S localhost:8000 kirby/router.php
+php -S localhost:8000 -t public kirby/router.php
 pnpm run dev
 ```
 

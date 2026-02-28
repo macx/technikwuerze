@@ -21,9 +21,10 @@ $sharing = [
   'name' => 'technikwürze',
   'description' => Escape::html($site->description()->value() || ''),
   'tags' => '',
-  'image' => $site->url() . '/assets/images/resp/sharing/lauftrainer-david-hannover-fb.jpg',
   'twitter' => 'technikwürze',
 ];
+
+$favicon = asset('assets/favicon.ico');
 ?>
 <!doctype html>
 <html lang="de" class="no-js">
@@ -41,14 +42,14 @@ $sharing = [
     <?= vite()->css('src/index.ts', [], true) ?>
     <?= vite()->js('src/index.ts', [], true) ?>
   <?php endif; ?>
-  <?= css('/assets/mediathek.css') ?>
   <?= css('/media/plugins/mauricerenck/komments/komments.css', ['defer' => true]) ?>
-  <?= css('/assets/komments-default.css') ?>
 
   <?php if (!$page->is('error')): ?>
     <link rel="canonical" href="<?php echo $sharing['url']; ?>">
   <?php endif; ?>
-  <link rel="icon" href="/assets/images/favicon.ico">
+  <?php if ($favicon->exists()): ?>
+    <link rel="icon" href="<?= $favicon->url() ?>">
+  <?php endif; ?>
 
   <meta name="theme-color" content="#fff">
 

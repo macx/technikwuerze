@@ -22,6 +22,8 @@ COMPONENTS
 @import './components/podcaster-player.css' layer(components);
 @import './components/footer.css' layer(base);
 @import './components/participants.css' layer(base);
+@import './components/mediathek.css' layer(components);
+@import './components/komments-default.css' layer(components);
 
 /*
 ┌──────────────────────────────────┐
