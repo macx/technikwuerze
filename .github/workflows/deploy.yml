@@ -59,8 +59,12 @@ jobs:
           DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
           DEPLOY_PORT: ${{ secrets.DEPLOY_PORT }}
         run: |
-          mkdir -p ~/.ssh
-          ssh-keyscan -p "${DEPLOY_PORT:-22}" -H "$DEPLOY_HOST" >> ~/.ssh/known_hosts
+          SSH_HOME="${HOME:-$RUNNER_TEMP}"
+          SSH_DIR="$SSH_HOME/.ssh"
+          mkdir -p "$SSH_DIR"
+          chmod 700 "$SSH_DIR"
+          ssh-keyscan -p "${DEPLOY_PORT:-22}" -H "$DEPLOY_HOST" >> "$SSH_DIR/known_hosts"
+          chmod 644 "$SSH_DIR/known_hosts"
 
       - name: Preflight content safety check
         env:
