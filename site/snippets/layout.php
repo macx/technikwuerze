@@ -42,7 +42,6 @@ $favicon = asset('assets/favicon.ico');
     <?= vite()->css('src/index.ts', [], true) ?>
     <?= vite()->js('src/index.ts', [], true) ?>
   <?php endif; ?>
-  <?= css('/media/plugins/mauricerenck/komments/komments.css', ['defer' => true]) ?>
 
   <?php if (!$page->is('error')): ?>
     <link rel="canonical" href="<?php echo $sharing['url']; ?>">

@@ -24,6 +24,7 @@ COMPONENTS
 @import './components/participants.css' layer(base);
 @import './components/mediathek.css' layer(components);
 @import './components/komments-default.css' layer(components);
+@import '@plugins/komments/assets/komments.css' layer(components);
 
 /*
 ┌──────────────────────────────────┐
