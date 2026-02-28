@@ -95,6 +95,7 @@ Maintain and evolve the Technikwürze Kirby site safely and consistently:
 - Run Prettier after edits on touched files before finishing work:
   - `pnpm exec prettier --write <files...>`
   - or `pnpm run format` for broader sweeps when appropriate.
+- Special case: `site/config/vite.config.php` is auto-generated and still must be formatted with Prettier after Vite config changes (`pnpm exec prettier --write site/config/vite.config.php`), otherwise CI `format:check` can fail.
 - If changing content at scale:
   - protect technical fields/references,
   - run pattern checks before/after.
