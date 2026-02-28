@@ -2,6 +2,7 @@
   /* LAYOUT */
   --header-size: 5rem;
   --content-max-size: 77.5rem;
+  --narrow-max-size: 55rem;
 
   /* TYPOGRAPHY */
   --ff: 'Manrope Variable', system-ui, -apple-system, sans-serif;

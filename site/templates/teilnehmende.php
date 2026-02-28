@@ -11,7 +11,7 @@ snippet('layout', slots: true); ?>
     <?php $participants = $page
       ->children()
       ->listed()
-      ->sortBy('last_name', 'asc', 'first_name', 'asc'); ?>
+      ->sortBy('first_name', 'asc', 'first_name', 'asc'); ?>
 
     <?php if ($page->text()->isNotEmpty()): ?>
       <div class="teilnehmende-intro">

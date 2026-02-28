@@ -3,13 +3,16 @@
 }
 
 .participant-list-columns {
-  column-width: 30ch;
+  column-width: 25ch;
   column-gap: var(--sp-content-gap);
+
   list-style: none;
   margin-block: var(--sp-xl);
   padding: 0;
   text-align: center;
   font-weight: var(--fw-bold);
+  max-inline-size: var(--narrow-max-size);
+  margin-inline: auto;
 
   li {
     break-inside: avoid;
