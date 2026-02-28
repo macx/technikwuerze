@@ -7,19 +7,28 @@ tabs:
       de: Dashboard
     icon: dashboard
     columns:
-      - width: 1/3
+      - width: 2/3
         sections:
           pages:
             type: pages
-            query: site.find("mediathek").index.filterBy("intendedTemplate", "episode").sortBy("date", "desc").limit(20)
+            query: site.find("mediathek").index.filterBy("intendedTemplate", "episode").sortBy("date", "desc").limit(6)
             label:
               en: Latest Episodes
               de: Letzte Folgen
-            layout: list
+            layout: cardlets
             info: "{{ page.date.toDate('d.m.Y H:i') }}"
 
       - width: 1/3
         sections:
+          draft:
+            type: pages
+            label:
+              en: Drafts
+              de: Entwürfe
+            status: drafts
+            image:
+              query: page.cover.tofile
+              cover: true
           listed:
             label:
               en: Pages
@@ -31,25 +40,13 @@ tabs:
               - teilnehmende
             status: listed
             layout: list
-            info: "{{ page.children.count }}"
+            info: '{{ page.children.count }}'
             columns:
               subpages:
                 label: Seiten
                 align: center
-                value: "{{ page.children.count }}"
+                value: '{{ page.children.count }}'
                 width: 1/6
-            image:
-              query: page.cover.tofile
-              cover: true
-
-      - width: 1/3
-        sections:
-          draft:
-            type: pages
-            label:
-              en: Drafts
-              de: Entwürfe
-            status: drafts
             image:
               query: page.cover.tofile
               cover: true
@@ -64,40 +61,39 @@ tabs:
               query: page.cover.tofile
               cover: true
 
-
   settings:
     label:
       en: Settings
       de: Einstellungen
     icon: cog
     columns:
-        - width: 2/3
-          fields:
-            description:
-              label:
-                en: Description
-                de: Kurzbeschreibung
-              type: textarea
-              size: small
-              minlength: 50
-              maxlength: 190
-              buttons: false
-            tags:
-              label: Tags
-              type: tags
+      - width: 2/3
+        fields:
+          description:
+            label:
+              en: Description
+              de: Kurzbeschreibung
+            type: textarea
+            size: small
+            minlength: 50
+            maxlength: 190
+            buttons: false
+          tags:
+            label: Tags
+            type: tags
 
-        - width: 1/4
-          fields:
-            mastodon:
-              label: Mastodon
-              type: text
-              before: "@"
-              icon: mastodon
-            instagram:
-              label: Instagram
-              type: text
-              before: "@"
-              icon: instagram
+      - width: 1/4
+        fields:
+          mastodon:
+            label: Mastodon
+            type: text
+            before: '@'
+            icon: mastodon
+          instagram:
+            label: Instagram
+            type: text
+            before: '@'
+            icon: instagram
 
   email:
     label:

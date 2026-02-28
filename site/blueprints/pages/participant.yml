@@ -205,3 +205,17 @@ tabs:
                   de: Pronomen
                   en: Pronouns
                 type: text
+              participation_stats:
+                label:
+                  de: Mitwirkungen
+                  en: Participations
+                type: info
+                text:
+                  de: |
+                    Gesamt: **{{ page.participationTotalCount }}**
+                    Als Host: **{{ page.participationHostCount }}**
+                    Als Gast: **{{ page.participationGuestCount }}**
+                  en: |
+                    Total: **{{ page.participationTotalCount }}**
+                    As host: **{{ page.participationHostCount }}**
+                    As guest: **{{ page.participationGuestCount }}**

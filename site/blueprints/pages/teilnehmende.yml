@@ -3,35 +3,50 @@ title:
   en: Participants
 icon: users
 
-tabs:
-  page_content:
-    label:
-      de: Seiteninhalt
-      en: Page content
-    sections:
-      details:
-        type: fields
-        fields:
-          text:
-            label:
-              de: Introtext
-              en: Intro text
-            type: textarea
-            size: medium
+options:
+  delete: false
 
-  participants:
+tabs:
+  content:
     label:
-      de: Teilnehmende
-      en: Participants
+      de: Inhalt & Moderatoren
+      en: Content & Moderators
     columns:
-      - width: 1/3
+      - width: 1/2
         sections:
+          details:
+            type: fields
+            fields:
+              text:
+                extends: fields/content-blocks
+                label:
+                  de: Inhaltsblöcke
+                  en: Content blocks
+      - width: 1/2
+        sections:
+          publishers:
+            label:
+              de: Herausgeber
+              en: Publishers
+            type: pages
+            query: page.children.filterBy("participant_role", "host").filterBy("additional_roles", "*=", "publisher")
+            status: all
+            layout: cardlets
+            search: true
+            sortBy: last_name asc
+            create: participant
+            text: '{{ page.first_name }} {{ page.last_name }}'
+            info: '{{ page.profession }}'
+            image:
+              query: page.profile_image.toFile
+              cover: true
+              ratio: 1/1
           hosts:
             label:
-              de: Moderatoren (Hosts)
-              en: Moderators (Hosts)
+              de: Moderatoren
+              en: Hosts
             type: pages
-            query: page.children.filterBy("participant_role", "host")
+            query: page.children.filterBy("participant_role", "host").filterBy("additional_roles", "!*=", "publisher")
             status: all
             layout: cardlets
             search: true
@@ -43,22 +58,25 @@ tabs:
               query: page.profile_image.toFile
               cover: true
               ratio: 1/1
-      - width: 2/3
-        sections:
-          guests:
-            label:
-              de: Gäste
-              en: Guests
-            type: pages
-            query: page.children.filterBy("participant_role", "guest")
-            status: all
-            layout: cardlets
-            search: true
-            sortBy: last_name asc
-            create: participant
-            text: '{{ page.first_name }} {{ page.last_name }}'
-            info: '{{ page.profession }}'
-            image:
-              query: page.profile_image.toFile
-              cover: true
-              ratio: 1/1
+  guests:
+    label:
+      de: Gäste
+      en: Guests
+    sections:
+      guests:
+        label:
+          de: Gäste
+          en: Guests
+        type: pages
+        query: page.children.filterBy("participant_role", "guest")
+        status: all
+        layout: cardlets
+        search: true
+        sortBy: last_name asc
+        create: participant
+        text: '{{ page.first_name }} {{ page.last_name }}'
+        info: '{{ page.profession }}'
+        image:
+          query: page.profile_image.toFile
+          cover: true
+          ratio: 1/1

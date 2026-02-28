@@ -1,0 +1,21 @@
+type: blocks
+label:
+  en: Content
+  de: Inhalt
+fieldsets:
+  text:
+    label: Text
+    type: group
+    fieldsets:
+      - heading
+      - text
+      - list
+  snippet:
+    label: Snippet
+    type: group
+    fieldsets:
+      - brand-logo
+      - podcast-networks
+      - last-episode
+      - participants-list
+      - handwritten

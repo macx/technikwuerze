@@ -1,0 +1,40 @@
+name:
+  en: Handwritten
+  de: Handschriftlich
+icon: edit
+label:
+  en: Handschriftlich
+  de: Handschriftlich
+fields:
+  text:
+    type: textarea
+    size: medium
+    label:
+      en: Text
+      de: Text
+  show_arrow:
+    type: toggle
+    label:
+      en: Show arrow
+      de: Pfeil anzeigen
+    default: false
+    text:
+      - en: No
+        de: Nein
+      - en: Yes
+        de: Ja
+  arrow_align:
+    type: radio
+    label:
+      en: Arrow alignment
+      de: Pfeilausrichtung
+    default: right
+    options:
+      left:
+        en: Left
+        de: Links
+      right:
+        en: Right
+        de: Rechts
+    when:
+      show_arrow: true

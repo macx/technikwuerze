@@ -9,9 +9,8 @@ tabs:
             type: fields
             fields:
               text:
-                label: Intro Text
-                type: textarea
-                size: medium
+                extends: fields/content-blocks
+                label: Intro
       - width: 1/3
         sections:
           pages:

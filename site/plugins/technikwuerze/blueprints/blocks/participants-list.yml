@@ -1,0 +1,61 @@
+name:
+  en: Participants
+  de: Teilnehmende
+icon: users
+label:
+  en: Participant list
+  de: Teilnehmendenliste
+fields:
+  headline:
+    type: text
+    label:
+      en: Headline
+      de: Überschrift
+    placeholder:
+      en: Participants
+      de: Teilnehmende
+  participant_scope:
+    type: checkboxes
+    label:
+      en: Show
+      de: Anzeigen
+    default:
+      - publishers
+      - hosts_without_publishers
+      - guests
+    options:
+      publishers:
+        en: Publishers only
+        de: Herausgeber
+      hosts_without_publishers:
+        en: Moderators without publishers
+        de: Moderatoren ohne Herausgeber
+      guests:
+        en: Guests
+        de: Gäste
+  sort_by:
+    type: radio
+    label:
+      en: Sort by
+      de: Sortieren nach
+    default: last_name
+    options:
+      first_name:
+        en: First name
+        de: Vorname
+      last_name:
+        en: Last name
+        de: Nachname
+  display_layout:
+    type: radio
+    label:
+      en: Layout
+      de: Layout
+    default: list
+    options:
+      list:
+        en: List
+        de: Liste
+      cards:
+        en: Cards
+        de: Karten

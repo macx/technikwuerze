@@ -1,0 +1,49 @@
+.tw-handwritten {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: var(--sp);
+
+  font-family: var(--ff-hand);
+  font-size: clamp(1.125rem, 3vw, 1.75rem);
+  line-height: 1.2;
+  color: var(--clr-secondary);
+  max-inline-size: var(--narrow-max-size);
+  margin-block-end: var(--sp-xl);
+  margin-inline: auto;
+  text-align: center;
+}
+
+.tw-handwritten.arrow-right {
+  flex-direction: row-reverse;
+}
+
+.tw-handwritten.arrow-left {
+  flex-direction: row;
+}
+
+.tw-handwritten-arrow {
+  display: inline-flex;
+  inline-size: clamp(1.5rem, 8vw, 3rem);
+  block-size: auto;
+  flex-shrink: 0;
+  margin-top: 0.2rem;
+
+  svg {
+    inline-size: 100%;
+    block-size: auto;
+    transform-origin: center;
+  }
+}
+
+.tw-handwritten.arrow-right .tw-handwritten-arrow svg {
+  transform: scaleY(-1);
+}
+
+.tw-handwritten.arrow-left .tw-handwritten-arrow svg {
+  transform: scale(-1, -1);
+}
+
+.tw-handwritten-text {
+  padding-block-start: 0.5em;
+}

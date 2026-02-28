@@ -56,3 +56,15 @@ main {
 p {
   margin-block: 0 var(--sp);
 }
+
+.section-title {
+  color: var(--clr-primary);
+  text-align: center;
+  font-family: var(--ff-brand);
+  font-size: clamp(2.1rem, 7vw, 5rem);
+  font-style: normal;
+  font-weight: 800;
+  line-height: 100%;
+  letter-spacing: -0.1rem;
+  margin-block: 0 0.5em;
+}

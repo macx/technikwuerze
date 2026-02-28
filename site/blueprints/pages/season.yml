@@ -7,9 +7,8 @@ columns:
         type: fields
         fields:
           text:
+            extends: fields/content-blocks
             label: Beschreibung
-            type: textarea
-            size: medium
   - width: 1/3
     sections:
       episodes:
