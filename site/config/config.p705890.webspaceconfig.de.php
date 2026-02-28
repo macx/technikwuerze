@@ -27,6 +27,15 @@ return [
   'mauricerenck.komments.privacy.storeEmail' => true,
   'mauricerenck.komments.autoDisable.datefield' => 'date',
 
+  // Optional HTTP Basic Auth for frontend routes (browser password prompt)
+  'tw.siteBasicAuth' => [
+    'enabled' => true,
+    'realm' => 'Technikwuerze',
+    'users' => array_filter([
+      env('TW_BASIC_AUTH_USER') => env('TW_BASIC_AUTH_PASSWORD'),
+    ]),
+  ],
+
   // Git Content on production: manual commits/pushes via panel area
   'thathoff.git-content' => [
     'commit' => false,

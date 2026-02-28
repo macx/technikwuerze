@@ -29,6 +29,15 @@ return [
   'mauricerenck.komments.privacy.storeEmail' => true,
   'mauricerenck.komments.autoDisable.datefield' => 'date',
 
+  // Optional HTTP Basic Auth for frontend routes (browser password prompt)
+  'tw.siteBasicAuth' => [
+    'enabled' => false,
+    'realm' => 'Technikwuerze',
+    'users' => array_filter([
+      env('TW_BASIC_AUTH_USER') => env('TW_BASIC_AUTH_PASSWORD'),
+    ]),
+  ],
+
   // Kirby Git Content plugin configuration
   'thathoff.git-content' => [
     // Local/develop: no automatic git writes from panel edits.

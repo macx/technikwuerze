@@ -27,6 +27,9 @@ Kirby::plugin('tw/brand', [
     },
   ],
   'hooks' => [
+    'route:before' => function ($route, string $path, string $method) {
+      return twEnforceSiteBasicAuth($path);
+    },
     'file.create:after' => function ($file) {
       twGenerateParticipantProfileVariants($file);
     },
@@ -117,4 +120,62 @@ function twParticipantStats($participant): array
     'guestCount' => $guestCount,
     'totalCount' => $totalCount,
   ];
+}
+
+function twEnforceSiteBasicAuth(string $path)
+{
+  $config = kirby()->option('tw.siteBasicAuth', []);
+  $enabled = (bool) ($config['enabled'] ?? false);
+
+  if ($enabled !== true) {
+    return null;
+  }
+
+  // Keep Panel/API access unaffected.
+  if (str_starts_with($path, 'panel') || str_starts_with($path, 'api')) {
+    return null;
+  }
+
+  $users = $config['users'] ?? [];
+  if (!is_array($users) || $users === []) {
+    return null;
+  }
+
+  [$username, $password] = twReadBasicAuthCredentials();
+
+  if (
+    $username !== null &&
+    isset($users[$username]) &&
+    hash_equals((string) $users[$username], (string) $password)
+  ) {
+    return null;
+  }
+
+  $realm = (string) ($config['realm'] ?? 'Protected Area');
+
+  return new \Kirby\Cms\Response('Authentication required', 'text/plain', 401, [
+    'WWW-Authenticate' => 'Basic realm="' . $realm . '"',
+  ]);
+}
+
+function twReadBasicAuthCredentials(): array
+{
+  $username = $_SERVER['PHP_AUTH_USER'] ?? null;
+  $password = $_SERVER['PHP_AUTH_PW'] ?? null;
+
+  if ($username !== null && $password !== null) {
+    return [$username, $password];
+  }
+
+  $header = $_SERVER['HTTP_AUTHORIZATION'] ?? ($_SERVER['REDIRECT_HTTP_AUTHORIZATION'] ?? '');
+  if (!is_string($header) || !str_starts_with($header, 'Basic ')) {
+    return [null, null];
+  }
+
+  $decoded = base64_decode(substr($header, 6), true);
+  if (!is_string($decoded) || !str_contains($decoded, ':')) {
+    return [null, null];
+  }
+
+  return explode(':', $decoded, 2);
 }
