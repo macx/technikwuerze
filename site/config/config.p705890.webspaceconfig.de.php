@@ -3,6 +3,8 @@
 // Production configuration
 $projectRoot = dirname(__DIR__, 2);
 $dbPath = $projectRoot . '/content/.db/';
+$basicAuthUser = $_ENV['TW_BASIC_AUTH_USER'] ?? getenv('TW_BASIC_AUTH_USER') ?: null;
+$basicAuthPassword = $_ENV['TW_BASIC_AUTH_PASSWORD'] ?? getenv('TW_BASIC_AUTH_PASSWORD') ?: null;
 
 return [
   'debug' => false,
@@ -32,7 +34,7 @@ return [
     'enabled' => true,
     'realm' => 'Technikwuerze',
     'users' => array_filter([
-      env('TW_BASIC_AUTH_USER') => env('TW_BASIC_AUTH_PASSWORD'),
+      $basicAuthUser => $basicAuthPassword,
     ]),
   ],
 
