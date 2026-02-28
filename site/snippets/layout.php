@@ -2,19 +2,6 @@
 /** @var Kirby\Cms\Site $site */
 /** @var Kirby\Cms\Page $page */
 
-use Kirby\Filesystem\F;
-
-$viteConfigPath = kirby()->root('config') . '/vite.config.php';
-$viteOutDir = 'dist';
-if (F::exists($viteConfigPath)) {
-  $viteConfig = require $viteConfigPath;
-  $viteOutDir = $viteConfig['outDir'] ?? $viteOutDir;
-}
-
-$viteDevDir = kirby()->root('base') ?? kirby()->root('index');
-$viteHasDevServer = F::exists($viteDevDir . '/.dev');
-$viteHasManifest = F::exists(kirby()->root('index') . '/' . $viteOutDir . '/manifest.json');
-
 $sharing = [
   'url' => $page->url(),
   'title' => $site->title()->html(),
@@ -38,10 +25,8 @@ $favicon = asset('assets/favicon.ico');
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="HandheldFriendly" content="true">
 
-  <?php if ($viteHasDevServer || $viteHasManifest): ?>
-    <?= vite()->css('src/index.ts', [], true) ?>
-    <?= vite()->js('src/index.ts', [], true) ?>
-  <?php endif; ?>
+  <?= vite()->css('src/index.ts', [], true) ?>
+  <?= vite()->js('src/index.ts', [], true) ?>
 
   <?php if (!$page->is('error')): ?>
     <link rel="canonical" href="<?php echo $sharing['url']; ?>">

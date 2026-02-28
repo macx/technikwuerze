@@ -6,6 +6,7 @@ $dbPath = $projectRoot . '/content/.db/';
 
 return [
   'debug' => false,
+  'panel.vue.compiler' => false,
 
   // Podcaster setup (analytics + player metadata)
   'mauricerenck.podcaster' => [

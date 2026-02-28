@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "pnpm run test && vite build && cp dist/.vite/manifest.json dist/manifest.json",
+    "build": "pnpm run test && vite build && cp public/dist/.vite/manifest.json public/dist/manifest.json",
     "preview": "vite preview",
     "test": "pnpm run type-check && pnpm run format:check && vitest run",
     "test:watch": "vitest",

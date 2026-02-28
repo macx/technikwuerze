@@ -5,6 +5,10 @@
 
 RewriteEngine on
 
+# Block direct access to private framework/content folders and hidden files
+RewriteRule ^(content|site|kirby|vendor)/(.*) index.php [L]
+RewriteRule (^|/)\.(?!well-known/) index.php [L]
+
 # Make site links work
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d

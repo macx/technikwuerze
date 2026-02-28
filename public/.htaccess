@@ -5,6 +5,9 @@
 
 RewriteEngine on
 
+# Block hidden files (except ACME challenge path)
+RewriteRule (^|/)\.(?!well-known/) index.php [L]
+
 # Make site links work
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d

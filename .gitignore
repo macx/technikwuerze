@@ -29,6 +29,7 @@ node_modules
 
 # Vite
 /dist
+/public/dist/
 .dev
 
 # Environment
