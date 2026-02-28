@@ -1,5 +1,8 @@
 <?php
 
+$projectRoot = dirname(__DIR__, 2);
+$dbPath = $projectRoot . '/content/.db/';
+
 return [
   'debug' => true,
 
@@ -11,7 +14,7 @@ return [
   'mauricerenck.podcaster' => [
     'statsInternal' => true,
     'statsType' => 'sqlite',
-    'sqlitePath' => 'content/.db/',
+    'sqlitePath' => $dbPath,
     'doNotTrackBots' => true,
     'setId3Data' => true,
     'useApi' => false,
@@ -19,7 +22,7 @@ return [
 
   // Komments setup
   'mauricerenck.komments.storage.type' => 'sqlite',
-  'mauricerenck.komments.storage.sqlitePath' => 'content/.db/',
+  'mauricerenck.komments.storage.sqlitePath' => $dbPath,
   'mauricerenck.komments.panel.enabled' => true,
   'mauricerenck.komments.panel.webmentions' => true,
   'mauricerenck.komments.panel.showPublished' => true,
