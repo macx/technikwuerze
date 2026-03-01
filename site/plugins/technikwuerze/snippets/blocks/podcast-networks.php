@@ -56,8 +56,18 @@ if ($favoriteNetwork !== '') {
 }
 
 $defaultIsCustom = $defaultNetwork['mode'] === 'copy' && $defaultNetwork['hoverText'] !== '';
+$mobilePointerText = trim((string) $block->pointer_mobile()->value());
+if ($mobilePointerText === '') {
+  $mobilePointerText = trim((string) $block->listento_mobile()->value());
+}
 ?>
 <div class="tw-brand-networks<?= $hasFavoritePointer ? ' has-default-pointer' : '' ?>">
+  <?php if ($mobilePointerText !== ''): ?>
+    <p class="pointer-mobile">
+      <?= esc($mobilePointerText) ?>
+    </p>
+  <?php endif; ?>
+
   <div class="pointer">
     <span class="pointer-text<?= $defaultIsCustom ? ' is-rss-custom' : '' ?>">
       <span class="pointer-start">

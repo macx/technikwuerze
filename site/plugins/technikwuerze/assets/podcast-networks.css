@@ -20,7 +20,7 @@
 
     a {
       display: block;
-      padding: var(--sp-m);
+      padding: var(--sp-s);
       border-radius: var(--radius-button);
       transition: background-color 120ms var(--ease-out-quad);
 
@@ -31,12 +31,22 @@
     }
 
     svg {
-      --c-icon-size: 2.5rem;
+      --c-icon-size: 1.875rem;
 
       display: block;
       block-size: var(--c-icon-size);
       inline-size: var(--c-icon-size);
       color: var(--clr-primary);
+    }
+
+    @media (width >= 45em) {
+      a {
+        padding: var(--sp);
+      }
+
+      svg {
+        --c-icon-size: 2.5rem;
+      }
     }
   }
 
@@ -56,6 +66,19 @@
     transition:
       opacity 140ms ease-out,
       transform 220ms var(--ease-drawer-transform);
+  }
+
+  :scope .pointer-mobile {
+    font-family: var(--ff-hand);
+    font-size: var(--pointer-font-size);
+    color: var(--clr-secondary);
+    line-height: 1;
+    text-align: center;
+    margin-block: 0 var(--sp-s);
+
+    @media (pointer: fine) or (width >= 45em) {
+      display: none;
+    }
   }
 
   :scope .pointer-text {
