@@ -26,6 +26,13 @@ tabs:
               en: Drafts
               de: Entwürfe
             status: drafts
+            templates:
+              - page
+              - mediathek
+              - season
+              - episode
+              - participant
+              - podcasterfeed
             image:
               query: page.cover.tofile
               cover: true
@@ -57,6 +64,13 @@ tabs:
               de: Nicht gelistet
             layout: list
             status: unlisted
+            templates:
+              - page
+              - mediathek
+              - season
+              - episode
+              - participant
+              - podcasterfeed
             image:
               query: page.cover.tofile
               cover: true

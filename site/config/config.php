@@ -5,6 +5,9 @@ $dbPath = $projectRoot . '/content/.db/';
 $basicAuthUser = $_ENV['TW_BASIC_AUTH_USER'] ?? getenv('TW_BASIC_AUTH_USER') ?: null;
 $basicAuthPassword = $_ENV['TW_BASIC_AUTH_PASSWORD'] ?? getenv('TW_BASIC_AUTH_PASSWORD') ?: null;
 
+// Local dev: suppress vendor deprecation noise on PHP 8.4 (e.g. mf2/mf2)
+error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
+
 return [
   'debug' => true,
 

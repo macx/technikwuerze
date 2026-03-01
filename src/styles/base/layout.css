@@ -23,8 +23,11 @@ body {
   flex-direction: column;
   min-height: 100dvh;
 
-  &:has(#main-nav [aria-expanded='true']) {
+  &:has(.main-nav-button[aria-expanded='true']) {
+    --c-blur: 10px;
+
     overflow: hidden;
+    transition: backdrop-filter 120ms var(--ease-drawer-transform);
 
     &::after {
       content: '';
@@ -32,6 +35,11 @@ body {
       position: absolute;
       inset: 0;
       z-index: 19;
+      backdrop-filter: blur(var(--c-blur));
+    }
+
+    .website-title {
+      filter: blur(var(--c-blur));
     }
   }
 }

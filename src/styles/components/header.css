@@ -27,7 +27,7 @@
 }
 
 .header-tools {
-  margin-inline-end: var(--sp-content);
+  margin-inline-end: var(--sp);
   display: inline-flex;
   align-items: center;
   justify-self: end;
@@ -54,14 +54,13 @@
   inset-inline-end: 0;
   z-index: 22;
 
-  block-size: var(--nav-list-height, 100dvh);
   inline-size: var(--nav-list-width, min(20rem, 80vw));
 
   display: flex;
   flex-direction: var(--nav-list-layout, column);
   flex-wrap: wrap;
 
-  background-color: var(--clr-surface);
+  background-color: var(--clr-bg-light);
   box-shadow: var(
     --nav-list-shadow,
     -5px 0 11px 0 color-mix(in srgb, var(--clr-text) 20%, transparent)
@@ -71,12 +70,21 @@
   margin-block: 0;
   padding: var(--nav-list-padding, var(--header-size) var(--sp-content) var(--sp-content));
 
+  border: 2px solid var(--clr-border);
+  border-block-start-width: 0;
+  border-inline-end-width: 0;
+  border-radius: 0 0 0 var(--radius-button);
+  box-shadow: var(--shadow-size) var(--shadow-size) 0 0 var(--clr-shadow);
+
   opacity: 0;
   transition: none;
   visibility: var(--nav-list-visibility, hidden);
 
   @media (width >= 48em) {
     background-color: transparent;
+
+    border: 0;
+    box-shadow: none;
   }
 }
 
@@ -101,7 +109,7 @@
   text-decoration: none;
   color: var(--clr-secondary);
   padding-block: var(--sp-xs);
-  padding-inline: var(--sp);
+  padding-inline: var(--sp-xs);
   border-radius: var(--radius-button);
   transition: background-color 120ms var(--ease-drawer-transform);
 
@@ -111,6 +119,8 @@
   }
 
   @media (pointer: fine) {
+    padding-inline: var(--sp);
+
     &:is(:hover, :focus-visible) {
       background-color: var(--clr-hover);
     }
@@ -158,7 +168,6 @@ body:has(.main-nav__toggle[aria-expanded='true']) #main-nav ul {
     --nav-list-layout: row;
     --nav-list-gap: 2ch;
     --nav-list-width: auto;
-    --nav-list-height: auto;
     --nav-list-shadow: none;
     --nav-list-visibility: visible;
     --nav-list-padding: 0;
@@ -171,11 +180,11 @@ body:has(.main-nav__toggle[aria-expanded='true']) #main-nav ul {
   @supports (anchor-name: --nav-hover) and (inset-inline-start: anchor(left)) {
     #main-nav-list {
       position: relative;
-    }
 
-    #main-nav-list a {
-      position: relative;
-      z-index: 1;
+      a {
+        position: relative;
+        z-index: 1;
+      }
     }
 
     #main-nav-list::before {
