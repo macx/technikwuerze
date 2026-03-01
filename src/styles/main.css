@@ -35,3 +35,4 @@ COMPONENTS
 @import '@plugins/technikwuerze/assets/podcast-networks.css' layer(components);
 @import '@plugins/technikwuerze/assets/last-episode.css' layer(components);
 @import '@plugins/technikwuerze/assets/handwritten.css' layer(components);
+@import '@plugins/technikwuerze/assets/testimonials.css' layer(components);

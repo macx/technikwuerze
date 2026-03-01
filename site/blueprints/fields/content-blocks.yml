@@ -19,3 +19,4 @@ fieldsets:
       - last-episode
       - participants-list
       - handwritten
+      - testimonials

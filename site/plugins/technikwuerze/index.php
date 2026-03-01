@@ -7,6 +7,7 @@ Kirby::plugin('tw/brand', [
     'blocks/last-episode' => __DIR__ . '/blueprints/blocks/last-episode.yml',
     'blocks/participants-list' => __DIR__ . '/blueprints/blocks/participants-list.yml',
     'blocks/handwritten' => __DIR__ . '/blueprints/blocks/handwritten.yml',
+    'blocks/testimonials' => __DIR__ . '/blueprints/blocks/testimonials.yml',
   ],
   'snippets' => [
     'blocks/brand-logo' => __DIR__ . '/snippets/blocks/brand-logo.php',
@@ -14,6 +15,7 @@ Kirby::plugin('tw/brand', [
     'blocks/last-episode' => __DIR__ . '/snippets/blocks/last-episode.php',
     'blocks/participants-list' => __DIR__ . '/snippets/blocks/participants-list.php',
     'blocks/handwritten' => __DIR__ . '/snippets/blocks/handwritten.php',
+    'blocks/testimonials' => __DIR__ . '/snippets/blocks/testimonials.php',
   ],
   'pageMethods' => [
     'participationHostCount' => function (): int {

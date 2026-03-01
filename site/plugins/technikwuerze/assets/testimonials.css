@@ -1,0 +1,104 @@
+@scope (.tw-testimonials) {
+  :scope {
+    --p-padding: 3rem;
+    --p-size: calc(var(--p-padding) * 2);
+
+    margin-block: var(--sp-xl);
+    margin-inline: auto;
+    max-inline-size: var(--narrow-max-size);
+
+    .tw-testimonials-list {
+      list-style: none;
+      margin: 0 auto;
+      padding: 0;
+
+      display: grid;
+      gap: var(--sp-xl);
+      grid-template-columns: 1fr;
+      justify-content: center;
+      align-items: stretch;
+
+      li {
+        display: flex;
+        padding-inline-start: calc(var(--p-padding) - var(--sp));
+      }
+    }
+
+    .tw-testimonial-item {
+      display: grid;
+      grid-template-rows: 1fr auto;
+      position: relative;
+      border: 2px solid var(--clr-border);
+      border-radius: var(--radius-button);
+      background-color: var(--clr-bg-light);
+      box-shadow: var(--shadow-size) var(--shadow-size) 0 0 var(--clr-shadow);
+      padding: var(--sp) var(--sp) var(--sp) var(--p-size);
+      margin: 0;
+      inline-size: 100%;
+      block-size: 100%;
+      overflow: visible;
+    }
+
+    .tw-testimonial-quote {
+      margin: 0;
+      margin-block-end: var(--sp);
+
+      &::before {
+        content: '”';
+        position: absolute;
+        inset-block-start: 0.5rem;
+        inset-inline-start: var(--sp);
+        font-size: 7rem;
+        font-weight: 700;
+        line-height: 1;
+        color: var(--clr-primary);
+      }
+
+      p {
+        margin: 0;
+      }
+    }
+
+    .tw-testimonial-person {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+
+      .tw-testimonial-name {
+        color: var(--clr-primary);
+        font-weight: var(--fw-bold);
+      }
+
+      .tw-testimonial-profession {
+        font-size: 0.875rem;
+        font-weight: var(--fw-bold);
+      }
+    }
+
+    .tw-testimonial-avatar {
+      position: absolute;
+      margin: 0;
+      inset-inline-start: calc(var(--sp) + var(--p-padding) * -1);
+      inset-block-end: var(--sp);
+
+      img {
+        display: block;
+        inline-size: var(--p-size);
+        block-size: var(--p-size);
+        object-fit: cover;
+        border-radius: 50%;
+        border: 0.2rem solid color-mix(in srgb, var(--clr-primary) 25%, transparent);
+      }
+    }
+
+    @media (width >= 48em) {
+      .tw-testimonials-list {
+        grid-template-columns: repeat(2, minmax(20rem, 33rem));
+
+        li {
+          padding-inline-start: 0;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,46 @@
+title:
+  de: Testimonials
+  en: Testimonials
+icon: quote
+
+options:
+  changeStatus: false
+
+tabs:
+  entries:
+    label:
+      de: Einträge
+      en: Entries
+    columns:
+      - width: 1/3
+        sections:
+          page_meta:
+            type: fields
+            fields:
+              intro:
+                type: textarea
+                size: small
+                label:
+                  de: Einleitung
+                  en: Intro
+      - width: 2/3
+        sections:
+          testimonials:
+            type: pages
+            label:
+              de: Testimonials
+              en: Testimonials
+            templates:
+              - testimonial
+            create:
+              - testimonial
+            status: all
+            layout: cards
+            search: true
+            sortBy: last_name asc
+            text: '{{ page.first_name }} {{ page.last_name }}'
+            info: '{{ page.profession }}'
+            image:
+              query: page.photo.toFile
+              cover: true
+              ratio: 1/1

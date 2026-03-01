@@ -32,6 +32,7 @@ tabs:
               - season
               - episode
               - participant
+              - testimonials
               - podcasterfeed
             image:
               query: page.cover.tofile
@@ -70,6 +71,7 @@ tabs:
               - season
               - episode
               - participant
+              - testimonials
               - podcasterfeed
             image:
               query: page.cover.tofile

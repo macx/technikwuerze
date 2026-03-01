@@ -1,0 +1,7 @@
+title:
+  de: Testimonial-Bild
+  en: Testimonial image
+
+accept:
+  type: image
+  extension: jpg, jpeg, png, webp, avif

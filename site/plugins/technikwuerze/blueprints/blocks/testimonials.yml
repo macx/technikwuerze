@@ -1,0 +1,44 @@
+name:
+  en: Testimonials
+  de: Testimonials
+icon: quote
+label:
+  en: Testimonials list
+  de: Testimonials-Liste
+fields:
+  headline:
+    type: text
+    label:
+      en: Headline
+      de: Überschrift
+    placeholder:
+      en: Testimonials
+      de: Testimonials
+
+  amount:
+    type: number
+    min: 1
+    step: 1
+    default: 2
+    width: 1/2
+    label:
+      en: Amount
+      de: Anzahl
+    help:
+      en: Number of testimonials to show.
+      de: Anzahl der anzuzeigenden Testimonials.
+
+  order:
+    type: select
+    default: random
+    width: 1/2
+    label:
+      en: Order
+      de: Reihenfolge
+    options:
+      random:
+        en: Random
+        de: Zufall
+      newest:
+        en: Newest first
+        de: Neueste zuerst
