@@ -68,7 +68,10 @@
   list-style: none;
 
   margin-block: 0;
-  padding: var(--nav-list-padding, var(--header-size) var(--sp-content) var(--sp-content));
+  padding: var(
+    --nav-list-padding,
+    calc(var(--header-size) + var(--sp)) var(--sp-content) var(--sp-xl)
+  );
 
   border: 2px solid var(--clr-border);
   border-block-start-width: 0;
@@ -103,15 +106,13 @@
 .main-nav-button {
   display: grid;
   place-content: center;
-
   font-size: var(--c-fs);
   font-weight: var(--fw-bold);
   text-decoration: none;
   color: var(--clr-secondary);
   padding-block: var(--sp-xs);
   padding-inline: var(--sp-xs);
-  border-radius: var(--radius-button);
-  transition: background-color 120ms var(--ease-drawer-transform);
+  text-align: end;
 
   &:focus-visible {
     outline: 4px solid currentcolor;
@@ -120,11 +121,21 @@
 
   @media (pointer: fine) {
     padding-inline: var(--sp);
+    border-radius: var(--radius-button);
+    transition: background-color 120ms var(--ease-drawer-transform);
 
     &:is(:hover, :focus-visible) {
       background-color: var(--clr-hover);
     }
   }
+}
+
+.main-nav-link {
+  place-content: center end;
+}
+
+.main-nav-button {
+  place-content: center;
 }
 
 @media (width < 48em) and (prefers-reduced-motion: no-preference) {
@@ -169,8 +180,8 @@ body:has(.main-nav__toggle[aria-expanded='true']) #main-nav ul {
     --nav-list-gap: 2ch;
     --nav-list-width: auto;
     --nav-list-shadow: none;
-    --nav-list-visibility: visible;
     --nav-list-padding: 0;
+    --nav-list-visibility: visible;
     --nav-list-transform: translateX(0);
     transform: none;
     transition: none;

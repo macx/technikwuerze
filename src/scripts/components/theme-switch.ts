@@ -26,6 +26,9 @@ const saveMode = (mode: ModeSetting): void => {
   localStorage.setItem(MODE_STORAGE_KEY, mode)
 }
 
+const closeMainNav = (): void =>
+  document.querySelector<HTMLButtonElement>('.main-nav__toggle[aria-expanded="true"]')?.click()
+
 export const initModeSwitch = (): void => {
   const initialMode = getStoredMode() ?? 'system'
   applyMode(initialMode)
@@ -33,6 +36,7 @@ export const initModeSwitch = (): void => {
 
   for (const select of document.querySelectorAll<HTMLSelectElement>('[data-mode-select]')) {
     select.addEventListener('change', () => {
+      closeMainNav()
       const nextMode: ModeSetting = isModeSetting(select.value) ? select.value : 'system'
       applyMode(nextMode)
       syncModeSelects(nextMode)
@@ -46,6 +50,10 @@ export const initModeSwitch = (): void => {
     if (!select) {
       continue
     }
+
+    switchRoot.addEventListener('click', () => {
+      closeMainNav()
+    })
 
     switchRoot.dataset.enhanced = 'true'
   }

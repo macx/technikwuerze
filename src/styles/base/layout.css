@@ -29,17 +29,19 @@ body {
     overflow: hidden;
     transition: backdrop-filter 120ms var(--ease-drawer-transform);
 
-    &::after {
-      content: '';
-      display: block;
-      position: absolute;
-      inset: 0;
-      z-index: 19;
-      backdrop-filter: blur(var(--c-blur));
-    }
+    @media (width < 64em) {
+      &::after {
+        content: '';
+        display: block;
+        position: absolute;
+        inset: 0;
+        z-index: 19;
+        backdrop-filter: blur(var(--c-blur));
+      }
 
-    .website-title {
-      filter: blur(var(--c-blur));
+      .website-title {
+        filter: blur(var(--c-blur));
+      }
     }
   }
 }
