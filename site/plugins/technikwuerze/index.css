@@ -1,0 +1,114 @@
+.twz-block-preview {
+  border: 1px solid var(--color-border, #d9d9d9);
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+  background: var(--color-background, #fff);
+  color: var(--color-text, #1f1f1f);
+  display: grid;
+  gap: 0.5rem;
+}
+
+.twz-block-preview__kicker {
+  margin: 0;
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-light, #666);
+}
+
+.twz-block-preview__title {
+  margin: 0;
+  font-size: 1.1rem;
+  line-height: 1.2;
+}
+
+.twz-block-preview__title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+}
+
+.twz-block-preview__text {
+  margin: 0;
+  color: var(--color-text-light, #666);
+  line-height: 1.35;
+}
+
+.twz-block-preview__meta {
+  margin: 0;
+  color: var(--color-text-light, #666);
+  font-size: 0.82rem;
+}
+
+.twz-block-preview__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.twz-block-preview__chip {
+  border: 1px solid var(--color-border, #d9d9d9);
+  border-radius: 999px;
+  padding: 0.18rem 0.5rem;
+  font-size: 0.72rem;
+  line-height: 1;
+}
+
+.twz-block-preview--teaser {
+  grid-template-columns: 1fr;
+}
+
+.twz-block-preview--teaser .twz-block-preview__badge {
+  border: 1px solid currentcolor;
+  border-radius: 999px;
+  padding: 0.1rem 0.45rem;
+  font-size: 0.62rem;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.twz-block-preview--teaser .twz-block-preview__columns {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.5rem;
+}
+
+@container (min-width: 28rem) {
+  .twz-block-preview--teaser .twz-block-preview__columns {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.twz-block-preview--last-episode .twz-block-preview__player {
+  border: 1px solid var(--color-border, #d9d9d9);
+  border-radius: 0.4rem;
+  padding: 0.45rem;
+  display: grid;
+  gap: 0.35rem;
+}
+
+.twz-block-preview--last-episode .twz-block-preview__play {
+  inline-size: 1.7rem;
+  block-size: 1.7rem;
+  border-radius: 999px;
+  display: inline-grid;
+  place-items: center;
+  background: color-mix(in srgb, var(--color-text, #1f1f1f) 12%, transparent);
+  font-size: 0.72rem;
+  line-height: 1;
+}
+
+.twz-block-preview--last-episode .twz-block-preview__bar {
+  height: 0.45rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--color-text, #1f1f1f) 14%, transparent);
+}
+
+.twz-block-preview--last-episode .twz-block-preview__bar:nth-child(2) {
+  width: 72%;
+}
+
+.twz-block-preview--last-episode .twz-block-preview__bar:nth-child(3) {
+  width: 48%;
+}

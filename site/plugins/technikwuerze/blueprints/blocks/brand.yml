@@ -2,6 +2,7 @@ name:
   en: Brand Emblem
   de: Markenemblem
 icon: star
+preview: brand
 label:
   en: 'Optional: Podcast-Networks'
   de: 'Optional: Podcast-Netzwerke'

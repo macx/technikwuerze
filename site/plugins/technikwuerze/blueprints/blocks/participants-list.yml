@@ -2,6 +2,7 @@ name:
   en: Participants
   de: Teilnehmende
 icon: users
+preview: participants-list
 label:
   en: Participant list
   de: Teilnehmendenliste
