@@ -1,0 +1,100 @@
+@scope (.tw-teaser) {
+  :scope {
+    display: grid;
+    grid-template-areas:
+      'title'
+      'foreword'
+      'afterword';
+    gap: clamp(var(--sp-m), 1vw + var(--sp-xs), var(--sp-xl));
+
+    margin-block: var(--sp-xl);
+    margin-inline: auto;
+    padding-inline: clamp(0rem, 1vw, var(--sp-m));
+    align-items: start;
+    text-align: center;
+
+    p {
+      margin: 0;
+    }
+
+    .tw-teaser-title-wrap {
+      grid-area: title;
+      position: relative;
+      justify-self: center;
+      inline-size: fit-content;
+      max-inline-size: 100%;
+    }
+
+    .tw-teaser-title {
+      margin: 0;
+      color: var(--clr-secondary);
+      font-size: clamp(1.6rem, 1.2rem + 1.8vw, 3rem);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.08rem;
+      max-inline-size: 15ch;
+      text-wrap: balance;
+    }
+
+    .tw-teaser-badge {
+      --c-badge-size: 4.5rem;
+      --c-badge-offset: calc(var(--sp) * -1);
+
+      position: absolute;
+      inset-block-start: var(--c-badge-offset);
+      inset-inline-end: var(--c-badge-offset);
+      rotate: -10deg;
+
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      block-size: var(--c-badge-size);
+      inline-size: var(--c-badge-size);
+
+      padding: var(--sp-xs);
+      border-radius: 50%;
+      background-color: var(--clr-secondary);
+      color: var(--clr-text-bright);
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      line-height: 1;
+    }
+
+    .tw-teaser-foreword,
+    .tw-teaser-afterword {
+      text-wrap: pretty;
+      max-inline-size: 25ch;
+      margin-inline: auto;
+      font-weight: 500;
+      color: var(--clr-primary);
+      letter-spacing: -0.025rem;
+    }
+
+    .tw-teaser-foreword {
+      grid-area: foreword;
+    }
+
+    .tw-teaser-afterword {
+      grid-area: afterword;
+    }
+
+    @container main (width >= 48em) {
+      grid-template-columns:
+        1fr 5.5rem,
+        1fr;
+      grid-template-areas: 'foreword title afterword';
+      column-gap: 3rem;
+      align-items: center;
+
+      .tw-teaser-foreword {
+        justify-self: end;
+      }
+
+      .tw-teaser-afterword {
+        justify-self: start;
+      }
+    }
+  }
+}

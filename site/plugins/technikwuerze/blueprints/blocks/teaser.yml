@@ -1,0 +1,44 @@
+name:
+  en: Teaser
+  de: Teaser
+icon: title
+label:
+  en: Teaser
+  de: Teaser
+fields:
+  title:
+    type: textarea
+    size: small
+    label:
+      en: Title
+      de: Titel
+  show_badge:
+    type: toggle
+    label:
+      en: Show badge
+      de: Störer anzeigen
+    default: false
+    text:
+      - en: No
+        de: Nein
+      - en: Yes
+        de: Ja
+  badge_text:
+    type: text
+    label:
+      en: Badge text
+      de: Störertext
+    when:
+      show_badge: true
+  foreword:
+    type: textarea
+    size: medium
+    label:
+      en: Foreword
+      de: Vorwort
+  afterword:
+    type: textarea
+    size: medium
+    label:
+      en: Afterword
+      de: Nachwort
