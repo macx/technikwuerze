@@ -1,6 +1,5 @@
 type PodlovePayload = {
   config: unknown
-  debug: boolean
   episode: unknown
   selector: string
   template: string | null
@@ -21,7 +20,7 @@ type PodlovePlayerFn = (selector: string, episode: unknown, config: unknown) => 
 type PodloveWindow = Window & {
   podlovePlayer?: PodlovePlayerFn
   __twzPodloveState?: {
-    modeObserver: MutationObserver | null
+    activeMode: 'light' | 'dark'
     observer: IntersectionObserver | null
     payloads: Map<HTMLElement, PodlovePayload>
     scriptPromise: Promise<void> | null
@@ -30,6 +29,8 @@ type PodloveWindow = Window & {
 
 const PODLOVE_SCRIPT_SELECTOR = 'script[data-podlove-embed]'
 const PODLOVE_SCRIPT_URL = 'https://cdn.podlove.org/web-player/5.x/embed.js'
+const IFRAME_THEME_STYLE_ID = 'twz-podlove-theme'
+
 const DEFAULT_VISIBLE_COMPONENTS = [
   'poster',
   'showTitle',
@@ -63,39 +64,38 @@ const getActiveColorMode = (): 'light' | 'dark' => {
   return prefersDark ? 'dark' : 'light'
 }
 
+const getThemeTokens = (mode: 'light' | 'dark'): Record<string, string> => {
+  if (mode === 'dark') {
+    return {
+      brand: '#c6a3ff',
+      brandDark: '#c6a3ff',
+      brandDarkest: '#c6a3ff',
+      brandLightest: 'hsl(0 0% 23%)',
+      shadeBase: 'hsl(0 0% 23%)',
+      shadeDark: 'rgba(255, 255, 255, 0.1)',
+      contrast: '#ffffff',
+      alt: '#ffffff',
+    }
+  }
+
+  return {
+    brand: '#6e33cc',
+    brandDark: '#6e33cc',
+    brandDarkest: '#6e33cc',
+    brandLightest: '#fffcd1',
+    shadeBase: '#fff894',
+    shadeDark: 'rgba(0, 0, 0, 0.1)',
+    contrast: '#2e2e2e',
+    alt: '#2e2e2e',
+  }
+}
+
 const applyThemeTokensFromCss = (config: unknown): unknown => {
   if (!config || typeof config !== 'object' || Array.isArray(config)) {
     return config
   }
 
   const podloveConfig = config as PodloveConfig
-  const mode = getActiveColorMode()
-  const cssTokens: Record<string, string> =
-    mode === 'dark'
-      ? {
-          brand: '#c6a3ff',
-          brandDark: '#c6a3ff',
-          brandDarkest: '#c6a3ff',
-          brandLightest: 'hsl(0 0% 23%)',
-          shadeBase: 'hsl(0 0% 23%)',
-          shadeDark: 'rgba(255, 255, 255, 0.1)',
-          contrast: '#ffffff',
-          alt: '#ffffff',
-        }
-      : {
-          brand: '#6e33cc',
-          brandDark: '#6e33cc',
-          brandDarkest: '#6e33cc',
-          brandLightest: '#fffcd1',
-          shadeBase: '#fff894',
-          shadeDark: 'rgba(0, 0, 0, 0.1)',
-          contrast: '#2e2e2e',
-          alt: '#2e2e2e',
-        }
-
-  if (Object.keys(cssTokens).length === 0) {
-    return config
-  }
 
   if (
     !podloveConfig.theme ||
@@ -112,7 +112,7 @@ const applyThemeTokensFromCss = (config: unknown): unknown => {
 
   podloveConfig.theme.tokens = {
     ...existingTokens,
-    ...cssTokens,
+    ...getThemeTokens(getActiveColorMode()),
   }
 
   return podloveConfig
@@ -156,8 +156,125 @@ const loadPodloveScript = (win: PodloveWindow): Promise<void> => {
   return state.scriptPromise
 }
 
+const getIframeThemeStyle = (mode: 'light' | 'dark'): string => {
+  const background = mode === 'dark' ? 'hsl(0 0% 23%)' : '#fffcd1'
+  const contrast = mode === 'dark' ? '#ffffff' : '#2e2e2e'
+  const divider = mode === 'dark' ? 'rgba(255, 255, 255, 0.2)' : 'rgba(0, 0, 0, 0.2)'
+
+  return `
+    #app,
+    #app.loaded,
+    #App,
+    #App.loaded {
+      opacity: 1 !important;
+      transition: none !important;
+      animation: none !important;
+      background-color: ${background} !important;
+      color: ${contrast} !important;
+    }
+
+    root {
+      background-color: ${background} !important;
+      color: ${contrast} !important;
+    }
+
+    divider {
+      background-color: ${divider} !important;
+    }
+  `
+}
+
+const patchIframeTheme = (iframe: HTMLIFrameElement, mode: 'light' | 'dark'): boolean => {
+  let doc: Document | null = null
+  try {
+    doc = iframe.contentDocument
+  } catch {
+    return false
+  }
+
+  if (!doc) {
+    return false
+  }
+
+  const root = doc.head ?? doc.documentElement
+  if (!root) {
+    return false
+  }
+
+  let style = doc.getElementById(IFRAME_THEME_STYLE_ID) as HTMLStyleElement | null
+  if (!style) {
+    style = doc.createElement('style')
+    style.id = IFRAME_THEME_STYLE_ID
+    root.appendChild(style)
+  }
+  style.textContent = getIframeThemeStyle(mode)
+
+  const app = doc.getElementById('app') ?? doc.getElementById('App')
+  if (app) {
+    app.classList.add('loaded')
+    ;(app as HTMLElement).style.opacity = '1'
+    ;(app as HTMLElement).style.transition = 'none'
+    ;(app as HTMLElement).style.animation = 'none'
+    ;(app as HTMLElement).style.backgroundColor = mode === 'dark' ? 'hsl(0 0% 23%)' : '#fffcd1'
+  }
+
+  const dividerColor = mode === 'dark' ? 'rgba(255, 255, 255, 0.2)' : 'rgba(0, 0, 0, 0.2)'
+  for (const divider of doc.querySelectorAll<HTMLElement>('divider')) {
+    divider.style.backgroundColor = dividerColor
+  }
+
+  return true
+}
+
+const applyIframeTheme = (element: HTMLElement, mode: 'light' | 'dark'): void => {
+  const patchIframe = (iframe: HTMLIFrameElement): void => {
+    const runPatch = (): void => {
+      let attempts = 0
+      const maxAttempts = 180
+
+      const tick = (): void => {
+        attempts += 1
+        if (patchIframeTheme(iframe, mode) || attempts >= maxAttempts) {
+          return
+        }
+        requestAnimationFrame(tick)
+      }
+
+      requestAnimationFrame(tick)
+    }
+
+    if (iframe.dataset.twzThemeListener !== '1') {
+      iframe.dataset.twzThemeListener = '1'
+      iframe.addEventListener('load', () => runPatch())
+    }
+
+    runPatch()
+  }
+
+  for (const iframe of element.querySelectorAll<HTMLIFrameElement>('iframe')) {
+    patchIframe(iframe)
+  }
+
+  if (element.dataset.twzIframeObserver !== '1') {
+    element.dataset.twzIframeObserver = '1'
+
+    const observer = new MutationObserver(() => {
+      const currentMode = getActiveColorMode()
+      for (const iframe of element.querySelectorAll<HTMLIFrameElement>('iframe')) {
+        patchIframe(iframe)
+        patchIframeTheme(iframe, currentMode)
+      }
+    })
+
+    observer.observe(element, { childList: true, subtree: true })
+    window.setTimeout(() => observer.disconnect(), 5000)
+  }
+}
+
 const resetMountedPlayer = (element: HTMLElement): void => {
   element.removeAttribute('data-podlove-mounted')
+  element.removeAttribute('data-twz-iframe-observer')
+
   while (element.firstChild) {
     element.removeChild(element.firstChild)
   }
@@ -179,7 +296,6 @@ const remountPlayersForTheme = (win: PodloveWindow): void => {
       ...payload,
       config: applyThemeTokensFromCss(parseJson(element.dataset.podloveConfig)),
     }
-
     state.payloads.set(element, refreshedPayload)
 
     if (element.dataset.podloveMounted === '1') {
@@ -212,7 +328,7 @@ const mountPlayer = (payload: PodlovePayload): void => {
       }
 
       let configForMount: unknown = payload.config
-      if (payload.variant || payload.template) {
+      if (payload.variant || payload.template || payload.transparent) {
         const configObject: Record<string, unknown> =
           payload.config && typeof payload.config === 'object' && !Array.isArray(payload.config)
             ? { ...(payload.config as Record<string, unknown>) }
@@ -224,6 +340,10 @@ const mountPlayer = (payload: PodlovePayload): void => {
         if (payload.template && configObject.template === undefined) {
           configObject.template = payload.template
         }
+        if (payload.transparent && configObject.transparent === undefined) {
+          configObject.transparent = true
+        }
+
         const visibleComponents = Array.isArray(configObject.visibleComponents)
           ? [...(configObject.visibleComponents as unknown[])]
           : []
@@ -237,27 +357,9 @@ const mountPlayer = (payload: PodlovePayload): void => {
         configForMount = configObject
       }
 
-      if (payload.debug) {
-        const logProgressState = (label: string): void => {
-          const progress = element.querySelector('progress-bar,[data-test="progress-bar"]')
-          const wrapper =
-            progress?.parentElement ?? element.querySelector('progress-bar')?.parentElement
-          console.debug('[podlove-debug]', label, {
-            selector: payload.selector,
-            hasProgressNode: Boolean(progress),
-            progressTag: progress?.tagName ?? null,
-            wrapperHtml: wrapper?.innerHTML ?? null,
-          })
-        }
-
-        logProgressState('before-mount')
-        queueMicrotask(() => logProgressState('after-microtask'))
-        setTimeout(() => logProgressState('after-200ms'), 200)
-        setTimeout(() => logProgressState('after-1200ms'), 1200)
-      }
-
       win.podlovePlayer(payload.selector, payload.episode, configForMount)
       element.dataset.podloveMounted = '1'
+      applyIframeTheme(element, getActiveColorMode())
     })
     .catch(() => {
       // Keep the page stable if the external player script cannot be loaded.
@@ -269,7 +371,7 @@ export const initPodlovePlayers = (): void => {
 
   if (!win.__twzPodloveState) {
     win.__twzPodloveState = {
-      modeObserver: null,
+      activeMode: getActiveColorMode(),
       observer: null,
       payloads: new Map(),
       scriptPromise: null,
@@ -290,7 +392,6 @@ export const initPodlovePlayers = (): void => {
     payloads.set(element, {
       selector: `#${element.id}`,
       config: applyThemeTokensFromCss(parseJson(element.dataset.podloveConfig)),
-      debug: element.dataset.podloveDebug === '1',
       episode: parseJson(element.dataset.podloveEpisode),
       variant: element.dataset.podloveVariant?.trim() || null,
       template: element.dataset.podloveTemplate?.trim() || null,
@@ -300,33 +401,23 @@ export const initPodlovePlayers = (): void => {
 
   win.__twzPodloveState.payloads = payloads
 
-  if (!win.__twzPodloveState.modeObserver) {
-    let rafId = 0
-    const observer = new MutationObserver((mutations) => {
-      const hasThemeMutation = mutations.some((mutation) => mutation.type === 'attributes')
-      if (!hasThemeMutation) {
+  if (document.documentElement.dataset.podloveModeListener !== '1') {
+    document.documentElement.addEventListener('twz:modechange', (event) => {
+      const state = (window as PodloveWindow).__twzPodloveState
+      if (!state) {
         return
       }
 
-      if (rafId) {
-        cancelAnimationFrame(rafId)
+      const detail = (event as CustomEvent<{ effectiveMode?: 'light' | 'dark' }>).detail
+      const nextMode = detail?.effectiveMode ?? getActiveColorMode()
+      if (nextMode === state.activeMode) {
+        return
       }
 
-      rafId = requestAnimationFrame(() => {
-        remountPlayersForTheme(win)
-      })
+      state.activeMode = nextMode
+      remountPlayersForTheme(window as PodloveWindow)
     })
-
-    observer.observe(document.documentElement, {
-      attributeFilter: ['mode'],
-      attributes: true,
-    })
-
-    win.__twzPodloveState.modeObserver = observer
-
-    document.documentElement.addEventListener('twz:modechange', () => {
-      remountPlayersForTheme(win)
-    })
+    document.documentElement.dataset.podloveModeListener = '1'
   }
 
   if ('IntersectionObserver' in window) {

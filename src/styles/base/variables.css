@@ -22,7 +22,7 @@
   --clr-text-bright: light-dark(hsl(0 0% 100%), hsl(0 0% 18%));
   --clr-primary: light-dark(hsl(129 100% 26%), hsl(56 100% 79%));
   --clr-secondary: light-dark(hsl(263 60% 50%), hsl(263 100% 82%));
-  --clr-border: light-dark(hsl(0 0% 0% / 0.1), hsl(0 0% 100% / 0.1));
+  --clr-border: light-dark(hsl(0 0% 0% / 0.2), hsl(0 0% 100% / 0.2));
   --clr-border-bright: light-dark(hsl(0 0% 100% / 0.15), hsl(0 0% 0% / 0.1));
   --clr-shadow: light-dark(hsl(0 0% 0% / 0.25), hsl(0 0% 0% / 0.25));
   --clr-hover: light-dark(hsl(0 0% 0% / 0.1), hsl(0 0% 100% / 0.1));

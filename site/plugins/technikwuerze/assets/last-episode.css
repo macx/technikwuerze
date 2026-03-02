@@ -53,7 +53,7 @@
     overflow: hidden;
     border-radius: var(--radius-button);
     background-color: var(--clr-bg-light);
-    border: 1px solid color-mix(in srgb, var(--clr-border) 60%, transparent);
+    border: var(--clr-border);
     padding: clamp(var(--sp), 0.5vw + var(--sp-s), var(--sp-m));
   }
 

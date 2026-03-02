@@ -39,6 +39,7 @@ $latestEpisode = $mediathek
       <?php snippet('podcaster-player', [
         'page' => $latestEpisode,
         'template' => $podloveTemplate,
+        'transparent' => true,
       ]); ?>
     </article>
   </section>
