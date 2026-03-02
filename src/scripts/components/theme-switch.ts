@@ -12,8 +12,23 @@ const getStoredMode = (): ModeSetting | null => {
   return isModeSetting(stored) ? stored : null
 }
 
+const getEffectiveMode = (mode: ModeSetting): 'light' | 'dark' => {
+  if (mode === 'light' || mode === 'dark') {
+    return mode
+  }
+  return darkMediaQuery.matches ? 'dark' : 'light'
+}
+
 const applyMode = (mode: ModeSetting): void => {
   root.setAttribute('mode', mode)
+  root.dispatchEvent(
+    new CustomEvent('twz:modechange', {
+      detail: {
+        mode,
+        effectiveMode: getEffectiveMode(mode),
+      },
+    })
+  )
 }
 
 const syncModeSelects = (mode: ModeSetting): void => {

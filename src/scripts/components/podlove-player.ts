@@ -70,28 +70,27 @@ const applyThemeTokensFromCss = (config: unknown): unknown => {
 
   const podloveConfig = config as PodloveConfig
   const mode = getActiveColorMode()
-
   const cssTokens: Record<string, string> =
     mode === 'dark'
       ? {
-          brand: 'hsl(56 100% 79%)',
-          brandDark: 'hsl(0, 0%, 100%)',
-          brandDarkest: 'hsl(0, 0%, 100%)',
-          brandLightest: 'hsl(0 0% 45%)',
-          shadeBase: 'hsl(0 0% 45%)',
-          shadeDark: 'hsl(0 0% 100% / 0.1)',
-          contrast: 'hsl(0, 0%, 100%)',
-          alt: 'hsl(0, 0%, 100%)',
+          brand: '#c6a3ff',
+          brandDark: '#c6a3ff',
+          brandDarkest: '#c6a3ff',
+          brandLightest: 'hsl(0 0% 23%)',
+          shadeBase: 'hsl(0 0% 23%)',
+          shadeDark: 'rgba(255, 255, 255, 0.1)',
+          contrast: '#ffffff',
+          alt: '#ffffff',
         }
       : {
-          brand: 'hsl(129 100% 26%)',
-          brandDark: 'hsl(0, 0%, 18%)',
-          brandDarkest: 'hsl(0, 0%, 18%)',
-          brandLightest: 'hsl(56 100% 91%)',
-          shadeBase: 'hsl(56 100% 91%)',
-          shadeDark: 'hsl(0 0% 0% / 0.1)',
-          contrast: 'hsl(0, 0%, 18%)',
-          alt: 'hsl(0, 0%, 18%)',
+          brand: '#6e33cc',
+          brandDark: '#6e33cc',
+          brandDarkest: '#6e33cc',
+          brandLightest: '#fffcd1',
+          shadeBase: '#fff894',
+          shadeDark: 'rgba(0, 0, 0, 0.1)',
+          contrast: '#2e2e2e',
+          alt: '#2e2e2e',
         }
 
   if (Object.keys(cssTokens).length === 0) {
@@ -324,6 +323,10 @@ export const initPodlovePlayers = (): void => {
     })
 
     win.__twzPodloveState.modeObserver = observer
+
+    document.documentElement.addEventListener('twz:modechange', () => {
+      remountPlayersForTheme(win)
+    })
   }
 
   if ('IntersectionObserver' in window) {

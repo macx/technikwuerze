@@ -14,7 +14,7 @@
   background-color: var(--c-button-bg);
   color: var(--c-button-color);
   font: inherit;
-  font-size: clamp(1rem, 0.4vw + 0.95rem, 2rem);
+  font-size: clamp(1rem, 0.4vw + 0.95rem, 1.25rem);
   font-weight: var(--fw-bold);
   line-height: 1.1;
   text-decoration: none;

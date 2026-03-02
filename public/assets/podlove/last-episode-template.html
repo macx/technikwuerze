@@ -1,12 +1,4 @@
-<root
-  style="
-    max-width: 100%;
-    min-width: 0;
-    width: 100%;
-    display: block;
-    background-color: light-dark(hsl(56 100% 91%), hsl(0 0% 45%));
-  "
->
+<root style="max-width: 100%; min-width: 0; width: 100%; display: block">
   <div style="display: flex; flex-wrap: wrap; align-items: flex-start; gap: 1rem; width: 100%">
     <div style="flex: 0 0 9rem; min-width: 7rem; max-width: 10rem">
       <poster style="display: block; border-radius: 0.85rem; overflow: hidden"></poster>
@@ -14,13 +6,7 @@
 
     <div style="flex: 1 1 16rem; min-width: 0">
       <show-title
-        style="
-          display: block;
-          font-size: 0.875rem;
-          line-height: 1.2;
-          opacity: 0.85;
-          color: light-dark(hsl(0 0% 18%), hsl(0 0% 100%));
-        "
+        style="display: block; font-size: 0.875rem; line-height: 1.2; opacity: 0.85"
       ></show-title>
       <episode-title
         style="
@@ -29,7 +15,6 @@
           font-weight: 700;
           line-height: 1.1;
           margin-top: 0.35rem;
-          color: light-dark(hsl(0 0% 18%), hsl(0 0% 100%));
         "
       ></episode-title>
       <divider
@@ -39,17 +24,22 @@
           height: 1px;
           margin: 0.55rem 0 0.9rem;
           background-image: none;
-          background-color: var(--clr-border, #b5b174);
+          background-color: hsl(0 0% 100% / 0.1);
         "
       ></divider>
 
-      <div style="display: flex; align-items: center; justify-content: space-between; gap: 0.8rem; width: 100%">
+      <div
+        style="
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 0.8rem;
+          width: 100%;
+        "
+      >
         <speed-control></speed-control>
         <step-backward></step-backward>
-        <play-button
-          variant="details"
-          style="color: light-dark(hsl(129 100% 26%), hsl(56 100% 79%))"
-        ></play-button>
+        <play-button variant="simple" colorType="brand"></play-button>
         <step-forward></step-forward>
         <volume-control></volume-control>
       </div>
@@ -68,18 +58,11 @@
           margin-top: 0.5rem;
         "
       >
-        <timer-current style="font-size: 0.88rem; color: light-dark(hsl(0 0% 18%), hsl(0 0% 100%))"></timer-current>
+        <timer-current style="font-size: 0.88rem"></timer-current>
         <chapter-current
-          style="
-            font-size: 0.88rem;
-            text-align: center;
-            overflow: hidden;
-            color: light-dark(hsl(0 0% 18%), hsl(0 0% 100%));
-          "
+          style="font-size: 0.88rem; text-align: center; overflow: hidden"
         ></chapter-current>
-        <timer-duration
-          style="font-size: 0.88rem; text-align: right; color: light-dark(hsl(0 0% 18%), hsl(0 0% 100%))"
-        ></timer-duration>
+        <timer-duration style="display: none"></timer-duration>
       </div>
     </div>
   </div>

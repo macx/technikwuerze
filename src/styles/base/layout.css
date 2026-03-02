@@ -7,6 +7,9 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-block-start: var(--header-size);
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
@@ -61,6 +64,7 @@ main {
   max-inline-size: var(--content-max-size);
   margin-inline: auto;
   padding-inline: var(--sp-content);
+  container: main / inline-size;
 }
 
 p {

@@ -3,6 +3,11 @@
   "version": "3.0.15",
   "description": "Website of the first ever podcast for developers in Germany",
   "type": "module",
+  "browserslist": [
+    "last 3 major versions",
+    "not dead",
+    "baseline widely available"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "pnpm run test && vite build && cp public/dist/.vite/manifest.json public/dist/manifest.json",

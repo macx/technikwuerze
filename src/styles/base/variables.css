@@ -16,7 +16,7 @@
 
   /* COLORS */
   --clr-surface: light-dark(hsl(56 100% 79%), hsl(0 0% 18%));
-  --clr-bg-light: light-dark(hsl(56 100% 91%), hsl(0 0% 45%));
+  --clr-bg-light: light-dark(hsl(56 100% 91%), hsl(0 0% 23%));
   --clr-bg-dark: light-dark(hsl(56 65% 71%), hsl(0 0% 13%));
   --clr-text: light-dark(hsl(0 0% 18%), hsl(0 0% 100%));
   --clr-text-bright: light-dark(hsl(0 0% 100%), hsl(0 0% 18%));
