@@ -204,6 +204,10 @@ error_log('podcaster file hook failed: ' . $e->getMessage());
                 ],
             ]);
 PHP;
+$hookParseReplaceNeedle =
+  "            \$audioUtils->parseAndWriteId3(\$file, option('mauricerenck.podcaster.setId3Data', false));";
+$hookParseReplaceReplacement =
+  "            \$audioUtils->parseAndWriteId3(\$newFile, option('mauricerenck.podcaster.setId3Data', false));";
 
 foreach ($hookTargets as $file) {
   if (!is_file($file)) {
@@ -218,7 +222,8 @@ foreach ($hookTargets as $file) {
   if (
     str_contains($content, 'if (!$file instanceof File)') &&
     str_contains($content, 'if (!$newFile instanceof File)') &&
-    str_contains($content, "'details' => []")
+    str_contains($content, 'parseAndWriteId3($file,') &&
+    str_contains($content, 'parseAndWriteId3($newFile,')
   ) {
     echo "Already patched: {$file}\n";
     continue;
@@ -234,7 +239,7 @@ foreach ($hookTargets as $file) {
 
   $content = str_replace($hookNeedleCreate, $hookReplacementCreate, $content);
   $content = str_replace($hookNeedleReplace, $hookReplacementReplace, $content);
-  $content = str_replace("parseAndWriteId3(\$file,", "parseAndWriteId3(\$newFile,", $content);
+  $content = str_replace($hookParseReplaceNeedle, $hookParseReplaceReplacement, $content);
   $content = str_replace('catch (Exception $e)', 'catch (\Throwable $e)', $content);
   $content = str_replace($hookCatchOld, $hookCatchNew, $content);
   $content = str_replace($hookCatchNew, $hookCatchVerbose, $content);
