@@ -29,15 +29,17 @@ $seasons = $page
       <section class="mediathek-featured">
         <h2>Die letzten drei Folgen</h2>
         <?php foreach ($featuredEpisodes as $episode): ?>
-          <article class="mediathek-featured-item">
-            <header class="mediathek-featured-header">
-              <h3><a href="<?= $episode->url() ?>"><?= $episode->title()->html() ?></a></h3>
-              <?php if ($episode->date()->isNotEmpty()): ?>
-                <p><?= $episode->date()->toDate('d.m.Y') ?></p>
-              <?php endif; ?>
-            </header>
-            <?php snippet('podcaster-player', ['page' => $episode]); ?>
-          </article>
+          <?php if ($episode->podcasterAudio()->isNotEmpty()): ?>
+            <article class="mediathek-featured-item">
+              <header class="mediathek-featured-header">
+                <h3><a href="<?= $episode->url() ?>"><?= $episode->title()->html() ?></a></h3>
+                <?php if ($episode->date()->isNotEmpty()): ?>
+                  <p><?= $episode->date()->toDate('d.m.Y') ?></p>
+                <?php endif; ?>
+              </header>
+              <?php snippet('podcaster-player', ['page' => $episode]); ?>
+            </article>
+          <?php endif; ?>
         <?php endforeach; ?>
       </section>
 

@@ -91,6 +91,7 @@ function twUpdateAudioDurationWithFfprobe($file): void
   }
 
   $ffprobeBin = (string) kirby()->option('tw.audioDuration.ffprobeBin', 'ffprobe');
+  $ffmpegBin = (string) kirby()->option('tw.audioCover.ffmpegBin', 'ffmpeg');
   $root = $file->root();
 
   if ($root === null || !is_file($root)) {
@@ -104,28 +105,115 @@ function twUpdateAudioDurationWithFfprobe($file): void
   );
   $raw = shell_exec($cmd);
 
-  if (!is_string($raw)) {
-    return;
+  $duration = null;
+  if (is_string($raw)) {
+    $seconds = (float) trim($raw);
+    if ($seconds > 0) {
+      $duration = twFormatAudioDuration($seconds);
+    }
   }
 
-  $seconds = (float) trim($raw);
-  if ($seconds <= 0) {
-    return;
+  $cover = twExtractAudioCoverImage($file, $ffprobeBin, $ffmpegBin);
+  $coverUuid = null;
+  if ($cover !== null) {
+    $coverUuid = (string) $cover->uuid();
+    if ($coverUuid !== '' && str_starts_with($coverUuid, 'file://') === false) {
+      $coverUuid = 'file://' . $coverUuid;
+    }
   }
 
-  $duration = twFormatAudioDuration($seconds);
+  $updates = [];
+  if ($duration !== null && (string) $file->duration()->value() !== $duration) {
+    $updates['duration'] = $duration;
+  }
 
-  if ((string) $file->duration()->value() === $duration) {
+  if ($coverUuid !== null && (string) $file->cover()->value() !== $coverUuid) {
+    $updates['cover'] = $coverUuid;
+  }
+
+  if ($updates === []) {
     return;
   }
 
   try {
-    $file->update([
-      'duration' => $duration,
-    ]);
+    $file->update($updates);
   } catch (\Throwable $e) {
-    kirby()->log('audio-duration')->error($e->getMessage());
+    kirby()->log('audio-metadata')->error($e->getMessage());
   }
+}
+
+function twExtractAudioCoverImage($file, string $ffprobeBin, string $ffmpegBin)
+{
+  $root = $file->root();
+  if ($root === null || !is_file($root)) {
+    return null;
+  }
+
+  $coversPage = site()->find('covers');
+  if ($coversPage === null) {
+    return null;
+  }
+
+  $streamCheckCmd = sprintf(
+    '%s -v error -select_streams v:0 -show_entries stream=codec_type -of csv=p=0 %s 2>/dev/null',
+    escapeshellarg($ffprobeBin),
+    escapeshellarg($root),
+  );
+  $streamCheckRaw = shell_exec($streamCheckCmd);
+
+  if (!is_string($streamCheckRaw) || trim($streamCheckRaw) !== 'video') {
+    return null;
+  }
+
+  $base = pathinfo($file->filename(), PATHINFO_FILENAME);
+  if ($base === '') {
+    return null;
+  }
+
+  $tempPath =
+    rtrim(sys_get_temp_dir(), DIRECTORY_SEPARATOR) .
+    DIRECTORY_SEPARATOR .
+    'twz-cover-' .
+    uniqid('', true) .
+    '.jpg';
+  $extractCmd = sprintf(
+    '%s -v error -i %s -map 0:v:0 -frames:v 1 -q:v 2 -y %s 2>/dev/null',
+    escapeshellarg($ffmpegBin),
+    escapeshellarg($root),
+    escapeshellarg($tempPath),
+  );
+  shell_exec($extractCmd);
+
+  if (!is_file($tempPath) || filesize($tempPath) === 0) {
+    if (is_file($tempPath)) {
+      @unlink($tempPath);
+    }
+    return null;
+  }
+
+  $targetFilename = $base . '-embedded-cover.jpg';
+  $existing = $coversPage->file($targetFilename);
+
+  try {
+    if ($existing !== null) {
+      $existing->replace($tempPath);
+      $coverFile = $existing;
+    } else {
+      $coverFile = $coversPage->createFile([
+        'source' => $tempPath,
+        'filename' => $targetFilename,
+        'template' => 'podcaster-cover',
+      ]);
+    }
+  } catch (\Throwable $e) {
+    kirby()->log('audio-cover')->error($e->getMessage());
+    @unlink($tempPath);
+    return null;
+  }
+
+  @unlink($tempPath);
+
+  return $coverFile;
 }
 
 function twFormatAudioDuration(float $seconds): string

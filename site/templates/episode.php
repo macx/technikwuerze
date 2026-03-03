@@ -9,6 +9,21 @@
 $hosts = $page->podcasterhosts()->toPages();
 $guests = $page->podcasterguests()->toPages();
 $summary = $page->podcasterdescription()->isNotEmpty() ? $page->podcasterdescription()->kt() : '';
+$publishedDate = $page->date()->isNotEmpty() ? $page->date() : null;
+$publishedDatetime = $publishedDate ? $publishedDate->toDate('c') : '';
+$publishedLabel = $publishedDate ? $publishedDate->toDate('d.m.Y H:i') : '';
+$reReleaseDate = $page->rerelease()->isNotEmpty() ? $page->rerelease() : null;
+$updatedDatetime = $reReleaseDate ? $reReleaseDate->toDate('c') : '';
+$updatedLabel = $reReleaseDate ? $reReleaseDate->toDate('d.m.Y H:i') : '';
+if ($updatedLabel === '') {
+  $updatedTimestamp = $page->modified();
+  $updatedDatetime = $updatedTimestamp ? date('c', $updatedTimestamp) : '';
+  $updatedLabel = $updatedTimestamp ? date('d.m.Y H:i', $updatedTimestamp) : '';
+}
+$episodeType = trim((string) $page->podcasterepisodetype()->value());
+if ($episodeType === '') {
+  $episodeType = '-';
+}
 
 snippet('layout', slots: true);
 ?>
@@ -21,12 +36,28 @@ snippet('layout', slots: true);
         <p><strong><?= $page->podcastersubtitle()->html() ?></strong></p>
       <?php endif; ?>
 
-      <?php if ($page->date()->isNotEmpty()): ?>
-        <p><strong>Datum:</strong> <?= $page->date()->toDate('d.m.Y H:i') ?></p>
-      <?php endif; ?>
       <p>
-        <strong>Staffel/Folge:</strong>
+        <strong>Meta:</strong>
         S<?= $page->podcasterseason()->or('-') ?> · E<?= $page->podcasterepisode()->or('-') ?>
+        · Typ <?= esc($episodeType) ?>
+        <?php if ($publishedLabel !== ''): ?>
+          ·
+          <span>
+            Veröffentlicht
+            <time itemprop="datePublished" datetime="<?= esc($publishedDatetime, 'attr') ?>">
+              <?= esc($publishedLabel) ?>
+            </time>
+          </span>
+        <?php endif; ?>
+        <?php if ($updatedLabel !== ''): ?>
+          ·
+          <span>
+            Aktualisiert
+            <time itemprop="dateModified" datetime="<?= esc($updatedDatetime, 'attr') ?>">
+              <?= esc($updatedLabel) ?>
+            </time>
+          </span>
+        <?php endif; ?>
       </p>
 
       <?php if ($hosts->isNotEmpty()): ?>
@@ -44,9 +75,11 @@ snippet('layout', slots: true);
       <?php endif; ?>
     </header>
 
-    <section class="episode-player">
-      <?php snippet('podcaster-player', ['page' => $page]); ?>
-    </section>
+    <?php if ($page->podcasterAudio()->isNotEmpty()): ?>
+      <section class="episode-player">
+        <?php snippet('podcaster-player', ['page' => $page]); ?>
+      </section>
+    <?php endif; ?>
 
     <?php if ($summary !== ''): ?>
       <section>

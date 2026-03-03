@@ -26,8 +26,9 @@ return [
     'setId3Data' => true,
   ],
 
-  // Audio duration extraction
+  // Audio metadata extraction
   'tw.audioDuration.ffprobeBin' => 'ffprobe',
+  'tw.audioCover.ffmpegBin' => 'ffmpeg',
 
   // Komments setup
   'mauricerenck.komments.storage.type' => 'sqlite',

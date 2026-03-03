@@ -5,18 +5,36 @@ tabs:
   podcast:
     extends: tabs/podcasterepisode
   content:
+    label:
+      de: Inhalt
+      en: Content
     sections:
       basic_stuff:
         type: fields
         fields:
           date:
             label:
-              de: Datum
-              en: Date
+              de: Veröffentlichungsdatum
+              en: Release date
             type: date
+            width: 1/3
             time: true
             default: now
             required: true
+          modified:
+            label:
+              de: Inhalt aktualisiert
+              en: Content updated
+            type: info
+            width: 1/3
+            text: "{{ page.modified('d.m.Y H:i') }}"
+          rerelease:
+            label:
+              de: Re-Release
+              en: Re-release
+            type: date
+            width: 1/3
+            time: true
           text:
             label:
               de: Text
