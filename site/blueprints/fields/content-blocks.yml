@@ -17,6 +17,7 @@ fieldsets:
       - brand-logo
       - podcast-networks
       - last-episode
+      - podcast-episodes
       - teaser
       - participants-list
       - handwritten

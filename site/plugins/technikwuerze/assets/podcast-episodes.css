@@ -1,0 +1,106 @@
+@scope (.tw-podcast-episodes) {
+  :scope {
+    --list-gap: var(--sp-l);
+
+    margin-block: var(--sp-xxl);
+    margin-inline: auto;
+
+    .tw-podcast-episodes-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: var(--list-gap);
+      grid-template-columns: 1fr;
+    }
+
+    .tw-podcast-episodes-item {
+      article {
+        display: flex;
+        flex-direction: column;
+        gap: var(--sp);
+        block-size: 100%;
+        color: currentColor;
+
+        block-size: 100%;
+        border: 2px solid var(--clr-border);
+        border-radius: var(--radius-button);
+        background-color: var(--clr-bg-light);
+        padding: var(--sp);
+        box-shadow: var(--shadow-size) var(--shadow-size) 0 0 var(--clr-shadow);
+      }
+
+      h3 {
+        margin: 0;
+        font-size: clamp(1rem, 0.8rem + 0.9vw, 1.5rem);
+        font-weight: var(--fw-bold);
+        line-height: 1.1;
+        color: var(--clr-primary);
+      }
+
+      .tw-podcast-episodes-subtitle {
+        margin-block: 0.2em 0;
+        color: var(--clr-secondary);
+        font-size: 0.95rem;
+        font-weight: var(--fw-bold);
+        line-height: 1.2;
+      }
+    }
+
+    .tw-podcast-episodes-meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--sp);
+
+      > * {
+        display: flex;
+        align-items: center;
+        gap: var(--sp-xs);
+        color: var(--clr-primary);
+        margin: 0;
+      }
+    }
+
+    .tw-podcast-episodes-duration {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-weight: var(--fw-bold);
+      line-height: 1;
+    }
+
+    .tw-podcast-episodes-persons {
+      gap: 0;
+    }
+
+    .tw-podcast-episodes-teaser {
+      margin: 0;
+      text-wrap: pretty;
+      flex: 1;
+    }
+
+    .tw-podcast-episodes-footer {
+      margin-block-start: var(--sp-l);
+      text-align: center;
+    }
+  }
+
+  @media (width >= 48em) {
+    :scope {
+      .tw-podcast-episodes-list {
+        --list-gap: var(--sp-xl);
+
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+  }
+
+  @media (width >= 68em) {
+    :scope {
+      .tw-podcast-episodes-list {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+  }
+}

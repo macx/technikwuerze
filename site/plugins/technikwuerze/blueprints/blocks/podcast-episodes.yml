@@ -1,0 +1,57 @@
+name:
+  en: Podcast Episodes
+  de: Podcast-Folgen
+icon: audio
+preview: podcast-episodes
+label:
+  en: Podcast Episodes
+  de: Podcast-Folgen
+fields:
+  headline:
+    type: text
+    label:
+      en: Headline
+      de: Überschrift
+    placeholder:
+      en: Podcast Episodes
+      de: Podcast-Folgen
+  source:
+    type: select
+    default: latest
+    width: 1/2
+    label:
+      en: Selection
+      de: Auswahl
+    options:
+      latest:
+        en: Latest episodes
+        de: Aktuelle Folgen
+      popular:
+        en: Most popular episodes
+        de: Beliebteste Folgen
+      random:
+        en: Discover randomly
+        de: Neu entdecken
+  amount:
+    type: select
+    default: '3'
+    width: 1/2
+    label:
+      en: Amount
+      de: Anzahl
+    options:
+      '3': '3'
+      '6': '6'
+      '9': '9'
+      '12': '12'
+  show_mediathek_button:
+    type: toggle
+    label:
+      en: Show mediathek button
+      de: Mediathek-Button anzeigen
+    default: true
+    text:
+      - en: No
+        de: Nein
+      - en: Yes
+        de: Ja

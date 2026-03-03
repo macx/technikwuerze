@@ -10,12 +10,22 @@ if ($headline === '') {
 $podloveTemplate = asset('assets/podlove/last-episode-template.html')->url();
 
 $mediathek = site()->find('mediathek');
-$latestEpisode = $mediathek
+$episodeCandidates = $mediathek
   ?->index()
   ->filterBy('intendedTemplate', 'episode')
   ->listed()
-  ->sortBy('date', 'desc', 'podcasterseason', 'desc', 'podcasterepisode', 'desc')
-  ->first();
+  ->sortBy('date', 'desc', 'podcasterseason', 'desc', 'podcasterepisode', 'desc');
+
+$latestEpisode = null;
+if ($episodeCandidates && $episodeCandidates->isNotEmpty()) {
+  $podcast = new \mauricerenck\Podcaster\Podcast();
+  foreach ($episodeCandidates as $candidate) {
+    if ($podcast->getAudioFile($candidate) !== null) {
+      $latestEpisode = $candidate;
+      break;
+    }
+  }
+}
 ?>
 
 <?php if ($latestEpisode): ?>

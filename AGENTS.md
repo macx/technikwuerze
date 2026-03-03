@@ -75,6 +75,11 @@ Maintain and evolve the Technikwürze Kirby site safely and consistently:
 - Episodes live under `content/2_mediathek/staffel-*/...`.
 - Hosts/Guests are assigned via participant page references.
 - Audio field in episode panel is configured to select/upload from central `site.find("audio")`.
+- Kirby status for episodes is folder-name driven (no `Status:` field in `episode.txt`):
+  - `draft`: episode folder is inside `_drafts/`
+  - `unlisted`: episode folder name is `NNN-slug` (example: `001-tw188-...`)
+  - `listed/public`: episode folder name is `YYYYMMDDHHMM_NNN-slug` (example: `201302031820_001-tw188-...`)
+- For bulk publishing of episodes, derive `YYYYMMDDHHMM` from `Date:` in `episode.txt`.
 
 ## 8) Migration Workspace Policy
 
@@ -91,6 +96,7 @@ Maintain and evolve the Technikwürze Kirby site safely and consistently:
 - Never run destructive git commands (`reset --hard`, etc.) unless explicitly requested.
 - Do not revert user changes you did not create.
 - Prefer minimal diffs and maintain existing style.
+- For CSS inside `@scope`, prefer collecting descendant rules under a shared `:scope { ... }` block instead of repeating `:scope .selector` for each rule.
 - For bulk transforms, add safeguards and verify with spot checks.
 - Run Prettier after edits on touched files before finishing work:
   - `pnpm exec prettier --write <files...>`

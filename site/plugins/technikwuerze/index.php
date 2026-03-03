@@ -5,6 +5,7 @@ Kirby::plugin('tw/brand', [
     'blocks/brand-logo' => __DIR__ . '/blueprints/blocks/brand-logo.yml',
     'blocks/podcast-networks' => __DIR__ . '/blueprints/blocks/podcast-networks.yml',
     'blocks/last-episode' => __DIR__ . '/blueprints/blocks/last-episode.yml',
+    'blocks/podcast-episodes' => __DIR__ . '/blueprints/blocks/podcast-episodes.yml',
     'blocks/teaser' => __DIR__ . '/blueprints/blocks/teaser.yml',
     'blocks/participants-list' => __DIR__ . '/blueprints/blocks/participants-list.yml',
     'blocks/handwritten' => __DIR__ . '/blueprints/blocks/handwritten.yml',
@@ -14,6 +15,7 @@ Kirby::plugin('tw/brand', [
     'blocks/brand-logo' => __DIR__ . '/snippets/blocks/brand-logo.php',
     'blocks/podcast-networks' => __DIR__ . '/snippets/blocks/podcast-networks.php',
     'blocks/last-episode' => __DIR__ . '/snippets/blocks/last-episode.php',
+    'blocks/podcast-episodes' => __DIR__ . '/snippets/blocks/podcast-episodes.php',
     'blocks/teaser' => __DIR__ . '/snippets/blocks/teaser.php',
     'blocks/participants-list' => __DIR__ . '/snippets/blocks/participants-list.php',
     'blocks/handwritten' => __DIR__ . '/snippets/blocks/handwritten.php',
@@ -36,9 +38,11 @@ Kirby::plugin('tw/brand', [
     },
     'file.create:after' => function ($file) {
       twGenerateParticipantProfileVariants($file);
+      twUpdateAudioDurationWithFfprobe($file);
     },
     'file.replace:after' => function ($newFile, $oldFile) {
       twGenerateParticipantProfileVariants($newFile);
+      twUpdateAudioDurationWithFfprobe($newFile);
     },
   ],
 ]);
@@ -74,6 +78,64 @@ function twGenerateParticipantProfileVariants($file): void
   } catch (\Throwable $e) {
     kirby()->log('participant-image')->error($e->getMessage());
   }
+}
+
+function twUpdateAudioDurationWithFfprobe($file): void
+{
+  if ($file->type() !== 'audio') {
+    return;
+  }
+
+  if ($file->template()?->name() !== 'podcaster-episode') {
+    return;
+  }
+
+  $ffprobeBin = (string) kirby()->option('tw.audioDuration.ffprobeBin', 'ffprobe');
+  $root = $file->root();
+
+  if ($root === null || !is_file($root)) {
+    return;
+  }
+
+  $cmd = sprintf(
+    '%s -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 %s 2>/dev/null',
+    escapeshellarg($ffprobeBin),
+    escapeshellarg($root),
+  );
+  $raw = shell_exec($cmd);
+
+  if (!is_string($raw)) {
+    return;
+  }
+
+  $seconds = (float) trim($raw);
+  if ($seconds <= 0) {
+    return;
+  }
+
+  $duration = twFormatAudioDuration($seconds);
+
+  if ((string) $file->duration()->value() === $duration) {
+    return;
+  }
+
+  try {
+    $file->update([
+      'duration' => $duration,
+    ]);
+  } catch (\Throwable $e) {
+    kirby()->log('audio-duration')->error($e->getMessage());
+  }
+}
+
+function twFormatAudioDuration(float $seconds): string
+{
+  $rounded = max(0, (int) round($seconds));
+  $hours = intdiv($rounded, 3600);
+  $minutes = intdiv($rounded % 3600, 60);
+  $restSeconds = $rounded % 60;
+
+  return sprintf('%02d:%02d:%02d', $hours, $minutes, $restSeconds);
 }
 
 function twParticipantStats($participant): array

@@ -16,9 +16,12 @@ return [
     'statsType' => 'sqlite',
     'sqlitePath' => $dbPath,
     'doNotTrackBots' => true,
-    'setId3Data' => true,
     'useApi' => false,
+    'setId3Data' => true,
   ],
+
+  // Audio duration extraction
+  'tw.audioDuration.ffprobeBin' => 'ffprobe',
 
   // Komments setup
   'mauricerenck.komments.storage.type' => 'sqlite',

@@ -2,8 +2,9 @@
   :scope {
     --p-padding: 3rem;
     --p-size: calc(var(--p-padding) * 2);
+    --list-gap: var(--sp-l);
 
-    margin-block: var(--sp-xl);
+    margin-block: var(--sp-xxl);
     margin-inline: auto;
     max-inline-size: var(--narrow-max-size);
 
@@ -13,7 +14,7 @@
       padding: 0;
 
       display: grid;
-      gap: var(--sp-xl);
+      gap: var(--list-gap);
       grid-template-columns: 1fr;
       justify-content: center;
       align-items: stretch;
@@ -93,6 +94,8 @@
 
     @media (width >= 48em) {
       .tw-testimonials-list {
+        --list-gap: var(--sp-xl);
+
         grid-template-columns: repeat(2, minmax(20rem, 33rem));
 
         li {

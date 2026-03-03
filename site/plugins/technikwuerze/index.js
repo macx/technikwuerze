@@ -92,14 +92,46 @@ panel.plugin('tw/brand', {
       template: `
         <div class="twz-block-preview twz-block-preview--last-episode">
           <p class="twz-block-preview__kicker">Letzte Episode</p>
+          <h3 class="twz-block-preview__title">{{ title }}</h3>
+          <div class="twz-block-preview__player twz-block-preview__player-row">
+            <span class="twz-block-preview__play" aria-hidden="true">▶</span>
+            <div class="twz-block-preview__bars">
+              <div class="twz-block-preview__bar"></div>
+              <div class="twz-block-preview__bar"></div>
+              <div class="twz-block-preview__bar"></div>
+            </div>
+          </div>
+        </div>
+      `,
+    },
+    'podcast-episodes': {
+      computed: {
+        title() {
+          return fallback(this.content.headline, 'Podcast-Folgen')
+        },
+        source() {
+          return fallback(this.content.source, 'latest')
+        },
+        amount() {
+          return fallback(this.content.amount, '3')
+        },
+      },
+      template: `
+        <div class="twz-block-preview twz-block-preview--podcast-episodes">
+          <p class="twz-block-preview__kicker">Podcast-Folgen</p>
           <div class="twz-block-preview__title-row">
             <h3 class="twz-block-preview__title">{{ title }}</h3>
-            <span class="twz-block-preview__play" aria-hidden="true">▶</span>
+            <span class="twz-block-preview__chip">{{ source }} · {{ amount }}</span>
           </div>
-          <div class="twz-block-preview__player">
-            <div class="twz-block-preview__bar"></div>
-            <div class="twz-block-preview__bar"></div>
-            <div class="twz-block-preview__bar"></div>
+          <div class="twz-block-preview__episodes-grid">
+            <div class="twz-block-preview__player twz-block-preview__player-row" v-for="i in 3" :key="i">
+              <span class="twz-block-preview__play" aria-hidden="true">▶</span>
+              <div class="twz-block-preview__bars">
+                <div class="twz-block-preview__bar"></div>
+                <div class="twz-block-preview__bar"></div>
+                <div class="twz-block-preview__bar"></div>
+              </div>
+            </div>
           </div>
         </div>
       `,
