@@ -13,6 +13,7 @@ return [
 
   'panel' => [
     'install' => true,
+    'css' => 'assets/panel.css',
   ],
 
   // Podcaster setup (analytics + player metadata)

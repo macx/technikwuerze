@@ -1,0 +1,11 @@
+/*
+ * Panel CSS overrides
+ * Add project-specific Panel customizations here.
+ */
+
+:root {
+}
+
+.k-komments-view .author-entry {
+  color: currentColor;
+}
