@@ -41,7 +41,7 @@ $playTime = 0;
             }
         }
         if ($playTime <= 0) {
-            throw new \Kirby\Exception\Exception(['details' => 'audio duration could not be determined']);
+            // keep upload flow running on systems without ffprobe
         }
 PHP;
 
@@ -94,7 +94,13 @@ foreach ($targets as $file) {
     continue;
   }
 
-  if (str_contains($content, 'audio duration could not be determined')) {
+  if (
+    str_contains(
+      $content,
+      '$duration = $playTime > 0 ? $this->convertAudioDuration($playTime) : null;',
+    ) &&
+    str_contains($content, "if (\$duration !== null)")
+  ) {
     echo "Already patched: {$file}\n";
     continue;
   }
@@ -120,6 +126,24 @@ foreach ($targets as $file) {
     echo "Skip (no changes): {$file}\n";
     continue;
   }
+
+  $updated = str_replace(
+    "throw new \\Kirby\\Exception\\Exception(['details' => 'audio duration could not be determined']);",
+    '// keep upload flow running on systems without ffprobe',
+    $updated,
+  );
+
+  $updated = str_replace(
+    '$duration = $this->convertAudioDuration($playTime);',
+    '$duration = $playTime > 0 ? $this->convertAudioDuration($playTime) : null;',
+    $updated,
+  );
+
+  $updated = str_replace(
+    "\$audioFile->update([\n            'episodeTitle' => \$title,\n            'duration' => \$duration,\n            'guid' => md5(time()),\n        ]);",
+    "\$updates = [\n            'episodeTitle' => \$title,\n            'guid' => md5(time()),\n        ];\n        if (\$duration !== null) {\n            \$updates['duration'] = \$duration;\n        }\n\n        \$audioFile->update(\$updates);",
+    $updated,
+  );
 
   if (str_contains($updated, "getAudioTitleFromFfprobe(\$audioFile)") !== true) {
     if (str_contains($updated, $titleNeedle)) {
