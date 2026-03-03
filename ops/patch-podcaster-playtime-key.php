@@ -6,6 +6,10 @@ $targets = [
   __DIR__ . '/../site/plugins/podcaster/lib/AudioTools.php',
   __DIR__ . '/../vendor/mauricerenck/podcaster/lib/AudioTools.php',
 ];
+$hookTargets = [
+  __DIR__ . '/../site/plugins/podcaster/plugin/hooks.php',
+  __DIR__ . '/../vendor/mauricerenck/podcaster/plugin/hooks.php',
+];
 
 $replacement = <<<'PHP'
 $playTime = 0;
@@ -162,5 +166,68 @@ foreach ($targets as $file) {
   }
 
   file_put_contents($file, $updated);
+  echo "Patched: {$file}\n";
+}
+
+$hookNeedleCreate = "'file.create:after' => function (\$file) {\n";
+$hookReplacementCreate = <<<'PHP'
+'file.create:after' => function ($file) {
+        if (!$file instanceof File) {
+            return;
+        }
+
+PHP;
+
+$hookNeedleReplace = "'file.replace:after' => function (\$file) {\n";
+$hookReplacementReplace = <<<'PHP'
+'file.replace:after' => function ($newFile, $oldFile = null) {
+        if (!$newFile instanceof File) {
+            return;
+        }
+
+PHP;
+
+$hookCatchOld = "throw new Exception(['details' => 'the audio id3 data could not be read']);";
+$hookCatchNew = <<<'PHP'
+throw new Exception([
+                'fallback' => 'the audio id3 data could not be read',
+                'details' => [],
+            ]);
+PHP;
+
+foreach ($hookTargets as $file) {
+  if (!is_file($file)) {
+    continue;
+  }
+
+  $content = file_get_contents($file);
+  if (!is_string($content)) {
+    continue;
+  }
+
+  if (
+    str_contains($content, 'if (!$file instanceof File)') &&
+    str_contains($content, 'if (!$newFile instanceof File)') &&
+    str_contains($content, "'details' => []")
+  ) {
+    echo "Already patched: {$file}\n";
+    continue;
+  }
+
+  if (str_contains($content, 'use Kirby\Cms\File;') !== true) {
+    $content = str_replace(
+      "namespace mauricerenck\\Podcaster;\n\n",
+      "namespace mauricerenck\\Podcaster;\n\nuse Kirby\\Cms\\File;\n",
+      $content,
+    );
+  }
+
+  $content = str_replace($hookNeedleCreate, $hookReplacementCreate, $content);
+  $content = str_replace($hookNeedleReplace, $hookReplacementReplace, $content);
+  $content = str_replace("parseAndWriteId3(\$file,", "parseAndWriteId3(\$newFile,", $content);
+  $content = str_replace('catch (Exception $e)', 'catch (\Throwable $e)', $content);
+  $content = str_replace($hookCatchOld, $hookCatchNew, $content);
+
+  file_put_contents($file, $content);
   echo "Patched: {$file}\n";
 }
