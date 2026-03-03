@@ -21,5 +21,8 @@
     "kirby": {
       "install": true
     }
+  },
+  "require-dev": {
+    "lukaskleinschmidt/kirby-types": "^1.1"
   }
 }
