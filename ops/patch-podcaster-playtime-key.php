@@ -195,6 +195,16 @@ throw new Exception([
             ]);
 PHP;
 
+$hookCatchVerbose = <<<'PHP'
+error_log('podcaster file hook failed: ' . $e->getMessage());
+            throw new Exception([
+                'fallback' => 'the audio id3 data could not be read: ' . $e->getMessage(),
+                'details' => [
+                    $e->getMessage(),
+                ],
+            ]);
+PHP;
+
 foreach ($hookTargets as $file) {
   if (!is_file($file)) {
     continue;
@@ -227,6 +237,7 @@ foreach ($hookTargets as $file) {
   $content = str_replace("parseAndWriteId3(\$file,", "parseAndWriteId3(\$newFile,", $content);
   $content = str_replace('catch (Exception $e)', 'catch (\Throwable $e)', $content);
   $content = str_replace($hookCatchOld, $hookCatchNew, $content);
+  $content = str_replace($hookCatchNew, $hookCatchVerbose, $content);
 
   file_put_contents($file, $content);
   echo "Patched: {$file}\n";
