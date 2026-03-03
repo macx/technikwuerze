@@ -8,7 +8,7 @@ $basicAuthPassword = $_ENV['TW_BASIC_AUTH_PASSWORD'] ?? getenv('TW_BASIC_AUTH_PA
 
 return [
   'debug' => false,
-  'panel.vue.compiler' => false,
+  'panel.vue.compiler' => true,
 
   // Podcaster setup (analytics + player metadata)
   'mauricerenck.podcaster' => [
