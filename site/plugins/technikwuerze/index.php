@@ -82,12 +82,15 @@ function twGenerateParticipantProfileVariants($file): void
 
 function twUpdateAudioDurationWithFfprobe($file): void
 {
-  if (twIsPodcasterAudioFile($file) !== true) {
+  if ($file->type() !== 'audio') {
+    return;
+  }
+
+  if ($file->template() !== 'podcaster-episode') {
     return;
   }
 
   $ffprobeBin = (string) kirby()->option('tw.audioDuration.ffprobeBin', 'ffprobe');
-  $ffmpegBin = (string) kirby()->option('tw.audioCover.ffmpegBin', 'ffmpeg');
   $root = $file->root();
 
   if ($root === null || !is_file($root)) {
@@ -101,214 +104,28 @@ function twUpdateAudioDurationWithFfprobe($file): void
   );
   $raw = shell_exec($cmd);
 
-  $duration = null;
-  if (is_string($raw)) {
-    $seconds = (float) trim($raw);
-    if ($seconds > 0) {
-      $duration = twFormatAudioDuration($seconds);
-    }
-  }
-
-  $cover = twExtractAudioCoverImage($file, $ffprobeBin, $ffmpegBin);
-  $coverUuid = null;
-  if ($cover !== null) {
-    $coverUuid = (string) $cover->uuid();
-    if ($coverUuid !== '' && str_starts_with($coverUuid, 'file://') === false) {
-      $coverUuid = 'file://' . $coverUuid;
-    }
-  }
-
-  $updates = [];
-  if ($duration !== null && (string) $file->duration()->value() !== $duration) {
-    $updates['duration'] = $duration;
-  }
-
-  $episodeTitle = twReadAudioId3Title($root);
-  if ($episodeTitle !== null && (string) $file->episodeTitle()->value() !== $episodeTitle) {
-    $updates['episodeTitle'] = $episodeTitle;
-  }
-
-  $strictAudioMetadata = (bool) kirby()->option('tw.audioMetadata.strict', true);
-  if ($strictAudioMetadata && ($duration === null || $episodeTitle === null)) {
-    $templateName = twFileTemplateName($file);
-    $message =
-      'Audio metadata extraction failed. ' .
-      'Required fields missing: ' .
-      ($episodeTitle === null ? 'episodeTitle ' : '') .
-      ($duration === null ? 'duration ' : '') .
-      '| file=' .
-      (string) $file->filename() .
-      ' | mime=' .
-      (string) $file->mime() .
-      ' | template=' .
-      $templateName;
-
-    kirby()->log('audio-metadata')->error($message);
-    throw new \Kirby\Exception\Exception(['details' => $message]);
-  }
-
-  if ($coverUuid !== null && (string) $file->cover()->value() !== $coverUuid) {
-    $updates['cover'] = $coverUuid;
-  }
-
-  if ($updates === []) {
+  if (!is_string($raw)) {
     return;
   }
 
-  $file->update($updates);
-}
-
-function twIsPodcasterAudioFile($file): bool
-{
-  if ($file === null) {
-    return false;
+  $seconds = (float) trim($raw);
+  if ($seconds <= 0) {
+    return;
   }
 
-  $template = $file->template();
-  $templateName =
-    is_object($template) && method_exists($template, 'name')
-      ? (string) $template->name()
-      : (string) $template;
+  $duration = twFormatAudioDuration($seconds);
 
-  $parent = $file->parent();
-  $parentTemplate =
-    is_object($parent) && method_exists($parent, 'intendedTemplate')
-      ? (string) $parent->intendedTemplate()->name()
-      : '';
-
-  if ($templateName !== 'podcaster-episode' && $parentTemplate !== 'audio') {
-    return false;
-  }
-
-  $extension = strtolower((string) $file->extension());
-  $allowedExtensions = ['mp3', 'm4a', 'ogg', 'wav', 'flac', 'aac'];
-
-  return in_array($extension, $allowedExtensions, true);
-}
-
-function twFileTemplateName($file): string
-{
-  if ($file === null) {
-    return '';
-  }
-
-  $template = $file->template();
-  if (is_object($template) && method_exists($template, 'name')) {
-    return (string) $template->name();
-  }
-
-  return (string) $template;
-}
-
-function twReadAudioId3Title(string $root): ?string
-{
-  if ($root === '' || !is_file($root)) {
-    return null;
-  }
-
-  if (class_exists('\getID3') !== true) {
-    return null;
+  if ((string) $file->duration()->value() === $duration) {
+    return;
   }
 
   try {
-    $id3Parser = new \getID3();
-    $id3Data = $id3Parser->analyze($root);
+    $file->update([
+      'duration' => $duration,
+    ]);
   } catch (\Throwable $e) {
-    kirby()->log('audio-metadata')->error($e->getMessage());
-    return null;
+    kirby()->log('audio-duration')->error($e->getMessage());
   }
-
-  if (
-    isset($id3Data['tags']['id3v2']['title'][0]) &&
-    is_string($id3Data['tags']['id3v2']['title'][0]) &&
-    trim($id3Data['tags']['id3v2']['title'][0]) !== ''
-  ) {
-    return trim($id3Data['tags']['id3v2']['title'][0]);
-  }
-
-  if (
-    isset($id3Data['tags']['id3v1']['title'][0]) &&
-    is_string($id3Data['tags']['id3v1']['title'][0]) &&
-    trim($id3Data['tags']['id3v1']['title'][0]) !== ''
-  ) {
-    return trim($id3Data['tags']['id3v1']['title'][0]);
-  }
-
-  return null;
-}
-
-function twExtractAudioCoverImage($file, string $ffprobeBin, string $ffmpegBin)
-{
-  $root = $file->root();
-  if ($root === null || !is_file($root)) {
-    return null;
-  }
-
-  $coversPage = site()->find('covers');
-  if ($coversPage === null) {
-    return null;
-  }
-
-  $streamCheckCmd = sprintf(
-    '%s -v error -select_streams v:0 -show_entries stream=codec_type -of csv=p=0 %s 2>/dev/null',
-    escapeshellarg($ffprobeBin),
-    escapeshellarg($root),
-  );
-  $streamCheckRaw = shell_exec($streamCheckCmd);
-
-  if (!is_string($streamCheckRaw) || trim($streamCheckRaw) !== 'video') {
-    return null;
-  }
-
-  $base = pathinfo($file->filename(), PATHINFO_FILENAME);
-  if ($base === '') {
-    return null;
-  }
-
-  $tempPath =
-    rtrim(sys_get_temp_dir(), DIRECTORY_SEPARATOR) .
-    DIRECTORY_SEPARATOR .
-    'twz-cover-' .
-    uniqid('', true) .
-    '.jpg';
-  $extractCmd = sprintf(
-    '%s -v error -i %s -map 0:v:0 -frames:v 1 -q:v 2 -y %s 2>/dev/null',
-    escapeshellarg($ffmpegBin),
-    escapeshellarg($root),
-    escapeshellarg($tempPath),
-  );
-  shell_exec($extractCmd);
-
-  if (!is_file($tempPath) || filesize($tempPath) === 0) {
-    if (is_file($tempPath)) {
-      @unlink($tempPath);
-    }
-    return null;
-  }
-
-  $targetFilename = $base . '-embedded-cover.jpg';
-  $existing = $coversPage->file($targetFilename);
-
-  try {
-    if ($existing !== null) {
-      $existing->replace($tempPath);
-      $coverFile = $existing;
-    } else {
-      $coverFile = $coversPage->createFile([
-        'source' => $tempPath,
-        'filename' => $targetFilename,
-        'template' => 'podcaster-cover',
-      ]);
-    }
-  } catch (\Throwable $e) {
-    kirby()->log('audio-cover')->error($e->getMessage());
-    @unlink($tempPath);
-    return null;
-  }
-
-  @unlink($tempPath);
-
-  return $coverFile;
 }
 
 function twFormatAudioDuration(float $seconds): string

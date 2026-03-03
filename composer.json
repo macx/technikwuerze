@@ -22,14 +22,6 @@
       "install": true
     }
   },
-  "scripts": {
-    "post-install-cmd": [
-      "@php ops/patch-podcaster-playtime-key.php"
-    ],
-    "post-update-cmd": [
-      "@php ops/patch-podcaster-playtime-key.php"
-    ]
-  },
   "require-dev": {
     "lukaskleinschmidt/kirby-types": "^1.1"
   }
