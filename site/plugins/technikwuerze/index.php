@@ -86,7 +86,7 @@ function twUpdateAudioDurationWithFfprobe($file): void
     return;
   }
 
-  if ($file->template()?->name() !== 'podcaster-episode') {
+  if ($file->template() !== 'podcaster-episode') {
     return;
   }
 
