@@ -44,7 +44,7 @@ return [
 
   // Git Content on production: manual commits/pushes via panel area
   'thathoff.git-content' => [
-    'commit' => false,
+    'commit' => true,
     'push' => false,
     'pull' => false,
     'gitBin' => 'git',
