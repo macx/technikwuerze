@@ -11,3 +11,4 @@ site/sessions
 composer.lock
 pnpm-lock.yaml
 site/config/vite.config.php
+types.php
