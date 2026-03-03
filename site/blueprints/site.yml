@@ -33,6 +33,7 @@ tabs:
               - participant
               - testimonials
               - podcasterfeed
+              - covers
             image:
               query: page.cover.tofile
               cover: true
