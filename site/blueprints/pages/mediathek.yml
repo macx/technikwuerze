@@ -3,15 +3,7 @@ title: Mediathek
 tabs:
   content:
     columns:
-      - width: 2/3
-        sections:
-          content:
-            type: fields
-            fields:
-              text:
-                extends: fields/content-blocks
-                label: Intro
-      - width: 1/3
+      - width: 1/2
         sections:
           pages:
             type: pages
@@ -20,3 +12,13 @@ tabs:
               - podcasterfeed
               - season
             sortBy: title asc
+            layout: cardlets
+
+      - width: 1/2
+        sections:
+          content:
+            type: fields
+            fields:
+              text:
+                extends: fields/content-blocks
+                label: Intro

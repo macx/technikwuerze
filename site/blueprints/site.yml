@@ -11,7 +11,7 @@ tabs:
         sections:
           pages:
             type: pages
-            query: site.find("mediathek").index.filterBy("intendedTemplate", "episode").sortBy("date", "desc").limit(6)
+            query: site.find("mediathek").index.filterBy("intendedTemplate", "episode").sortBy("date", "desc").limit(12)
             label:
               en: Latest Episodes
               de: Letzte Folgen
@@ -28,7 +28,6 @@ tabs:
             status: drafts
             templates:
               - page
-              - mediathek
               - season
               - episode
               - participant
@@ -48,12 +47,11 @@ tabs:
               - teilnehmende
             status: listed
             layout: list
-            info: '{{ page.children.count }}'
+            info: '{{ page.children.count }} Seiten'
             columns:
               subpages:
                 label: Seiten
                 align: center
-                value: '{{ page.children.count }}'
                 width: 1/6
             image:
               query: page.cover.tofile
@@ -65,14 +63,6 @@ tabs:
               de: Nicht gelistet
             layout: list
             status: unlisted
-            templates:
-              - page
-              - mediathek
-              - season
-              - episode
-              - participant
-              - testimonials
-              - podcasterfeed
             image:
               query: page.cover.tofile
               cover: true
