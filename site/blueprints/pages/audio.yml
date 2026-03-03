@@ -18,7 +18,7 @@ tabs:
         layout: list
         template: podcaster-episode
         info: '{{ file.duration }}'
-        query: page.audio
+        query: page.audio.sortBy("filename", "asc")
         image:
           cover: true
           ratio: 1/1
