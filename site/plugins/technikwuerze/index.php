@@ -82,11 +82,7 @@ function twGenerateParticipantProfileVariants($file): void
 
 function twUpdateAudioDurationWithFfprobe($file): void
 {
-  if ($file->type() !== 'audio') {
-    return;
-  }
-
-  if ($file->template() !== 'podcaster-episode') {
+  if (twIsPodcasterAudioFile($file) !== true) {
     return;
   }
 
@@ -127,6 +123,11 @@ function twUpdateAudioDurationWithFfprobe($file): void
     $updates['duration'] = $duration;
   }
 
+  $episodeTitle = twReadAudioId3Title($root);
+  if ($episodeTitle !== null && (string) $file->episodeTitle()->value() !== $episodeTitle) {
+    $updates['episodeTitle'] = $episodeTitle;
+  }
+
   if ($coverUuid !== null && (string) $file->cover()->value() !== $coverUuid) {
     $updates['cover'] = $coverUuid;
   }
@@ -140,6 +141,59 @@ function twUpdateAudioDurationWithFfprobe($file): void
   } catch (\Throwable $e) {
     kirby()->log('audio-metadata')->error($e->getMessage());
   }
+}
+
+function twIsPodcasterAudioFile($file): bool
+{
+  if ($file === null) {
+    return false;
+  }
+
+  if ($file->template()?->name() !== 'podcaster-episode') {
+    return false;
+  }
+
+  $extension = strtolower((string) $file->extension());
+  $allowedExtensions = ['mp3', 'm4a', 'ogg', 'wav', 'flac', 'aac'];
+
+  return in_array($extension, $allowedExtensions, true);
+}
+
+function twReadAudioId3Title(string $root): ?string
+{
+  if ($root === '' || !is_file($root)) {
+    return null;
+  }
+
+  if (class_exists('\getID3') !== true) {
+    return null;
+  }
+
+  try {
+    $id3Parser = new \getID3();
+    $id3Data = $id3Parser->analyze($root);
+  } catch (\Throwable $e) {
+    kirby()->log('audio-metadata')->error($e->getMessage());
+    return null;
+  }
+
+  if (
+    isset($id3Data['tags']['id3v2']['title'][0]) &&
+    is_string($id3Data['tags']['id3v2']['title'][0]) &&
+    trim($id3Data['tags']['id3v2']['title'][0]) !== ''
+  ) {
+    return trim($id3Data['tags']['id3v2']['title'][0]);
+  }
+
+  if (
+    isset($id3Data['tags']['id3v1']['title'][0]) &&
+    is_string($id3Data['tags']['id3v1']['title'][0]) &&
+    trim($id3Data['tags']['id3v1']['title'][0]) !== ''
+  ) {
+    return trim($id3Data['tags']['id3v1']['title'][0]);
+  }
+
+  return null;
 }
 
 function twExtractAudioCoverImage($file, string $ffprobeBin, string $ffmpegBin)
