@@ -149,7 +149,13 @@ function twIsPodcasterAudioFile($file): bool
     return false;
   }
 
-  if ($file->template()?->name() !== 'podcaster-episode') {
+  $template = $file->template();
+  $templateName =
+    is_object($template) && method_exists($template, 'name')
+      ? (string) $template->name()
+      : (string) $template;
+
+  if ($templateName !== 'podcaster-episode') {
     return false;
   }
 
