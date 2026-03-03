@@ -7,7 +7,6 @@ $targets = [
   __DIR__ . '/../vendor/mauricerenck/podcaster/lib/AudioTools.php',
 ];
 
-$needle = "\$playTime = round(\$id3Data['playtime_seconds']);";
 $replacement = <<<'PHP'
 $playTime = 0;
         if (isset($id3Data['playtime_seconds']) && is_numeric($id3Data['playtime_seconds'])) {
@@ -20,6 +19,69 @@ $playTime = 0;
                 $playTime = ($parts[0] * 60) + $parts[1];
             }
         }
+        if ($playTime <= 0) {
+            $ffprobeBin = 'ffprobe';
+            if (function_exists('kirby')) {
+                $ffprobeBin = (string) \kirby()->option('tw.audioDuration.ffprobeBin', 'ffprobe');
+            }
+            $root = $audioFile->root();
+            if (is_string($root) && $root !== '' && is_file($root)) {
+                $cmd = sprintf(
+                    '%s -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 %s 2>/dev/null',
+                    escapeshellarg($ffprobeBin),
+                    escapeshellarg($root),
+                );
+                $raw = shell_exec($cmd);
+                if (is_string($raw)) {
+                    $seconds = (float) trim($raw);
+                    if ($seconds > 0) {
+                        $playTime = (int) round($seconds);
+                    }
+                }
+            }
+        }
+        if ($playTime <= 0) {
+            throw new \Kirby\Exception\Exception(['details' => 'audio duration could not be determined']);
+        }
+PHP;
+
+$titleNeedle = '$title = $this->getId3Tag(\'title\', $id3Data);';
+$titleReplacement = <<<'PHP'
+$title = $this->getId3Tag('title', $id3Data);
+        if (!is_string($title) || trim($title) === '') {
+            $title = $this->getAudioTitleFromFfprobe($audioFile);
+        }
+PHP;
+
+$titleMethodNeedle =
+  "    public function getId3Tag(\$tag, \$id3)\n    {\n        return (isset(\$id3['tags']['id3v2'][\$tag]) && isset(\$id3['tags']['id3v2'][\$tag][0])) ? \$id3['tags']['id3v2'][\$tag][0] : null;\n    }\n";
+$titleMethodAppend = <<<'PHP'
+    public function getAudioTitleFromFfprobe($audioFile): ?string
+    {
+        $ffprobeBin = 'ffprobe';
+        if (function_exists('kirby')) {
+            $ffprobeBin = (string) \kirby()->option('tw.audioDuration.ffprobeBin', 'ffprobe');
+        }
+        $root = $audioFile->root();
+        if (!is_string($root) || $root === '' || !is_file($root)) {
+            return null;
+        }
+        $cmd = sprintf(
+            '%s -v error -show_entries format_tags=title -of default=noprint_wrappers=1:nokey=1 %s 2>/dev/null',
+            escapeshellarg($ffprobeBin),
+            escapeshellarg($root),
+        );
+        $raw = shell_exec($cmd);
+        if (!is_string($raw)) {
+            return null;
+        }
+        $title = trim($raw);
+        if ($title === '') {
+            return null;
+        }
+        return $title;
+    }
+
 PHP;
 
 foreach ($targets as $file) {
@@ -32,20 +94,47 @@ foreach ($targets as $file) {
     continue;
   }
 
-  if (str_contains($content, $replacement)) {
+  if (str_contains($content, 'audio duration could not be determined')) {
     echo "Already patched: {$file}\n";
     continue;
   }
 
-  if (!str_contains($content, $needle)) {
+  $pattern = '/\$playTime\s*=.*?\n\s*\$duration = \$this->convertAudioDuration\(\$playTime\);/s';
+  if (!preg_match($pattern, $content)) {
     echo "Skip (pattern not found): {$file}\n";
     continue;
   }
 
-  $updated = str_replace($needle, $replacement, $content);
+  $updated = preg_replace(
+    $pattern,
+    $replacement . "\n\n        \$duration = \$this->convertAudioDuration(\$playTime);",
+    $content,
+    1,
+  );
+  if (!is_string($updated)) {
+    echo "Skip (replace failed): {$file}\n";
+    continue;
+  }
+
   if ($updated === $content) {
     echo "Skip (no changes): {$file}\n";
     continue;
+  }
+
+  if (str_contains($updated, "getAudioTitleFromFfprobe(\$audioFile)") !== true) {
+    if (str_contains($updated, $titleNeedle)) {
+      $updated = str_replace($titleNeedle, $titleReplacement, $updated);
+    }
+  }
+
+  if (str_contains($updated, 'function getAudioTitleFromFfprobe(') !== true) {
+    if (str_contains($updated, $titleMethodNeedle)) {
+      $updated = str_replace(
+        $titleMethodNeedle,
+        $titleMethodNeedle . "\n" . $titleMethodAppend,
+        $updated,
+      );
+    }
   }
 
   file_put_contents($file, $updated);
