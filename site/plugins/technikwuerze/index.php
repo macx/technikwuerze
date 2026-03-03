@@ -128,6 +128,25 @@ function twUpdateAudioDurationWithFfprobe($file): void
     $updates['episodeTitle'] = $episodeTitle;
   }
 
+  $strictAudioMetadata = (bool) kirby()->option('tw.audioMetadata.strict', true);
+  if ($strictAudioMetadata && ($duration === null || $episodeTitle === null)) {
+    $templateName = twFileTemplateName($file);
+    $message =
+      'Audio metadata extraction failed. ' .
+      'Required fields missing: ' .
+      ($episodeTitle === null ? 'episodeTitle ' : '') .
+      ($duration === null ? 'duration ' : '') .
+      '| file=' .
+      (string) $file->filename() .
+      ' | mime=' .
+      (string) $file->mime() .
+      ' | template=' .
+      $templateName;
+
+    kirby()->log('audio-metadata')->error($message);
+    throw new \Kirby\Exception\Exception(['details' => $message]);
+  }
+
   if ($coverUuid !== null && (string) $file->cover()->value() !== $coverUuid) {
     $updates['cover'] = $coverUuid;
   }
@@ -136,11 +155,7 @@ function twUpdateAudioDurationWithFfprobe($file): void
     return;
   }
 
-  try {
-    $file->update($updates);
-  } catch (\Throwable $e) {
-    kirby()->log('audio-metadata')->error($e->getMessage());
-  }
+  $file->update($updates);
 }
 
 function twIsPodcasterAudioFile($file): bool
@@ -155,7 +170,13 @@ function twIsPodcasterAudioFile($file): bool
       ? (string) $template->name()
       : (string) $template;
 
-  if ($templateName !== 'podcaster-episode') {
+  $parent = $file->parent();
+  $parentTemplate =
+    is_object($parent) && method_exists($parent, 'intendedTemplate')
+      ? (string) $parent->intendedTemplate()->name()
+      : '';
+
+  if ($templateName !== 'podcaster-episode' && $parentTemplate !== 'audio') {
     return false;
   }
 
@@ -163,6 +184,20 @@ function twIsPodcasterAudioFile($file): bool
   $allowedExtensions = ['mp3', 'm4a', 'ogg', 'wav', 'flac', 'aac'];
 
   return in_array($extension, $allowedExtensions, true);
+}
+
+function twFileTemplateName($file): string
+{
+  if ($file === null) {
+    return '';
+  }
+
+  $template = $file->template();
+  if (is_object($template) && method_exists($template, 'name')) {
+    return (string) $template->name();
+  }
+
+  return (string) $template;
 }
 
 function twReadAudioId3Title(string $root): ?string
