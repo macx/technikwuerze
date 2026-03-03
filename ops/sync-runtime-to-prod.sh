@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-MODE="${1:-all}"
+MODE="${1:-db}"
 
 # Auto-load local env vars for sync commands
 if [[ -f .env ]]; then
@@ -32,24 +32,29 @@ REMOTE_CONTENT_PATH="${SYNC_REMOTE_PROJECT_PATH%/}/content"
 RSYNC_SSH=(ssh -p "$SYNC_PORT")
 
 mkdir -p content/.db content/audio
+mkdir -p content/covers
 
-ssh -p "$SYNC_PORT" "${SYNC_USER}@${SYNC_HOST}" "mkdir -p '${REMOTE_CONTENT_PATH}/.db' '${REMOTE_CONTENT_PATH}/audio'"
+ssh -p "$SYNC_PORT" "${SYNC_USER}@${SYNC_HOST}" "mkdir -p '${REMOTE_CONTENT_PATH}/.db' '${REMOTE_CONTENT_PATH}/audio' '${REMOTE_CONTENT_PATH}/covers'"
+
+confirm_overwrite() {
+  local source_path="$1"
+  local target_path="$2"
+
+  printf 'This will overwrite remote data via rsync (--delete):\n  %s -> %s\nContinue? [y/N] ' "$source_path" "$target_path"
+  read -r reply
+  case "$reply" in
+    y|Y) ;;
+    *)
+      echo "Aborted."
+      exit 1
+      ;;
+  esac
+}
 
 push_db() {
   rsync -avz --delete -e "${RSYNC_SSH[*]}" \
     "./content/.db/" \
     "${SYNC_USER}@${SYNC_HOST}:${REMOTE_CONTENT_PATH}/.db/"
-}
-
-push_comments() {
-  if [[ ! -f "./content/.db/komments.sqlite" ]]; then
-    echo "Missing local file: ./content/.db/komments.sqlite" >&2
-    exit 1
-  fi
-
-  rsync -avz -e "${RSYNC_SSH[*]}" \
-    "./content/.db/komments.sqlite" \
-    "${SYNC_USER}@${SYNC_HOST}:${REMOTE_CONTENT_PATH}/.db/komments.sqlite"
 }
 
 push_audio() {
@@ -58,22 +63,27 @@ push_audio() {
     "${SYNC_USER}@${SYNC_HOST}:${REMOTE_CONTENT_PATH}/audio/"
 }
 
+push_covers() {
+  rsync -avz --delete -e "${RSYNC_SSH[*]}" \
+    "./content/covers/" \
+    "${SYNC_USER}@${SYNC_HOST}:${REMOTE_CONTENT_PATH}/covers/"
+}
+
 case "$MODE" in
-  comments)
-    push_comments
-    ;;
   db)
+    confirm_overwrite "./content/.db/" "${SYNC_USER}@${SYNC_HOST}:${REMOTE_CONTENT_PATH}/.db/"
     push_db
     ;;
   audio)
+    confirm_overwrite "./content/audio/" "${SYNC_USER}@${SYNC_HOST}:${REMOTE_CONTENT_PATH}/audio/"
     push_audio
     ;;
-  all|runtime)
-    push_comments
-    push_audio
+  covers)
+    confirm_overwrite "./content/covers/" "${SYNC_USER}@${SYNC_HOST}:${REMOTE_CONTENT_PATH}/covers/"
+    push_covers
     ;;
   *)
-    echo "Unknown mode: $MODE (use: comments|db|audio|all)" >&2
+    echo "Unknown mode: $MODE (use: db|audio|covers)" >&2
     exit 1
     ;;
 esac

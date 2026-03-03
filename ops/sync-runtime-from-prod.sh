@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-MODE="${1:-all}"
+MODE="${1:-db}"
 
 # Auto-load local env vars for sync commands
 if [[ -f .env ]]; then
@@ -31,7 +31,7 @@ fi
 REMOTE_CONTENT_PATH="${SYNC_REMOTE_PROJECT_PATH%/}/content"
 RSYNC_SSH=(ssh -p "$SYNC_PORT")
 
-mkdir -p content/.db content/audio
+mkdir -p content/.db content/audio content/covers
 
 pull_db() {
   rsync -avz --delete -e "${RSYNC_SSH[*]}" \
@@ -45,19 +45,24 @@ pull_audio() {
     "./content/audio/"
 }
 
+pull_covers() {
+  rsync -avz --delete -e "${RSYNC_SSH[*]}" \
+    "${SYNC_USER}@${SYNC_HOST}:${REMOTE_CONTENT_PATH}/covers/" \
+    "./content/covers/"
+}
+
 case "$MODE" in
-  comments|db)
+  db)
     pull_db
     ;;
   audio)
     pull_audio
     ;;
-  all|runtime)
-    pull_db
-    pull_audio
+  covers)
+    pull_covers
     ;;
   *)
-    echo "Unknown mode: $MODE (use: comments|db|audio|all)" >&2
+    echo "Unknown mode: $MODE (use: db|audio|covers)" >&2
     exit 1
     ;;
 esac

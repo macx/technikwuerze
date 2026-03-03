@@ -22,12 +22,12 @@
     "release:patch": "release-it patch",
     "release:minor": "release-it minor",
     "release:major": "release-it major",
-    "sync:pull:comments": "bash ops/sync-runtime-from-prod.sh comments",
+    "sync:pull:db": "bash ops/sync-runtime-from-prod.sh db",
     "sync:pull:audio": "bash ops/sync-runtime-from-prod.sh audio",
-    "sync:pull:runtime": "bash ops/sync-runtime-from-prod.sh all",
-    "sync:push:comments": "bash ops/sync-runtime-to-prod.sh comments",
+    "sync:pull:covers": "bash ops/sync-runtime-from-prod.sh covers",
+    "sync:push:db": "bash ops/sync-runtime-to-prod.sh db",
     "sync:push:audio": "bash ops/sync-runtime-to-prod.sh audio",
-    "sync:push:runtime": "bash ops/sync-runtime-to-prod.sh all"
+    "sync:push:covers": "bash ops/sync-runtime-to-prod.sh covers"
   },
   "devDependencies": {
     "@prettier/plugin-php": "^0.22.2",
