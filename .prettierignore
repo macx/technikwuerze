@@ -10,3 +10,4 @@ site/sessions
 *.log
 composer.lock
 pnpm-lock.yaml
+site/config/vite.config.php
