@@ -16,32 +16,40 @@ snippet('layout', slots: true);
 ?>
 
 <?php slot(); ?>
-  <div class="season-view">
-    <h1>
+  <div class="page-header">
+    <h1 class="title">
       <?= $page->title()->html() ?>
     </h1>
 
-    <p>
-      <?= $page->text()->value() ?>
-    </p>
+    <?php if ($page->lead()->isNotEmpty()): ?>
+      <p class="lead">
+        <?= $page->lead()->kti() ?>
+      </p>
+    <?php endif; ?>
+  </div>
 
-    <?php if ($episodes->isNotEmpty()): ?>
-      <ul class="season-episodes-list">
+  <?= $page->blocks()->toBlocks() ?>
+
+  <?php if ($episodes->isNotEmpty()): ?>
+    <section class="season">
+      <ul class="season-list">
         <?php foreach ($episodes as $episode): ?>
           <li>
-            <div class="season-episodes-main">
-              <a href="<?= $episode->url() ?>"><?= $episode->title()->html() ?></a>
-              <?php if ($episode->podcastersubtitle()->isNotEmpty()): ?>
-                <span class="mediathek-subtitle"><?= $episode->podcastersubtitle()->html() ?></span>
+            <a href="<?= $episode->url() ?>">
+              <?= $episode->title()->value() ?>
+            </a><br />
+
+            <div class="text-small">
+              <?= $episode->podcastersubtitle()->value() ?>
+              /
+              <?php if ($episode->date()->isNotEmpty()): ?>
+                <span><?= $episode->date()->toDate('d.m.Y') ?></span>
               <?php endif; ?>
             </div>
-            <?php if ($episode->date()->isNotEmpty()): ?>
-              <span class="mediathek-date"><?= $episode->date()->toDate('d.m.Y') ?></span>
-            <?php endif; ?>
           </li>
         <?php endforeach; ?>
       </ul>
-    <?php endif; ?>
-  </div>
+    </section>
+  <?php endif; ?>
 <?php endslot(); ?>
 <?php endsnippet(); ?>
