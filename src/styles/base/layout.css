@@ -14,11 +14,12 @@ html {
 
 body {
   font-family: var(--ff);
+  font-size: var(--fs);
+  line-height: var(--lh);
   font-feature-settings: 'wght' var(--fw);
+
   background-color: var(--clr-surface);
   color: var(--clr-text);
-  line-height: var(--lh);
-
   margin: 0;
   padding-block-start: calc(var(--header-size) + var(--sp));
 
@@ -65,20 +66,5 @@ main {
   margin-inline: auto;
   padding-inline: var(--sp-content);
   container: main / inline-size;
-}
-
-p {
-  margin-block: 0 var(--sp);
-}
-
-.section-title {
-  color: var(--clr-primary);
-  text-align: center;
-  font-family: var(--ff-brand);
-  font-size: clamp(2.1rem, 7vw, 5rem);
-  font-style: normal;
-  font-weight: 800;
-  line-height: 100%;
-  letter-spacing: -0.1rem;
-  margin-block: 0 0.4em;
+  overflow-x: hidden;
 }

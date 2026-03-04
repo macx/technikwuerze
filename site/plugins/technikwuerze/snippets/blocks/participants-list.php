@@ -78,7 +78,7 @@ if (!in_array($displayLayout, ['cards', 'list'], true)) {
 ?>
 <section class="tw-participants">
   <?php if ($headline !== ''): ?>
-    <h2 class="section-title"><?= esc($headline) ?></h2>
+    <h2><?= esc($headline) ?></h2>
   <?php endif; ?>
 
   <?php if ($displayLayout === 'list'): ?>

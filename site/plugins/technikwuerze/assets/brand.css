@@ -127,6 +127,8 @@
     gap: 0.35ch;
     align-items: flex-end;
     max-inline-size: var(--pointer-text-max-inline-size);
+
+    font-weight: var(--fw-bold);
     line-height: 0.95;
     text-align: right;
     justify-content: flex-end;

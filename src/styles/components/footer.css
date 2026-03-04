@@ -13,6 +13,7 @@
   .site-footer-label {
     font-family: var(--ff-hand);
     font-size: var(--c-text-size);
+    font-weight: var(--fw-bold);
     color: var(--clr-secondary);
   }
 

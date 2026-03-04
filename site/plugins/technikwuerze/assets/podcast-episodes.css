@@ -2,8 +2,9 @@
   :scope {
     --list-gap: var(--sp-l);
 
-    margin-block: var(--sp-xxl);
+    margin-block: var(--sp-xl);
     margin-inline: auto;
+    font-size: var(--fs-r);
 
     .tw-podcast-episodes-list {
       list-style: none;
@@ -36,12 +37,13 @@
         font-weight: var(--fw-bold);
         line-height: 1.1;
         color: var(--clr-primary);
+        text-align: start;
       }
 
       .tw-podcast-episodes-subtitle {
         margin-block: 0.2em 0;
         color: var(--clr-secondary);
-        font-size: 0.95rem;
+        font-size: var(--fs-s);
         font-weight: var(--fw-bold);
         line-height: 1.2;
       }
@@ -52,6 +54,7 @@
       flex-wrap: wrap;
       align-items: center;
       gap: var(--sp);
+      font-size: var(--fs-s);
 
       > * {
         display: flex;

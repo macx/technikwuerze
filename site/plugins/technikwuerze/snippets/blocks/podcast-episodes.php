@@ -203,7 +203,7 @@ $formatDuration = static function ($episode): string {
 ?>
 <section class="tw-podcast-episodes">
   <?php if ($headline !== ''): ?>
-    <h2 class="section-title"><?= esc($headline) ?></h2>
+    <h2><?= esc($headline) ?></h2>
   <?php endif; ?>
 
   <ul class="tw-podcast-episodes-list">
@@ -259,8 +259,8 @@ $formatDuration = static function ($episode): string {
             </p>
 
             <div>
-              <a href="<?= $episode->url() ?>" class="c-button primary" data-icon-position="right" >
-                <span class="c-button__icon msi-arrow-forward" aria-hidden="true"></span>
+              <a href="<?= $episode->url() ?>" class="button primary" data-icon-position="right" >
+                <span class="button__icon msi-arrow-forward" aria-hidden="true"></span>
                 <span>Zur Folge</span>
               </a>
             </div>
@@ -271,8 +271,8 @@ $formatDuration = static function ($episode): string {
 
   <?php if ($showMediathekButton && $mediathek): ?>
     <div class="tw-podcast-episodes-footer">
-      <a class="c-button" data-icon-position="right" href="<?= $mediathek->url() ?>">
-        <span class="c-button__icon msi-arrow-forward" aria-hidden="true"></span>
+      <a class="button" data-icon-position="right" href="<?= $mediathek->url() ?>">
+        <span class="button__icon msi-arrow-forward" aria-hidden="true"></span>
         <span>Zur Mediathek</span>
       </a>
     </div>

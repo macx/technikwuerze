@@ -4,6 +4,8 @@
   --content-max-size: 77.5rem;
   --narrow-max-size: 55rem;
 
+  --max-lead: 55ch;
+
   /* TYPOGRAPHY */
   --ff: 'Manrope Variable', system-ui, -apple-system, sans-serif;
   --ff-brand: 'Bricolage Grotesque Variable', sans-serif;
@@ -11,8 +13,19 @@
 
   --fw: 400;
   --fw-bold: 600;
+  --fw-title: 800;
 
-  --lh: 1.4;
+  /* vp-min: 500px, vp-max: 1000px */
+  --fs: clamp(1.125rem, 0.875rem + 0.8vw, 1.375rem);
+  --fs-s: clamp(0.875rem, 0.75rem + 0.4vw, 1rem);
+  --fs-r: clamp(1rem, 0.875rem + 0.4vw, 1.125rem);
+  --fs-title: clamp(2rem, -1rem + 9.6vw, 5rem);
+  --fs-title-2nd: clamp(1.625rem, -0.75rem + 7.6vw, 4rem);
+  --fs-title-3rd: clamp(1.5rem, -0.75rem + 7.2vw, 3.75rem);
+  --fs-lead: clamp(1.1875rem, 0.9375rem + 0.8vw, 1.4375rem);
+
+  --lh: 1.3;
+  --lh-s: 1.2;
 
   /* COLORS */
   --clr-surface: light-dark(hsl(56 100% 79%), hsl(0 0% 18%));
@@ -35,7 +48,7 @@
   --sp-l: 1.875rem;
   --sp-xl: 4rem;
   --sp-xxl: 6rem;
-  --sp-content: max(1.875rem, 2vw);
+  --sp-content: max(1.875rem, 4vw);
 
   /* OTHER */
   --radius-button: 1.25rem;

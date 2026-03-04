@@ -34,6 +34,10 @@
   flex-wrap: nowrap;
   position: relative;
   z-index: 23;
+
+  @media (width >= 48em) {
+    margin-inline-end: calc(var(--sp-content) - var(--sp));
+  }
 }
 
 #main-nav {
@@ -92,13 +96,13 @@
 }
 
 .main-nav-button {
-  --c-button-size: 2rem;
+  --button-size: 2rem;
 
   all: unset;
   position: relative;
   z-index: 23;
-  inline-size: var(--c-button-size);
-  block-size: var(--c-button-size);
+  inline-size: var(--button-size);
+  block-size: var(--button-size);
   cursor: pointer;
 }
 

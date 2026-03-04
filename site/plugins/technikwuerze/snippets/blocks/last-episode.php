@@ -38,8 +38,8 @@ if ($episodeCandidates && $episodeCandidates->isNotEmpty()) {
       </p>
 
       <div class="tw-last-episode-actions">
-        <a class="c-button primary" data-icon-position="right" href="<?= $latestEpisode->url() ?>">
-          <span class="c-button__icon msi-arrow-forward" aria-hidden="true"></span>
+        <a class="button-primary" data-icon-position="right" href="<?= $latestEpisode->url() ?>">
+          <i class="msi-arrow-forward" aria-hidden="true"></i>
           <span>Zur Folge</span>
         </a>
       </div>

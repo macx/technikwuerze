@@ -12,20 +12,36 @@ $episodes = $page
   ->published()
   ->sortBy('date', 'desc');
 
-snippet('layout/podcast', slots: true);
+snippet('layout', slots: true);
 ?>
 
 <?php slot(); ?>
-  <?php foreach ($episodes as $episode): ?>
-    <article>
-      <h3>
-        <a href="<?= $episode->url() ?>"><?= $episode->title()->html() ?></a>
-        <?php if ($episode->date()->isNotEmpty()): ?>
-          (<?= $episode->date()->toDate('d.m.Y') ?>)
-        <?php endif; ?>
-      </h3>
-      <?php snippet('podcaster-player', ['page' => $episode]); ?>
-    </article>
-  <?php endforeach; ?>
+  <div class="season-view">
+    <h1>
+      <?= $page->title()->html() ?>
+    </h1>
+
+    <p>
+      <?= $page->text()->value() ?>
+    </p>
+
+    <?php if ($episodes->isNotEmpty()): ?>
+      <ul class="season-episodes-list">
+        <?php foreach ($episodes as $episode): ?>
+          <li>
+            <div class="season-episodes-main">
+              <a href="<?= $episode->url() ?>"><?= $episode->title()->html() ?></a>
+              <?php if ($episode->podcastersubtitle()->isNotEmpty()): ?>
+                <span class="mediathek-subtitle"><?= $episode->podcastersubtitle()->html() ?></span>
+              <?php endif; ?>
+            </div>
+            <?php if ($episode->date()->isNotEmpty()): ?>
+              <span class="mediathek-date"><?= $episode->date()->toDate('d.m.Y') ?></span>
+            <?php endif; ?>
+          </li>
+        <?php endforeach; ?>
+      </ul>
+    <?php endif; ?>
+  </div>
 <?php endslot(); ?>
 <?php endsnippet(); ?>

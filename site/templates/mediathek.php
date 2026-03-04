@@ -7,67 +7,66 @@
  * @var Kirby\Cms\Pages $pages
  */
 
-$allEpisodes = $page
-  ->index()
-  ->filterBy('intendedTemplate', 'episode')
-  ->published()
-  ->sortBy('date', 'desc', 'podcasterseason', 'desc', 'podcasterepisode', 'desc');
-
-$featuredEpisodes = $allEpisodes->limit(3);
-$featuredIds = $featuredEpisodes->pluck('id');
-
 $seasons = $page
   ->children()
   ->filterBy('intendedTemplate', 'season')
   ->published()
-  ->sortBy('title', 'desc');
-?>
+  ->sortBy('title', 'desc'); ?>
 
 <?php snippet('layout', slots: true); ?>
   <?php slot(); ?>
-    <div class="mediathek-view">
-      <section class="mediathek-featured">
-        <h2>Die letzten drei Folgen</h2>
-        <?php foreach ($featuredEpisodes as $episode): ?>
-          <?php if ($episode->podcasterAudio()->isNotEmpty()): ?>
-            <article class="mediathek-featured-item">
-              <header class="mediathek-featured-header">
-                <h3><a href="<?= $episode->url() ?>"><?= $episode->title()->html() ?></a></h3>
-                <?php if ($episode->date()->isNotEmpty()): ?>
-                  <p><?= $episode->date()->toDate('d.m.Y') ?></p>
-                <?php endif; ?>
-              </header>
-              <?php snippet('podcaster-player', ['page' => $episode]); ?>
-            </article>
-          <?php endif; ?>
-        <?php endforeach; ?>
-      </section>
+    <div class="page-header">
+      <h1 class="title">
+        <?= $page->title()->html() ?>
+      </h1>
 
-      <?php foreach ($seasons as $season): ?>
-        <?php $seasonEpisodes = $season
-          ->children()
-          ->filterBy('intendedTemplate', 'episode')
-          ->published()
-          ->sortBy('date', 'desc'); ?>
-        <?php if ($seasonEpisodes->isNotEmpty()): ?>
-          <section class="mediathek-list">
-            <h2><a href="<?= $season->url() ?>"><?= $season->title()->html() ?></a></h2>
-            <ul>
-              <?php foreach ($seasonEpisodes as $episode): ?>
-                <li>
-                  <a href="<?= $episode->url() ?>">
-                    <?= $episode->title()->html() ?>
-                  </a>
+      <p class="lead">
+        <?= $page->lead()->kti() ?>
+      </p>
+    </div>
+
+    <?= $page->blocks()->toBlocks() ?>
+
+    <?php foreach ($seasons as $season): ?>
+      <?php $seasonEpisodes = $season
+        ->children()
+        ->filterBy('intendedTemplate', 'episode')
+        ->published()
+        ->sortBy('date', 'desc'); ?>
+      <?php if ($seasonEpisodes->isNotEmpty()): ?>
+        <section class="season">
+          <header class="section-header">
+            <h2>
+              <?= $season->title()->html() ?>
+            </h2>
+
+            <a href="<?= $season->url() ?>" class="button" data-icon-position="right">
+              <i class="msi-arrow-forward" aria-hidden="true"></i>
+              Zur Staffel
+            </a>
+          </header>
+
+          <?= $season->lead()->kt() ?>
+
+          <ul class="season-list">
+            <?php foreach ($seasonEpisodes as $episode): ?>
+              <li>
+                <a href="<?= $episode->url() ?>">
+                  <?= $episode->title()->value() ?>
+                </a><br />
+
+                <div class="text-small">
+                  <?= $episode->podcastersubtitle()->value() ?>
+                  /
                   <?php if ($episode->date()->isNotEmpty()): ?>
                     <span><?= $episode->date()->toDate('d.m.Y') ?></span>
                   <?php endif; ?>
-                </li>
-              <?php endforeach; ?>
-            </ul>
-          </section>
-        <?php endif; ?>
-      <?php endforeach; ?>
-    </div>
+                </div>
+              </li>
+            <?php endforeach; ?>
+          </ul>
+        </section>
+      <?php endif; ?>
+    <?php endforeach; ?>
   <?php endslot(); ?>
-
 <?php endsnippet(); ?>

@@ -1,7 +1,7 @@
-.c-button {
-  --c-button-bg: transparent;
-  --c-button-color: var(--clr-secondary);
-  --c-button-border: var(--clr-secondary);
+[class|='button'] {
+  --button-bg: transparent;
+  --button-color: var(--clr-secondary);
+  --button-border: var(--clr-secondary);
 
   display: inline-flex;
   align-items: center;
@@ -9,10 +9,10 @@
   gap: 0.5em;
   padding-block: 0.55em;
   padding-inline: 1em;
-  border: 2px solid var(--c-button-border);
+  border: 2px solid var(--button-border);
   border-radius: var(--radius-button);
-  background-color: var(--c-button-bg);
-  color: var(--c-button-color);
+  background-color: var(--button-bg);
+  color: var(--button-color);
   font: inherit;
   font-size: clamp(1rem, 0.4vw + 0.95rem, 1.25rem);
   font-weight: var(--fw-bold);
@@ -23,38 +23,32 @@
     color 120ms var(--ease-drawer-transform),
     background-color 120ms var(--ease-drawer-transform),
     border-color 120ms var(--ease-drawer-transform);
-}
 
-.c-button__icon {
-  font-size: 1.2em;
-}
-
-.c-button[data-icon-position='right'] {
-  flex-direction: row-reverse;
-}
-
-.c-button.primary {
-  --c-button-bg: var(--clr-secondary);
-  --c-button-color: var(--clr-text-bright);
-  --c-button-border: var(--clr-secondary);
-}
-
-.c-button.outline {
-  --c-button-bg: transparent;
-  --c-button-color: var(--clr-secondary);
-  --c-button-border: color-mix(in srgb, var(--clr-secondary) 65%, var(--clr-text) 35%);
-}
-
-@media (pointer: fine) {
-  .c-button:is(:hover, :focus-visible) {
-    --c-button-bg: color-mix(in srgb, var(--clr-secondary) 88%, var(--clr-bg-light) 12%);
-    --c-button-color: var(--clr-text-bright);
-    --c-button-border: var(--clr-secondary);
+  i {
+    font-size: 1.2em;
   }
 
-  .c-button.outline:is(:hover, :focus-visible) {
-    --c-button-bg: color-mix(in srgb, var(--clr-secondary) 15%, transparent);
-    --c-button-color: var(--clr-secondary);
-    --c-button-border: var(--clr-secondary);
+  &[data-icon-position='right'] {
+    flex-direction: row-reverse;
+  }
+
+  &.button-primary {
+    --button-bg: var(--clr-secondary);
+    --button-color: var(--clr-text-bright);
+    --button-border: var(--clr-secondary);
+  }
+
+  @media (pointer: fine) {
+    &:is(:hover, :focus-visible) {
+      --button-bg: color-mix(in srgb, var(--clr-secondary) 15%, transparent);
+      --button-color: var(--clr-secondary);
+      --button-border: var(--clr-secondary);
+    }
+
+    &.button-primary:is(:hover, :focus-visible) {
+      --button-bg: color-mix(in srgb, var(--clr-secondary) 88%, var(--clr-bg-light) 12%);
+      --button-color: var(--clr-text-bright);
+      --button-border: var(--clr-secondary);
+    }
   }
 }

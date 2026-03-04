@@ -1,0 +1,18 @@
+type: fields
+label:
+  en: Lead & Blocks
+  de: Vorspann & Blöcke
+fields:
+  lead:
+    type: textarea
+    label:
+      en: Lead
+      de: Vorspann
+    buttons:
+      - bold
+    counter: true
+    minlength: 100
+    maxlength: 254
+    size: small
+  blocks:
+    extends: fields/content-blocks

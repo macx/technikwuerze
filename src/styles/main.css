@@ -9,6 +9,7 @@
 */
 @import './base/variables.css' layer(base);
 @import './base/layout.css' layer(base);
+@import './base/typo.css' layer(base);
 @import './base/icons.css' layer(base);
 
 /*

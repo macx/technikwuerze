@@ -1,24 +1,18 @@
 title: Mediathek
 
-tabs:
-  content:
-    columns:
-      - width: 1/2
-        sections:
-          pages:
-            type: pages
-            label: Inhalte
-            templates:
-              - podcasterfeed
-              - season
-            sortBy: title asc
-            layout: cardlets
+columns:
+  - width: 1/2
+    sections:
+      pages:
+        type: pages
+        label: Inhalte
+        templates:
+          - podcasterfeed
+          - season
+        sortBy: title asc
+        layout: cardlets
 
-      - width: 1/2
-        sections:
-          content:
-            type: fields
-            fields:
-              text:
-                extends: fields/content-blocks
-                label: Intro
+  - width: 1/2
+    sections:
+      lead-blocks:
+        extends: fields/lead-blocks

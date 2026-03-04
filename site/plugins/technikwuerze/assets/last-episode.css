@@ -4,6 +4,8 @@
 
     display: grid;
     gap: clamp(var(--sp), 1vw + var(--sp-s), var(--sp-l));
+    font-size: var(--fs-r);
+    line-height: var(--lh);
 
     border-radius: var(--radius-button);
     background-color: var(--clr-bg-dark);
@@ -18,8 +20,8 @@
     h2 {
       margin-block: 0 var(--sp-s);
       font-size: clamp(1.75rem, 2.2cqw, 3rem);
-      line-height: 1.05;
       color: var(--clr-secondary);
+      text-align: start;
     }
 
     @container main (width >= 40em) {
