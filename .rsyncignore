@@ -20,6 +20,12 @@ site/cache/
 site/sessions/
 storage/
 
+# host-managed HTTP auth (e.g. Mittwald Verzeichnisschutz)
+.htaccess
+.htpasswd
+public/.htaccess
+public/.htpasswd
+
 # local dev/runtime files
 .DS_Store
 *.log

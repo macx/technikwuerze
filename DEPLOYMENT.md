@@ -29,6 +29,7 @@ This project uses a split deployment model:
 - clears Kirby cache on server
 
 `content/`, `media/`, accounts, cache and sessions are excluded from `rsync` via `.rsyncignore`.
+Host-managed HTTP auth files (`.htaccess`, `.htpasswd`, including `public/.htaccess`) are also excluded so `rsync --delete` does not remove Mittwald Verzeichnisschutz settings.
 
 ## Required GitHub Secrets
 

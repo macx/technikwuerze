@@ -2,8 +2,6 @@
 
 $projectRoot = dirname(__DIR__, 2);
 $dbPath = $projectRoot . '/content/.db/';
-$basicAuthUser = $_ENV['TW_BASIC_AUTH_USER'] ?? getenv('TW_BASIC_AUTH_USER') ?: null;
-$basicAuthPassword = $_ENV['TW_BASIC_AUTH_PASSWORD'] ?? getenv('TW_BASIC_AUTH_PASSWORD') ?: null;
 
 // Local dev: suppress vendor deprecation noise on PHP 8.4 (e.g. mf2/mf2)
 error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
@@ -38,15 +36,6 @@ return [
   'mauricerenck.komments.panel.showPublished' => true,
   'mauricerenck.komments.privacy.storeEmail' => true,
   'mauricerenck.komments.autoDisable.datefield' => 'date',
-
-  // Optional HTTP Basic Auth for frontend routes (browser password prompt)
-  'tw.siteBasicAuth' => [
-    'enabled' => false,
-    'realm' => 'Technikwuerze',
-    'users' => array_filter([
-      $basicAuthUser => $basicAuthPassword,
-    ]),
-  ],
 
   // Kirby Git Content plugin configuration
   'thathoff.git-content' => [
