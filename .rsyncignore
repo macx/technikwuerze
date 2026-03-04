@@ -20,10 +20,8 @@ site/cache/
 site/sessions/
 storage/
 
-# host-managed HTTP auth (e.g. Mittwald Verzeichnisschutz)
-.htaccess
+# host-managed HTTP auth secrets (e.g. Mittwald Verzeichnisschutz)
 .htpasswd
-public/.htaccess
 public/.htpasswd
 
 # local dev/runtime files

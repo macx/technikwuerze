@@ -150,7 +150,8 @@ Maintain and evolve the Technikwürze Kirby site safely and consistently:
 - Webserver document root in production must point to `public/` (not repository root).
 - `content/` is a dedicated Git repository on production and must exist as `content/.git`.
 - Main code deployment must never overwrite `content/`, `media/`, accounts, cache or sessions.
-- Main code deployment must preserve host-managed HTTP auth files (`.htaccess`, `.htpasswd`, especially in `public/`) via `.rsyncignore`.
+- Main code deployment must preserve host-managed HTTP auth secrets (`.htpasswd`, including `public/.htpasswd`) via `.rsyncignore`.
+- Keep `.htaccess` deploy-managed so Kirby rewrite rules in `public/.htaccess` stay consistent.
 - Runtime binaries/state are not in Git:
   - `content/audio/` (audio files)
   - `content/.db/*.sqlite` (komments + podcaster stats)

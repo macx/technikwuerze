@@ -34,7 +34,7 @@ Why this split:
 - `media/`
 - `site/accounts/`, `site/cache/`, `site/sessions/`
 - runtime storage folders
-- host-managed auth files (`.htaccess`, `.htpasswd`, including `public/.htaccess`)
+- host-managed auth secrets (`.htpasswd`, including `public/.htpasswd`)
 
 These rules are centralized in `.rsyncignore`.
 

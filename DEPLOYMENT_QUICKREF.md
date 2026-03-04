@@ -22,7 +22,7 @@
 - `site/cache/`
 - `site/sessions/`
 - `storage/`
-- `.htaccess`, `.htpasswd` (including `public/.htaccess`/`public/.htpasswd`)
+- `.htpasswd` (including `public/.htpasswd`)
 
 ## Content Flow
 
