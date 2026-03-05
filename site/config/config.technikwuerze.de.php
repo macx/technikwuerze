@@ -3,6 +3,8 @@
 // Production configuration
 $projectRoot = dirname(__DIR__, 2);
 $dbPath = $projectRoot . '/content/.db/';
+$emailOptions = require __DIR__ . '/partials/email.php';
+$cacheOptions = require __DIR__ . '/partials/cache.php';
 
 return [
   'debug' => false,
@@ -39,4 +41,6 @@ return [
     'gitBin' => 'git',
     'branch' => 'main',
   ],
-];
+] +
+  $emailOptions +
+  $cacheOptions;

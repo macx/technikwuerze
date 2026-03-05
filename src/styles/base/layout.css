@@ -60,6 +60,11 @@ body {
   overflow-y: scroll;
 }
 
+.uniform__potty {
+  position: absolute;
+  left: -9999px;
+}
+
 main {
   flex: 1;
   inline-size: 100%;

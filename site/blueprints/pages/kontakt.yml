@@ -1,0 +1,24 @@
+title:
+  de: Kontakt
+  en: Contact
+icon: email
+
+tabs:
+  content:
+    label:
+      de: Inhalt
+      en: Content
+    icon: text
+    columns:
+      - width: 1/1
+        sections:
+          content:
+            type: fields
+            fields:
+              text:
+                extends: fields/content-blocks
+                label:
+                  de: Inhalt
+                  en: Content
+
+  email-manager: email-manager

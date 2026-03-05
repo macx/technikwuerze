@@ -2,6 +2,8 @@
 
 $projectRoot = dirname(__DIR__, 2);
 $dbPath = $projectRoot . '/content/.db/';
+$emailOptions = require __DIR__ . '/partials/email.php';
+$cacheOptions = require __DIR__ . '/partials/cache.php';
 
 // Local dev: suppress vendor deprecation noise on PHP 8.4 (e.g. mf2/mf2)
 error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
@@ -46,4 +48,6 @@ return [
     'gitBin' => 'git',
     'branch' => 'main',
   ],
-];
+] +
+  $emailOptions +
+  $cacheOptions;

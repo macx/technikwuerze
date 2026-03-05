@@ -1,0 +1,66 @@
+type: managed-template
+name:
+  de: Kontaktformular
+  en: Contact form
+
+formsubmission:
+  mintime: 4
+  maxtime: 7200
+
+emails:
+  mail:
+    subject:
+      de: Neue Nachricht über das Kontaktformular
+      en: New message via contact form
+    sender:
+      de: Technikwürze Kontaktformular
+      en: Technikwuerze Contact Form
+  reply:
+    subject:
+      de: Danke für deine Nachricht
+      en: Thanks for your message
+    sender:
+      de: Technikwürze
+      en: Technikwuerze
+
+fields:
+  name:
+    type: text
+    label:
+      de: Name
+      en: Name
+    placeholder:
+      de: Dein Name
+      en: Your name
+    required: true
+    minlength: 2
+    username: true
+  email:
+    type: email
+    label:
+      de: E-Mail
+      en: Email
+    placeholder:
+      de: deine@email.de
+      en: your@email.com
+    required: true
+    replyto: true
+  message:
+    type: textarea
+    label:
+      de: Nachricht
+      en: Message
+    placeholder:
+      de: Deine Nachricht an uns
+      en: Your message to us
+    rows: 6
+    required: true
+    minlength: 10
+
+buttons:
+  send:
+    label:
+      de: Nachricht senden
+      en: Send message
+  reset:
+    show: false

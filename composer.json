@@ -9,7 +9,9 @@
     "arnoson/kirby-vite": "^4.0",
     "thathoff/kirby-git-content": "^5.4",
     "mauricerenck/podcaster": "^3.4",
-    "mauricerenck/komments": "^3.7"
+    "mauricerenck/komments": "^3.7",
+    "mzur/kirby-uniform": "^5.7",
+    "philippoehrlein/kirby-email-manager": "^1.1"
   },
   "config": {
     "optimize-autoloader": true,
