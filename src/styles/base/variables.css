@@ -54,9 +54,12 @@
   /* OTHER */
   --radius-button: 1.25rem;
   --radius-button-inner: 0.75rem;
+  --radius-button-s: 0.75rem;
   --shadow-size: 0.5rem;
 
   --podlove-player-margin-top: 1rem;
+
+  --transition-short: 90ms ease-out;
 
   --ease-drawer-transform: cubic-bezier(0.2, 0.8, 0.2, 1);
   --dur-drawer-transform: 280ms;

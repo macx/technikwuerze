@@ -22,7 +22,7 @@
       display: block;
       padding: var(--sp-s);
       border-radius: var(--radius-button);
-      transition: background-color 120ms var(--ease-out-quad);
+      transition: background-color var(--transition-short);
 
       &:hover,
       &:focus-visible {

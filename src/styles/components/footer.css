@@ -52,6 +52,7 @@
 .about-us {
   --c-clr-text: var(--clr-surface);
   --c-clr-border: color-mix(in oklab, var(--clr-surface) 40%, transparent);
+  --c-social-hover-bg: color-mix(in oklab, white 18%, transparent);
 
   background-color: var(--clr-bg-footer);
   color: var(--c-clr-text);
@@ -100,27 +101,33 @@
 
   .footer-contact-hint {
     color: var(--clr-text-bright);
+
+    strong {
+      font-family: var(--ff-hand);
+      font-size: 1.5rem;
+      font-weight: 300;
+    }
   }
 
   .footer-social {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    gap: var(--sp-xs);
+    gap: 0;
   }
 
   .footer-social-link {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    inline-size: 2rem;
-    block-size: 2rem;
+    padding: 0.6rem;
+    border-radius: var(--radius-button-s);
     color: inherit;
-    transition: color 120ms ease;
+    transition: background-color var(--transition-short);
 
     &:hover,
     &:focus-visible {
-      color: var(--clr-text-bright);
+      background-color: var(--c-social-hover-bg);
     }
 
     svg {
