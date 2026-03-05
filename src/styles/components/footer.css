@@ -1,29 +1,146 @@
-.site-footer {
-  --c-logo-size: 15rem;
-  --c-text-size: 1.25rem;
+.gold-sponsors {
+  --c-flex-direction: column;
+  --c-flex-justify: center;
+  --c-flex-gap: var(--sp);
 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  text-align: center;
-  padding-block: var(--sp-l);
+  padding-block: var(--sp-xl);
   padding-inline: var(--sp-content);
+  text-align: center;
 
-  .site-footer-label {
-    font-family: var(--ff-hand);
-    font-size: var(--c-text-size);
-    font-weight: var(--fw-bold);
-    color: var(--clr-secondary);
+  header {
+    margin-block-end: var(--sp);
   }
 
-  .site-footer-logo {
-    display: inline-block;
+  .sponsors {
+    display: flex;
+    flex-direction: var(--c-flex-direction);
+    justify-content: var(--c-flex-justify);
+    align-items: center;
+    gap: var(--c-flex-gap);
+  }
+
+  .hand-writing {
     color: var(--clr-secondary);
+    font-size: 1.5rem;
+    font-weight: var(--fw-bold);
+  }
+
+  .sponsor {
+    display: block;
+    color: var(--clr-secondary);
+    inline-size: var(--c-logo-size);
+
+    &[data-sponsor='mittwald'] {
+      --c-logo-size: 15rem;
+    }
+
+    &[data-sponsor='kirby'] {
+      --c-logo-size: 11rem;
+    }
 
     svg {
       display: block;
-      inline-size: var(--c-logo-size);
+    }
+  }
+
+  @media (width >= 48em) {
+    --c-flex-direction: row;
+    --c-flex-gap: 3rem;
+  }
+}
+
+.about-us {
+  --c-clr-text: var(--clr-surface);
+  --c-clr-border: color-mix(in oklab, var(--clr-surface) 40%, transparent);
+
+  background-color: var(--clr-bg-footer);
+  color: var(--c-clr-text);
+  font-size: var(--fs-s);
+
+  a {
+    color: var(--c-clr-text);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+    text-decoration-color: var(--c-clr-border);
+    transition: all 200ms ease;
+
+    &:hover,
+    &:focus-visible {
+      text-decoration-color: var(--clr-text-bright);
+    }
+  }
+
+  .inner {
+    max-inline-size: var(--content-max-size);
+    margin-inline: auto;
+    padding-block: var(--sp-xl);
+    padding-inline: var(--sp-content);
+  }
+
+  .about-us {
+    color: var(--c-clr-text);
+  }
+
+  .footer-bottom {
+    margin-block-start: var(--sp-l);
+    padding-block-start: var(--sp-m);
+    border-block-start: 1px solid var(--c-clr-border);
+
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp);
+  }
+
+  .footer-meta-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sp-m);
+    margin-block-end: var(--sp);
+  }
+
+  .footer-contact-hint {
+    color: var(--clr-text-bright);
+  }
+
+  .footer-social {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--sp-xs);
+  }
+
+  .footer-social-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    inline-size: 2rem;
+    block-size: 2rem;
+    color: inherit;
+    transition: color 120ms ease;
+
+    &:hover,
+    &:focus-visible {
+      color: var(--clr-text-bright);
+    }
+
+    svg {
+      display: block;
+      inline-size: 1.25rem;
+      block-size: 1.25rem;
+    }
+  }
+
+  @media (width >= 64em) {
+    .footer-bottom {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--sp-m);
+    }
+
+    .footer-social {
+      justify-content: flex-end;
+      flex-shrink: 0;
     }
   }
 }

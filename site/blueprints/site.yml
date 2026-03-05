@@ -74,14 +74,19 @@ tabs:
       de: Einstellungen
     icon: cog
     columns:
-      - width: 2/3
+      - width: 1/3
         fields:
+          generalHeadline:
+            label:
+              en: General
+              de: Allgemein
+            type: headline
           description:
             label:
               en: Description
               de: Kurzbeschreibung
             type: textarea
-            size: small
+            size: medium
             minlength: 50
             maxlength: 190
             buttons: false
@@ -89,18 +94,92 @@ tabs:
             label: Tags
             type: tags
 
-      - width: 1/4
+      - width: 1/3
         fields:
-          mastodon:
-            label: Mastodon
+          footerHeadline:
+            label:
+              en: Footer
+              de: Footer
+            type: headline
+          footerSponsorsHint:
+            label:
+              en: Sponsor notice
+              de: Sponsoren-Hinweis
             type: text
-            before: '@'
-            icon: mastodon
-          instagram:
-            label: Instagram
-            type: text
-            before: '@'
-            icon: instagram
+          footerAboutUs:
+            label:
+              en: About us
+              de: Wir über uns
+            type: textarea
+            size: small
+          footerContactHint:
+            label:
+              en: Contact note
+              de: Kontakt-Hinweis
+            type: textarea
+            size: small
+
+      - width: 1/3
+        fields:
+          socialHeadline:
+            label:
+              en: Social media
+              de: Social Media
+            type: headline
+          socialLinks:
+            label:
+              en: Social links
+              de: Social Links
+            type: structure
+            sortable: true
+            fields:
+              network:
+                label:
+                  en: Network
+                  de: Netzwerk
+                type: select
+                options:
+                  bluesky: Bluesky
+                  mastodon: Mastodon
+                  threads: Threads
+                  instagram: Instagram
+                  tiktok: TikTok
+                  youtube: YouTube
+                  discord: Discord
+                  linkedin: LinkedIn
+                  twitch: Twitch
+                  x: X
+                required: true
+              url:
+                label: URL
+                type: url
+                required: true
+            columns:
+              network:
+                width: 1/3
+              url:
+                width: 2/3
+            default:
+              - network: bluesky
+                url: https://bsky.app/
+              - network: mastodon
+                url: https://mastodon.social/
+              - network: threads
+                url: https://www.threads.net/
+              - network: instagram
+                url: https://www.instagram.com/
+              - network: tiktok
+                url: https://www.tiktok.com/
+              - network: youtube
+                url: https://www.youtube.com/
+              - network: discord
+                url: https://discord.com/
+              - network: linkedin
+                url: https://www.linkedin.com/
+              - network: twitch
+                url: https://www.twitch.tv/
+              - network: x
+                url: https://x.com/
 
   email:
     label:
