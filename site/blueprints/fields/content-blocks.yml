@@ -28,6 +28,7 @@ fieldsets:
       - podcast-networks
       - last-episode
       - podcast-episodes
+      - podcast-stats
       - teaser
       - participants-list
       - handwritten

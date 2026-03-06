@@ -115,13 +115,20 @@ panel.plugin('tw/brand', {
         amount() {
           return fallback(this.content.amount, '3')
         },
+        colorScheme() {
+          const value = fallback(this.content.color_scheme, 'secondary').toLowerCase()
+          if (value === 'primary' || value === 'secondary') {
+            return value
+          }
+          return 'secondary'
+        },
       },
       template: `
         <div class="twz-block-preview twz-block-preview--podcast-episodes">
           <p class="twz-block-preview__kicker">Podcast-Folgen</p>
           <div class="twz-block-preview__title-row">
             <h3 class="twz-block-preview__title">{{ title }}</h3>
-            <span class="twz-block-preview__chip">{{ source }} · {{ amount }}</span>
+            <span class="twz-block-preview__chip">{{ source }} · {{ amount }} · {{ colorScheme }}</span>
           </div>
           <div class="twz-block-preview__episodes-grid">
             <div class="twz-block-preview__player twz-block-preview__player-row" v-for="i in 3" :key="i">
@@ -131,6 +138,26 @@ panel.plugin('tw/brand', {
                 <div class="twz-block-preview__bar"></div>
                 <div class="twz-block-preview__bar"></div>
               </div>
+            </div>
+          </div>
+        </div>
+      `,
+    },
+    'podcast-stats': {
+      computed: {
+        title() {
+          return fallback(this.content.headline, 'Podcast-Statistiken')
+        },
+      },
+      template: `
+        <div class="twz-block-preview twz-block-preview--podcast-stats">
+          <p class="twz-block-preview__kicker">Podcast-Statistiken</p>
+          <h3 class="twz-block-preview__title">{{ title }}</h3>
+          <div class="twz-block-preview__stats-grid">
+            <div class="twz-block-preview__stats-item" v-for="i in 4" :key="i">
+              <span class="twz-block-preview__stats-icon">◉</span>
+              <span class="twz-block-preview__stats-label">Durchschnittliche Hördauer</span>
+              <span class="twz-block-preview__stats-value">42:15</span>
             </div>
           </div>
         </div>

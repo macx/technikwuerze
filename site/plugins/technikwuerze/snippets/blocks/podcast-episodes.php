@@ -9,6 +9,14 @@ $headline = trim((string) $block->headline()->value());
 $source = trim((string) $block->source()->value());
 $showMediathekButton = $block->show_mediathek_button()->toBool();
 $amount = (int) $block->amount()->or('3')->value();
+$colorScheme = strtolower(trim((string) $block->color_scheme()->value()));
+
+if (!in_array($colorScheme, ['primary', 'secondary'], true)) {
+  $colorScheme = 'secondary';
+}
+
+$colorSchemeCssVar = '--clr-' . $colorScheme;
+$colorSchemeCssValue = 'var(' . $colorSchemeCssVar . ')';
 
 if (!in_array($amount, [3, 6, 9, 12], true)) {
   $amount = 3;
@@ -201,7 +209,10 @@ $formatDuration = static function ($episode): string {
   return $rawDuration;
 };
 ?>
-<section class="tw-podcast-episodes">
+<section class="tw-podcast-episodes" style="--color-scheme: <?= esc(
+  $colorSchemeCssValue,
+  'attr',
+) ?>">
   <?php if ($headline !== ''): ?>
     <h2><?= esc($headline) ?></h2>
   <?php endif; ?>

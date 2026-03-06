@@ -54,6 +54,7 @@ fields:
           amazonmusic: Amazon Music
           spotify: Spotify
           pocketcasts: Pocket Casts
+          twitch: Twitch
         width: 1/3
 
       mode:

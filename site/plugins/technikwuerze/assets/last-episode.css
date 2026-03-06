@@ -15,12 +15,14 @@
     max-inline-size: var(--c-max-size);
     margin-block: var(--sp-xl);
     margin-inline: auto;
-    padding: clamp(var(--sp), 1vw + var(--sp-s), var(--sp-l));
+    padding: var(--sp);
 
     h2 {
-      margin-block: 0 var(--sp-s);
-      font-size: clamp(1.75rem, 2.2cqw, 3rem);
+      margin-block: 0 var(--sp-xs);
+      font-size: var(--fs-m);
+      font-weight: var(--fw-title);
       color: var(--clr-secondary);
+      text-box: trim-both cap alphabetic;
       text-align: start;
     }
 
@@ -40,7 +42,7 @@
 
   :scope .tw-last-episode-text {
     max-inline-size: 38ch;
-    margin-block: 0 var(--sp);
+    margin-block: 0 var(--sp-s);
     text-wrap: pretty;
   }
 
@@ -56,7 +58,8 @@
     border-radius: var(--radius-button);
     background-color: var(--clr-bg-light);
     border: var(--clr-border);
-    padding: clamp(var(--sp), 0.5vw + var(--sp-s), var(--sp-m));
+    padding: var(--sp-s);
+    align-self: center;
   }
 
   :scope .tw-last-episode-player :where([id^='podlove-player-']) {

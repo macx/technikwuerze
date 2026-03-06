@@ -1,0 +1,65 @@
+name:
+  en: Podcast Stats
+  de: Podcast-Statistiken
+icon: chart
+preview: podcast-stats
+label:
+  en: Podcast Stats
+  de: Podcast-Statistiken
+fields:
+  headline:
+    type: text
+    label:
+      en: Headline
+      de: Überschrift
+    placeholder:
+      en: Podcast Stats
+      de: Podcast-Statistiken
+
+  stats:
+    type: structure
+    label:
+      en: Stat tiles
+      de: Statistik-Kacheln
+    min: 4
+    max: 4
+    columns:
+      icon:
+        width: 1/4
+      label:
+        width: 1/2
+      value:
+        width: 1/4
+    fields:
+      icon:
+        type: text
+        label:
+          en: Icon class
+          de: Icon-Klasse
+        width: 1/3
+        placeholder: msi-schedule
+      label:
+        type: text
+        label:
+          en: Label
+          de: Bezeichnung
+        width: 1/3
+      value:
+        type: text
+        label:
+          en: Value
+          de: Wert
+        width: 1/3
+    default:
+      - icon: msi-schedule
+        label: Durchschnittliche Hördauer
+        value: 42:15
+      - icon: msi-headphones
+        label: Folgen gesamt
+        value: 189
+      - icon: msi-groups
+        label: Stammhörende
+        value: 3.400
+      - icon: msi-podcasts
+        label: Veröffentlichungsjahre
+        value: 20

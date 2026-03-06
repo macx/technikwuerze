@@ -68,6 +68,8 @@ foreach (site()->content()->get('socialLinks')->toStructure() as $social) {
         <?= asset('assets/logos/mittwald.svg')->read() ?>
       </a>
 
+      <span class="handwriting">&</span>
+
       <a href="https://getkirby.com/" class="sponsor" target="_blank" rel="noopener" data-sponsor="kirby">
         <?= asset('assets/logos/kirby.svg')->read() ?>
       </a>

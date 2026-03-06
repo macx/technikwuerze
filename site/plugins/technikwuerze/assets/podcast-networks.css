@@ -45,14 +45,14 @@
       }
 
       svg {
-        --c-icon-size: 2.5rem;
+        --c-icon-size: 2.8rem;
       }
     }
   }
 
   :scope .pointer {
-    font-family: var(--ff-hand);
     font-size: var(--pointer-font-size);
+    font-weight: var(--fw-bold);
     color: var(--clr-secondary);
     display: none;
     pointer-events: none;
@@ -69,8 +69,8 @@
   }
 
   :scope .pointer-mobile {
-    font-family: var(--ff-hand);
     font-size: var(--pointer-font-size);
+    font-weight: var(--fw-bold);
     color: var(--clr-secondary);
     line-height: 1;
     text-align: center;

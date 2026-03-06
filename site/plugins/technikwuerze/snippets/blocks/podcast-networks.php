@@ -10,6 +10,7 @@ $networkOptions = [
   'amazonmusic' => 'Amazon Music',
   'spotify' => 'Spotify',
   'pocketcasts' => 'Pocket Casts',
+  'twitch' => 'Twitch',
 ];
 
 $activeNetworks = [];
@@ -61,7 +62,7 @@ if ($mobilePointerText === '') {
   $mobilePointerText = trim((string) $block->listento_mobile()->value());
 }
 ?>
-<div class="tw-brand-networks<?= $hasFavoritePointer ? ' has-default-pointer' : '' ?>">
+<div class="handwriting tw-brand-networks<?= $hasFavoritePointer ? ' has-default-pointer' : '' ?>">
   <?php if ($mobilePointerText !== ''): ?>
     <p class="pointer-mobile">
       <?= esc($mobilePointerText) ?>
@@ -69,7 +70,7 @@ if ($mobilePointerText === '') {
   <?php endif; ?>
 
   <div class="pointer">
-    <span class="pointer-text<?= $defaultIsCustom ? ' is-rss-custom' : '' ?>">
+    <span class="handwriting pointer-text<?= $defaultIsCustom ? ' is-rss-custom' : '' ?>">
       <span class="pointer-start">
         <?= esc($block->listento_start()->value()) ?>
       </span>

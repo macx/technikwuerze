@@ -7,7 +7,7 @@ $headline = trim((string) $block->header()->value());
 if ($headline === '') {
   $headline = 'Aktuelle Folge';
 }
-$podloveTemplate = asset('assets/podlove/last-episode-template.html')->url();
+$podloveTemplate = asset('assets/podlove/tw-player-template.html')->url();
 
 $mediathek = site()->find('mediathek');
 $episodeCandidates = $mediathek
@@ -34,11 +34,11 @@ if ($episodeCandidates && $episodeCandidates->isNotEmpty()) {
       <h2><?= esc($headline) ?></h2>
 
       <p class="tw-last-episode-text">
-        <?= $latestEpisode->podcasterdescription()->kti()->short(120) ?>
+        <?= $latestEpisode->podcasterdescription()->kti()->short(150) ?>
       </p>
 
       <div class="tw-last-episode-actions">
-        <a class="button-primary" data-icon-position="right" href="<?= $latestEpisode->url() ?>">
+        <a  href="<?= $latestEpisode->url() ?>" class="button-primary" data-icon-position="right" style="--color-scheme: var(--clr-secondary)">
           <i class="msi-arrow-forward" aria-hidden="true"></i>
           <span>Zur Folge</span>
         </a>

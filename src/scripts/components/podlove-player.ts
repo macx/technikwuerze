@@ -54,6 +54,66 @@ const parseJson = (value: string | undefined): unknown => {
   }
 }
 
+const getEpisodeDateLabel = (episode: Record<string, unknown>): string => {
+  const dateCandidates = [episode.publicationDate, episode.date, episode.published, episode.updated]
+
+  for (const candidate of dateCandidates) {
+    if (typeof candidate !== 'string' || candidate.trim() === '') {
+      continue
+    }
+
+    const parsedDate = new Date(candidate)
+    if (Number.isNaN(parsedDate.getTime())) {
+      continue
+    }
+
+    return new Intl.DateTimeFormat('de-DE').format(parsedDate)
+  }
+
+  return ''
+}
+
+const getEpisodeSubtitleLabel = (episode: Record<string, unknown>): string => {
+  const subtitleCandidates = [episode.subtitle, episode.episodeSubtitle]
+
+  for (const candidate of subtitleCandidates) {
+    if (typeof candidate === 'string' && candidate.trim() !== '') {
+      return candidate.trim()
+    }
+  }
+
+  return ''
+}
+
+const applyShowTitleOverride = (episode: unknown): unknown => {
+  if (!episode || typeof episode !== 'object' || Array.isArray(episode)) {
+    return episode
+  }
+
+  const episodeRecord = episode as Record<string, unknown>
+  const showValue = episodeRecord.show
+  if (!showValue || typeof showValue !== 'object' || Array.isArray(showValue)) {
+    return episode
+  }
+
+  const showRecord = showValue as Record<string, unknown>
+  const subtitle = getEpisodeSubtitleLabel(episodeRecord)
+  if (subtitle === '') {
+    return episode
+  }
+
+  const dateLabel = getEpisodeDateLabel(episodeRecord)
+  const title = dateLabel !== '' ? `${subtitle} vom ${dateLabel}` : subtitle
+
+  return {
+    ...episodeRecord,
+    show: {
+      ...showRecord,
+      title,
+    },
+  }
+}
+
 const getActiveColorMode = (): 'light' | 'dark' => {
   const mode = document.documentElement.getAttribute('mode')
   if (mode === 'light' || mode === 'dark') {
@@ -180,6 +240,25 @@ const getIframeThemeStyle = (mode: 'light' | 'dark'): string => {
 
     divider {
       background-color: ${divider} !important;
+    }
+
+    .play-button,
+    .play-button > div {
+      min-width: 32px !important;
+      width: 32px !important;
+      height: 32px !important;
+      min-height: 32px !important;
+    }
+
+    .show-title,
+    show-title,
+    [data-test='show-title'] {
+      font-weight: 400 !important;
+      color: ${contrast} !important;
+    }
+
+    [data-test='show-title-link'] {
+      color: ${contrast} !important;
     }
   `
 }
@@ -392,7 +471,7 @@ export const initPodlovePlayers = (): void => {
     payloads.set(element, {
       selector: `#${element.id}`,
       config: applyThemeTokensFromCss(parseJson(element.dataset.podloveConfig)),
-      episode: parseJson(element.dataset.podloveEpisode),
+      episode: applyShowTitleOverride(parseJson(element.dataset.podloveEpisode)),
       variant: element.dataset.podloveVariant?.trim() || null,
       template: element.dataset.podloveTemplate?.trim() || null,
       transparent: element.dataset.podloveTransparent === '1',

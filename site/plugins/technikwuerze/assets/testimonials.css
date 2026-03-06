@@ -1,7 +1,7 @@
 @scope (.tw-testimonials) {
   :scope {
     --p-padding: 3rem;
-    --p-size: calc(var(--p-padding) * 2);
+    --avatar-size: 6.625rem;
     --list-gap: var(--sp-l);
 
     margin-block: var(--sp-xxl);
@@ -34,7 +34,7 @@
       border-radius: var(--radius-button);
       background-color: var(--clr-bg-light);
       box-shadow: var(--shadow-size) var(--shadow-size) 0 0 var(--clr-shadow);
-      padding: var(--sp) var(--sp) var(--sp) calc(var(--p-size) - var(--sp));
+      padding: var(--sp) var(--sp) var(--sp) calc(var(--avatar-size) - var(--sp));
       margin: 0;
       inline-size: 100%;
       block-size: 100%;
@@ -48,12 +48,13 @@
       &::before {
         content: '”';
         position: absolute;
-        inset-block-start: 0.5rem;
-        inset-inline-start: var(--sp);
-        font-size: 7rem;
+        inset-block-start: var(--sp-m);
+        inset-inline-start: var(--sp-s);
+        font-size: 8.5rem;
         font-weight: 700;
         line-height: 1;
         color: var(--clr-primary);
+        text-box: trim-both cap alphabetic;
       }
 
       p {
@@ -80,13 +81,14 @@
     .tw-testimonial-avatar {
       position: absolute;
       margin: 0;
-      inset-inline-start: calc(var(--sp) + var(--p-padding) * -1);
+      /* inset-inline-start: calc(var(--sp) + var(--p-padding) * -1); */
+      inset-inline-start: calc((var(--avatar-size) / 2 - var(--sp-xs)) * -1);
       inset-block-end: var(--sp);
 
       img {
         display: block;
-        inline-size: var(--p-size);
-        block-size: var(--p-size);
+        inline-size: var(--avatar-size);
+        block-size: var(--avatar-size);
         object-fit: cover;
         border-radius: 50%;
         border: 0.2rem solid color-mix(in srgb, var(--clr-primary) 25%, transparent);

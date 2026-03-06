@@ -1,10 +1,13 @@
 import { defineConfig, loadEnv } from 'vite'
 import { resolve } from 'path'
+import dns from 'node:dns'
 import kirby from 'vite-plugin-kirby'
+
+dns.setDefaultResultOrder('verbatim')
 
 export default defineConfig(({ command, mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
-  const devHost = env.DEV_HOST || 'localhost'
+  const devHost = env.DEV_HOST || '127.0.0.1'
   const devVitePort = Number(env.DEV_VITE_PORT || 5173)
 
   return {
@@ -42,11 +45,6 @@ export default defineConfig(({ command, mode }) => {
           '**/content/**/*.m4a',
           '**/content/**/*.wav',
         ],
-      },
-      hmr: {
-        host: devHost,
-        clientPort: devVitePort,
-        protocol: 'ws',
       },
     },
 

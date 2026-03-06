@@ -1,10 +1,13 @@
 @scope (.tw-podcast-episodes) {
   :scope {
     --list-gap: var(--sp-l);
-
     margin-block: var(--sp-xl);
     margin-inline: auto;
     font-size: var(--fs-r);
+
+    h2 {
+      color: var(--color-scheme, var(--clr-primary));
+    }
 
     .tw-podcast-episodes-list {
       list-style: none;
@@ -16,10 +19,12 @@
     }
 
     .tw-podcast-episodes-item {
+      --podcast-episodes-scheme: var(--color-scheme, var(--clr-primary));
+
       article {
         display: flex;
         flex-direction: column;
-        gap: var(--sp);
+        gap: var(--sp-s);
         block-size: 100%;
         color: currentColor;
 
@@ -34,18 +39,18 @@
       h3 {
         margin: 0;
         font-size: clamp(1rem, 0.8rem + 0.9vw, 1.5rem);
-        font-weight: var(--fw-bold);
-        line-height: 1.1;
-        color: var(--clr-primary);
+        font-weight: var(--fw-title);
+        line-height: var(--lh-s);
+        color: var(--podcast-episodes-scheme);
         text-align: start;
       }
 
       .tw-podcast-episodes-subtitle {
         margin-block: 0.2em 0;
-        color: var(--clr-secondary);
+        color: var(--podcast-episodes-scheme);
         font-size: var(--fs-s);
         font-weight: var(--fw-bold);
-        line-height: 1.2;
+        line-height: var(--lh-s);
       }
     }
 
@@ -60,7 +65,7 @@
         display: flex;
         align-items: center;
         gap: var(--sp-xs);
-        color: var(--clr-primary);
+        color: var(--podcast-episodes-scheme);
         margin: 0;
       }
     }
@@ -92,7 +97,7 @@
   @media (width >= 48em) {
     :scope {
       .tw-podcast-episodes-list {
-        --list-gap: var(--sp-xl);
+        --list-gap: var(--sp-l);
 
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }

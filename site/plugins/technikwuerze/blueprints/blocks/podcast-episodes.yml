@@ -46,6 +46,7 @@ fields:
       '12': '12'
   show_mediathek_button:
     type: toggle
+    width: 1/2
     label:
       en: Show mediathek button
       de: Mediathek-Button anzeigen
@@ -55,3 +56,16 @@ fields:
         de: Nein
       - en: Yes
         de: Ja
+  color_scheme:
+    type: select
+    width: 1/2
+    label:
+      en: Color scheme
+      de: Farbschema
+    options:
+      primary:
+        en: Primary color
+        de: Primärfarbe
+      secondary:
+        en: Secondary color
+        de: Sekundärfarbe

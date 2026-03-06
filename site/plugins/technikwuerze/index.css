@@ -144,3 +144,39 @@
   display: grid;
   gap: 0.35rem;
 }
+
+.twz-block-preview--podcast-stats .twz-block-preview__stats-grid {
+  --stats-columns: 2;
+  display: grid;
+  grid-template-columns: repeat(var(--stats-columns), minmax(0, 1fr));
+  gap: 0.45rem;
+}
+
+.twz-block-preview--podcast-stats .twz-block-preview__stats-item {
+  border: 1px solid var(--color-border, #d9d9d9);
+  border-radius: 0.4rem;
+  padding: 0.45rem;
+  display: grid;
+  gap: 0.25rem;
+}
+
+.twz-block-preview--podcast-stats .twz-block-preview__stats-icon {
+  font-size: 0.9rem;
+}
+
+.twz-block-preview--podcast-stats .twz-block-preview__stats-label {
+  font-size: 0.68rem;
+  line-height: 1.25;
+  color: var(--color-text-light, #666);
+}
+
+.twz-block-preview--podcast-stats .twz-block-preview__stats-value {
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+@container (min-width: 48rem) {
+  .twz-block-preview--podcast-stats .twz-block-preview__stats-grid {
+    --stats-columns: 4;
+  }
+}

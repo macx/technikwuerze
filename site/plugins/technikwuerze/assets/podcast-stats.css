@@ -1,0 +1,55 @@
+@scope (.tw-podcast-stats) {
+  :scope {
+    --stats-columns: 2;
+
+    margin-block: var(--sp-xl);
+
+    h2 {
+      margin-block: 0 1rem;
+      text-align: start;
+    }
+  }
+
+  :scope .tw-podcast-stats-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    display: grid;
+    grid-template-columns: repeat(var(--stats-columns), minmax(0, 1fr));
+    gap: var(--sp);
+  }
+
+  :scope .tw-podcast-stats-item {
+    display: grid;
+    gap: 0.35rem;
+
+    border: 2px solid var(--clr-border);
+    border-radius: var(--radius-button);
+    background-color: var(--clr-bg-light);
+    box-shadow: var(--shadow-size) var(--shadow-size) 0 0 var(--clr-shadow);
+    padding: var(--sp);
+  }
+
+  :scope .tw-podcast-stats-icon {
+    color: var(--clr-primary);
+    font-size: 1.5rem;
+  }
+
+  :scope .tw-podcast-stats-label {
+    font-size: var(--fs-s);
+  }
+
+  :scope .tw-podcast-stats-value {
+    color: var(--clr-secondary);
+    font-size: clamp(1.25rem, 0.9rem + 1vw, 1.8rem);
+    font-weight: var(--fw-title);
+    line-height: 1.1;
+  }
+
+  @media (width >= 64em) {
+    :scope {
+      --stats-columns: 4;
+    }
+  }
+}
