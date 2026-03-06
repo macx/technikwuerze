@@ -19,7 +19,7 @@
     gap: var(--c-flex-gap);
   }
 
-  .hand-writing {
+  .handwriting {
     color: var(--clr-secondary);
     font-size: 1.5rem;
     font-weight: var(--fw-bold);
@@ -102,7 +102,8 @@
   .footer-contact-hint {
     color: var(--clr-text-bright);
 
-    strong {
+    .handwriting {
+      display: block;
       font-family: var(--ff-hand);
       font-size: 1.5rem;
       font-weight: 300;

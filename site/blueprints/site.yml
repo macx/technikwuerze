@@ -15,7 +15,10 @@ tabs:
             label:
               en: Latest Episodes
               de: Letzte Folgen
-            layout: cardlets
+            layout: list
+            image:
+              query: page.podcasterCover.tofile
+              back: var(--menu-color-back)
             info: "{{ page.date.toDate('d.m.Y H:i') }}"
 
       - width: 1/3
@@ -111,6 +114,12 @@ tabs:
               en: About us
               de: Wir über uns
             type: textarea
+            size: small
+          footerContactLabel:
+            label:
+              en: Handwriting
+              de: Handschriflich
+            type: text
             size: small
           footerContactHint:
             label:

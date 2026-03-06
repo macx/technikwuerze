@@ -6,7 +6,7 @@ $dbPath = $projectRoot . '/content/.db/';
 $emailOptions = require __DIR__ . '/partials/email.php';
 $cacheOptions = require __DIR__ . '/partials/cache.php';
 
-return [
+$options = [
   'debug' => false,
   'panel.vue.compiler' => true,
 
@@ -41,6 +41,6 @@ return [
     'gitBin' => 'git',
     'branch' => 'main',
   ],
-] +
-  $emailOptions +
-  $cacheOptions;
+];
+
+return array_replace_recursive($options, $emailOptions, $cacheOptions);

@@ -13,13 +13,13 @@
       <i class="msi-routine" aria-hidden="true"></i>
       <span>Automatisch</span>
     </option>
-    <option value="dark">
-      <i class="msi-dark-mode" aria-hidden="true"></i>
-      <span>Dunkel</span>
-    </option>
     <option value="light">
       <i class="msi-light-mode" aria-hidden="true"></i>
       <span>Hell</span>
+    </option>
+    <option value="dark">
+      <i class="msi-dark-mode" aria-hidden="true"></i>
+      <span>Dunkel</span>
     </option>
   </select>
 </div>

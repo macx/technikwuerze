@@ -114,8 +114,7 @@
   font-weight: var(--fw-bold);
   text-decoration: none;
   color: var(--clr-secondary);
-  padding-block: var(--sp-xs);
-  padding-inline: var(--sp-xs);
+  padding-inline: var(--sp);
   border-radius: var(--radius-button);
   text-align: end;
 
@@ -125,7 +124,6 @@
   }
 
   @media (pointer: fine) {
-    padding-inline: var(--sp);
     transition: background-color 120ms var(--ease-drawer-transform);
 
     &:is(:hover, :focus-visible) {
@@ -136,10 +134,14 @@
 
 .main-nav-link {
   place-content: center end;
+  padding-block: var(--sp-xs);
+  padding-inline: var(--sp);
 }
 
 .main-nav-button {
   place-content: center;
+  padding-block: 0.3125rem;
+  padding-inline: var(--sp-xs);
 }
 
 @media (width < 48em) and (prefers-reduced-motion: no-preference) {

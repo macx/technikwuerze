@@ -34,7 +34,7 @@ if ($episodeCandidates && $episodeCandidates->isNotEmpty()) {
       <h2><?= esc($headline) ?></h2>
 
       <p class="tw-last-episode-text">
-        <?= esc($latestEpisode->podcasterdescription()->short(120)) ?>
+        <?= $latestEpisode->podcasterdescription()->kti()->short(120) ?>
       </p>
 
       <div class="tw-last-episode-actions">

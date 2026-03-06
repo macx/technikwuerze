@@ -75,7 +75,7 @@ p {
   line-height: var(--lh);
 }
 
-.hand-writing {
+.handwriting {
   font-family: var(--ff-hand);
   font-weight: 400;
 }

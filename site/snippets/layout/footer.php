@@ -59,7 +59,7 @@ foreach (site()->content()->get('socialLinks')->toStructure() as $social) {
 
 <footer class="site-footer">
   <section class="gold-sponsors">
-    <header class="hand-writing">
+    <header class="handwriting">
       <?= site()->content()->get('footerSponsorsHint')->esc() ?>
     </header>
 
@@ -91,6 +91,9 @@ foreach (site()->content()->get('socialLinks')->toStructure() as $social) {
           </nav>
 
           <p class="footer-contact-hint">
+            <span class="handwriting">
+              <?= site()->content()->get('footerContactLabel')->kti() ?>
+            </span>
             <?= site()->content()->get('footerContactHint')->kti() ?>
           </p>
         </div>

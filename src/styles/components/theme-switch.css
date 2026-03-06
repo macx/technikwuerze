@@ -27,29 +27,34 @@
     border-radius: var(--radius-button);
 
     &::picker(select) {
-      min-inline-size: 12rem;
       border: 2px solid var(--clr-border);
       border-radius: var(--radius-button);
       padding: var(--sp-s);
       background-color: var(--clr-bg-light);
       color: var(--clr-text);
       box-shadow: var(--shadow-size) var(--shadow-size) 0 0 var(--clr-shadow);
+      margin-block-start: 0.375rem;
     }
 
     option {
-      align-items: center;
       display: flex;
+      align-items: center;
       gap: var(--sp-s);
-      border-radius: var(--radius-button-inner);
-      padding: var(--sp-xs);
 
-      &:is(:hover, :focus-visible) {
+      border-radius: var(--radius-button-s);
+      font-size: 1rem;
+      padding-block: var(--sp-xs);
+      padding-inline: 0.1875rem var(--sp);
+      transition: background-color var(--transition-short);
+
+      &:hover,
+      &:focus-visible {
         background-color: var(--clr-hover);
       }
 
       &:checked {
         background-color: var(--clr-secondary);
-        color: var(--clr-text-bright);
+        color: var(--clr-surface);
       }
 
       &::checkmark {
@@ -73,7 +78,7 @@
 
     &:is(:active, :open) {
       background-color: var(--clr-secondary);
-      color: var(--clr-text-bright);
+      color: var(--clr-surface);
 
       .main-nav-button {
         color: currentColor;

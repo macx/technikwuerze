@@ -10,7 +10,7 @@ columns:
           - podcasterfeed
           - season
         sortBy: title asc
-        layout: cardlets
+        layout: list
 
   - width: 1/2
     sections:
