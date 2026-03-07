@@ -1,9 +1,9 @@
 :root {
   /* LAYOUT */
   --header-size: 5rem;
-  --content-max-size: 85rem;
+  --content-max-size: 80rem;
   --medium-max-size: 72rem;
-  --narrow-max-size: 55rem;
+  --narrow-max-size: 59rem;
 
   --max-lead: 55ch;
 
@@ -53,7 +53,7 @@
   --sp-l: 3.125rem;
   --sp-xl: 4rem;
   --sp-xxl: 6.5rem;
-  --sp-content: max(1.875rem, 4vw);
+  --sp-content: 1.25rem;
 
   /* OTHER */
   --radius-button: 1.25rem;
@@ -67,6 +67,10 @@
 
   --ease-drawer-transform: cubic-bezier(0.2, 0.8, 0.2, 1);
   --dur-drawer-transform: 280ms;
+
+  @media (width >= 48em) {
+    --sp-content: 1.5rem;
+  }
 }
 
 html[mode='dark'] {

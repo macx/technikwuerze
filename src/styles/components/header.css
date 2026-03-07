@@ -27,17 +27,13 @@
 }
 
 .header-tools {
-  margin-inline-end: var(--sp);
+  margin-inline-end: var(--sp-xs);
   display: inline-flex;
   align-items: center;
   justify-self: end;
   flex-wrap: nowrap;
   position: relative;
   z-index: 23;
-
-  @media (width >= 48em) {
-    margin-inline-end: calc(var(--sp-content) - var(--sp));
-  }
 }
 
 #main-nav {
@@ -58,8 +54,6 @@
   inset-inline-end: 0;
   z-index: 22;
 
-  inline-size: var(--nav-list-width, min(20rem, 80vw));
-
   display: flex;
   flex-direction: var(--nav-list-layout, column);
   flex-wrap: wrap;
@@ -74,7 +68,7 @@
   margin-block: 0;
   padding: var(
     --nav-list-padding,
-    calc(var(--header-size) + var(--sp)) var(--sp-content) var(--sp-xl)
+    calc(var(--header-size) + var(--sp)) var(--sp-content) var(--sp-xl) var(--sp-xl)
   );
 
   border: 2px solid var(--clr-border);
@@ -87,7 +81,7 @@
   transition: none;
   visibility: var(--nav-list-visibility, hidden);
 
-  @media (width >= 48em) {
+  @media (width >= 50em) {
     background-color: transparent;
 
     border: 0;
@@ -114,7 +108,6 @@
   font-weight: var(--fw-bold);
   text-decoration: none;
   color: var(--clr-secondary);
-  padding-inline: var(--sp);
   border-radius: var(--radius-button);
   text-align: end;
 
@@ -134,17 +127,17 @@
 
 .main-nav-link {
   place-content: center end;
-  padding-block: var(--sp-xs);
-  padding-inline: var(--sp);
+  padding-block: 0.5rem;
+  padding-inline: 1rem;
 }
 
 .main-nav-button {
   place-content: center;
   padding-block: 0.3125rem;
-  padding-inline: var(--sp-xs);
+  padding-inline: 0.375rem;
 }
 
-@media (width < 48em) and (prefers-reduced-motion: no-preference) {
+@media (width < 53em) and (prefers-reduced-motion: no-preference) {
   #main-nav ul {
     opacity: 1;
     transform: var(--nav-list-transform, translateX(100%));
@@ -166,7 +159,7 @@ body:has(.main-nav__toggle[aria-expanded='true']) #main-nav ul {
   opacity: 1;
 }
 
-@media (width >= 48em) {
+@media (width >= 53em) {
   .main-header {
     grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
   }
@@ -184,7 +177,6 @@ body:has(.main-nav__toggle[aria-expanded='true']) #main-nav ul {
     --nav-list-position: static;
     --nav-list-layout: row;
     --nav-list-gap: 2ch;
-    --nav-list-width: auto;
     --nav-list-shadow: none;
     --nav-list-padding: 0;
     --nav-list-visibility: visible;

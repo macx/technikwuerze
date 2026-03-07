@@ -20,7 +20,7 @@
 
     a {
       display: block;
-      padding: var(--sp-s);
+      padding: var(--sp-xs);
       border-radius: var(--radius-button);
       transition: background-color var(--transition-short);
 
@@ -39,7 +39,12 @@
       color: var(--clr-primary);
     }
 
-    @media (width >= 45em) {
+    @media (width <= 30em) {
+      max-inline-size: 20rem;
+      margin-inline: auto;
+    }
+
+    @media (width >= 50em) {
       a {
         padding: var(--sp);
       }
@@ -76,7 +81,7 @@
     text-align: center;
     margin-block: 0 var(--sp-s);
 
-    @media (pointer: fine) or (width >= 45em) {
+    @media (pointer: fine) or (width >= 50em) {
       display: none;
     }
   }

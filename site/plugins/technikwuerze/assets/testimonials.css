@@ -5,8 +5,6 @@
     --list-gap: var(--sp-l);
 
     margin-block: var(--sp-xxl);
-    margin-inline: auto;
-    max-inline-size: var(--narrow-max-size);
     font-size: var(--fs-r);
 
     .tw-testimonials-list {

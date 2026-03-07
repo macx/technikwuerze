@@ -62,15 +62,15 @@ if ($mobilePointerText === '') {
   $mobilePointerText = trim((string) $block->listento_mobile()->value());
 }
 ?>
-<div class="handwriting tw-brand-networks<?= $hasFavoritePointer ? ' has-default-pointer' : '' ?>">
+<div class="tw-brand-networks<?= $hasFavoritePointer ? ' has-default-pointer' : '' ?>">
   <?php if ($mobilePointerText !== ''): ?>
-    <p class="pointer-mobile">
+    <p class="pointer-mobile handwriting">
       <?= esc($mobilePointerText) ?>
     </p>
   <?php endif; ?>
 
   <div class="pointer">
-    <span class="handwriting pointer-text<?= $defaultIsCustom ? ' is-rss-custom' : '' ?>">
+    <span class="pointer-text handwriting<?= $defaultIsCustom ? ' is-rss-custom' : '' ?>">
       <span class="pointer-start">
         <?= esc($block->listento_start()->value()) ?>
       </span>

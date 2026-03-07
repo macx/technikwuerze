@@ -1,7 +1,7 @@
 @scope (.tw-brand) {
   :scope {
     text-align: center;
-    margin-block: var(--sp-l);
+    margin-block: 0 var(--sp-l);
 
     .animation {
       font-family: var(--ff-brand);
@@ -48,7 +48,9 @@
       margin-inline: auto;
     }
 
-    @media (width >= 45em) {
+    @media (width >= 50em) {
+      margin-block: var(--sp-xl) var(--sp-l);
+
       .byline {
         text-align: end;
         padding-inline-end: 8vw;
@@ -206,10 +208,6 @@
   }
 
   @media (hover: hover) and (pointer: fine) {
-    :scope {
-      padding-block-start: clamp(3rem, 2.4vw + 1.2rem, 4rem);
-    }
-
     :scope .pointer {
       display: block;
       inset-inline-start: 50%;
