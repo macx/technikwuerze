@@ -39,7 +39,7 @@
     }
 
     .byline {
-      font-size: 0.875rem;
+      font-size: var(--fs-s);
       color: var(--clr-primary);
       font-weight: var(--fw-bold);
       margin-block-start: 0.5em;
@@ -51,7 +51,7 @@
     @media (width >= 45em) {
       .byline {
         text-align: end;
-        padding-inline-end: 12vw;
+        padding-inline-end: 8vw;
         max-inline-size: unset;
       }
     }
