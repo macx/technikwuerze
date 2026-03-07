@@ -23,43 +23,82 @@ fields:
       de: Statistik-Kacheln
     min: 4
     max: 4
-    columns:
-      icon:
-        width: 1/4
+    columns: label
       label:
-        width: 1/2
-      value:
-        width: 1/4
+        text: true
+      integer_value:
+        text: true
+      percent_value:
+        text: true
     fields:
-      icon:
-        type: text
-        label:
-          en: Icon class
-          de: Icon-Klasse
-        width: 1/3
-        placeholder: msi-schedule
       label:
         type: text
         label:
           en: Label
           de: Bezeichnung
-        width: 1/3
-      value:
-        type: text
+        width: 1/2
+      icon:
+        type: select
         label:
-          en: Value
-          de: Wert
-        width: 1/3
-    default:
-      - icon: msi-schedule
-        label: Durchschnittliche Hördauer
-        value: 42:15
-      - icon: msi-headphones
-        label: Folgen gesamt
-        value: 189
-      - icon: msi-groups
-        label: Stammhörende
-        value: 3.400
-      - icon: msi-podcasts
-        label: Veröffentlichungsjahre
-        value: 20
+          en: Icon class
+          de: Icon-Klasse
+        width: 1/2
+        default: msi-schedule
+        options:
+          msi-dark-mode: msi-dark-mode
+          msi-light-mode: msi-light-mode
+          msi-routine: msi-routine
+          msi-menu: msi-menu
+          msi-close: msi-close
+          msi-arrow-forward: msi-arrow-forward
+          msi-arrow-back: msi-arrow-back
+          msi-schedule: msi-schedule
+          msi-person-outline: msi-person-outline
+          msi-calendar: msi-calendar
+          msi-download: msi-download
+          msi-diversity-1: msi-diversity-1
+          msi-podcasts: msi-podcasts
+          msi-adaptive-audio-mic: msi-adaptive-audio-mic
+          msi-av-timer: msi-av-timer
+          msi-person-filled: msi-person-filled
+      value_type:
+        type: select
+        width: 1/2
+        label:
+          en: Value type
+          de: Wert-Typ
+        default: integer
+        options:
+          integer:
+            en: Integer
+            de: Ganzzahl
+          percent:
+            en: Percent
+            de: Prozent
+          total_episodes:
+            en: Total episodes (determined)
+            de: Folgen gesamt (ermittelt)
+      integer_value:
+        type: number
+        width: 1/2
+        label:
+          en: Integer
+          de: Ganzzahl
+        step: 1
+        min: 0
+        default: 0
+        when:
+          value_type: integer
+      percent_value:
+        type: number
+        width: 1/2
+        label:
+          en: Percent
+          de: Prozent
+        step: 0.1
+        min: 0
+        max: 100
+        default: 0
+        after: '%'
+        when:
+          value_type: percent

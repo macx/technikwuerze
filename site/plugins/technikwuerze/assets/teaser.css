@@ -67,7 +67,8 @@
       text-wrap: pretty;
       max-inline-size: 25ch;
       margin-inline: auto;
-      font-weight: 500;
+      font-size: var(--fs-r);
+      font-weight: 600;
       color: var(--clr-primary);
       letter-spacing: -0.025rem;
     }
@@ -81,10 +82,8 @@
     }
 
     @container main (width >= 48em) {
-      grid-template-columns:
-        1fr 5.5rem,
-        1fr;
       grid-template-areas: 'foreword title afterword';
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr) minmax(0, 1fr);
       column-gap: 3rem;
       align-items: center;
 

@@ -68,8 +68,19 @@ body {
 main {
   flex: 1;
   inline-size: 100%;
+  container: main / inline-size;
+}
+
+.content {
   max-inline-size: var(--content-max-size);
   margin-inline: auto;
   padding-inline: var(--sp-content);
-  container: main / inline-size;
+
+  &.medium {
+    max-inline-size: var(--medium-max-size);
+  }
+
+  &.narrow {
+    max-inline-size: var(--narrow-max-size);
+  }
 }

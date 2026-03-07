@@ -34,7 +34,7 @@ $seasons = $page
         ->published()
         ->sortBy('date', 'desc'); ?>
       <?php if ($seasonEpisodes->isNotEmpty()): ?>
-        <section class="season">
+        <section class="season content">
           <header class="section-header">
             <h2>
               <?= $season->title()->html() ?>

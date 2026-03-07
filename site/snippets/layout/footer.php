@@ -77,7 +77,7 @@ foreach (site()->content()->get('socialLinks')->toStructure() as $social) {
   </section>
 
   <div class="about-us">
-    <div class="inner">
+    <div class="content inner">
       <p class="about-us">
         <?= site()->content()->get('footerAboutUs')->kti() ?>
       </p>

@@ -36,6 +36,15 @@ fields:
     label:
       en: Networks
       de: Netzwerke
+    columns:
+      network:
+        text: true
+      mode:
+        text: true
+      hover_text:
+        text: true
+      copied_text:
+        text: true
     fields:
       network:
         type: select

@@ -2,6 +2,7 @@
   /* LAYOUT */
   --header-size: 5rem;
   --content-max-size: 85rem;
+  --medium-max-size: 72rem;
   --narrow-max-size: 55rem;
 
   --max-lead: 55ch;
@@ -20,6 +21,7 @@
   --fs-s: clamp(0.875rem, 0.75rem + 0.4vw, 1rem);
   --fs-r: clamp(1rem, 0.875rem + 0.4vw, 1.125rem);
   --fs-m: clamp(1.5rem, 1rem + 1.6vw, 2rem);
+  --fs-l: clamp(1.75rem, 1.125rem + 2.4vw, 3rem);
   --fs-title: clamp(2rem, -1rem + 9.6vw, 5rem);
   --fs-title-2nd: clamp(1.625rem, -0.75rem + 7.6vw, 5rem);
   --fs-title-3rd: clamp(1.5rem, -0.75rem + 7.2vw, 3.75rem);
@@ -50,7 +52,7 @@
   --sp-m: 1.875rem;
   --sp-l: 3.125rem;
   --sp-xl: 4rem;
-  --sp-xxl: 6rem;
+  --sp-xxl: 6.5rem;
   --sp-content: max(1.875rem, 4vw);
 
   /* OTHER */

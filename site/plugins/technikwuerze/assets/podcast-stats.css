@@ -2,53 +2,60 @@
   :scope {
     --stats-columns: 2;
 
-    margin-block: var(--sp-xl);
+    margin-block: var(--sp-xxl);
+    background-color: var(--clr-bg-dark);
+    border-block: 2px solid var(--clr-border);
+    padding-block: var(--sp-l);
+    text-align: center;
 
     h2 {
-      margin-block: 0 1rem;
-      text-align: start;
+      margin-block-start: 0;
+      color: var(--clr-secondary);
     }
-  }
 
-  :scope .tw-podcast-stats-grid {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+    .tw-podcast-stats-grid {
+      list-style: none;
+      margin: 0;
+      padding: 0;
 
-    display: grid;
-    grid-template-columns: repeat(var(--stats-columns), minmax(0, 1fr));
-    gap: var(--sp);
-  }
+      display: grid;
+      grid-template-columns: repeat(var(--stats-columns), minmax(0, 1fr));
+      gap: var(--sp);
+      align-items: stretch;
+    }
 
-  :scope .tw-podcast-stats-item {
-    display: grid;
-    gap: 0.35rem;
+    .tw-podcast-stats-item {
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      gap: var(--sp-xs);
+      block-size: 100%;
+    }
 
-    border: 2px solid var(--clr-border);
-    border-radius: var(--radius-button);
-    background-color: var(--clr-bg-light);
-    box-shadow: var(--shadow-size) var(--shadow-size) 0 0 var(--clr-shadow);
-    padding: var(--sp);
-  }
+    .tw-podcast-stats-icon {
+      color: var(--clr-secondary);
+      font-size: 3.7rem;
+      font-variation-settings:
+        'FILL' 0,
+        'wght' 200,
+        'GRAD' 200,
+        'opsz' 24;
+    }
 
-  :scope .tw-podcast-stats-icon {
-    color: var(--clr-primary);
-    font-size: 1.5rem;
-  }
+    .tw-podcast-stats-label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: var(--fs);
+    }
 
-  :scope .tw-podcast-stats-label {
-    font-size: var(--fs-s);
-  }
+    .tw-podcast-stats-value {
+      font-size: var(--fs-l);
+      font-weight: var(--fw-title);
+      line-height: var(--lh-s);
+      color: var(--clr-secondary);
+    }
 
-  :scope .tw-podcast-stats-value {
-    color: var(--clr-secondary);
-    font-size: clamp(1.25rem, 0.9rem + 1vw, 1.8rem);
-    font-weight: var(--fw-title);
-    line-height: 1.1;
-  }
-
-  @media (width >= 64em) {
-    :scope {
+    @media (width >= 64em) {
       --stats-columns: 4;
     }
   }

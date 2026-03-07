@@ -14,7 +14,7 @@ if ($title === '' && $foreword === '' && $afterword === '') {
   return;
 }
 ?>
-<section class="tw-teaser">
+<section class="tw-teaser content medium">
   <header class="tw-teaser-title-wrap">
     <?php if ($title !== ''): ?>
       <h2 class="tw-teaser-title"><?= $block->title()->kt() ?></h2>

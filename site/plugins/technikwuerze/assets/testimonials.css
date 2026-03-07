@@ -49,7 +49,7 @@
         content: '”';
         position: absolute;
         inset-block-start: var(--sp-m);
-        inset-inline-start: var(--sp-s);
+        inset-inline-start: var(--sp-xs);
         font-size: 8.5rem;
         font-weight: 700;
         line-height: 1;

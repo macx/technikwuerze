@@ -31,7 +31,7 @@ snippet('layout', slots: true);
   <?= $page->blocks()->toBlocks() ?>
 
   <?php if ($episodes->isNotEmpty()): ?>
-    <section class="season">
+    <section class="season content">
       <ul class="season-list">
         <?php foreach ($episodes as $episode): ?>
           <li>

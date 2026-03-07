@@ -76,8 +76,6 @@
   }
 
   .inner {
-    max-inline-size: var(--content-max-size);
-    margin-inline: auto;
     padding-block: var(--sp-xl);
     padding-inline: var(--sp-content);
   }

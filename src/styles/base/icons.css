@@ -61,6 +61,26 @@
   --msi-icon: 'calendar_month';
 }
 
+.msi-download {
+  --msi-icon: 'download';
+}
+
+.msi-diversity-1 {
+  --msi-icon: 'diversity_1';
+}
+
+.msi-podcasts {
+  --msi-icon: 'podcasts';
+}
+
+.msi-adaptive-audio-mic {
+  --msi-icon: 'adaptive_audio_mic';
+}
+
+.msi-av-timer {
+  --msi-icon: 'av_timer';
+}
+
 .msi-person-filled {
   --msi-icon: 'person';
   font-variation-settings:

@@ -209,7 +209,7 @@ $formatDuration = static function ($episode): string {
   return $rawDuration;
 };
 ?>
-<section class="tw-podcast-episodes" style="--color-scheme: <?= esc(
+<section class="tw-podcast-episodes content" style="--color-scheme: <?= esc(
   $colorSchemeCssValue,
   'attr',
 ) ?>">

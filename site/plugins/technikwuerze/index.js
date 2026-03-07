@@ -71,6 +71,29 @@ panel.plugin('tw/brand', {
         end() {
           return fallback(this.content.listento_end, 'anhören')
         },
+        defaultNetwork() {
+          const labels = {
+            rss: 'RSS Feed',
+            overcast: 'Overcast',
+            applepodcasts: 'Apple Podcasts',
+            youtubemusic: 'YouTube Music',
+            amazonmusic: 'Amazon Music',
+            spotify: 'Spotify',
+            pocketcasts: 'Pocket Casts',
+            twitch: 'Twitch',
+          }
+
+          let selected = fallback(this.content.favorite_network, '').toLowerCase()
+          if (
+            selected === '' &&
+            Array.isArray(this.content.networks) &&
+            this.content.networks.length > 0
+          ) {
+            selected = String(this.content.networks[0]?.network ?? '').toLowerCase()
+          }
+
+          return labels[selected] ?? 'Spotify'
+        },
         count() {
           return structureCount(this.content.networks)
         },
@@ -78,7 +101,7 @@ panel.plugin('tw/brand', {
       template: `
         <div class="twz-block-preview">
           <p class="twz-block-preview__kicker">Podcast-Netzwerke</p>
-          <h3 class="twz-block-preview__title">{{ start }} ... {{ end }}</h3>
+          <h3 class="twz-block-preview__title">{{ start }} {{ defaultNetwork }} {{ end }}</h3>
           <p class="twz-block-preview__meta">{{ count }} Einträge</p>
         </div>
       `,
@@ -156,8 +179,8 @@ panel.plugin('tw/brand', {
           <div class="twz-block-preview__stats-grid">
             <div class="twz-block-preview__stats-item" v-for="i in 4" :key="i">
               <span class="twz-block-preview__stats-icon">◉</span>
-              <span class="twz-block-preview__stats-label">Durchschnittliche Hördauer</span>
-              <span class="twz-block-preview__stats-value">42:15</span>
+              <span class="twz-block-preview__stats-line twz-block-preview__stats-line--label"></span>
+              <span class="twz-block-preview__stats-line twz-block-preview__stats-line--value" :class="'twz-block-preview__stats-line--value-' + i"></span>
             </div>
           </div>
         </div>
@@ -240,9 +263,26 @@ panel.plugin('tw/brand', {
         },
       },
       template: `
-        <div class="twz-block-preview">
+        <div class="twz-block-preview twz-block-preview--testimonials">
           <p class="twz-block-preview__kicker">Testimonials</p>
           <h3 class="twz-block-preview__title">{{ title }}</h3>
+          <div class="twz-block-preview__testimonials-grid">
+            <article class="twz-block-preview__testimonial-card" v-for="i in 2" :key="i">
+              <p class="twz-block-preview__testimonial-quote" aria-hidden="true">❝</p>
+              <p class="twz-block-preview__testimonial-text" aria-hidden="true">
+                <span class="twz-block-preview__testimonial-line"></span>
+                <span class="twz-block-preview__testimonial-line"></span>
+                <span class="twz-block-preview__testimonial-line twz-block-preview__testimonial-line--short"></span>
+              </p>
+              <div class="twz-block-preview__testimonial-person">
+                <span class="twz-block-preview__testimonial-avatar" aria-hidden="true"></span>
+                <span class="twz-block-preview__testimonial-name-role" aria-hidden="true">
+                  <span class="twz-block-preview__testimonial-line twz-block-preview__testimonial-line--name"></span>
+                  <span class="twz-block-preview__testimonial-line twz-block-preview__testimonial-line--role"></span>
+                </span>
+              </div>
+            </article>
+          </div>
           <p class="twz-block-preview__meta">Anzahl: {{ amount }} · Reihenfolge: {{ order }}</p>
         </div>
       `,
