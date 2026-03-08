@@ -32,9 +32,9 @@ REMOTE_CONTENT_PATH="${SYNC_REMOTE_PROJECT_PATH%/}/content"
 RSYNC_SSH=(ssh -p "$SYNC_PORT")
 
 mkdir -p content/.db content/audio
-mkdir -p content/covers
+mkdir -p content/covers content/avatars
 
-ssh -p "$SYNC_PORT" "${SYNC_USER}@${SYNC_HOST}" "mkdir -p '${REMOTE_CONTENT_PATH}/.db' '${REMOTE_CONTENT_PATH}/audio' '${REMOTE_CONTENT_PATH}/covers'"
+ssh -p "$SYNC_PORT" "${SYNC_USER}@${SYNC_HOST}" "mkdir -p '${REMOTE_CONTENT_PATH}/.db' '${REMOTE_CONTENT_PATH}/audio' '${REMOTE_CONTENT_PATH}/covers' '${REMOTE_CONTENT_PATH}/avatars'"
 
 confirm_overwrite() {
   local source_path="$1"
@@ -69,6 +69,12 @@ push_covers() {
     "${SYNC_USER}@${SYNC_HOST}:${REMOTE_CONTENT_PATH}/covers/"
 }
 
+push_avatars() {
+  rsync -avz --delete -e "${RSYNC_SSH[*]}" \
+    "./content/avatars/" \
+    "${SYNC_USER}@${SYNC_HOST}:${REMOTE_CONTENT_PATH}/avatars/"
+}
+
 case "$MODE" in
   db)
     confirm_overwrite "./content/.db/" "${SYNC_USER}@${SYNC_HOST}:${REMOTE_CONTENT_PATH}/.db/"
@@ -81,6 +87,7 @@ case "$MODE" in
   covers)
     confirm_overwrite "./content/covers/" "${SYNC_USER}@${SYNC_HOST}:${REMOTE_CONTENT_PATH}/covers/"
     push_covers
+    push_avatars
     ;;
   *)
     echo "Unknown mode: $MODE (use: db|audio|covers)" >&2

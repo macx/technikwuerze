@@ -35,9 +35,11 @@
 # production -> local
 rsync -avz user@host:/var/www/technikwuerze/content/.db/ ./content/.db/
 rsync -avz user@host:/var/www/technikwuerze/content/audio/ ./content/audio/
+rsync -avz user@host:/var/www/technikwuerze/content/avatars/ ./content/avatars/
 
 # local -> production (only if needed)
 rsync -avz ./content/audio/ user@host:/var/www/technikwuerze/content/audio/
+rsync -avz ./content/avatars/ user@host:/var/www/technikwuerze/content/avatars/
 ```
 
 ## Release Tags

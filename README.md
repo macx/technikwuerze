@@ -136,7 +136,7 @@ pnpm run build
 - Content is managed in the separate `technikwuerze-content` repository.
 - Audio files are centralized in `content/audio/`.
 - Runtime DBs live in `content/.db/`.
-- Binary runtime files (`audio`, `covers`, sqlite) are synced with `rsync`, not Git.
+- Binary runtime files (`audio`, `covers`, `avatars`, sqlite) are synced with `rsync`, not Git.
 
 ### Keep Local Runtime Data in Sync
 
@@ -147,7 +147,7 @@ pnpm run sync:pull:db
 # pull only audio
 pnpm run sync:pull:audio
 
-# pull only covers
+# pull covers + avatars
 pnpm run sync:pull:covers
 
 # push all DB files from content/.db (asks for confirmation)
@@ -156,7 +156,7 @@ pnpm run sync:push:db
 # push only audio (asks for confirmation)
 pnpm run sync:push:audio
 
-# push only covers (asks for confirmation)
+# push covers + avatars (asks for confirmation)
 pnpm run sync:push:covers
 ```
 

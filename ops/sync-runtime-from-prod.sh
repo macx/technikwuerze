@@ -31,7 +31,7 @@ fi
 REMOTE_CONTENT_PATH="${SYNC_REMOTE_PROJECT_PATH%/}/content"
 RSYNC_SSH=(ssh -p "$SYNC_PORT")
 
-mkdir -p content/.db content/audio content/covers
+mkdir -p content/.db content/audio content/covers content/avatars
 
 pull_db() {
   rsync -avz --delete -e "${RSYNC_SSH[*]}" \
@@ -51,6 +51,12 @@ pull_covers() {
     "./content/covers/"
 }
 
+pull_avatars() {
+  rsync -avz --delete -e "${RSYNC_SSH[*]}" \
+    "${SYNC_USER}@${SYNC_HOST}:${REMOTE_CONTENT_PATH}/avatars/" \
+    "./content/avatars/"
+}
+
 case "$MODE" in
   db)
     pull_db
@@ -60,6 +66,7 @@ case "$MODE" in
     ;;
   covers)
     pull_covers
+    pull_avatars
     ;;
   *)
     echo "Unknown mode: $MODE (use: db|audio|covers)" >&2

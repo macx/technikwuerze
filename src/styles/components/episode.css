@@ -1,21 +1,23 @@
 @scope (.episode-view) {
   :scope {
     .episode-participants {
+      --participant-avatar-size: 2.75rem;
+
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: var(--sp-xs);
     }
 
     .episode-participants-row {
       display: grid;
       gap: 0.25rem;
+      align-content: start;
+      min-inline-size: 0;
     }
 
     .episode-participants-list {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: var(--sp-xxs);
+      display: grid;
+      gap: 0.25rem;
       margin: 0;
       padding: 0;
       list-style: none;
@@ -24,14 +26,34 @@
     .episode-participants-item {
       margin: 0;
       padding: 0;
+      min-block-size: var(--participant-avatar-size);
+    }
+
+    .episode-participants-link {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: inherit;
+      text-decoration: none;
+      border-radius: var(--radius-sm);
+      padding-inline-end: 0.375rem;
+      min-inline-size: 0;
+    }
+
+    .episode-participants-link:is(:hover, :focus-visible) {
+      color: var(--clr-secondary);
+      text-decoration: underline;
+      text-underline-offset: 0.2em;
     }
 
     .episode-participants-avatar {
-      inline-size: 2.75rem;
-      block-size: 2.75rem;
+      inline-size: var(--participant-avatar-size);
+      block-size: var(--participant-avatar-size);
       display: inline-grid;
       place-items: center;
       border-radius: 999px;
+      overflow: hidden;
+      flex: none;
       object-fit: cover;
       border: 1px solid var(--clr-border);
     }
@@ -43,6 +65,13 @@
       font-size: 0.8rem;
       letter-spacing: 0.03em;
       text-transform: uppercase;
+    }
+
+    .episode-participants-name {
+      font-size: var(--fs-xs);
+      line-height: 1.2;
+      overflow-wrap: anywhere;
+      hyphens: auto;
     }
 
     .episode-text {
@@ -57,7 +86,6 @@
 
       h2 {
         font-size: 2em;
-        border: 2px solid red;
       }
 
       h3 {

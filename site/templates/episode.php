@@ -74,19 +74,22 @@ $renderParticipantAvatars = static function (Kirby\Cms\Pages $participants) use 
     $displayName = $fullName !== '' ? $fullName : $participant->title()->value();
     $image = $participant->profile_image()->toFile();
     ?>
-    <li class="episode-participants-item" aria-label="<?= esc($displayName) ?>">
-      <?php if ($image): ?>
-        <img
-          class="episode-participants-avatar"
-          src="<?= $image->crop(192, 192)->url() ?>"
-          alt="<?= esc($displayName) ?>"
-          loading="lazy"
-        >
-      <?php else: ?>
-        <span class="episode-participants-avatar episode-participants-avatar--fallback" aria-hidden="true">
-          <?= esc($getInitials($participant)) ?>
-        </span>
-      <?php endif; ?>
+    <li class="episode-participants-item">
+      <a class="episode-participants-link" href="<?= $participant->url() ?>">
+        <?php if ($image): ?>
+          <img
+            class="episode-participants-avatar"
+            src="<?= $image->crop(192, 192)->url() ?>"
+            alt="<?= esc($displayName) ?>"
+            loading="lazy"
+          >
+        <?php else: ?>
+          <span class="episode-participants-avatar episode-participants-avatar--fallback" aria-hidden="true">
+            <?= esc($getInitials($participant)) ?>
+          </span>
+        <?php endif; ?>
+        <span class="episode-participants-name"><?= esc($displayName) ?></span>
+      </a>
     </li>
   <?php
   endforeach;

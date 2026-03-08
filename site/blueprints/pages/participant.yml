@@ -137,10 +137,10 @@ tabs:
                 type: files
                 layout: cardlets
                 multiple: false
-                query: page.images
+                query: site.find("avatars").images
                 uploads:
                   template: profile-image
-                  parent: page
+                  parent: site.find("avatars")
               participant_role:
                 label:
                   de: Rolle

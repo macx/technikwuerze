@@ -27,7 +27,7 @@ Maintain and evolve the Technikwürze Kirby site safely and consistently:
 
 - Main repo must not depend on uncommitted content-side runtime state.
 - Content repo is authoritative for Kirby content files.
-- Binary runtime data (audio files, sqlite DB files) is synchronized by `rsync`, not Git.
+- Binary runtime data (audio files, avatar images, sqlite DB files) is synchronized by `rsync`, not Git.
 
 ## 4) Data Storage Rules (Important)
 
@@ -38,6 +38,12 @@ Maintain and evolve the Technikwürze Kirby site safely and consistently:
   - `- file://<uuid>`
 - Do not copy MP3 files into each episode directory.
 - Keep `content/audio/.gitkeep` present.
+
+### Avatars
+
+- Participant avatars are centralized in `content/avatars/`.
+- Participants reference avatars via file UUID in `Profile-image`.
+- Keep `content/avatars/.gitkeep` present.
 
 ### Databases
 
@@ -51,7 +57,7 @@ Maintain and evolve the Technikwürze Kirby site safely and consistently:
 ### Gitignore intent
 
 - Main repo ignores local sqlite artifacts (including `/.sqlite/`).
-- Content repo ignores `*.sqlite`, `*.db`, audio/video binaries.
+- Content repo ignores `*.sqlite`, `*.db`, audio/video binaries and avatar binaries in `content/avatars/`.
 - Keep placeholders like `.gitkeep` tracked where needed.
 
 ## 5) Language & Content Conventions
@@ -154,6 +160,7 @@ Maintain and evolve the Technikwürze Kirby site safely and consistently:
 - Keep `.htaccess` deploy-managed so Kirby rewrite rules in `public/.htaccess` stay consistent.
 - Runtime binaries/state are not in Git:
   - `content/audio/` (audio files)
+  - `content/avatars/` (participant avatar image files)
   - `content/.db/*.sqlite` (komments + podcaster stats)
 - Runtime binaries/state are synchronized manually via `rsync` when needed.
 

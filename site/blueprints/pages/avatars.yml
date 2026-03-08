@@ -1,0 +1,23 @@
+title:
+  de: Avatare
+  en: Avatars
+icon: users
+
+options:
+  delete: false
+  changeSlug: false
+
+tabs:
+  files:
+    label:
+      de: Profilbilder
+      en: Profile images
+    sections:
+      avatar_files:
+        type: files
+        layout: cards
+        template: profile-image
+        query: page.images.sortBy("filename", "asc")
+        image:
+          cover: true
+          ratio: 1/1
