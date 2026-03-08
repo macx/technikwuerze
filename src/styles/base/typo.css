@@ -40,6 +40,12 @@ p {
     margin-block: 0 0.4em;
   }
 
+  .subtitle {
+    display: block;
+    font-size: var(--fs);
+    line-height: var(--lh);
+  }
+
   .lead {
     font-size: var(--fs-lead);
     line-height: var(--lh);

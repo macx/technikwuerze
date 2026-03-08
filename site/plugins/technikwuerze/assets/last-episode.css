@@ -3,6 +3,7 @@
     .tw-last-episode-container {
       display: grid;
       gap: clamp(var(--sp), 1vw + var(--sp-s), var(--sp-l));
+
       font-size: var(--fs-r);
       line-height: var(--lh);
 
@@ -36,30 +37,37 @@
       text-wrap: pretty;
     }
 
-    @container main (width >= 40em) {
+    @container main (width >= 35em) {
       .tw-last-episode-container {
-        grid-template-columns: minmax(0, 1fr) minmax(30rem, 1.4fr);
+        grid-template-columns: minmax(0, 1fr) minmax(20rem, 1.5fr);
       }
 
       .tw-last-episode-intro {
         align-self: center;
       }
     }
+
+    @container main (width >= 50em) {
+      .tw-last-episode-container {
+        grid-template-columns: minmax(0, 1fr) minmax(30rem, 1.7fr);
+      }
+    }
   }
 
   :scope .tw-last-episode-player {
     min-inline-size: 0;
+    inline-size: 100%;
     overflow: hidden;
     border-radius: var(--radius-button);
     background-color: var(--clr-bg-light);
     border: var(--clr-border);
     padding: var(--sp-s);
     align-self: center;
+    justify-self: center;
 
     :where([id^='podlove-player-']) {
       min-inline-size: 0;
       inline-size: 100%;
-      max-inline-size: 100%;
     }
 
     :where([id^='podlove-player-'] iframe) {

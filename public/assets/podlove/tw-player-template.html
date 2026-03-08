@@ -32,18 +32,18 @@
 
       <div
         style="
-          display: flex;
+          display: grid;
+          grid-template-columns: minmax(0, 1fr) auto auto auto minmax(0, 1fr);
           align-items: center;
-          justify-content: space-between;
-          gap: 0.8rem;
+          column-gap: 0.8rem;
           width: 100%;
         "
       >
-        <speed-control></speed-control>
-        <step-backward></step-backward>
-        <play-button variant="simple" colorType="brand"></play-button>
-        <step-forward></step-forward>
-        <volume-control></volume-control>
+        <speed-control style="justify-self: start"></speed-control>
+        <step-backward style="justify-self: center"></step-backward>
+        <play-button variant="simple" colorType="brand" style="justify-self: center"></play-button>
+        <step-forward style="justify-self: center"></step-forward>
+        <volume-control style="justify-self: end"></volume-control>
       </div>
 
       <div style="display: block; width: 100%">

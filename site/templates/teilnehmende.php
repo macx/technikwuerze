@@ -8,7 +8,21 @@
 
 snippet('layout', slots: true); ?>
   <?php slot(); ?>
-    <?php $textBlocks = $page->text()->toBlocks(); ?>
+    <?php if ($page->header()->isNotEmpty()): ?>
+      <div class="page-header">
+        <h1 class="title">
+          <?= $page->header()->html() ?>
+        </h1>
+
+        <?php if ($page->lead()->isNotEmpty()): ?>
+          <p class="lead">
+            <?= $page->lead()->kti() ?>
+          </p>
+        <?php endif; ?>
+      </div>
+    <?php endif; ?>
+
+    <?= $page->blocks()->toBlocks() ?>
 
     <?php if ($page->text()->isNotEmpty()): ?>
       <div class="teilnehmende-intro">

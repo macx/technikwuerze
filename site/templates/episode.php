@@ -29,12 +29,17 @@ snippet('layout', slots: true);
 ?>
 
 <?php slot(); ?>
-  <article class="episode-view">
-    <header>
-      <h1><?= $page->title()->html() ?></h1>
-      <?php if ($page->podcastersubtitle()->isNotEmpty()): ?>
-        <p><strong><?= $page->podcastersubtitle()->html() ?></strong></p>
-      <?php endif; ?>
+  <article class="episode-view content">
+    <header class="page-header">
+      <h1 class="title">
+        <?= $page->title()->html() ?>
+        <?php if ($page->podcastersubtitle()->isNotEmpty()): ?>
+          <span class="subtitle">
+            <?= $page->podcastersubtitle()->html() ?>
+          </span>
+        <?php endif; ?>
+      </h1>
+
 
       <p>
         <strong>Meta:</strong>

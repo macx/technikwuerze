@@ -3,6 +3,11 @@ label:
   en: Lead & Blocks
   de: Vorspann & Blöcke
 fields:
+  header:
+    type: text
+    label:
+      en: Headline
+      de: Überschrift
   lead:
     type: textarea
     label:

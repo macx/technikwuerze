@@ -14,14 +14,8 @@ tabs:
     columns:
       - width: 1/2
         sections:
-          details:
-            type: fields
-            fields:
-              text:
-                extends: fields/content-blocks
-                label:
-                  de: Inhaltsblöcke
-                  en: Content blocks
+          lead-blocks:
+            extends: fields/lead-blocks
       - width: 1/2
         sections:
           publishers:

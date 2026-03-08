@@ -266,7 +266,7 @@ $formatDuration = static function ($episode): string {
             </div>
 
             <p class="tw-podcast-episodes-teaser">
-              <?= esc($episode->podcasterdescription()->short(120)) ?>
+              <?= $episode->podcasterdescription()->kti()->short(120) ?>
             </p>
 
             <div>
