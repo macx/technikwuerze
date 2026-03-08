@@ -73,6 +73,12 @@ columns:
             label: Episode
             type: number
             width: 1/4
+          podcasterEpisodeTotal:
+            label: Gesamtfolge
+            type: number
+            min: 1
+            step: 1
+            width: 1/4
           podcasterEpisodeType:
             label: Episode type
             type: select

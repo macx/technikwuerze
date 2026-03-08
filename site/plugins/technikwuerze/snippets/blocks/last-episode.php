@@ -30,29 +30,30 @@ if ($episodeCandidates && $episodeCandidates->isNotEmpty()) {
 
 <?php if ($latestEpisode): ?>
   <section class="tw-last-episode content narrow">
-    <div class="tw-last-episode-container">
-      <div class="tw-last-episode-intro">
+    <?php snippet(
+      'podcast-player',
+      [
+        'page' => $latestEpisode,
+        'template' => $podloveTemplate,
+        'transparent' => true,
+        'containerClass' => '',
+      ],
+      slots: true,
+    ); ?>
+      <?php slot(); ?>
         <h2><?= esc($headline) ?></h2>
 
-        <p class="tw-last-episode-text">
+        <p class="podcast-player-text">
           <?= $latestEpisode->podcasterdescription()->kti()->short(150) ?>
         </p>
 
-        <div class="tw-last-episode-actions">
+        <div class="podcast-player-actions">
           <a href="<?= $latestEpisode->url() ?>" class="button-primary" data-icon-position="right" style="--color-scheme: var(--clr-secondary)">
             <i class="msi-arrow-forward" aria-hidden="true"></i>
             <span>Zur Folge</span>
           </a>
         </div>
-      </div>
-
-      <article class="tw-last-episode-player">
-        <?php snippet('podcaster-player', [
-          'page' => $latestEpisode,
-          'template' => $podloveTemplate,
-          'transparent' => true,
-        ]); ?>
-      </article>
-    </div>
+      <?php endslot(); ?>
+    <?php endsnippet(); ?>
   </section>
 <?php endif; ?>

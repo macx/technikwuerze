@@ -20,7 +20,9 @@ COMPONENTS
 @import './components/header.css' layer(components);
 @import './components/theme-switch.css' layer(components);
 @import './components/button.css' layer(components);
+@import './components/episode.css' layer(components);
 @import './components/podcaster-player.css' layer(components);
+@import './components/podcast-player.css' layer(components);
 @import './components/footer.css' layer(base);
 @import './components/participants.css' layer(base);
 @import './components/mediathek.css' layer(components);
@@ -34,7 +36,6 @@ COMPONENTS
 */
 @import '@plugins/technikwuerze/assets/brand.css' layer(components);
 @import '@plugins/technikwuerze/assets/podcast-networks.css' layer(components);
-@import '@plugins/technikwuerze/assets/last-episode.css' layer(components);
 @import '@plugins/technikwuerze/assets/podcast-episodes.css' layer(components);
 @import '@plugins/technikwuerze/assets/podcast-stats.css' layer(components);
 @import '@plugins/technikwuerze/assets/teaser.css' layer(components);

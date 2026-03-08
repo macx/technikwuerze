@@ -76,9 +76,39 @@ p {
   }
 }
 
-.text-small {
+b,
+strong {
+  font-weight: var(--fw-bold);
+}
+
+.text-strong {
+  font-weight: var(--fw-title);
+}
+
+.text-s {
   font-size: var(--fs-s);
   line-height: var(--lh);
+}
+
+.text-xs {
+  font-size: var(--fs-xs);
+  line-height: var(--lh);
+}
+
+.text-light {
+  color: var(--clr-text-light);
+}
+
+:where(.text-s, .text-xs) {
+  display: inline-block;
+}
+
+.text-primary {
+  color: var(--clr-primary);
+}
+
+.text-secondary {
+  color: var(--clr-secondary);
 }
 
 .handwriting {

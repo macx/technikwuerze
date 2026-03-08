@@ -3,6 +3,7 @@
 $projectRoot = dirname(__DIR__, 2);
 $dbPath = $projectRoot . '/content/.db/';
 $emailOptions = require __DIR__ . '/partials/email.php';
+$translationOptions = require __DIR__ . '/partials/translations.php';
 
 // Local dev: suppress vendor deprecation noise on PHP 8.4 (e.g. mf2/mf2)
 error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
@@ -49,4 +50,4 @@ $options = [
   ],
 ];
 
-return array_replace_recursive($options, $emailOptions);
+return array_replace_recursive($options, $emailOptions, $translationOptions);

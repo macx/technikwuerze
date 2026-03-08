@@ -5,6 +5,7 @@ $projectRoot = dirname(__DIR__, 2);
 $dbPath = $projectRoot . '/content/.db/';
 $emailOptions = require __DIR__ . '/partials/email.php';
 $cacheOptions = require __DIR__ . '/partials/cache.php';
+$translationOptions = require __DIR__ . '/partials/translations.php';
 
 $options = [
   'debug' => false,
@@ -43,4 +44,4 @@ $options = [
   ],
 ];
 
-return array_replace_recursive($options, $emailOptions, $cacheOptions);
+return array_replace_recursive($options, $emailOptions, $cacheOptions, $translationOptions);

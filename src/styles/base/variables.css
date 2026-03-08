@@ -19,6 +19,7 @@
   /* vp-min: 500px, vp-max: 1000px */
   --fs: clamp(1.125rem, 0.875rem + 0.8vw, 1.375rem);
   --fs-s: clamp(0.875rem, 0.75rem + 0.4vw, 1rem);
+  --fs-xs: clamp(0.75rem, 0.625rem + 0.4vw, 0.875rem);
   --fs-r: clamp(1rem, 0.875rem + 0.4vw, 1.125rem);
   --fs-m: clamp(1.5rem, 1rem + 1.6vw, 2rem);
   --fs-l: clamp(1.75rem, 1.125rem + 2.4vw, 3rem);
@@ -36,6 +37,7 @@
   --clr-bg-dark: light-dark(hsl(56 65% 71%), hsl(0 0% 13%));
   --clr-bg-footer: light-dark(hsl(18 18% 18%), hsl(0 0% 23%));
   --clr-text: light-dark(hsl(0 0% 18%), hsl(0 0% 100%));
+  --clr-text-light: light-dark(hsl(0 0% 40%), hsl(0 0% 100%));
   --clr-text-bright: light-dark(hsl(0 0% 100%), hsl(0 0% 18%));
   --clr-primary: light-dark(hsl(129 100% 26%), hsl(56 100% 79%));
   --clr-secondary: light-dark(hsl(263 60% 50%), hsl(263 100% 82%));

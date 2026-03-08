@@ -1,0 +1,72 @@
+@scope (.episode-view) {
+  :scope {
+    .episode-participants {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--sp-xs);
+    }
+
+    .episode-participants-row {
+      display: grid;
+      gap: 0.25rem;
+    }
+
+    .episode-participants-list {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--sp-xxs);
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .episode-participants-item {
+      margin: 0;
+      padding: 0;
+    }
+
+    .episode-participants-avatar {
+      inline-size: 2.75rem;
+      block-size: 2.75rem;
+      display: inline-grid;
+      place-items: center;
+      border-radius: 999px;
+      object-fit: cover;
+      border: 1px solid var(--clr-border);
+    }
+
+    .episode-participants-avatar--fallback {
+      background-color: var(--clr-secondary);
+      color: var(--clr-surface);
+      font-weight: var(--fw-bold);
+      font-size: 0.8rem;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+
+    .episode-text {
+      h1,
+      h2,
+      h3,
+      h4 {
+        text-align: left;
+        margin-block: 1.5em 0.5em;
+        color: var(--clr-secondary);
+      }
+
+      h2 {
+        font-size: 2em;
+        border: 2px solid red;
+      }
+
+      h3 {
+        font-size: 1.5em;
+      }
+
+      h4 {
+        font-size: 1.25em;
+      }
+    }
+  }
+}

@@ -1,14 +1,25 @@
 #kommentform {
   display: grid;
-  grid-template-columns: auto auto auto;
+  grid-template-columns: minmax(0, 1fr);
   grid-template-areas:
-    'message message message'
-    'replyHandleDisplay empty empty'
-    'comment comment comment'
-    'email author authorsite'
-    'privacy privacy button';
+    'message'
+    'replyHandleDisplay'
+    'comment'
+    'email'
+    'author'
+    'authorsite'
+    'privacy'
+    'button';
+  gap: var(--sp-xs);
+  align-items: start;
 
-  grid-gap: 1em;
+  label {
+    min-inline-size: 0;
+  }
+
+  :is(input[type='text'], input[type='email'], input[type='url'], textarea) {
+    inline-size: 100%;
+  }
 
   .form-feedback {
     grid-area: message;
@@ -45,6 +56,7 @@
 
   input[type='submit'] {
     grid-area: button;
+    inline-size: 100%;
   }
 
   #url {
@@ -95,6 +107,21 @@
     &.visible {
       display: flex;
       align-items: center;
+    }
+  }
+
+  @media (width >= 48em) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-areas:
+      'message message message'
+      'replyHandleDisplay replyHandleDisplay replyHandleDisplay'
+      'comment comment comment'
+      'email author authorsite'
+      'privacy privacy button';
+
+    input[type='submit'] {
+      inline-size: auto;
+      justify-self: end;
     }
   }
 }
