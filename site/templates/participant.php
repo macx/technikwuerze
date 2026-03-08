@@ -44,11 +44,21 @@ foreach ($allEpisodes as $episode) {
 snippet('layout', slots: true);
 ?>
 <?php slot(); ?>
-  <article class="participant-detail">
-    <header>
-      <h1><?= esc($fullName !== '' ? $fullName : $page->title()->value()) ?></h1>
-      <?php if ($page->profession()->isNotEmpty()): ?>
-        <p class="participant-profession"><?= $page->profession()->html() ?></p>
+  <article class="participant-detail content narrow">
+    <header class="page-header">
+      <h1 class="title">
+        <?= esc($fullName !== '' ? $fullName : $page->title()->value()) ?>
+        <?php if ($page->profession()->isNotEmpty()): ?>
+          <span class="subtitle">
+            <?= $page->profession()->value() ?>
+          </span>
+        <?php endif; ?>
+      </h1>
+
+      <?php if ($page->description()->isNotEmpty()): ?>
+        <p class="lead">
+          <?= $page->description()->kti() ?>
+        </p>
       <?php endif; ?>
     </header>
 
@@ -56,12 +66,6 @@ snippet('layout', slots: true);
       <figure class="participant-image">
         <img src="<?= $image->url() ?>" alt="<?= esc($fullName) ?>" loading="lazy">
       </figure>
-    <?php endif; ?>
-
-    <?php if ($page->description()->isNotEmpty()): ?>
-      <section class="participant-description">
-        <?= $page->description()->kt() ?>
-      </section>
     <?php endif; ?>
 
     <section class="participant-meta">
