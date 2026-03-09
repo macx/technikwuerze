@@ -11,7 +11,8 @@
     "mauricerenck/podcaster": "^3.4",
     "mauricerenck/komments": "^3.7",
     "mzur/kirby-uniform": "^5.7",
-    "philippoehrlein/kirby-email-manager": "^1.1"
+    "philippoehrlein/kirby-email-manager": "^1.1",
+    "arnoson/kirby-loupe": "^0.4"
   },
   "config": {
     "optimize-autoloader": true,

@@ -46,6 +46,7 @@ $favicon = asset('assets/favicon.ico');
 
 <body>
   <?php snippet('layout/header'); ?>
+  <?php snippet('search/dialog'); ?>
 
   <main>
     <?= $slot ?>

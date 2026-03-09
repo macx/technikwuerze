@@ -28,8 +28,18 @@ $navItems = $site->children()->listed(); ?>
   </nav>
 
   <div class="header-tools">
+    <button
+      type="button"
+      class="main-nav-button"
+      aria-label="Suche öffnen"
+      title="Suche öffnen"
+      aria-haspopup="dialog"
+      aria-controls="site-search-dialog"
+      data-search-dialog-open
+    >
+      <i class="msi-search"></i>
+    </button>
     <?php snippet('theme-switch'); ?>
   </div>
 </header>
-
 

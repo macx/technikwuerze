@@ -10,6 +10,19 @@ error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
 
 $options = [
   'debug' => true,
+  'ready' => static function ($kirby) {
+    $cacheRoot = $kirby->root('cache');
+    if (!is_string($cacheRoot) || trim($cacheRoot) === '') {
+      return [];
+    }
+
+    $loupePath = rtrim($cacheRoot, '/') . '/kirby-loupe';
+    if (!is_dir($loupePath)) {
+      @mkdir($loupePath, 0777, true);
+    }
+
+    return [];
+  },
 
   'panel' => [
     'install' => true,

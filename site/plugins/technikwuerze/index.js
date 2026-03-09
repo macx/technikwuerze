@@ -288,4 +288,50 @@ panel.plugin('tw/brand', {
       `,
     },
   },
+  fields: {
+    'tw-search-reindex': {
+      data() {
+        return {
+          busy: false,
+          message: '',
+          tone: 'info',
+        }
+      },
+      methods: {
+        async reindex(scope) {
+          if (this.busy) {
+            return
+          }
+
+          this.busy = true
+          this.tone = 'info'
+          this.message = 'Reindex läuft…'
+
+          try {
+            const result = await this.$api.post(`tw-search/reindex/${scope}`)
+            this.tone = 'positive'
+            this.message = `${result.count} Dokumente (${scope}) neu indiziert. Gesamtindex: ${result.indexedTotal}.`
+          } catch (error) {
+            this.tone = 'negative'
+            this.message = 'Reindex fehlgeschlagen. Bitte Logs prüfen.'
+          } finally {
+            this.busy = false
+          }
+        },
+      },
+      template: `
+        <k-field class="k-tw-search-reindex-field">
+          <k-headline tag="h4">Suche neu indizieren</k-headline>
+          <k-button-group layout="collapsed">
+            <k-button icon="refresh" variant="filled" theme="blue-icon" :disabled="busy" @click="reindex('all')">Alles</k-button>
+            <k-button icon="refresh" variant="filled" :disabled="busy" @click="reindex('content')">Inhalte</k-button>
+            <k-button icon="refresh" variant="filled" :disabled="busy" @click="reindex('episode')">Episoden</k-button>
+            <k-button icon="refresh" variant="filled" :disabled="busy" @click="reindex('participant')">Teilnehmende</k-button>
+            <k-button icon="refresh" variant="filled" :disabled="busy" @click="reindex('comment')">Kommentare</k-button>
+          </k-button-group>
+          <k-box v-if="message" :theme="tone" style="margin-top: var(--spacing-3);">{{ message }}</k-box>
+        </k-field>
+      `,
+    },
+  },
 })

@@ -2,9 +2,11 @@
 
 require_once __DIR__ . '/lib/participant-image.php';
 require_once __DIR__ . '/lib/participant-stats.php';
+require_once __DIR__ . '/lib/site-search.php';
 
 $pageMethods = require __DIR__ . '/extensions/page-methods.php';
 $hooks = require __DIR__ . '/extensions/hooks.php';
+$api = require __DIR__ . '/extensions/api.php';
 
 Kirby::plugin('tw/brand', [
   'blueprints' => [
@@ -29,6 +31,10 @@ Kirby::plugin('tw/brand', [
     'blocks/handwritten' => __DIR__ . '/snippets/blocks/handwritten.php',
     'blocks/testimonials' => __DIR__ . '/snippets/blocks/testimonials.php',
   ],
+  'fields' => [
+    'tw-search-reindex' => [],
+  ],
+  'api' => $api,
   'pageMethods' => $pageMethods,
   'hooks' => $hooks,
 ]);

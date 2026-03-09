@@ -86,5 +86,6 @@
     "tsconfig.json": "tsconfig.*.json",
     "composer.json": "composer.lock",
     ".gitignore": ".gitattributes"
-  }
+  },
+  "cSpell.words": ["endsnippet", "kirby"]
 }

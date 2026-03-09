@@ -10,6 +10,19 @@ $translationOptions = require __DIR__ . '/partials/translations.php';
 $options = [
   'debug' => false,
   'panel.vue.compiler' => true,
+  'ready' => static function ($kirby) {
+    $cacheRoot = $kirby->root('cache');
+    if (!is_string($cacheRoot) || trim($cacheRoot) === '') {
+      return [];
+    }
+
+    $loupePath = rtrim($cacheRoot, '/') . '/kirby-loupe';
+    if (!is_dir($loupePath)) {
+      @mkdir($loupePath, 0777, true);
+    }
+
+    return [];
+  },
 
   // Podcaster setup (analytics + player metadata)
   'mauricerenck.podcaster' => [

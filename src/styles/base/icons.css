@@ -41,6 +41,10 @@
   --msi-icon: 'close';
 }
 
+.msi-search {
+  --msi-icon: 'search';
+}
+
 .msi-arrow-forward {
   --msi-icon: 'arrow_forward';
 }

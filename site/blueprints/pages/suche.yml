@@ -1,0 +1,68 @@
+title:
+  de: Suche
+  en: Search
+icon: search
+
+status:
+  draft:
+    label:
+      de: Entwurf
+      en: Draft
+  unlisted:
+    label:
+      de: Intern
+      en: Internal
+  listed:
+    label:
+      de: Öffentlich
+      en: Public
+
+sections:
+  info:
+    type: fields
+    fields:
+      info_note:
+        type: info
+        label:
+          de: Suchseite
+          en: Search page
+        text:
+          de: Diese Seite rendert die Loupe-Volltextsuche.
+          en: This page renders the Loupe full text search.
+      reindex:
+        label:
+          de: Reindex
+          en: Reindex
+        type: tw-search-reindex
+      search_placeholder:
+        type: text
+        label:
+          de: Platzhalter Suchfeld
+          en: Search placeholder
+        default: z. B. Typografie, Podcast, Kirb…
+      search_dialog_title:
+        type: text
+        label:
+          de: Titel Suchdialog
+          en: Search dialog title
+        default: Suche
+      search_results_limit:
+        type: number
+        label:
+          de: Treffer pro Seite
+          en: Results per page
+        min: 5
+        max: 200
+        step: 1
+        default: 40
+      search_comments_enabled:
+        type: toggle
+        label:
+          de: Kommentar-Suche aktiv
+          en: Enable comment search
+        default: true
+        text:
+          - de: Aus
+            en: Off
+          - de: An
+            en: On
