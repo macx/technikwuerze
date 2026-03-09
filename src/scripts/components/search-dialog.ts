@@ -23,6 +23,30 @@ export const initSearchDialog = (): void => {
     })
   }
 
+  document.addEventListener('keydown', (event) => {
+    if (event.key.toLowerCase() !== 'k') {
+      return
+    }
+
+    const hasValidModifier = isMac
+      ? event.metaKey && !event.ctrlKey
+      : event.ctrlKey && !event.metaKey
+    if (!hasValidModifier) {
+      return
+    }
+
+    event.preventDefault()
+    closeOpenMainNav()
+    if (category) {
+      category.value = 'content'
+    }
+    if (!dialog.open) {
+      dialog.showModal()
+    }
+    input?.focus()
+    input?.select()
+  })
+
   for (const button of dialog.querySelectorAll<HTMLButtonElement>('[data-search-dialog-close]')) {
     button.addEventListener('click', () => {
       dialog.close()
@@ -35,3 +59,4 @@ export const initSearchDialog = (): void => {
     }
   })
 }
+const isMac = /Mac|iPhone|iPad|iPod/i.test(globalThis.navigator.platform)
