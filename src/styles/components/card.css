@@ -1,0 +1,7 @@
+.card {
+  border-radius: var(--radius-button);
+  background-color: var(--clr-bg-dark);
+  border: 2px solid var(--clr-border);
+  box-shadow: var(--shadow-size) var(--shadow-size) 0 0 var(--clr-shadow);
+  padding: var(--sp);
+}

@@ -10,15 +10,39 @@ tabs:
       en: Content
     icon: text
     columns:
-      - width: 1/1
+      - width: 1/3
         sections:
-          content:
-            type: fields
-            fields:
-              text:
-                extends: fields/content-blocks
-                label:
-                  de: Inhalt
-                  en: Content
+          lead-blocks:
+            extends: fields/lead-blocks
+      - width: 2/3
+        sections:
+          form_fields: sections/form-fields
 
-  email-manager: email-manager
+  entries: tabs/form-entries
+
+  settings:
+    label:
+      de: Einstellungen
+      en: Settings
+    icon: settings
+    sections:
+      delivery:
+        type: fields
+        fields:
+          delivery_info:
+            type: info
+            theme: info
+            label:
+              de: Versand
+              en: Delivery
+            text:
+              de: |
+                Empfänger, Absender und Bestätigungsmails werden zentral über die Konfiguration gesteuert.
+                Panel-Einträge werden als Entwürfe unter dieser Seite gespeichert.
+              en: |
+                Recipient, sender and confirmation mails are configured centrally.
+                Panel entries are stored as drafts below this page.
+      form_submit: sections/form-submit
+      form_success: sections/form-success
+      form_error: sections/form-error
+      form_save: sections/form-save

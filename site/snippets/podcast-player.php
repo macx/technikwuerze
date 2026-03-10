@@ -30,7 +30,7 @@ $introSlot = trim((string) ($slot ?? ''));
 ?>
 
 <div class="<?= esc($sectionClasses) ?>" data-media-position="<?= esc($mediaPosition, 'attr') ?>">
-  <div class="podcast-player-container <?= esc($containerClass) ?>">
+  <div class="podcast-player-container card <?= esc($containerClass) ?>">
     <div class="podcast-player-intro">
       <?php if ($introSlot !== ''): ?>
         <?= $introSlot ?>

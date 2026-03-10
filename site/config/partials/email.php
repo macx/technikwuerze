@@ -9,19 +9,15 @@ $smtpUser = $_ENV['TW_SMTP_USER'] ?? getenv('TW_SMTP_USER') ?: '';
 $smtpPass = $_ENV['TW_SMTP_PASS'] ?? getenv('TW_SMTP_PASS') ?: '';
 
 $emailConfig = [];
+$contactFormConfig = [
+  'recipient' => $contactRecipient,
+  'noreply' => $mailNoreply,
+  'notificationSubject' => 'Neue Nachricht über das Kontaktformular',
+  'confirmationSubject' => 'Danke für deine Nachricht',
+];
 
 if ($mailNoreply !== null) {
   $emailConfig['noreply'] = $mailNoreply;
-}
-
-if ($mailNoreply !== null && $contactRecipient !== null) {
-  $emailConfig['presets'] = [
-    'uniform-contact' => [
-      'from' => $mailNoreply,
-      'to' => $contactRecipient,
-      'subject' => 'Kontaktformular - Technikwuerze',
-    ],
-  ];
 }
 
 if ($smtpHost !== '' && $smtpUser !== '' && $smtpPass !== '') {
@@ -37,6 +33,7 @@ if ($smtpHost !== '' && $smtpUser !== '' && $smtpPass !== '') {
 }
 
 return [
-  // Mail defaults for form plugins (Kirby Email Manager + Uniform)
+  // Mail defaults for Kirby email + Uniform based forms.
   'email' => $emailConfig,
+  'tw.contactForm' => $contactFormConfig,
 ];

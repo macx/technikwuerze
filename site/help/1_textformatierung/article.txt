@@ -1,0 +1,47 @@
+Title: Text Formatting
+----
+Icon: text
+----
+Color: gray-600
+----
+Text:
+Here you will find all the important information for formatting text using Markdown and specialized KirbyTags. 
+
+## Standard Markdown
+
+You can use standard Markdown for most text formatting needs:
+
+- **Bold**: `**bold text**`
+- *Italic*: `*italic text*`
+- Lists: Start a line with `- ` (for bullet points) or `1. ` (for numbered lists).
+- Blockquotes: Start a line with `> `.
+
+Additionally, you can use the standard KirbyTags for links or images:
+- Links: `(link: https://example.com text: Link Text)`
+
+## Custom Technikwürze KirbyTags
+
+For special content elements, we have added custom KirbyTags to the system:
+
+### Small Text
+Makes the text slightly smaller. You can optionally add `tone: light`.
+- Syntax: `(small: Small addition)`
+
+### Keyboard Shortcuts (Kbd)
+Displays keyboard shortcuts visually as keys.
+- Syntax: `(kbd: Cmd + K)`
+
+### Abbreviations (Abbr)
+Declares an abbreviation and shows an explanation as a tooltip when the user hovers over it.
+- Syntax: `(abbr: API title: Application Programming Interface)`
+
+### Badges
+Highlights a short word as a small badge. Supports different colors via the `tone` attribute.
+- Default: `(badge: New)`
+- Positive: `(badge: Stable tone: ok)`
+- Warning: `(badge: Attention tone: warn)`
+
+### Notices (Asides / Callouts)
+Renders a contextual notice as a highlighted callout box. You can use `hinweis` or the alias `note`.
+- Syntax: `(hinweis: This is important context that is highlighted.)`
+- Alias: `(note: This works as well.)`

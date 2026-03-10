@@ -49,6 +49,7 @@ tabs:
               - home
               - mediathek
               - teilnehmende
+              - kontakt
             status: listed
             layout: list
             info: '{{ page.children.count }} Seiten'

@@ -1,13 +1,27 @@
 <?php snippet('layout', slots: true); ?>
 
   <?php slot(); ?>
-    <?php if ($page->text()->isNotEmpty()): ?>
-      <?= $page->text()->toBlocks() ?>
-    <?php endif; ?>
+    <div class="page-header">
+      <h1 class="title">
+        <?= $page->header()->html() ?>
+      </h1>
 
-    <?php if ($page->content()->get('email_templates')->isNotEmpty()): ?>
-      <?php snippet('email-manager/form-wrapper'); ?>
-    <?php endif; ?>
+      <p class="lead">
+        <?= $page->lead()->kti() ?>
+      </p>
+    </div>
+
+    <div class="content narrow">
+      <?php if ($page->form_fields()->isNotEmpty()): ?>
+        <div class="card contact-form">
+          <h2 id="contact-form-heading">Schreib uns</h2>
+
+          <?php snippet('form', ['formPage' => $page]); ?>
+        </div>
+      <?php endif; ?>
+
+      <?= $page->blocks()->toBlocks() ?>
+    </div>
   <?php endslot(); ?>
 
 <?php endsnippet(); ?>

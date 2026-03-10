@@ -3,12 +3,12 @@
 require_once __DIR__ . '/lib/participant-image.php';
 require_once __DIR__ . '/lib/participant-stats.php';
 require_once __DIR__ . '/lib/site-search.php';
+require_once __DIR__ . '/lib/contact-form-action.php';
 
 $pageMethods = require __DIR__ . '/extensions/page-methods.php';
 $hooks = require __DIR__ . '/extensions/hooks.php';
 $api = require __DIR__ . '/extensions/api.php';
 $tags = require __DIR__ . '/extensions/tags.php';
-$areas = require __DIR__ . '/extensions/areas.php';
 
 Kirby::plugin('tw/brand', [
   'blueprints' => [
@@ -37,7 +37,6 @@ Kirby::plugin('tw/brand', [
     'tw-search-reindex' => [],
   ],
   'api' => $api,
-  'areas' => $areas,
   'tags' => $tags,
   'pageMethods' => $pageMethods,
   'hooks' => $hooks,

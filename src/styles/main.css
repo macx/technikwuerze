@@ -17,10 +17,12 @@
 COMPONENTS
 └──────────────────────────────────┘
 */
+@import './components/card.css' layer(components);
 @import './components/header.css' layer(components);
 @import './components/theme-switch.css' layer(components);
 @import './components/search-dialog.css' layer(components);
 @import './components/button.css' layer(components);
+@import './components/contact-form.css' layer(components);
 @import './components/episode.css' layer(components);
 @import './components/podcaster-player.css' layer(components);
 @import './components/podcast-player.css' layer(components);

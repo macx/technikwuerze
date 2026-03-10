@@ -1,0 +1,128 @@
+.contact-form {
+  --contact-accent: color-mix(in srgb, var(--clr-secondary) 85%, white 15%);
+  --form-gap: var(--sp);
+
+  display: grid;
+  gap: 1rem;
+
+  h2 {
+    margin-block: 0 var(--sp);
+    font-size: var(--fs-m);
+    font-weight: var(--fw-title);
+    color: var(--clr-secondary);
+    text-box: trim-both cap alphabetic;
+    text-align: start;
+  }
+
+  form {
+    display: grid;
+    gap: var(--form-gap);
+  }
+
+  .form-row {
+    display: grid;
+    gap: var(--form-gap);
+  }
+
+  .form-column {
+    display: grid;
+    gap: 1rem;
+    grid-column: span var(--span, 12);
+  }
+
+  .form-field {
+    --c-spacing: 0.75em;
+
+    position: relative;
+    display: grid;
+    gap: 0.35rem;
+    padding-block-start: var(--c-spacing);
+
+    label {
+      position: absolute;
+      inset-block-start: 0;
+      inset-inline-start: var(--sp-s);
+
+      display: block;
+      font-weight: var(--fw-bold);
+      background-color: var(--clr-secondary);
+      color: var(--clr-text-bright);
+      font-size: var(--fs-s);
+      padding-block: 0.2em;
+      padding-inline: var(--sp-xs);
+      border-radius: var(--radius-button-s);
+    }
+
+    :is(input, textarea) {
+      inline-size: 100%;
+      padding: 0.875rem 1rem;
+      border: 2px solid var(--clr-border);
+      border-radius: var(--radius-button-s);
+      background: var(--clr-surface);
+
+      transition:
+        border-color 120ms var(--ease-drawer-transform),
+        box-shadow 120ms var(--ease-drawer-transform);
+
+      &:focus-visible {
+        outline: none;
+        border-color: var(--contact-accent);
+        box-shadow: 0 0 0 0.25rem color-mix(in srgb, var(--contact-accent) 18%, transparent);
+      }
+    }
+
+    textarea {
+      min-block-size: 11rem;
+      resize: vertical;
+    }
+  }
+
+  button[type='submit'] {
+    --button-bg: var(--clr-secondary);
+    --button-color: var(--clr-text-bright);
+    --button-border: var(--clr-secondary);
+
+    justify-self: end;
+  }
+
+  @media (width >= 48em) {
+    .form-row {
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+    }
+
+    /* .form-column {
+      grid-column: span var(--span, 12);
+    } */
+  }
+
+  .form-errors,
+  .form-success {
+    padding-block: var(--sp-xs);
+    padding-inline: var(--sp);
+    border-radius: var(--radius-button-s);
+    font-size: var(--fs-s);
+    margin-block-end: var(--sp);
+
+    ul {
+      margin: 0;
+      padding-inline-start: 1.25rem;
+    }
+  }
+
+  .form-errors {
+    --clr-warn: hsl(0, 72%, 51%);
+
+    border: 1px solid color-mix(in srgb, var(--clr-warn) 50%, transparent);
+    background: color-mix(in srgb, var(--clr-warn) 5%, var(--clr-bg-dark) 95%);
+    color: var(--clr-warn);
+  }
+
+  .form-success {
+    border: 1px solid color-mix(in srgb, #027a48 24%, transparent);
+    background: color-mix(in srgb, #027a48 10%, var(--clr-surface) 90%);
+  }
+
+  .form-field-error {
+    color: #b42318;
+  }
+}

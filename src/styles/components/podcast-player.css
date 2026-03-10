@@ -5,14 +5,7 @@
       gap: clamp(var(--sp), 1vw + var(--sp-s), var(--sp-l));
       font-size: var(--fs-r);
       line-height: var(--lh);
-
-      border-radius: var(--radius-button);
-      background-color: var(--clr-bg-dark);
-      border: 2px solid var(--clr-border);
-      box-shadow: var(--shadow-size) var(--shadow-size) 0 0 var(--clr-shadow);
-
       margin-block: var(--sp-xl);
-      padding: var(--sp);
     }
 
     h2 {

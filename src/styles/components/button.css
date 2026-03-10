@@ -1,4 +1,4 @@
-[class|='button'] {
+:is([class|='button'], button[type='submit']) {
   --button-bg: transparent;
   --button-scheme: var(--color-scheme, var(--clr-primary));
   --button-color: var(--button-scheme);
