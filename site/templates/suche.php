@@ -65,7 +65,7 @@
     </header>
 
     <form class="search-page-form" method="get" action="<?= $page->url() ?>" role="search">
-      <label class="search-page-label" for="search-page-query">Suchbegriff</label>
+      <label for="search-page-query">Suchbegriff</label>
       <input
         id="search-page-query"
         class="search-page-input"
@@ -79,7 +79,7 @@
       >
 
       <div class="theme-switch" data-enhanced="true">
-        <label class="search-page-label" for="search-page-category">Kategorie</label>
+        <label for="search-page-category">Kategorie</label>
         <select
           class="theme-switch-select"
           id="search-page-category"
@@ -111,7 +111,7 @@
 
       <ol class="search-results-list">
         <?php foreach ($results as $result): ?>
-          <li class="search-result-item search-result-item--<?= esc($result['entity']) ?>">
+          <li class="search-result-item" data-entity="<?= esc($result['entity']) ?>">
             <a class="search-result-link" href="<?= esc($result['url']) ?>">
               <span class="search-result-type"><?= esc($result['entityLabel']) ?></span>
               <h2 class="search-result-title"><?= $highlightQuery(

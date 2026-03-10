@@ -2,31 +2,76 @@
   margin: 1.5rem 0;
 }
 
-.tw-participants-list {
-  column-width: 20ch;
-  column-gap: var(--sp-content-gap);
+.tw-participants {
+  .tw-participants-list {
+    column-width: 20ch;
+    column-gap: var(--sp-content-gap);
+    list-style: none;
+    padding: 0;
+    text-align: center;
+    font-size: 1.125rem;
+    margin-block: 0 var(--sp-xl);
+    font-weight: var(--fw-bold);
+    max-inline-size: var(--narrow-max-size);
+    margin-inline: auto;
 
-  list-style: none;
-  padding: 0;
-  text-align: center;
-  font-size: 1.125rem;
-  margin-block: 0 var(--sp-xl);
-  font-weight: var(--fw-bold);
-  max-inline-size: var(--narrow-max-size);
-  margin-inline: auto;
+    li {
+      break-inside: avoid;
+    }
 
-  li {
-    break-inside: avoid;
+    a {
+      display: inline-block;
+      text-decoration: none;
+      color: var(--clr-primary);
+      border-radius: var(--radius-button);
+      transition: background-color 8ms ease-in-out;
+      padding-block: 0.35em;
+      padding-inline: 1.25em;
+
+      &:hover,
+      &:focus-visible {
+        background-color: var(--clr-hover);
+      }
+    }
+
+    @media (width < 56.25em) {
+      columns: 2;
+    }
+
+    @media (width < 37.5em) {
+      columns: 1;
+    }
   }
 
-  a {
-    display: inline-block;
+  .tw-participants-cards {
+    display: flex;
+    justify-content: center;
+    gap: var(--sp);
+    list-style: none;
+    padding: 0;
+    margin-block: 0 var(--sp-xl);
+  }
+
+  .tw-participants-card {
+    display: grid;
+    gap: var(--sp);
     text-decoration: none;
-    color: var(--clr-primary);
-    border-radius: var(--radius-button);
+    color: inherit;
     transition: background-color 8ms ease-in-out;
-    padding-block: 0.35em;
-    padding-inline: 1.25em;
+    justify-items: center;
+    border-radius: var(--radius-button);
+    padding-block: var(--sp);
+    padding-inline: var(--sp);
+    text-align: center;
+
+    img {
+      display: block;
+      inline-size: min(12rem, 25vw);
+      block-size: auto;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      border-radius: 50%;
+    }
 
     &:hover,
     &:focus-visible {
@@ -34,16 +79,11 @@
     }
   }
 
-  @media (max-width: 900px) {
-    columns: 2;
+  .tw-participants-name {
+    font-size: 1.125rem;
+    font-weight: var(--fw-bold);
+    color: var(--clr-primary);
   }
-
-  @media (max-width: 600px) {
-    columns: 1;
-  }
-}
-
-.participant-detail {
 }
 
 .participant-image img {
@@ -62,46 +102,4 @@
 
 .participant-profiles li {
   margin: 0.35rem 0;
-}
-
-.tw-participants-cards {
-  display: flex;
-  justify-content: center;
-  gap: var(--sp);
-  list-style: none;
-  padding: 0;
-  margin-block: 0 var(--sp-xl);
-}
-
-.tw-participants-card {
-  display: grid;
-  gap: var(--sp);
-  text-decoration: none;
-  color: inherit;
-  transition: background-color 8ms ease-in-out;
-  justify-items: center;
-  border-radius: var(--radius-button);
-  padding-block: var(--sp);
-  padding-inline: var(--sp);
-  text-align: center;
-
-  img {
-    display: block;
-    inline-size: min(12rem, 25vw);
-    block-size: auto;
-    aspect-ratio: 1 / 1;
-    object-fit: cover;
-    border-radius: 50%;
-  }
-
-  &:hover,
-  &:focus-visible {
-    background-color: var(--clr-hover);
-  }
-}
-
-.tw-participants-name {
-  font-size: 1.125rem;
-  font-weight: var(--fw-bold);
-  color: var(--clr-primary);
 }

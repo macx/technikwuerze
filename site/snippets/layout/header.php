@@ -42,4 +42,3 @@ $navItems = $site->children()->listed(); ?>
     <?php snippet('theme-switch'); ?>
   </div>
 </header>
-

@@ -23,7 +23,7 @@ $settings = twSearchSettings();
       </button>
     </header>
 
-    <label class="site-search-dialog-label" for="site-search-dialog-query">Suchbegriff</label>
+    <label for="site-search-dialog-query">Suchbegriff</label>
     <input
       id="site-search-dialog-query"
       class="site-search-dialog-input"
@@ -39,7 +39,7 @@ $settings = twSearchSettings();
 
     <div class="site-search-dialog-actions">
       <div class="theme-switch" data-enhanced="true">
-        <label class="site-search-dialog-label" for="site-search-dialog-category">Kategorie</label>
+        <label for="site-search-dialog-category">Kategorie</label>
         <select
           class="theme-switch-select"
           id="site-search-dialog-category"

@@ -60,7 +60,8 @@ body {
   overflow-y: scroll;
 }
 
-.uniform__potty {
+.uniform-potty,
+[class*='uniform'][class*='potty'] {
   position: absolute;
   left: -9999px;
 }

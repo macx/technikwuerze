@@ -84,7 +84,7 @@ $renderParticipantAvatars = static function (Kirby\Cms\Pages $participants) use 
             loading="lazy"
           >
         <?php else: ?>
-          <span class="episode-participants-avatar episode-participants-avatar--fallback" aria-hidden="true">
+          <span class="episode-participants-avatar episode-participants-avatar-fallback" aria-hidden="true">
             <?= esc($getInitials($participant)) ?>
           </span>
         <?php endif; ?>

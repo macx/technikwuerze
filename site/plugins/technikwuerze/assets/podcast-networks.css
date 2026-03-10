@@ -6,154 +6,154 @@
     --pointer-arrow-block-size: 1.4rem;
     --pointer-arrow-gap: 0.5em;
     --pointer-text-max-inline-size: 12ch;
-  }
 
-  :scope ul {
-    list-style: none;
-    margin: 0;
-    padding-inline-start: 0;
+    ul {
+      list-style: none;
+      margin: 0;
+      padding-inline-start: 0;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
 
-    a {
-      display: block;
-      padding: var(--sp-xs);
-      border-radius: var(--radius-button);
-      transition: background-color var(--transition-short);
-
-      &:hover,
-      &:focus-visible {
-        background-color: var(--clr-hover);
-      }
-    }
-
-    svg {
-      --c-icon-size: 1.875rem;
-
-      display: block;
-      block-size: var(--c-icon-size);
-      inline-size: var(--c-icon-size);
-      color: var(--clr-primary);
-    }
-
-    @media (width <= 30em) {
-      max-inline-size: 20rem;
-      margin-inline: auto;
-    }
-
-    @media (width >= 50em) {
       a {
-        padding: var(--sp);
+        display: block;
+        padding: var(--sp-xs);
+        border-radius: var(--radius-button);
+        transition: background-color var(--transition-short);
+
+        &:hover,
+        &:focus-visible {
+          background-color: var(--clr-hover);
+        }
       }
 
       svg {
-        --c-icon-size: 2.8rem;
+        --c-icon-size: 1.875rem;
+
+        display: block;
+        block-size: var(--c-icon-size);
+        inline-size: var(--c-icon-size);
+        color: var(--clr-primary);
+      }
+
+      @media (width <= 30em) {
+        max-inline-size: 20rem;
+        margin-inline: auto;
+      }
+
+      @media (width >= 50em) {
+        a {
+          padding: var(--sp);
+        }
+
+        svg {
+          --c-icon-size: 2.8rem;
+        }
       }
     }
-  }
 
-  :scope .pointer {
-    font-size: var(--pointer-font-size);
-    font-weight: var(--fw-bold);
-    color: var(--clr-secondary);
-    display: none;
-    pointer-events: none;
-    position: absolute;
-    z-index: 2;
-    inline-size: 0;
-    block-size: 0;
-    white-space: nowrap;
-    opacity: 0;
-    transform: translateY(0.25rem);
-    transition:
-      opacity 140ms ease-out,
-      transform 220ms var(--ease-drawer-transform);
-  }
+    .pointer {
+      font-size: var(--pointer-font-size);
+      font-weight: var(--fw-bold);
+      color: var(--clr-secondary);
+      display: none;
+      pointer-events: none;
+      position: absolute;
+      z-index: 2;
+      inline-size: 0;
+      block-size: 0;
+      white-space: nowrap;
+      opacity: 0;
+      transform: translateY(0.25rem);
+      transition:
+        opacity 140ms ease-out,
+        transform 220ms var(--ease-drawer-transform);
+    }
 
-  :scope .pointer-mobile {
-    font-size: var(--pointer-font-size);
-    font-weight: var(--fw-bold);
-    color: var(--clr-secondary);
-    line-height: 1;
-    text-align: center;
-    margin-block: 0 var(--sp-s);
+    .pointer-mobile {
+      font-size: var(--pointer-font-size);
+      font-weight: var(--fw-bold);
+      color: var(--clr-secondary);
+      line-height: 1;
+      text-align: center;
+      margin-block: 0 var(--sp-s);
 
-    @media (pointer: fine) or (width >= 50em) {
+      @media (pointer: fine) or (width >= 50em) {
+        display: none;
+      }
+    }
+
+    .pointer-text {
+      position: absolute;
+      inset-block-end: 1.1rem;
+      inset-inline-end: calc(var(--pointer-arrow-inline-size) + var(--pointer-arrow-gap));
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35ch;
+      align-items: flex-end;
+      max-inline-size: var(--pointer-text-max-inline-size);
+      line-height: 0.95;
+      text-align: right;
+      justify-content: flex-end;
+      transform: translateY(0.5em);
+    }
+
+    .pointer-custom {
       display: none;
     }
-  }
 
-  :scope .pointer-text {
-    position: absolute;
-    inset-block-end: 1.1rem;
-    inset-inline-end: calc(var(--pointer-arrow-inline-size) + var(--pointer-arrow-gap));
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.35ch;
-    align-items: flex-end;
-    max-inline-size: var(--pointer-text-max-inline-size);
-    line-height: 0.95;
-    text-align: right;
-    justify-content: flex-end;
-    transform: translateY(0.5em);
-  }
-
-  :scope .pointer-custom {
-    display: none;
-  }
-
-  :scope .pointer-text.is-rss-custom .pointer-start,
-  :scope .pointer-text.is-rss-custom .pointer-network,
-  :scope .pointer-text.is-rss-custom .pointer-end {
-    display: none;
-  }
-
-  :scope .pointer-text.is-rss-custom .pointer-custom {
-    display: inline;
-  }
-
-  :scope .pointer.is-left .pointer-text {
-    inset-inline-end: auto;
-    inset-inline-start: calc(var(--pointer-arrow-inline-size) + var(--pointer-arrow-gap));
-    text-align: left;
-    justify-content: flex-start;
-  }
-
-  :scope .pointer-arrow {
-    position: absolute;
-    inset-block-end: -0.25em;
-    inline-size: var(--pointer-arrow-inline-size);
-    block-size: var(--pointer-arrow-block-size);
-    flex: 0 0 auto;
-    color: currentColor;
-    display: block;
-    inset-inline-end: 0;
-    transform-origin: center;
-
-    svg {
-      color: var(--clr-secondary);
+    .pointer-text.is-rss-custom .pointer-start,
+    .pointer-text.is-rss-custom .pointer-network,
+    .pointer-text.is-rss-custom .pointer-end {
+      display: none;
     }
-  }
 
-  :scope .pointer-arrow .arrow-line {
-    fill: none;
-    stroke: currentColor;
-    stroke-width: 2.25;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-  }
+    .pointer-text.is-rss-custom .pointer-custom {
+      display: inline;
+    }
 
-  :scope .pointer-arrow .arrow-head {
-    fill: currentColor;
-  }
+    .pointer.is-left .pointer-text {
+      inset-inline-end: auto;
+      inset-inline-start: calc(var(--pointer-arrow-inline-size) + var(--pointer-arrow-gap));
+      text-align: left;
+      justify-content: flex-start;
+    }
 
-  :scope .pointer.is-left .pointer-arrow {
-    inset-inline-start: 0;
-    inset-inline-end: auto;
-    transform: scaleX(-1);
+    .pointer-arrow {
+      position: absolute;
+      inset-block-end: -0.25em;
+      inline-size: var(--pointer-arrow-inline-size);
+      block-size: var(--pointer-arrow-block-size);
+      flex: 0 0 auto;
+      color: currentColor;
+      display: block;
+      inset-inline-end: 0;
+      transform-origin: center;
+
+      svg {
+        color: var(--clr-secondary);
+      }
+    }
+
+    .pointer-arrow .arrow-line {
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2.25;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .pointer-arrow .arrow-head {
+      fill: currentColor;
+    }
+
+    .pointer.is-left .pointer-arrow {
+      inset-inline-start: 0;
+      inset-inline-end: auto;
+      transform: scaleX(-1);
+    }
   }
 
   @media (width >= 64em) {
@@ -162,54 +162,56 @@
       --pointer-arrow-inline-size: clamp(2.6rem, 2vw + 1.4rem, 3.25rem);
       --pointer-arrow-block-size: clamp(1.6rem, 1.1vw + 0.9rem, 2rem);
       --pointer-text-max-inline-size: none;
-    }
 
-    :scope .pointer-text {
-      flex-wrap: nowrap;
-      line-height: 1;
-      transform: translateY(0.35em);
+      .pointer-text {
+        flex-wrap: nowrap;
+        line-height: 1;
+        transform: translateY(0.35em);
+      }
     }
   }
 
   @media (hover: hover) and (pointer: fine) {
     :scope {
       padding-block-start: clamp(3rem, 2.4vw + 1.2rem, 4rem);
-    }
 
-    :scope .pointer {
-      display: block;
-      inset-inline-start: 50%;
-      inset-block-start: 0;
-    }
+      .pointer {
+        display: block;
+        inset-inline-start: 50%;
+        inset-block-start: 0;
+      }
 
-    :scope:hover .pointer,
-    :scope.has-default-pointer .pointer,
-    :scope:has(a:focus-visible) .pointer {
-      opacity: 1;
-      transform: translateY(0);
-    }
+      &:hover .pointer,
+      &.has-default-pointer .pointer,
+      &:has(a:focus-visible) .pointer {
+        opacity: 1;
+        transform: translateY(0);
+      }
 
-    :scope .pointer.is-copy-hide {
-      animation: twPointerHideAfterCopy 180ms ease-out 2s forwards;
+      .pointer.is-copy-hide {
+        animation: twPointerHideAfterCopy 180ms ease-out 2s forwards;
+      }
     }
 
     @supports (anchor-name: --network-default) and (inset-inline-start: anchor(left)) {
-      :scope ul a:first-child {
-        anchor-name: --network-default;
-      }
+      :scope {
+        ul a:first-child {
+          anchor-name: --network-default;
+        }
 
-      :scope ul a.is-pointer-target {
-        anchor-name: --network-target;
-      }
+        ul a.is-pointer-target {
+          anchor-name: --network-target;
+        }
 
-      :scope .pointer {
-        position-anchor: --network-default;
-        inset-inline-start: anchor(center);
-        inset-block-start: calc(anchor(top) - 0.6rem);
-      }
+        .pointer {
+          position-anchor: --network-default;
+          inset-inline-start: anchor(center);
+          inset-block-start: calc(anchor(top) - 0.6rem);
+        }
 
-      :scope:has(ul a.is-pointer-target) .pointer {
-        position-anchor: --network-target;
+        &:has(ul a.is-pointer-target) .pointer {
+          position-anchor: --network-target;
+        }
       }
     }
   }

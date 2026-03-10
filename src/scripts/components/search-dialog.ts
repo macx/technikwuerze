@@ -1,5 +1,5 @@
 const closeOpenMainNav = (): void =>
-  document.querySelector<HTMLButtonElement>('.main-nav__toggle[aria-expanded="true"]')?.click()
+  document.querySelector<HTMLButtonElement>('.main-nav-toggle[aria-expanded="true"]')?.click()
 
 export const initSearchDialog = (): void => {
   const dialog = document.querySelector<HTMLDialogElement>('[data-search-dialog]')

@@ -14,97 +14,114 @@
     background: color-mix(in srgb, var(--clr-text) 40%, transparent);
     backdrop-filter: blur(6px);
   }
-}
 
-.site-search-dialog-form {
-  display: grid;
-  gap: var(--sp);
-  padding: clamp(1rem, 2vw, 2rem);
-}
+  .site-search-dialog-form {
+    display: grid;
+    gap: var(--sp);
+    padding: clamp(1rem, 2vw, 2rem);
+  }
 
-.site-search-dialog-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--sp);
+  .site-search-dialog-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--sp);
 
-  h2 {
-    margin: 0;
-    color: var(--clr-primary);
+    h2 {
+      margin: 0;
+      color: var(--clr-primary);
+    }
+  }
+
+  label {
+    font-weight: var(--fw-bold);
+  }
+
+  .site-search-dialog-input {
+    inline-size: 100%;
+    border: 2px solid var(--clr-border);
+    border-radius: var(--radius-button-s);
+    padding: 0.8rem 1rem;
+    font-size: clamp(1.125rem, 1.5vw + 0.75rem, 1.9rem);
+    background-color: var(--clr-surface);
+
+    &:focus-visible {
+      outline: 4px solid var(--clr-primary);
+      outline-offset: 2px;
+    }
+  }
+
+  .site-search-dialog-actions {
+    display: grid;
+    gap: var(--sp);
+
+    @media (width >= 52em) {
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: end;
+    }
   }
 }
 
-.site-search-dialog-label,
-.search-page-label {
-  font-weight: var(--fw-bold);
-}
-
-.site-search-dialog .theme-switch,
-.search-page .theme-switch {
-  inline-size: fit-content;
-  max-inline-size: 100%;
-  display: inline-grid;
-  gap: 0.45rem;
-}
-
-.site-search-dialog-input,
-.search-page-input {
-  inline-size: 100%;
-  border: 2px solid var(--clr-border);
-  border-radius: var(--radius-button-s);
-  padding: 0.8rem 1rem;
-  font-size: clamp(1.125rem, 1.5vw + 0.75rem, 1.9rem);
-  background-color: var(--clr-surface);
-
-  &:focus-visible {
-    outline: 4px solid var(--clr-primary);
-    outline-offset: 2px;
+:is(.site-search-dialog, .search-page) {
+  .theme-switch {
+    inline-size: fit-content;
+    max-inline-size: 100%;
+    display: inline-grid;
+    gap: 0.45rem;
   }
-}
 
-.site-search-dialog .theme-switch[data-enhanced='true'] .theme-switch-select,
-.search-page .theme-switch[data-enhanced='true'] .theme-switch-select,
-.site-search-dialog .theme-switch .theme-switch-select,
-.search-page .theme-switch .theme-switch-select {
-  inline-size: fit-content;
-  max-inline-size: 100%;
-  border: 2px solid var(--clr-border);
-  border-radius: var(--radius-button-s);
-  padding: 0.8rem 1rem;
-  font-size: clamp(1rem, 0.9vw + 0.8rem, 1.2rem);
-  background-color: var(--clr-surface);
-  color: var(--clr-text);
-}
+  .theme-switch .theme-switch-select {
+    inline-size: fit-content;
+    max-inline-size: 100%;
+    border: 2px solid var(--clr-border);
+    border-radius: var(--radius-button-s);
+    padding: 0.8rem 1rem;
+    font-size: clamp(1rem, 0.9vw + 0.8rem, 1.2rem);
+    background-color: var(--clr-surface);
+    color: var(--clr-text);
 
-.site-search-dialog .theme-switch[data-enhanced='true'] .theme-switch-select:focus-visible,
-.search-page .theme-switch[data-enhanced='true'] .theme-switch-select:focus-visible,
-.site-search-dialog .theme-switch .theme-switch-select:focus-visible,
-.search-page .theme-switch .theme-switch-select:focus-visible {
-  outline: 4px solid var(--clr-primary);
-  outline-offset: 2px;
-}
-
-.site-search-dialog-actions,
-.search-page-form {
-  display: grid;
-  gap: var(--sp);
-
-  @media (width >= 52em) {
-    grid-template-columns: minmax(0, 1fr) auto;
-    align-items: end;
+    &:focus-visible {
+      outline: 4px solid var(--clr-primary);
+      outline-offset: 2px;
+    }
   }
 }
 
 .search-page {
   margin-block: var(--sp-xl);
-}
 
-.search-page-form {
-  margin-block-end: var(--sp);
-}
+  .search-page-form {
+    display: grid;
+    gap: var(--sp);
+    margin-block-end: var(--sp);
 
-.search-page-state {
-  margin-block: var(--sp);
+    @media (width >= 52em) {
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: end;
+    }
+  }
+
+  label {
+    font-weight: var(--fw-bold);
+  }
+
+  .search-page-input {
+    inline-size: 100%;
+    border: 2px solid var(--clr-border);
+    border-radius: var(--radius-button-s);
+    padding: 0.8rem 1rem;
+    font-size: clamp(1.125rem, 1.5vw + 0.75rem, 1.9rem);
+    background-color: var(--clr-surface);
+
+    &:focus-visible {
+      outline: 4px solid var(--clr-primary);
+      outline-offset: 2px;
+    }
+  }
+
+  .search-page-state {
+    margin-block: var(--sp);
+  }
 }
 
 .search-results-list {
