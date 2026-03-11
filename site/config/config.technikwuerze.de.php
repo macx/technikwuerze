@@ -24,6 +24,15 @@ $options = [
     return [];
   },
 
+  'arnoson.kirby-form-builder' => [
+    'clientValidation' => true,
+    'gridColumns' => 6,
+    'autoComplete' => false,
+    'addEmptyPlaceholder' => true,
+    'defaultEntryStatus' => 'draft',
+    'fromEmails' => array_values(array_filter([$emailOptions['email']['noreply'] ?? null])),
+  ],
+
   // Podcaster setup (analytics + player metadata)
   'mauricerenck.podcaster' => [
     'statsInternal' => true,

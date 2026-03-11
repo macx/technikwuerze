@@ -10,11 +10,11 @@ tabs:
       en: Content
     icon: text
     columns:
-      - width: 1/3
+      - width: 1/2
         sections:
           lead-blocks:
             extends: fields/lead-blocks
-      - width: 2/3
+      - width: 1/2
         sections:
           form_fields: sections/form-fields
 

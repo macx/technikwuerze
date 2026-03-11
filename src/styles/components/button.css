@@ -33,10 +33,14 @@
     flex-direction: row-reverse;
   }
 
+  &:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 0.375rem color-mix(in srgb, var(--button-border) 18%, transparent);
+  }
+
   &.button-primary {
     --button-bg: var(--button-scheme);
     --button-color: var(--clr-text-bright);
-    --button-border: var(--button-scheme);
   }
 
   @media (pointer: fine) {
@@ -44,6 +48,9 @@
       --button-bg: color-mix(in srgb, var(--button-scheme) 15%, transparent);
       --button-color: var(--button-scheme);
       --button-border: var(--button-scheme);
+
+      outline: none;
+      box-shadow: 0 0 0 0.375rem color-mix(in srgb, var(--button-border) 18%, transparent);
     }
 
     &.button-primary:is(:hover, :focus-visible) {

@@ -2,6 +2,11 @@ p {
   margin-block: 0 var(--sp);
 }
 
+a:any-link {
+  accent-color: var(--clr-accent);
+  outline-color: var(--clr-accent);
+}
+
 :where(h2:not([class]), h3:not([class])) {
   font-family: var(--ff-brand);
   font-weight: var(--fw-title);
@@ -43,8 +48,9 @@ p {
 
   .subtitle {
     display: block;
-    font-size: var(--fs);
+    font-size: var(--fs-subtitle);
     line-height: var(--lh);
+    margin-block-start: 0.1em;
   }
 
   .lead {

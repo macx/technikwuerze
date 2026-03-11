@@ -13,7 +13,8 @@
     "mzur/kirby-uniform": "^5.7",
     "arnoson/kirby-loupe": "^0.4",
     "arnoson/kirby-form-builder": "^0.9.1",
-    "medienbaecker/kirby-help-view": "^1.2"
+    "medienbaecker/kirby-help-view": "^1.2",
+    "vlucas/phpdotenv": "^5.6"
   },
   "config": {
     "optimize-autoloader": true,

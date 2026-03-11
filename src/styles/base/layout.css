@@ -58,6 +58,7 @@ body {
   color: var(--clr-text);
   line-height: var(--lh);
   overflow-y: scroll;
+  accent-color: var(--clr-accent);
 }
 
 .uniform-potty,
