@@ -5,8 +5,7 @@
   "type": "module",
   "browserslist": [
     "last 3 major versions",
-    "not dead",
-    "baseline widely available"
+    "not dead"
   ],
   "scripts": {
     "dev": "vite",

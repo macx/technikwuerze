@@ -105,7 +105,7 @@ Maintain and evolve the Technikwürze Kirby site safely and consistently:
 - For CSS inside `@scope`, prefer collecting descendant rules under a shared `:scope { ... }` block instead of repeating `:scope .selector` for each rule.
 - CSS authoring style:
   - avoid BEM for new code; prefer CSS Nesting with low nesting depth,
-  - use one root component class and nest short child selectors below it (example: `.site-search-dialog { .header {} .input {} .actions {} }`),
+  - use one root component class and nest short child selectors below it (example: `.search-dialog { .header {} .input {} .actions {} }`),
   - prefer element selectors inside component scopes or logical single-class selectors,
   - avoid repeating long prefixed child class names like `.component-child-element`; bundle them under the component root instead,
   - define modifier states nested under the main component rule (example: `.tw-badge { &.ok { ... } &.warn { ... } }`),

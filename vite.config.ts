@@ -9,6 +9,7 @@ export default defineConfig(({ command, mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
   const devHost = env.DEV_HOST || '127.0.0.1'
   const devVitePort = Number(env.DEV_VITE_PORT || 5173)
+  const watchContent = env.DEV_WATCH_CONTENT !== 'false'
 
   return {
     root: '.',
@@ -23,8 +24,8 @@ export default defineConfig(({ command, mode }) => {
     build: {
       outDir: resolve(__dirname, 'public/dist'),
       assetsDir: '',
-      emptyOutDir: true,
-      manifest: 'manifest.json',
+      emptyOutDir: !process.env.VITE_WATCH,
+      manifest: true,
       rollupOptions: {
         input: {
           main: resolve(__dirname, 'src/index.ts'),
@@ -40,6 +41,7 @@ export default defineConfig(({ command, mode }) => {
       watch: {
         ignored: [
           '**/content/.git/**',
+          '**/content/**/_changes/**',
           '**/content/**/*.sqlite',
           '**/content/**/*.mp3',
           '**/content/**/*.m4a',
@@ -55,10 +57,15 @@ export default defineConfig(({ command, mode }) => {
           './site/plugins/**/*.php',
           './site/plugins/**/*.html',
           './site/plugins/**/*.css',
-          './content/**/*.txt',
-          './content/**/*.yml',
-          './content/**/*.yaml',
-          './content/**/*.json',
+          ...(watchContent
+            ? [
+                './content/**/*.txt',
+                './content/**/*.yml',
+                './content/**/*.yaml',
+                './content/**/*.json',
+                '!./content/**/_changes/**',
+              ]
+            : []),
         ],
       }),
     ],
