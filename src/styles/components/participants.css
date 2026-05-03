@@ -89,11 +89,69 @@
   }
 }
 
-.participant-image img {
+.participant-image {
   display: block;
-  aspect-ratio: 1 / 1;
-  object-fit: cover;
-  border-radius: 0.5rem;
+  margin: 0;
+
+  img {
+    display: block;
+    inline-size: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 0.5rem;
+    border-radius: 50%;
+  }
+}
+
+.participant-meta {
+  display: block;
+}
+
+.participant-meta-card {
+  display: grid;
+  gap: var(--sp);
+}
+
+.participant-panel {
+  display: grid;
+  gap: 0.75rem;
+
+  h2 {
+    margin: 0;
+    font-size: 1rem;
+  }
+}
+
+.participant-data-list {
+  display: grid;
+  gap: 0.3em;
+  margin: 0;
+  font-size: var(--fs-s);
+
+  > div {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--sp);
+  }
+
+  dt,
+  dd {
+    margin: 0;
+  }
+
+  dt {
+    color: var(--clr-text-soft);
+  }
+
+  dd {
+    font-weight: var(--fw-bold);
+    text-align: end;
+  }
+}
+
+.participant-stats .participant-data-list dd {
+  color: var(--clr-primary);
 }
 
 .participant-profiles ul {
@@ -104,4 +162,28 @@
 
 .participant-profiles li {
   margin: 0.35rem 0;
+}
+
+.participant-stage {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp);
+
+  @media (width >= 48em) {
+    flex-direction: row;
+    gap: var(--sp-content);
+
+    > aside {
+      flex: 0 0 min(30%, 250px);
+    }
+
+    .participant-meta {
+      position: sticky;
+      top: calc(var(--header-size) + var(--sp-content));
+    }
+
+    .participant-content {
+      flex: 1;
+    }
+  }
 }

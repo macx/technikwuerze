@@ -12,6 +12,28 @@ $transitionName = 'participant-name-' . $page->slug();
 $transitionImageName = 'participant-image-' . $page->slug();
 $image = $page->profile_image()->toFile();
 $profiles = $page->external_profiles()->toStructure();
+$roleValue = trim((string) $page->participant_role()->value());
+$genderValue = trim((string) $page->gender_identities()->value());
+$pronouns = trim((string) $page->pronouns()->value());
+
+$roleLabels = [
+  'host' => 'Host',
+  'guest' => 'Gast',
+];
+
+$genderLabels = [
+  'female' => 'Weiblich',
+  'male' => 'Männlich',
+  'non_binary' => 'Nicht-binär',
+  'agender' => 'Agender',
+  'genderfluid' => 'Genderfluid',
+  'self_described' => 'Selbstbezeichnet',
+  'prefer_not_to_say' => 'Keine Angabe',
+];
+
+$roleLabel = $roleLabels[$roleValue] ?? $roleValue;
+$genderLabel = $genderLabels[$genderValue] ?? $genderValue;
+$hasParticipantFacts = $roleLabel !== '' || $genderLabel !== '' || $pronouns !== '';
 
 $allEpisodes =
   site()->find('mediathek')?->index()->filterBy('intendedTemplate', 'episode')->published() ??
@@ -68,76 +90,116 @@ snippet('layout', slots: true);
       <?php endif; ?>
     </header>
 
-    <?php if ($page->description()->isNotEmpty()): ?>
-      <?= $page->description()->kt() ?>
-    <?php endif; ?>
-
-    <?php if ($image): ?>
-      <figure class="participant-image">
-          <img src="<?= $image->url() ?>" alt="<?= esc(
+    <div class="participant-stage">
+      <aside>
+        <div class="participant-meta">
+          <section class="card participant-meta-card">
+            <?php if ($image): ?>
+              <figure class="participant-image">
+                <img src="<?= $image->url() ?>" alt="<?= esc(
   $fullName,
 ) ?>" class="participant-image" data-vt-group="participant-image" data-vt-name="<?= esc(
   $transitionImageName,
 ) ?>" loading="lazy">
-      </figure>
-    <?php endif; ?>
+              </figure>
+            <?php endif; ?>
 
-    <section class="participant-meta">
-      <p>
-        <strong>Teilnahmen:</strong>
-        <?= $totalParticipationCount ?> mal dabei,
-        davon <?= $hostCount ?> mal als Moderator
-        und <?= $guestCount ?> mal als Gast
-      </p>
-      <?php if ($page->participant_role()->isNotEmpty()): ?>
-        <p><strong>Rolle:</strong> <?= $page->participant_role()->html() ?></p>
-      <?php endif; ?>
-      <?php if ($page->gender_identities()->isNotEmpty()): ?>
-        <p><strong>Geschlecht:</strong> <?= $page->gender_identities()->html() ?></p>
-      <?php endif; ?>
-      <?php if ($page->pronouns()->isNotEmpty()): ?>
-        <p><strong>Pronomen:</strong> <?= $page->pronouns()->html() ?></p>
-      <?php endif; ?>
-    </section>
+            <section class="participant-panel participant-stats" aria-labelledby="participant-stats-heading">
+              <h2 id="participant-stats-heading">Statistik</h2>
+              <dl class="participant-data-list">
+                <div>
+                  <dt>Teilnahmen</dt>
+                  <dd><?= $totalParticipationCount ?></dd>
+                </div>
+                <div>
+                  <dt>als Moderator</dt>
+                  <dd><?= $hostCount ?></dd>
+                </div>
+                <div>
+                  <dt>als Gast</dt>
+                  <dd><?= $guestCount ?></dd>
+                </div>
+              </dl>
+            </section>
 
-    <?php if ($profiles->isNotEmpty()): ?>
-      <section class="participant-profiles">
-        <h2>Externe Profile</h2>
-        <ul>
-          <?php foreach ($profiles as $profile): ?>
-            <?php
-            $url = trim((string) $profile->url()->value());
-            if ($url === '') {
-              continue;
-            }
-            $label = trim((string) $profile->profile_label()->value());
-            $network = trim((string) $profile->network()->value());
-            ?>
-            <li>
-              <a href="<?= esc($url) ?>" target="_blank" rel="noopener nofollow">
-                <?= esc($label !== '' ? $label : ($network !== '' ? $network : $url)) ?>
-              </a>
-            </li>
-          <?php endforeach; ?>
-        </ul>
-      </section>
-    <?php endif; ?>
+            <?php if ($hasParticipantFacts): ?>
+              <section class="participant-panel participant-facts" aria-labelledby="participant-facts-heading">
+                <h2 id="participant-facts-heading">Profil</h2>
+                <dl class="participant-data-list">
+                  <?php if ($roleLabel !== ''): ?>
+                    <div>
+                      <dt>Rolle</dt>
+                      <dd><?= esc($roleLabel) ?></dd>
+                    </div>
+                  <?php endif; ?>
+                  <?php if ($genderLabel !== ''): ?>
+                    <div>
+                      <dt>Geschlecht</dt>
+                      <dd><?= esc($genderLabel) ?></dd>
+                    </div>
+                  <?php endif; ?>
+                  <?php if ($pronouns !== ''): ?>
+                    <div>
+                      <dt>Pronomen</dt>
+                      <dd><?= esc($pronouns) ?></dd>
+                    </div>
+                  <?php endif; ?>
+                </dl>
+              </section>
+            <?php endif; ?>
+          </section>
+        </div>
+      </aside>
 
-    <?php if ($recentParticipations->isNotEmpty()): ?>
-      <section class="participant-episodes">
-        <h2>Letzte Folgen mit Beteiligung</h2>
-        <ul>
-          <?php foreach ($recentParticipations as $episode): ?>
-            <li>
-              <a href="<?= $episode->url() ?>"><?= $episode->title()->html() ?></a>
-              <?php if ($episode->date()->isNotEmpty()): ?>
-                (<?= $episode->date()->toDate('d.m.Y') ?>)
-              <?php endif; ?>
-            </li>
-          <?php endforeach; ?>
-        </ul>
-      </section>
-    <?php endif; ?>
+      <div class="participant-content">
+        <?php if ($page->description()->isNotEmpty()): ?>
+          <?= $page->description()->kt() ?>
+        <?php endif; ?>
+
+        <?php if ($profiles->isNotEmpty()): ?>
+          <section class="participant-profiles">
+            <h2>Externe Profile</h2>
+            <ul>
+              <?php foreach ($profiles as $profile): ?>
+                <?php
+                $url = trim((string) $profile->url()->value());
+                if ($url === '') {
+                  continue;
+                }
+                $label = trim((string) $profile->profile_label()->value());
+                $network = trim((string) $profile->network()->value());
+                ?>
+                <li>
+                  <a href="<?= esc($url) ?>" target="_blank" rel="noopener nofollow">
+                    <?= esc($label !== '' ? $label : ($network !== '' ? $network : $url)) ?>
+                  </a>
+                </li>
+              <?php endforeach; ?>
+            </ul>
+          </section>
+        <?php endif; ?>
+
+        <?php if ($recentParticipations->isNotEmpty()): ?>
+          <section class="participant-episodes">
+            <h2>Letzte Folgen mit Beteiligung</h2>
+            <ul>
+              <?php foreach ($recentParticipations as $episode): ?>
+                <li>
+                  <a href="<?= $episode->url() ?>"><?= $episode->title()->html() ?></a>
+                  <?php if ($episode->date()->isNotEmpty()): ?>
+                    (<?= $episode->date()->toDate('d.m.Y') ?>)
+                  <?php endif; ?>
+                </li>
+              <?php endforeach; ?>
+            </ul>
+          </section>
+        <?php endif; ?>
+      </div>
+    </div>
+
+
+
+
   </article>
 <?php endslot(); ?>
 <?php endsnippet(); ?>
