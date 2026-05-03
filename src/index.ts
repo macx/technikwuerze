@@ -12,12 +12,14 @@ import { initHeaderNav } from './scripts/components/header-nav'
 import { initPodlovePlayers } from './scripts/components/podlove-player'
 import { initSearchDialog } from './scripts/components/search-dialog'
 import { initModeSwitch } from './scripts/components/theme-switch'
+import { initViewTransitions } from './scripts/components/view-transitions'
 
 document.addEventListener('DOMContentLoaded', () => {
   initHeaderNav()
   initModeSwitch()
   initSearchDialog()
   initPodlovePlayers()
+  initViewTransitions()
 
   if (document.querySelector('.tw-brand-networks')) {
     void import('./scripts/components/brand-networks').then(({ initBrandNetworks }) => {

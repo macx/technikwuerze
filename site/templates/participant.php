@@ -8,6 +8,8 @@ if ($page->isListed() !== true) {
 }
 
 $fullName = trim($page->first_name()->value() . ' ' . $page->last_name()->value());
+$transitionName = 'participant-name-' . $page->slug();
+$transitionImageName = 'participant-image-' . $page->slug();
 $image = $page->profile_image()->toFile();
 $profiles = $page->external_profiles()->toStructure();
 
@@ -47,7 +49,11 @@ snippet('layout', slots: true);
   <article class="participant-detail content narrow">
     <header class="page-header">
       <h1 class="title">
-        <?= esc($fullName !== '' ? $fullName : $page->title()->value()) ?>
+        <span class="participant-name" data-vt-group="participant-name" data-vt-name="<?= esc(
+          $transitionName,
+        ) ?>">
+          <?= esc($fullName !== '' ? $fullName : $page->title()->value()) ?>
+        </span>
         <?php if ($page->profession()->isNotEmpty()): ?>
           <span class="subtitle">
             <?= $page->profession()->value() ?>
@@ -55,16 +61,24 @@ snippet('layout', slots: true);
         <?php endif; ?>
       </h1>
 
-      <?php if ($page->description()->isNotEmpty()): ?>
+      <?php if ($page->lead()->isNotEmpty()): ?>
         <p class="lead">
-          <?= $page->description()->kti() ?>
+          <?= $page->lead()->kti() ?>
         </p>
       <?php endif; ?>
     </header>
 
+    <?php if ($page->description()->isNotEmpty()): ?>
+      <?= $page->description()->kt() ?>
+    <?php endif; ?>
+
     <?php if ($image): ?>
       <figure class="participant-image">
-        <img src="<?= $image->url() ?>" alt="<?= esc($fullName) ?>" loading="lazy">
+          <img src="<?= $image->url() ?>" alt="<?= esc(
+  $fullName,
+) ?>" class="participant-image" data-vt-group="participant-image" data-vt-name="<?= esc(
+  $transitionImageName,
+) ?>" loading="lazy">
       </figure>
     <?php endif; ?>
 

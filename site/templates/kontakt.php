@@ -13,8 +13,8 @@
 
     <div class="content narrow">
       <?php if ($page->form_fields()->isNotEmpty()): ?>
-        <div class="card contact-form">
-          <h2 id="contact-form-heading">Schreib uns</h2>
+        <div class="card form">
+          <h2 id="form-heading">Schreib uns</h2>
 
           <?php snippet('form', ['formPage' => $page]); ?>
         </div>

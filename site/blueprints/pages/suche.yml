@@ -39,7 +39,7 @@ sections:
         label:
           de: Platzhalter Suchfeld
           en: Search placeholder
-        default: z. B. Typografie, Podcast, Kirb…
+        default: z. B. Typografie, Medien oder Permasteil…
       search_dialog_title:
         type: text
         label:

@@ -53,7 +53,7 @@ function twSearchSettings(): array
   $defaults = [
     'results_limit' => 40,
     'comments_enabled' => true,
-    'placeholder' => 'z. B. Typografie, Podcast, Kirb…',
+    'placeholder' => 'z. B. Typografie, Medien oder Permasteil…',
     'dialog_title' => 'Suche',
   ];
 

@@ -9,7 +9,7 @@ export const initSearchDialog = (): void => {
   }
 
   const input = dialog.querySelector<HTMLInputElement>('[data-search-dialog-input]')
-  const category = dialog.querySelector<HTMLSelectElement>('#site-search-dialog-category')
+  const category = dialog.querySelector<HTMLSelectElement>('#search-dialog-category')
 
   for (const button of document.querySelectorAll<HTMLButtonElement>('[data-search-dialog-open]')) {
     button.addEventListener('click', () => {

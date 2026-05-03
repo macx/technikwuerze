@@ -9,53 +9,58 @@ $selectedCategory = 'content';
 $categories = twSearchCategories();
 $settings = twSearchSettings();
 ?>
-<dialog id="site-search-dialog" class="site-search-dialog" data-search-dialog>
-  <form class="site-search-dialog-form" method="get" action="<?= $searchUrl ?>" role="search">
-    <header class="site-search-dialog-header">
-      <h2><?= esc((string) ($settings['dialog_title'] ?? 'Suche')) ?></h2>
-      <button
-        class="main-nav-button"
-        type="button"
-        aria-label="Suche schließen"
-        data-search-dialog-close
-      >
-        <i class="msi-close"></i>
-      </button>
-    </header>
+<dialog id="search-dialog" class="card light form search-dialog" data-search-dialog style="--color-tone: var(--clr-secondary);">
+  <header>
+    <h2><?= esc((string) ($settings['dialog_title'] ?? 'Suche')) ?></h2>
 
-    <label for="site-search-dialog-query">Suchbegriff</label>
-    <input
-      id="site-search-dialog-query"
-      class="site-search-dialog-input"
-      type="search"
-      name="q"
-      value="<?= esc($queryValue) ?>"
-      placeholder="<?= esc(
-        (string) ($settings['placeholder'] ?? 'z. B. Typografie, Podcast, Kirb…'),
-      ) ?>"
-      required
-      data-search-dialog-input
+    <button
+      class="main-nav-button"
+      type="button"
+      aria-label="Suche schließen"
+      data-search-dialog-close
     >
+      <i class="msi-close"></i>
+    </button>
+  </header>
 
-    <div class="site-search-dialog-actions">
-      <div class="theme-switch" data-enhanced="true">
-        <label for="site-search-dialog-category">Kategorie</label>
-        <select
-          class="theme-switch-select"
-          id="site-search-dialog-category"
+  <form method="get" action="<?= $searchUrl ?>" role="search">
+    <div class="form-row">
+      <div class="form-column" style="--span:4">
+        <div class="form-field">
+          <label for="search-dialog-query">Suchbegriff</label>
+          <input
+          id="search-dialog-query"
+          type="search"
+          name="q"
+          value="<?= esc($queryValue) ?>"
+          placeholder="<?= esc(
+            (string) ($settings['placeholder'] ?? 'z. B. Typografie, Podcast, Kirb…'),
+          ) ?>"
+            required
+            data-search-dialog-input
+          >
+        </div>
+      </div>
+
+      <div class="form-column" style="--span:2">
+        <div class="form-field">
+          <label for="search-dialog-category">Kategorie</label>
+          <select
+          id="search-dialog-category"
           name="category"
           aria-label="Kategorie auswählen"
           title="Kategorie auswählen"
-        >
+          >
           <?php foreach ($categories as $key => $label): ?>
             <option value="<?= $key ?>"<?= $key === $selectedCategory ? ' selected' : '' ?>><?= esc(
   $label,
 ) ?></option>
           <?php endforeach; ?>
-        </select>
+          </select>
+        </div>
       </div>
-
-      <button class="button-primary" type="submit">Suchen</button>
     </div>
+
+    <button class="button-primary" type="submit">Suchen</button>
   </form>
 </dialog>

@@ -21,6 +21,7 @@ Kirby::plugin('tw/brand', [
     'blocks/participants-list' => __DIR__ . '/blueprints/blocks/participants-list.yml',
     'blocks/handwritten' => __DIR__ . '/blueprints/blocks/handwritten.yml',
     'blocks/testimonials' => __DIR__ . '/blueprints/blocks/testimonials.yml',
+    'blocks/address' => __DIR__ . '/blueprints/blocks/address.yml',
   ],
   'snippets' => [
     'blocks/brand-logo' => __DIR__ . '/snippets/blocks/brand-logo.php',
@@ -32,6 +33,7 @@ Kirby::plugin('tw/brand', [
     'blocks/participants-list' => __DIR__ . '/snippets/blocks/participants-list.php',
     'blocks/handwritten' => __DIR__ . '/snippets/blocks/handwritten.php',
     'blocks/testimonials' => __DIR__ . '/snippets/blocks/testimonials.php',
+    'blocks/address' => __DIR__ . '/snippets/blocks/address.php',
   ],
   'fields' => [
     'tw-search-reindex' => [],

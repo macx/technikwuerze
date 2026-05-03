@@ -24,7 +24,6 @@
       text-decoration: none;
       color: var(--clr-primary);
       border-radius: var(--radius-button);
-      transition: background-color 8ms ease-in-out;
       padding-block: 0.35em;
       padding-inline: 1.25em;
 
@@ -47,14 +46,17 @@
     display: flex;
     justify-content: center;
     gap: var(--sp);
+
     list-style: none;
     padding: 0;
     margin-block: 0 var(--sp-xl);
+    padding-inline: var(--sp-content);
   }
 
   .tw-participants-card {
     display: grid;
     gap: var(--sp);
+
     text-decoration: none;
     color: inherit;
     transition: background-color 8ms ease-in-out;
@@ -73,22 +75,22 @@
       border-radius: 50%;
     }
 
+    span {
+      display: block;
+      font-size: 1.125rem;
+      font-weight: var(--fw-bold);
+      color: var(--clr-primary);
+    }
+
     &:hover,
     &:focus-visible {
       background-color: var(--clr-hover);
     }
   }
-
-  .tw-participants-name {
-    font-size: 1.125rem;
-    font-weight: var(--fw-bold);
-    color: var(--clr-primary);
-  }
 }
 
 .participant-image img {
-  width: 240px;
-  max-width: 100%;
+  display: block;
   aspect-ratio: 1 / 1;
   object-fit: cover;
   border-radius: 0.5rem;

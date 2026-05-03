@@ -54,6 +54,15 @@ tabs:
                   en: Profession
                 type: text
                 width: 1/1
+              lead:
+                label:
+                  de: Kurzbeschreibung
+                  en: Short description
+                type: textarea
+                buttons:
+                  - bold
+                  - italic
+                width: 1/1
               description:
                 label:
                   de: Beschreibung

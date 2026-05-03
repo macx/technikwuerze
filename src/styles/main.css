@@ -9,6 +9,7 @@
 */
 @import './base/variables.css' layer(base);
 @import './base/layout.css' layer(base);
+@import './base/view-transitions.css' layer(base);
 @import './base/typo.css' layer(base);
 @import './base/icons.css' layer(base);
 
@@ -28,6 +29,7 @@ COMPONENTS
 @import './components/podcast-player.css' layer(components);
 @import './components/footer.css' layer(base);
 @import './components/participants.css' layer(base);
+@import './components/address.css' layer(components);
 @import './components/mediathek.css' layer(components);
 @import './components/komments-default.css' layer(components);
 @import './components/komments-plugin.css' layer(components);

@@ -89,7 +89,7 @@ if (!in_array($displayLayout, ['cards', 'list'], true)) {
         ); ?>
         <li>
           <a href="<?= $participant->url() ?>">
-            <span class="tw-participants-name"><?= esc($fullName) ?></span>
+            <?= esc($fullName) ?>
           </a>
         </li>
       <?php endforeach; ?>
@@ -101,16 +101,22 @@ if (!in_array($displayLayout, ['cards', 'list'], true)) {
         $fullName = trim(
           $participant->first_name()->value() . ' ' . $participant->last_name()->value(),
         );
+        $transitionName = 'participant-name-' . $participant->slug();
+        $transitionImageName = 'participant-image-' . $participant->slug();
         $image = $participant->profile_image()->toFile();
         ?>
         <li>
-          <a class="tw-participants-card" href="<?= $participant->url() ?>">
+          <a href="<?= $participant->url() ?>" class="tw-participants-card" >
             <?php if ($image): ?>
               <img src="<?= $image->crop(320, 320)->url() ?>" alt="<?= esc(
   $fullName,
+) ?>" class="participant-image" data-vt-group="participant-image" data-vt-name="<?= esc(
+  $transitionImageName,
 ) ?>" loading="lazy">
             <?php endif; ?>
-            <span class="tw-participants-name"><?= esc($fullName) ?></span>
+            <span class="participant-name" data-vt-group="participant-name" data-vt-name="<?= esc(
+              $transitionName,
+            ) ?>"><?= esc($fullName) ?></span>
           </a>
         </li>
       <?php endforeach; ?>

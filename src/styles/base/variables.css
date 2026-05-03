@@ -74,7 +74,7 @@
   --dur-drawer-transform: 280ms;
 
   @media (width >= 48em) {
-    --sp-content: 1.5rem;
+    --sp-content: 2rem;
   }
 }
 

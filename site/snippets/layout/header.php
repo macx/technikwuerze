@@ -34,7 +34,7 @@ $navItems = $site->children()->listed(); ?>
       aria-label="Suche öffnen"
       title="Suche öffnen"
       aria-haspopup="dialog"
-      aria-controls="site-search-dialog"
+      aria-controls="search-dialog"
       data-search-dialog-open
     >
       <i class="msi-search"></i>

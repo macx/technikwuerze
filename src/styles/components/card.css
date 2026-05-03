@@ -4,4 +4,9 @@
   border: 2px solid var(--clr-border);
   box-shadow: var(--shadow-size) var(--shadow-size) 0 0 var(--clr-shadow);
   padding: var(--sp);
+
+  &.light {
+    background-color: var(--clr-bg-light);
+    color: var(--clr-text);
+  }
 }
