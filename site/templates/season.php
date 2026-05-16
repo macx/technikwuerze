@@ -34,18 +34,19 @@ snippet('layout', slots: true);
     <section class="season content">
       <ul class="season-list">
         <?php foreach ($episodes as $episode): ?>
-          <li>
+          <?php $episodeNumber = trim((string) $episode->podcasterepisodetotal()->value()); ?>
+          <li<?php e(
+            $episodeNumber !== '',
+            ' data-episode-number="' . esc($episodeNumber) . '"',
+          ); ?>>
             <a href="<?= $episode->url() ?>">
-              <?= $episode->title()->value() ?>
-            </a><br />
-
-            <div class="text-small">
-              <?= $episode->podcastersubtitle()->value() ?>
-              /
-              <?php if ($episode->date()->isNotEmpty()): ?>
-                <span><?= $episode->date()->toDate('d.m.Y') ?></span>
-              <?php endif; ?>
-            </div>
+              <?= $episode->title()->value() ?><br />
+              <span class="text-s">
+                <?php if ($episode->date()->isNotEmpty()): ?>
+                  <span><?= $episode->date()->toDate('d.m.Y') ?></span>
+                <?php endif; ?>
+              </span>
+            </a>
           </li>
         <?php endforeach; ?>
       </ul>

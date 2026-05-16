@@ -3,5 +3,53 @@
 }
 
 .season-list {
-  column-count: 2;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(25ch, 1fr));
+  gap: var(--sp-s) var(--sp-m);
+  padding: 0;
+  list-style: none;
+
+  li {
+    display: grid;
+    grid-template-columns: 2.6em 1fr;
+    grid-template-rows: auto auto;
+    grid-template-areas: 'number title' 'number date';
+    gap: 0.3em var(--sp-s);
+
+    &[data-episode-number]::before {
+      content: attr(data-episode-number);
+      background-color: var(--clr-bg-dark);
+      color: var(--clr-primary);
+      border-radius: var(--radius-button-xs);
+      grid-area: number;
+      transition:
+        background-color 120ms var(--ease-drawer-transform),
+        color 120ms var(--ease-drawer-transform);
+
+      padding: var(--sp-xxs);
+      font-family: var(--ff-brand);
+      font-size: var(--fs);
+      font-weight: var(--fw-title);
+    }
+
+    &:hover,
+    &:focus {
+      &[data-episode-number]::before {
+        background-color: var(--clr-primary);
+        color: var(--clr-bg-light);
+      }
+    }
+  }
+
+  a {
+    display: block;
+    font-weight: var(--fw-bold);
+    text-decoration: none;
+    color: var(--clr-secondary);
+    line-height: var(--lh-s);
+
+    span {
+      font-weight: var(--fw);
+    }
+  }
 }
