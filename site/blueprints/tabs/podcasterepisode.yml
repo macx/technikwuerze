@@ -124,8 +124,15 @@ columns:
             width: 1/2
           podcasterDescription:
             label: Podcast summary
-            type: textarea
+            type: markdown
             size: medium
+            font: monospace
+            buttons:
+              - bold
+              - italic
+              - link
+              - ul
+              - ol
           podcasterChapters:
             label: Chapters
             type: structure

@@ -39,8 +39,22 @@ tabs:
             label:
               de: Text
               en: Text
-            type: textarea
+            type: markdown
             size: large
+            font: monospace
+            buttons:
+              - headlines
+              - divider
+              - bold
+              - italic
+              - code
+              - divider
+              - link
+              - file
+              - divider
+              - blockquote
+              - ul
+              - ol
   comments:
     label:
       de: Kommentare
