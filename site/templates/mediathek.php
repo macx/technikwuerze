@@ -48,7 +48,7 @@ $seasons = $page
 
           <?= $season->lead()->kt() ?>
 
-          <ul class="season-list">
+          <ul class="episodes-list">
             <?php foreach ($seasonEpisodes as $episode): ?>
               <?php $episodeNumber = trim((string) $episode->podcasterepisodetotal()->value()); ?>
               <li<?php e(

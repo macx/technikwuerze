@@ -174,7 +174,7 @@ snippet('layout', slots: true);
     <?php endif; ?>
 
     <?php if ($page->text()->isNotEmpty()): ?>
-      <section class="episode-text content narrow">
+      <section class="content-text content narrow">
         <?= $page->text()->kt() ?>
       </section>
     <?php endif; ?>

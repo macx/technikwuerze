@@ -3,6 +3,8 @@ $depth = isset($depth) ? (int) $depth : 0;
 $maxDepth = isset($max_depth) ? (int) $max_depth : 1;
 $rootCommentId = isset($root_comment_id) ? (string) $root_comment_id : (string) $comment->id();
 ?>
+
+
 <?php snippet(
   'komments/response/base',
   ['comments' => $comments, 'comment' => $comment, 'reply_target_id' => $rootCommentId],

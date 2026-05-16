@@ -16,19 +16,6 @@ foreach ($footerPages as $item) {
   }
 }
 
-$socialLabels = [
-  'bluesky' => 'Bluesky',
-  'mastodon' => 'Mastodon',
-  'threads' => 'Threads',
-  'instagram' => 'Instagram',
-  'tiktok' => 'TikTok',
-  'youtube' => 'YouTube',
-  'discord' => 'Discord',
-  'linkedin' => 'LinkedIn',
-  'twitch' => 'Twitch',
-  'x' => 'X',
-];
-
 $socialLinks = [];
 foreach (site()->content()->get('socialLinks')->toStructure() as $social) {
   $network = trim((string) $social->network()->value());
@@ -42,17 +29,9 @@ foreach (site()->content()->get('socialLinks')->toStructure() as $social) {
     continue;
   }
 
-  $iconPath = 'assets/social/' . $network . '.svg';
-  $iconRoot = kirby()->root('index') . '/' . $iconPath;
-
-  if (!is_file($iconRoot)) {
-    $iconPath = 'assets/social/placeholder.svg';
-  }
-
   $socialLinks[] = [
-    'label' => $socialLabels[$network] ?? ucfirst($network),
+    'network' => $network,
     'url' => $url,
-    'iconPath' => $iconPath,
   ];
 }
 ?>
@@ -100,17 +79,11 @@ foreach (site()->content()->get('socialLinks')->toStructure() as $social) {
           </p>
         </div>
 
-        <nav class="footer-social" aria-label="Social Media">
-          <?php foreach ($socialLinks as $social): ?>
-            <a href="<?= $social[
-              'url'
-            ] ?>" class="footer-social-link" target="_blank" rel="noopener" aria-label="<?= esc(
-  $social['label'],
-) ?>">
-              <?= asset($social['iconPath'])->read() ?>
-            </a>
-          <?php endforeach; ?>
-        </nav>
+        <?php snippet('social-links', [
+          'links' => $socialLinks,
+          'label' => 'Social Media',
+          'class' => 'footer-social',
+        ]); ?>
       </div>
     </div>
   </div>

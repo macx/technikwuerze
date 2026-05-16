@@ -25,6 +25,8 @@ $favicon = asset('assets/favicon.ico');
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="HandheldFriendly" content="true">
 
+  <?php snippet('layout/preload-fonts'); ?>
+
   <?= vite()->css('src/index.ts', [], true) ?>
   <?= vite()->js('src/index.ts', [], true) ?>
 

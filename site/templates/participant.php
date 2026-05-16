@@ -12,6 +12,26 @@ $transitionName = 'participant-name-' . $page->slug();
 $transitionImageName = 'participant-image-' . $page->slug();
 $image = $page->profile_image()->toFile();
 $profiles = $page->external_profiles()->toStructure();
+$profileLinks = [];
+
+foreach ($profiles as $profile) {
+  $url = trim((string) $profile->url()->value());
+
+  if ($url === '') {
+    continue;
+  }
+
+  $label = trim((string) $profile->profile_label()->value());
+  $network = trim((string) $profile->network()->value());
+
+  $profileLinks[] = [
+    'label' => $label,
+    'network' => $network,
+    'rel' => 'noopener nofollow',
+    'url' => $url,
+  ];
+}
+
 $roleValue = trim((string) $page->participant_role()->value());
 $genderValue = trim((string) $page->gender_identities()->value());
 $pronouns = trim((string) $page->pronouns()->value());
@@ -151,44 +171,42 @@ snippet('layout', slots: true);
         </div>
       </aside>
 
-      <div class="participant-content">
+      <div class="participant-content content-text">
         <?php if ($page->description()->isNotEmpty()): ?>
           <?= $page->description()->kt() ?>
         <?php endif; ?>
 
-        <?php if ($profiles->isNotEmpty()): ?>
+        <?php if ($profileLinks !== []): ?>
           <section class="participant-profiles">
             <h2>Externe Profile</h2>
-            <ul>
-              <?php foreach ($profiles as $profile): ?>
-                <?php
-                $url = trim((string) $profile->url()->value());
-                if ($url === '') {
-                  continue;
-                }
-                $label = trim((string) $profile->profile_label()->value());
-                $network = trim((string) $profile->network()->value());
-                ?>
-                <li>
-                  <a href="<?= esc($url) ?>" target="_blank" rel="noopener nofollow">
-                    <?= esc($label !== '' ? $label : ($network !== '' ? $network : $url)) ?>
-                  </a>
-                </li>
-              <?php endforeach; ?>
-            </ul>
+            <?php snippet('social-links', [
+              'links' => $profileLinks,
+              'label' =>
+                'Externe Profile von ' . ($fullName !== '' ? $fullName : $page->title()->value()),
+              'class' => 'participant-social',
+            ]); ?>
           </section>
         <?php endif; ?>
 
         <?php if ($recentParticipations->isNotEmpty()): ?>
-          <section class="participant-episodes">
+          <section>
             <h2>Letzte Folgen mit Beteiligung</h2>
-            <ul>
+
+            <ul class="episodes-list">
               <?php foreach ($recentParticipations as $episode): ?>
-                <li>
-                  <a href="<?= $episode->url() ?>"><?= $episode->title()->html() ?></a>
-                  <?php if ($episode->date()->isNotEmpty()): ?>
-                    (<?= $episode->date()->toDate('d.m.Y') ?>)
-                  <?php endif; ?>
+                <?php $episodeNumber = trim((string) $episode->podcasterepisodetotal()->value()); ?>
+                <li<?php e(
+                  $episodeNumber !== '',
+                  ' data-episode-number="' . esc($episodeNumber) . '"',
+                ); ?>>
+                  <a href="<?= $episode->url() ?>">
+                    <?= $episode->title()->value() ?><br />
+                    <span class="text-s">
+                      <?php if ($episode->date()->isNotEmpty()): ?>
+                        <span><?= $episode->date()->toDate('d.m.Y') ?></span>
+                      <?php endif; ?>
+                    </span>
+                  </a>
                 </li>
               <?php endforeach; ?>
             </ul>

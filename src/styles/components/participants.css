@@ -154,14 +154,12 @@
   color: var(--clr-primary);
 }
 
-.participant-profiles ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
+.participant-profiles {
+  color: var(--clr-primary);
 
-.participant-profiles li {
-  margin: 0.35rem 0;
+  .participant-social {
+    margin-inline-start: -0.6rem;
+  }
 }
 
 .participant-stage {
@@ -171,7 +169,7 @@
 
   @media (width >= 48em) {
     flex-direction: row;
-    gap: var(--sp-content);
+    gap: var(--sp-col-gap);
 
     > aside {
       flex: 0 0 min(30%, 250px);

@@ -140,35 +140,7 @@ tabs:
             label:
               en: Social links
               de: Social Links
-            type: structure
-            sortable: true
-            fields:
-              network:
-                label:
-                  en: Network
-                  de: Netzwerk
-                type: select
-                options:
-                  bluesky: Bluesky
-                  mastodon: Mastodon
-                  threads: Threads
-                  instagram: Instagram
-                  tiktok: TikTok
-                  youtube: YouTube
-                  discord: Discord
-                  linkedin: LinkedIn
-                  twitch: Twitch
-                  x: X
-                required: true
-              url:
-                label: URL
-                type: url
-                required: true
-            columns:
-              network:
-                width: 1/3
-              url:
-                width: 2/3
+            extends: fields/social-links
             default:
               - network: bluesky
                 url: https://bsky.app/

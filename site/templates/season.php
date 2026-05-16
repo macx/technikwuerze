@@ -32,7 +32,7 @@ snippet('layout', slots: true);
 
   <?php if ($episodes->isNotEmpty()): ?>
     <section class="season content">
-      <ul class="season-list">
+      <ul class="episodes-list">
         <?php foreach ($episodes as $episode): ?>
           <?php $episodeNumber = trim((string) $episode->podcasterepisodetotal()->value()); ?>
           <li<?php e(

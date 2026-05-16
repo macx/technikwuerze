@@ -1,62 +1,18 @@
-#kommentform {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  grid-template-areas:
-    'message'
-    'replyHandleDisplay'
-    'comment'
-    'email'
-    'author'
-    'authorsite'
-    'privacy'
-    'button';
-  gap: var(--sp-xs);
-  align-items: start;
-
-  label {
-    min-inline-size: 0;
-  }
-
-  :is(input[type='text'], input[type='email'], input[type='url'], textarea) {
-    inline-size: 100%;
-  }
-
-  .form-feedback {
-    grid-area: message;
+.form-komments {
+  #kommentform {
+    margin-block-start: var(--sp);
   }
 
   .replyHandleDisplay {
-    grid-area: replyHandleDisplay;
-  }
-
-  label[for='comment'] {
-    grid-area: comment;
-
-    textarea {
-      width: 100%;
-    }
-  }
-
-  label[for='email'] {
-    grid-area: email;
-  }
-
-  label[for='author'] {
-    grid-area: author;
-  }
-
-  label[for='author_url'] {
-    grid-area: authorsite;
+    font-size: var(--fs-s);
+    line-height: var(--lh);
+    color: var(--clr-text-light);
   }
 
   .komment-privacy {
-    grid-area: privacy;
-    font-size: smaller;
-  }
-
-  input[type='submit'] {
-    grid-area: button;
-    inline-size: 100%;
+    font-size: var(--fs-s);
+    line-height: var(--lh);
+    color: var(--clr-text-light);
   }
 
   #url {
@@ -66,9 +22,11 @@
   }
 
   .msg {
-    border: 1px solid #ccc;
-    padding: 1em;
-    background-color: #f9f9f9;
+    border: 1px solid var(--clr-border);
+    border-radius: var(--radius-button-s);
+    padding-block: var(--sp-xs);
+    padding-inline: var(--sp);
+    background-color: var(--clr-surface);
     opacity: 0;
     display: none;
 
@@ -79,18 +37,25 @@
     }
 
     &.msg-success {
-      border-color: green;
-      background-color: #e9f9e9;
+      --clr-success: hsl(120, 80%, 35%);
+
+      border-color: color-mix(in srgb, var(--clr-success) 50%, transparent);
+      background: color-mix(in srgb, var(--clr-success) 5%, var(--clr-bg-dark) 95%);
+      color: var(--clr-success);
     }
 
     &.msg-error {
-      border-color: red;
-      background-color: #f9e9e9;
+      --clr-warn: hsl(0, 72%, 51%);
+
+      border-color: color-mix(in srgb, var(--clr-warn) 50%, transparent);
+      background: color-mix(in srgb, var(--clr-warn) 5%, var(--clr-bg-dark) 95%);
+      color: var(--clr-warn);
     }
 
     &.msg-info {
-      border-color: blue;
-      background-color: #e9e9f9;
+      border-color: color-mix(in srgb, var(--clr-secondary) 50%, transparent);
+      background: color-mix(in srgb, var(--clr-secondary) 5%, var(--clr-bg-dark) 95%);
+      color: var(--clr-secondary);
     }
   }
 
@@ -107,21 +72,7 @@
     &.visible {
       display: flex;
       align-items: center;
-    }
-  }
-
-  @media (width >= 48em) {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    grid-template-areas:
-      'message message message'
-      'replyHandleDisplay replyHandleDisplay replyHandleDisplay'
-      'comment comment comment'
-      'email author authorsite'
-      'privacy privacy button';
-
-    input[type='submit'] {
-      inline-size: auto;
-      justify-self: end;
+      gap: var(--sp-xs);
     }
   }
 }
