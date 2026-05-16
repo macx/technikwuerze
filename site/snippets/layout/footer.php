@@ -7,13 +7,20 @@ $footerPages = [
 
 $footerPageLinks = [];
 foreach ($footerPages as $item) {
-  $page = site()->find($item['id']);
-  if ($page !== null) {
+  $footerPage = site()->find($item['id']);
+  if ($footerPage !== null) {
     $footerPageLinks[] = [
       'label' => $item['label'],
-      'url' => $page->url(),
+      'url' => $footerPage->url(),
     ];
   }
+}
+
+if (kirby()->user() !== null && isset($page) && $page !== null) {
+  $footerPageLinks[] = [
+    'label' => 'Seite bearbeiten',
+    'url' => $page->panel()->url(),
+  ];
 }
 
 $socialLinks = [];
