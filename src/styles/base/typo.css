@@ -29,6 +29,40 @@ a:any-link {
   margin-block: 2em 0.5em;
 }
 
+@scope (.content-text) {
+  --content-heading-scale: 0.5;
+
+  :where(h2, h3, h4) {
+    text-align: start;
+    color: var(--clr-secondary);
+    margin-block: 1.5em 0.5em;
+  }
+
+  :where(h2) {
+    font-size: calc(var(--fs-title-2nd) * var(--content-heading-scale));
+  }
+
+  :where(h3) {
+    font-size: calc(var(--fs-title-3rd) * var(--content-heading-scale));
+  }
+
+  :where(h4) {
+    font-size: calc(1em * var(--content-heading-scale));
+  }
+
+  a:any-link {
+    color: var(--clr-primary);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+
+    &:hover,
+    &:focus-visible {
+      color: var(--clr-secondary);
+      text-decoration-color: var(--clr-secondary);
+    }
+  }
+}
+
 .page-header {
   margin-block-end: var(--sp-l);
 
