@@ -9,8 +9,10 @@ $pageMethods = require __DIR__ . '/extensions/page-methods.php';
 $hooks = require __DIR__ . '/extensions/hooks.php';
 $api = require __DIR__ . '/extensions/api.php';
 $tags = require __DIR__ . '/extensions/tags.php';
+$translations = require __DIR__ . '/extensions/translations.php';
 
 Kirby::plugin('tw/brand', [
+  'translations' => $translations,
   'blueprints' => [
     'blocks/brand-logo' => __DIR__ . '/blueprints/blocks/brand-logo.yml',
     'blocks/podcast-networks' => __DIR__ . '/blueprints/blocks/podcast-networks.yml',
