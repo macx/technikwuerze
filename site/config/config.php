@@ -1,65 +1,16 @@
 <?php
 
-$projectRoot = dirname(__DIR__, 2);
-$dbPath = $projectRoot . '/content/.db/';
-$emailOptions = require __DIR__ . '/partials/email.php';
-$translationOptions = require __DIR__ . '/partials/translations.php';
+$baseOptions = require __DIR__ . '/base.php';
+$emailOptions = require __DIR__ . '/email.php';
 
 // Local dev: suppress vendor deprecation noise on PHP 8.4 (e.g. mf2/mf2)
 error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
 
 $options = [
   'debug' => true,
-  'ready' => static function ($kirby) {
-    $cacheRoot = $kirby->root('cache');
-    if (!is_string($cacheRoot) || trim($cacheRoot) === '') {
-      return [];
-    }
-
-    $loupePath = rtrim($cacheRoot, '/') . '/kirby-loupe';
-    if (!is_dir($loupePath)) {
-      @mkdir($loupePath, 0777, true);
-    }
-
-    return [];
-  },
-
   'panel' => [
     'install' => true,
-    'css' => 'assets/panel.css',
   ],
-
-  'arnoson.kirby-form-builder' => [
-    'clientValidation' => true,
-    'gridColumns' => 6,
-    'autoComplete' => false,
-    'addEmptyPlaceholder' => true,
-    'defaultEntryStatus' => 'draft',
-    'fromEmails' => array_values(array_filter([$emailOptions['email']['noreply'] ?? null])),
-  ],
-
-  // Podcaster setup (analytics + player metadata)
-  'mauricerenck.podcaster' => [
-    'statsInternal' => true,
-    'statsType' => 'sqlite',
-    'sqlitePath' => $dbPath,
-    'doNotTrackBots' => true,
-    'useApi' => false,
-    'setId3Data' => true,
-  ],
-
-  // Audio metadata extraction
-  'tw.audioDuration.ffprobeBin' => 'ffprobe',
-  'tw.audioCover.ffmpegBin' => 'ffmpeg',
-
-  // Komments setup
-  'mauricerenck.komments.storage.type' => 'sqlite',
-  'mauricerenck.komments.storage.sqlitePath' => $dbPath,
-  'mauricerenck.komments.panel.enabled' => true,
-  'mauricerenck.komments.panel.webmentions' => true,
-  'mauricerenck.komments.panel.showPublished' => true,
-  'mauricerenck.komments.privacy.storeEmail' => true,
-  'mauricerenck.komments.autoDisable.datefield' => 'date',
 
   // Kirby Git Content plugin configuration
   'thathoff.git-content' => [
@@ -72,4 +23,4 @@ $options = [
   ],
 ];
 
-return array_replace_recursive($options, $emailOptions, $translationOptions);
+return array_replace_recursive($baseOptions, $options, $emailOptions);
