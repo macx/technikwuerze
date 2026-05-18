@@ -61,6 +61,16 @@ a:any-link {
       text-decoration-color: var(--clr-secondary);
     }
   }
+
+  ul {
+    li {
+      margin-block: 0 0.35em;
+    }
+
+    ::marker {
+      color: var(--clr-secondary);
+    }
+  }
 }
 
 .page-header {

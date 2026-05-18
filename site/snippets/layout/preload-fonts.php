@@ -27,7 +27,9 @@ foreach ($fonts as $key => $config) {
   $url = null;
 
   if ($isDev) {
-    $url = 'http://localhost:5173/@fs/' . kirby()->root('base') . $config['dev_path'];
+    // In Dev-Mode it is not necessary to preload fonts since they load from localhost almost instantly.
+    // Also, guessing the correct local Vite path (@fs vs relative) often triggers "preload but not used" warnings.
+    $url = null;
   } elseif ($manifest) {
     foreach ($manifest as $manifestKey => $info) {
       if (str_contains($manifestKey, $config['manifest_key'])) {

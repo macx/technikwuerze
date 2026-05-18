@@ -1,7 +1,5 @@
 .form-komments {
-  #kommentform {
-    margin-block-start: var(--sp);
-  }
+  margin-block-start: var(--sp-content);
 
   .replyHandleDisplay {
     font-size: var(--fs-s);

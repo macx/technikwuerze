@@ -87,5 +87,11 @@
     "composer.json": "composer.lock",
     ".gitignore": ".gitattributes"
   },
-  "cSpell.words": ["endsnippet", "kirby"]
+  "cSpell.words": ["endsnippet", "kirby"],
+  "chat.tools.terminal.autoApprove": {
+    "/^php -l site/config/config\\.php$/": {
+      "approve": true,
+      "matchCommandLine": true
+    }
+  }
 }
