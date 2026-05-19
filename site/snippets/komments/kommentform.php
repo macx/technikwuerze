@@ -9,8 +9,28 @@ if (!is_null($user) && $user->isLoggedIn()) {
   $formEmail = $user->email();
 }
 ?>
-<div class="card form form-komments">
-  <h2><?= t('mauricerenck.komments.form.title') ?></h2>
+<div class="card form form-komments" id="kommentform-container">
+  <div class="kommentform-header">
+    <h2 id="kommentform-title" data-default-title="<?= htmlspecialchars(
+      (string) t('mauricerenck.komments.form.title'),
+    ) ?>">
+      <?= t('mauricerenck.komments.form.title') ?>
+    </h2>
+    <div class="kommentform-actions">
+      <span class="has-tooltip">
+        <a href="#" id="kommentform-jump-reply" class="button-jump-reply" aria-label="Springe zum Kommentar" aria-describedby="tooltip-jump-reply" hidden>
+          <i class="msi-arrow-up" aria-hidden="true"></i>
+        </a>
+        <span id="tooltip-jump-reply" role="tooltip" class="tooltip" aria-hidden="true">Springe zum Kommentar</span>
+      </span>
+      <span class="has-tooltip">
+        <button type="button" id="kommentform-cancel-reply" class="button-cancel-reply" aria-label="Antwort abbrechen" aria-describedby="tooltip-cancel-reply" hidden>
+          <i class="msi-close" aria-hidden="true"></i>
+        </button>
+        <span id="tooltip-cancel-reply" role="tooltip" class="tooltip" aria-hidden="true">Antwort abbrechen</span>
+      </span>
+    </div>
+  </div>
 
   <form action="<?= $kirby->url('index') ?>/komments/send" method="post" id="kommentform">
     <div class="form-feedback">
@@ -22,8 +42,6 @@ if (!is_null($user) && $user->isLoggedIn()) {
         <span><?= t('mauricerenck.komments.sending') ?></span>
       </div>
     </div>
-
-    <span class="replyHandleDisplay"></span>
 
     <div class="form-row">
       <div class="form-column" style="--span: 6;">
