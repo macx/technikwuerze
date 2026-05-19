@@ -5,9 +5,11 @@ $kommentsTranslations = @include dirname(__DIR__, 2) . '/komments/plugin/transla
 $kommentsDe =
   $kommentsTranslations && isset($kommentsTranslations['de']) ? $kommentsTranslations['de'] : [];
 
+// https://maurice-renck.de/de/kirby/komments/reference/translations
 $customTranslations = [
   'mauricerenck.komments.form.title' => 'Kommentar hinterlassen',
   'mauricerenck.komments.form.submit' => 'Abschicken',
+  'mauricerenck.komments.action.reply.text' => 'Antworten',
 ];
 
 return [

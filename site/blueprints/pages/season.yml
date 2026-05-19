@@ -9,6 +9,7 @@ columns:
         info: '{{ page.podcasterSubtitle }}<br />{{ page.date.toDate("d.m.Y") }}'
         templates:
           - episode
+        search: true
         sortBy: date desc
         layout: list
 

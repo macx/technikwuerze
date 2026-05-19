@@ -47,6 +47,9 @@ return [
   'tw.audioCover.ffmpegBin' => 'ffmpeg',
 
   // Komments setup
+  'mauricerenck.indieConnector.sqlitePath' => $dbPath,
+  'mauricerenck.indieConnector.stats.enabled' => true,
+
   'mauricerenck.komments.storage.type' => 'sqlite',
   'mauricerenck.komments.storage.sqlitePath' => $dbPath,
   'mauricerenck.komments.spam.verification.filterUnverified' => false,
