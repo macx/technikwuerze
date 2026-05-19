@@ -4148,7 +4148,8 @@ $replyTargetId =
     <?php else: ?>
       <div class="comment-text content-text p-content p-name"><?= $comment
         ->content()
-        ->kirbytext() ?></div>
+        ->kirbytext()
+        ->emoticons() ?></div>
     <?php endif; ?>
 
     <?php if ($footer = $slots->footer()): ?>
