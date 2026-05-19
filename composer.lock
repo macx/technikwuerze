@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "acfbca0685e18f2937cf6b60e478cebf",
+    "content-hash": "a6cfb3484ec9f46f2533405859f0efb8",
     "packages": [
         {
             "name": "arnoson/kirby-form-builder",
@@ -205,6 +205,54 @@
                 "source": "https://github.com/ChristianRiesen/base32/tree/1.6.0"
             },
             "time": "2021-02-26T10:19:33+00:00"
+        },
+        {
+            "name": "cjrasmussen/bluesky-api",
+            "version": "2.3.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cjrasmussen/BlueskyApi.git",
+                "reference": "d55fdf60e9ee3b9c46a37079d64a4c76b99b5106"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cjrasmussen/BlueskyApi/zipball/d55fdf60e9ee3b9c46a37079d64a4c76b99b5106",
+                "reference": "d55fdf60e9ee3b9c46a37079d64a4c76b99b5106",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-json": "*",
+                "php": ">=7.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "cjrasmussen\\BlueskyApi\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Clark Rasmussen",
+                    "homepage": "https://cjr.dev",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Simple helper for interacting with the Bluesky API/AT protocol",
+            "homepage": "https://cjr.dev",
+            "keywords": [
+                "at protocol",
+                "bluesky"
+            ],
+            "support": {
+                "issues": "https://github.com/cjrasmussen/BlueskyApi/issues",
+                "source": "https://github.com/cjrasmussen/BlueskyApi"
+            },
+            "time": "2025-05-13T13:49:11+00:00"
         },
         {
             "name": "claviska/simpleimage",
@@ -1437,6 +1485,64 @@
                 "source": "https://github.com/matomo-org/matomo-php-tracker"
             },
             "time": "2025-12-20T18:55:41+00:00"
+        },
+        {
+            "name": "mauricerenck/indieconnector",
+            "version": "2.15.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mauricerenck/indieConnector.git",
+                "reference": "d4a1d76133a6a5f52589fdc8fa64f72410d11868"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mauricerenck/indieConnector/zipball/d4a1d76133a6a5f52589fdc8fa64f72410d11868",
+                "reference": "d4a1d76133a6a5f52589fdc8fa64f72410d11868",
+                "shasum": ""
+            },
+            "require": {
+                "cjrasmussen/bluesky-api": "^2.0",
+                "ext-curl": "*",
+                "getkirby/composer-installer": "^1.2",
+                "indieweb/mention-client": "^1.2",
+                "mf2/mf2": "^0.5.0",
+                "php": ">=8.2.0"
+            },
+            "replace": {
+                "mauricerenck/tratschtante": "*"
+            },
+            "require-dev": {
+                "getkirby/cms": "^5",
+                "mockery/mockery": "^1.5",
+                "phpunit/phpunit": "^12"
+            },
+            "type": "kirby-plugin",
+            "autoload": {
+                "psr-4": {
+                    "mauricerenck\\IndieConnector\\": "lib/"
+                },
+                "classmap": [
+                    "lib"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Maurice Renck",
+                    "email": "hello@maurice-renck.de"
+                }
+            ],
+            "description": "A Kirby IndieWeb plugin",
+            "homepage": "https://github.com/mauricerenck/indieConnector",
+            "support": {
+                "docs": "https://github.com/mauricerenck/indieConnector/blob/main/README.md",
+                "issues": "https://github.com/mauricerenck/indieConnector/issues",
+                "source": "https://github.com/mauricerenck/indieConnector"
+            },
+            "time": "2026-05-15T15:45:59+00:00"
         },
         {
             "name": "mauricerenck/komments",
