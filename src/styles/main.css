@@ -26,14 +26,16 @@ COMPONENTS
 @import './components/form.css' layer(components);
 @import './components/episode.css' layer(components);
 @import './components/social-links.css' layer(components);
+@import './components/tooltip.css' layer(components);
 @import './components/podcaster-player.css' layer(components);
 @import './components/podcast-player.css' layer(components);
 @import './components/footer.css' layer(base);
 @import './components/participants.css' layer(base);
 @import './components/address.css' layer(components);
 @import './components/mediathek.css' layer(components);
-@import './components/komments-default.css' layer(components);
-@import './components/komments-plugin.css' layer(components);
+@import './components/komment-comments.css' layer(components);
+@import './components/komment-mentions.css' layer(components);
+@import './components/komment-form.css' layer(components);
 
 /*
 ┌──────────────────────────────────┐

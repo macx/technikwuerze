@@ -26,8 +26,8 @@
   --fs-l: clamp(1.75rem, 1.125rem + 2.4vw, 3rem);
   --fs-title: clamp(3.4rem, -1rem + 9.6vw, 6.2rem);
   --fs-subtitle: clamp(1.2rem, -0.41rem + 4vw, 2.5625rem);
-  --fs-title-2nd: clamp(2.25rem, -0.75rem + 7.6vw, 5rem);
-  --fs-title-3rd: clamp(1.5rem, -0.75rem + 7.2vw, 3.75rem);
+  --fs-title-2nd: clamp(2.1rem, -0.5rem + 5.5vw, 4rem);
+  --fs-title-3rd: clamp(1.4rem, -0.5rem + 5vw, 3rem);
   --fs-lead: clamp(1.1875rem, 0.95rem + 1.2vw, 1.6875rem);
 
   --lh: 1.3;
@@ -37,12 +37,25 @@
   --clr-surface: light-dark(hsl(56 100% 79%), hsl(0 0% 18%));
   --clr-bg-light: light-dark(hsl(56 100% 91%), hsl(0 0% 23%));
   --clr-bg-dark: light-dark(hsl(56 65% 71%), hsl(0 0% 13%));
+  --clr-shade-light: light-dark(
+    color-mix(in oklab, var(--clr-surface), white 10%),
+    color-mix(in oklab, var(--clr-surface), black 10%)
+  );
+  --clr-shade-dark: light-dark(
+    color-mix(in oklab, var(--clr-surface), black 2%),
+    color-mix(in oklab, var(--clr-surface), white 2%)
+  );
+
   --clr-bg-footer: light-dark(hsl(18 18% 18%), hsl(0 0% 23%));
   --clr-text: light-dark(hsl(0 0% 18%), hsl(0 0% 100%));
-  --clr-text-light: light-dark(hsl(0 0% 40%), hsl(0 0% 100%));
+  --clr-text-light: light-dark(hsl(0 0% 0% / 0.5), hsl(0 0% 100% / 0.5));
   --clr-text-bright: light-dark(hsl(0 0% 100%), hsl(0 0% 18%));
   --clr-primary: light-dark(hsl(129 100% 26%), hsl(56 100% 79%));
   --clr-secondary: light-dark(hsl(263 60% 50%), hsl(263 100% 82%));
+  --clr-line: light-dark(
+    color-mix(in oklab, var(--clr-surface), black 15%),
+    color-mix(in oklab, var(--clr-surface), white 15%)
+  );
   --clr-border: light-dark(hsl(0 0% 0% / 0.2), hsl(0 0% 100% / 0.2));
   --clr-border-bright: light-dark(hsl(0 0% 100% / 0.15), hsl(0 0% 0% / 0.1));
   --clr-shadow: light-dark(hsl(0 0% 0% / 0.25), hsl(0 0% 0% / 0.25));
@@ -62,6 +75,8 @@
   --sp-col-gap: 3rem;
 
   /* OTHER */
+  --radius: 1rem;
+  --radius-s: 0.5rem;
   --radius-button: 1.25rem;
   --radius-button-s: 0.75rem;
   --radius-button-xs: 0.625rem;
