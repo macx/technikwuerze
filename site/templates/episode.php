@@ -132,7 +132,9 @@ snippet('layout', slots: true);
           <?php slot(); ?>
             <div class="text-xs">
               <strong class="text-strong text-secondary">
-                S<?= $page->podcasterseason()->or('-') ?>
+                <a href="<?= $page->parent()->url() ?>" class="link-inherit">S<?= $page
+  ->podcasterseason()
+  ->or('-') ?></a>
                 ·
                 E<?= $page->podcasterepisode()->or('-') ?>
                 · #<?= esc($episodeTotal) ?>
@@ -180,8 +182,38 @@ snippet('layout', slots: true);
     <?php endif; ?>
 
     <?php if ($page->commentsAreEnabled()): ?>
+      <hr />
+
+      <?php
+      $actualComments = $page->comments()->filterBy('type', 'comment');
+      $actualMentions = $page->comments()->filterBy('type', '!=', 'comment');
+      ?>
+
+      <?php if ($actualMentions->count() > 0): ?>
+      <section class="episode-mentions content medium">
+        <h2 class="comments-headline">
+          Erwähnungen
+          <span class="count-bubble"><?= $actualMentions->count() ?></span>
+        </h2>
+
+        <div class="mentions-grid">
+          <?php snippet('komments/list/likes', ['page' => $page]); ?>
+          <?php snippet('komments/list/reposts', ['page' => $page]); ?>
+        </div>
+
+        <div class="mentions-list">
+          <?php snippet('komments/list/mentions', ['page' => $page]); ?>
+          <?php snippet('komments/list/replies', ['page' => $page]); ?>
+        </div>
+      </section>
+      <?php endif; ?>
+
       <section class="episode-comments content medium">
-        <h2>Kommentare (<?= $page->commentCount() ?>)</h2>
+        <h2 class="comments-headline">
+          Kommentare
+          <span class="count-bubble"><?= $actualComments->count() ?></span>
+        </h2>
+
         <?php snippet('komments/list/comments', ['page' => $page]); ?>
         <?php snippet('komments/kommentform', ['page' => $page]); ?>
       </section>

@@ -37,6 +37,8 @@ $favicon = asset('assets/favicon.ico');
     <link rel="icon" href="<?= $favicon->url() ?>">
   <?php endif; ?>
 
+  <?php snippet('webmention-endpoint'); ?>
+
   <meta name="theme-color" content="#fff">
 
   <meta name="description" content="<?php echo $sharing['description']; ?>">

@@ -14,12 +14,15 @@ import { initSearchDialog } from './scripts/components/search-dialog'
 import { initModeSwitch } from './scripts/components/theme-switch'
 import { initViewTransitions } from './scripts/components/view-transitions'
 
+import { initKomments } from './scripts/components/komments'
+
 document.addEventListener('DOMContentLoaded', () => {
   initHeaderNav()
   initModeSwitch()
   initSearchDialog()
   initPodlovePlayers()
   initViewTransitions()
+  initKomments()
 
   if (document.querySelector('.tw-brand-networks')) {
     void import('./scripts/components/brand-networks').then(({ initBrandNetworks }) => {

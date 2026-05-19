@@ -1,21 +1,24 @@
-:is([class|='button'], button[type='submit']) {
+:is(.button, [class^='button-'], [class*=' button-'], button[type='submit']) {
   --button-bg: transparent;
   --button-scheme: var(--color-scheme, var(--clr-primary));
   --button-color: var(--button-scheme);
   --button-border: var(--button-scheme);
+  --button-sp-block: 0.5rem;
+  --button-sp-inline: 1rem 0.875rem;
+  --button-fz: clamp(1rem, 0.4vw + 0.95rem, 1.25rem);
 
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5em;
-  padding-block: 0.5rem;
-  padding-inline: 1rem 0.875rem;
+  padding-block: var(--button-sp-block);
+  padding-inline: var(--button-sp-inline);
   border: 2px solid var(--button-border);
   border-radius: var(--radius-button-s);
   background-color: var(--button-bg);
   color: var(--button-color);
   font: inherit;
-  font-size: clamp(1rem, 0.4vw + 0.95rem, 1.25rem);
+  font-size: var(--button-fz);
   font-weight: var(--fw-bold);
   line-height: 1.1;
   text-decoration: none;
@@ -41,6 +44,12 @@
   &.button-primary {
     --button-bg: var(--button-scheme);
     --button-color: var(--clr-text-bright);
+  }
+
+  &.button-compact {
+    --button-sp-block: 0.35em;
+    --button-sp-inline: 0.7em 0.6em;
+    --button-fz: 0.85em;
   }
 
   @media (pointer: fine) {

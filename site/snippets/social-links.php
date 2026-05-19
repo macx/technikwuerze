@@ -71,18 +71,16 @@ $tooltipIdPrefix = 'social-tooltip-' . substr(md5($navClass . '|' . $navLabel), 
     $rel = trim((string) ($link['rel'] ?? 'noopener'));
     $tooltipId = $tooltipIdPrefix . '-' . (int) $index;
     ?>
-    <span class="social-links-item">
+    <span class="social-links-item has-tooltip">
       <a href="<?= esc($url) ?>" class="social-links-link" target="<?= esc(
   $target,
-) ?>" rel="<?= esc($rel) ?>">
+) ?>" rel="<?= esc($rel) ?>" aria-describedby="<?= esc($tooltipId) ?>">
         <span class="social-links-sr-label"><?= esc($linkLabel) ?></span>
         <span class="social-links-icon" aria-hidden="true">
           <?= asset($iconPath)->read() ?>
         </span>
       </a>
-      <span id="<?= esc(
-        $tooltipId,
-      ) ?>" role="tooltip" class="social-links-tooltip" aria-hidden="true">
+      <span id="<?= esc($tooltipId) ?>" role="tooltip" class="tooltip" aria-hidden="true">
         <?= esc($linkLabel) ?>
       </span>
     </span>
