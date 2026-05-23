@@ -51,7 +51,7 @@ foreach (site()->content()->get('socialLinks')->toStructure() as $social) {
 
     <div class="sponsors">
       <a href="https://www.mittwald.de/" class="sponsor" target="_blank" rel="noopener" data-sponsor="mittwald">
-        <?= asset('assets/logos/mittwald.svg')->read() ?>
+        <?= asset('assets/logos/mittwald-wortmarke.svg')->read() ?>
       </a>
 
       <span class="handwriting">&</span>

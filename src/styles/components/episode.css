@@ -73,5 +73,45 @@
         hyphens: auto;
       }
     }
+
+    .episode-pagination {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-areas:
+        'current current'
+        'prev    next';
+      align-items: center;
+      gap: var(--sp-xs) var(--sp-s);
+      padding-block: var(--sp-m);
+      margin-block-start: var(--sp-m);
+
+      .episode-pagination-slot {
+        display: flex;
+
+        &.episode-pagination-prev {
+          grid-area: prev;
+          justify-content: flex-start;
+        }
+
+        &.episode-pagination-next {
+          grid-area: next;
+          justify-content: flex-end;
+        }
+      }
+
+      .episode-pagination-current {
+        grid-area: current;
+        text-align: center;
+        font-size: var(--fs-s);
+        font-weight: var(--fw-medium);
+        color: var(--clr-text-light, inherit);
+      }
+
+      @media (min-width: 36em) {
+        grid-template-columns: 1fr auto 1fr;
+        grid-template-areas: 'prev current next';
+        gap: var(--sp-s);
+      }
+    }
   }
 }

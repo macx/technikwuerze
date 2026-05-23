@@ -218,6 +218,8 @@ snippet('layout', slots: true);
         <?php snippet('komments/kommentform', ['page' => $page]); ?>
       </section>
     <?php endif; ?>
+
+    <?php snippet('episode-pagination', ['page' => $page]); ?>
   </article>
 <?php endslot(); ?>
 <?php endsnippet(); ?>

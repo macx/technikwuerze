@@ -35,7 +35,8 @@
     inline-size: var(--c-logo-size);
 
     &[data-sponsor='mittwald'] {
-      --c-logo-size: 15rem;
+      --c-logo-size: 14rem;
+      padding-block-start: var(--c-mittwald-padding, 0);
     }
 
     &[data-sponsor='kirby'] {
@@ -50,6 +51,7 @@
   @media (width >= 48em) {
     --c-flex-direction: row;
     --c-flex-gap: 2rem;
+    --c-mittwald-padding: 0.875rem;
   }
 }
 
