@@ -4,10 +4,6 @@
   "[php]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "intelephense.environment.includePaths": [
-    "${workspaceFolder}/kirby",
-    "${workspaceFolder}/vendor"
-  ],
   "intelephense.files.exclude": [
     "**/.git/**",
     "**/.svn/**",
@@ -18,7 +14,8 @@
     "**/bower_components/**",
     "**/dist/**",
     "**/media/**",
-    "**/site/cache/**"
+    "**/site/cache/**",
+    "**/kirby/panel/**"
   ],
   "[typescript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
@@ -48,10 +45,10 @@
   },
 
   // Exclude patterns (for search/file tree)
+  // Note: vendor/ and kirby/ are intentionally NOT excluded here so that
+  // Intelephense can index Kirby's source and provide proper PHP autocomplete.
   "files.exclude": {
     "**/node_modules": true,
-    "**/vendor": true,
-    "**/kirby": true,
     "**/dist": true,
     "**/.git": true
   },
