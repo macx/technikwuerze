@@ -16,7 +16,7 @@ snippet('layout', slots: true);
 ?>
 
 <?php slot(); ?>
-  <div class="page-header">
+  <div class="page-header content">
     <h1 class="title">
       <?= $page->title()->html() ?>
     </h1>

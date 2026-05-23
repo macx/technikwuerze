@@ -1,7 +1,7 @@
 <?php snippet('layout', slots: true); ?>
 
   <?php slot(); ?>
-    <div class="page-header">
+    <div class="page-header content narrow">
       <h1 class="title">
         <?= $page->header()->html() ?>
       </h1>

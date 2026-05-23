@@ -15,7 +15,7 @@ $seasons = $page
 
 <?php snippet('layout', slots: true); ?>
   <?php slot(); ?>
-    <div class="page-header">
+    <div class="page-header content narrow">
       <h1 class="title">
         <?= $page->title()->html() ?>
       </h1>
