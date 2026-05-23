@@ -86,3 +86,7 @@ main {
     max-inline-size: var(--narrow-max-size);
   }
 }
+
+.page-content {
+  padding-block: var(--sp-xl) var(--sp-xxl);
+}

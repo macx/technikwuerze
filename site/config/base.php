@@ -58,4 +58,5 @@ return [
   'mauricerenck.komments.panel.showPublished' => true,
   'mauricerenck.komments.privacy.storeEmail' => true,
   'mauricerenck.komments.autoDisable.datefield' => 'date',
+  'mauricerenck.komments.form.submit.classNames' => 'button',
 ];

@@ -31,7 +31,7 @@
   }
 
   .form-field {
-    --c-spacing: 0.75em;
+    --c-spacing: 0.5em;
 
     position: relative;
     display: grid;
@@ -40,17 +40,17 @@
 
     label {
       position: absolute;
-      inset-block-start: 0;
-      inset-inline-start: var(--sp-s);
+      inset-block-start: var(--c-spacing);
+      inset-inline-start: calc(var(--sp-s) - 0.4em);
+      transform: translateY(-50%);
 
       display: block;
       font-weight: var(--fw-bold);
-      background-color: var(--clr-secondary);
-      color: var(--clr-text-bright);
-      font-size: var(--fs-s);
-      padding-block: 0.2em;
-      padding-inline: var(--sp-xs);
-      border-radius: var(--radius-button-s);
+      background-color: var(--clr-surface);
+      color: var(--clr-secondary);
+      font-size: var(--fs-xs);
+      padding-inline: 0.4em;
+      border-radius: 2px;
     }
 
     :is(input, textarea, select) {
@@ -83,11 +83,10 @@
   }
 
   button[type='submit'] {
-    --button-bg: var(--clr-secondary);
-    --button-color: var(--clr-text-bright);
-    --button-border: var(--clr-secondary);
-
     justify-self: end;
+    --button-bg: transparent;
+    --button-color: var(--clr-secondary);
+    --button-border: var(--clr-secondary);
   }
 
   .form-errors,

@@ -120,10 +120,7 @@ if (!is_null($user) && $user->isLoggedIn()) {
 
     <button
       type="submit"
-      class="<?= option(
-        'mauricerenck.komments.form.submit.classNames',
-        'button button-tiny button-primary',
-      ) ?>"
+      class="<?= option('mauricerenck.komments.form.submit.classNames', 'button button-tiny') ?>"
     >
       <?= t('mauricerenck.komments.form.submit') ?>
     </button>
