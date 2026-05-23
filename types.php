@@ -12,13 +12,25 @@ namespace Kirby\Cms
     class Site
     {
         /**
+         * Returns the generalHeadline field.
+         *
+         * Uses a `headline` field in the `site` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/headline
+         */
+        public function generalHeadline(): \Kirby\Content\Field
+        {
+            /** @var \Kirby\Cms\Site $instance */
+            return $instance->generalHeadline();
+        }
+        /**
          * Returns the description field.
          *
          * Uses a `textarea` field in the `site` blueprint.
          *
          * @see https://getkirby.com/docs/reference/panel/fields/textarea
          */
-        public function description(): \Kirby\Cms\Field
+        public function description(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Site $instance */
             return $instance->description();
@@ -30,34 +42,94 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/tags
          */
-        public function tags(): \Kirby\Cms\Field
+        public function tags(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Site $instance */
             return $instance->tags();
         }
         /**
-         * Returns the mastodon field.
+         * Returns the footerHeadline field.
          *
-         * Uses a `text` field in the `site` blueprint.
+         * Uses a `headline` field in the `site` blueprint.
          *
-         * @see https://getkirby.com/docs/reference/panel/fields/text
+         * @see https://getkirby.com/docs/reference/panel/fields/headline
          */
-        public function mastodon(): \Kirby\Cms\Field
+        public function footerHeadline(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Site $instance */
-            return $instance->mastodon();
+            return $instance->footerHeadline();
         }
         /**
-         * Returns the instagram field.
+         * Returns the footerSponsorsHint field.
          *
          * Uses a `text` field in the `site` blueprint.
          *
          * @see https://getkirby.com/docs/reference/panel/fields/text
          */
-        public function instagram(): \Kirby\Cms\Field
+        public function footerSponsorsHint(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Site $instance */
-            return $instance->instagram();
+            return $instance->footerSponsorsHint();
+        }
+        /**
+         * Returns the footerAboutUs field.
+         *
+         * Uses a `textarea` field in the `site` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/textarea
+         */
+        public function footerAboutUs(): \Kirby\Content\Field
+        {
+            /** @var \Kirby\Cms\Site $instance */
+            return $instance->footerAboutUs();
+        }
+        /**
+         * Returns the footerContactLabel field.
+         *
+         * Uses a `text` field in the `site` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/text
+         */
+        public function footerContactLabel(): \Kirby\Content\Field
+        {
+            /** @var \Kirby\Cms\Site $instance */
+            return $instance->footerContactLabel();
+        }
+        /**
+         * Returns the footerContactHint field.
+         *
+         * Uses a `textarea` field in the `site` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/textarea
+         */
+        public function footerContactHint(): \Kirby\Content\Field
+        {
+            /** @var \Kirby\Cms\Site $instance */
+            return $instance->footerContactHint();
+        }
+        /**
+         * Returns the socialHeadline field.
+         *
+         * Uses a `headline` field in the `site` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/headline
+         */
+        public function socialHeadline(): \Kirby\Content\Field
+        {
+            /** @var \Kirby\Cms\Site $instance */
+            return $instance->socialHeadline();
+        }
+        /**
+         * Returns the socialLinks field.
+         *
+         * Uses a `structure` field in the `site` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/structure
+         */
+        public function socialLinks(): \Kirby\Content\Field
+        {
+            /** @var \Kirby\Cms\Site $instance */
+            return $instance->socialLinks();
         }
         /**
          * Returns the recipient field.
@@ -66,7 +138,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/email
          */
-        public function recipient(): \Kirby\Cms\Field
+        public function recipient(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Site $instance */
             return $instance->recipient();
@@ -78,7 +150,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/email
          */
-        public function sender(): \Kirby\Cms\Field
+        public function sender(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Site $instance */
             return $instance->sender();
@@ -90,7 +162,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/text
          */
-        public function subject(): \Kirby\Cms\Field
+        public function subject(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Site $instance */
             return $instance->subject();
@@ -102,7 +174,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/textarea
          */
-        public function messageSentText(): \Kirby\Cms\Field
+        public function messageSentText(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Site $instance */
             return $instance->messageSentText();
@@ -117,10 +189,326 @@ namespace Kirby\Cms
             /** @var \Kirby\Cms\Site $instance */
             return $instance->numberOfSpamComments();
         }
+        public function latestComments($limit = 5, $showWebmentions = false)
+        {
+            /** @var \Kirby\Cms\Site $instance */
+            return $instance->latestComments($limit, $showWebmentions);
+        }
+        public function latestCommentsPerPage($limit = 5, $showWebmentions = false)
+        {
+            /** @var \Kirby\Cms\Site $instance */
+            return $instance->latestCommentsPerPage($limit, $showWebmentions);
+        }
         public function getAppleMetadata($endpoint = 'categories')
         {
             /** @var \Kirby\Cms\Site $instance */
             return $instance->getAppleMetadata($endpoint);
+        }
+    }
+    class StructureObject
+    {
+        /**
+         * Returns the network field.
+         *
+         * Uses a `select` field in the `site.socialLinks` blueprint.\
+         * Uses a `select` field in the `pages/participant.external_profiles` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/select
+         */
+        public function network(): \Kirby\Content\Field
+        {
+            /** @var \Kirby\Cms\StructureObject $instance */
+            return $instance->network();
+        }
+        /**
+         * Returns the url field.
+         *
+         * Uses a `url` field in the `site.socialLinks` blueprint.\
+         * Uses a `url` field in the `pages/participant.external_profiles` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/url
+         */
+        public function url(): \Kirby\Content\Field
+        {
+            /** @var \Kirby\Cms\StructureObject $instance */
+            return $instance->url();
+        }
+        /**
+         * Returns the podcasterTranscriptLanguage field.
+         *
+         * Uses a `select` field in the `pages/episode.podcasterTranscript` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/select
+         */
+        public function podcasterTranscriptLanguage(): \Kirby\Content\Field
+        {
+            /** @var \Kirby\Cms\StructureObject $instance */
+            return $instance->podcasterTranscriptLanguage();
+        }
+        /**
+         * Returns the podcasterTranscriptFile field.
+         *
+         * Uses a `files` field in the `pages/episode.podcasterTranscript` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/files
+         */
+        public function podcasterTranscriptFile(): \Kirby\Content\Field
+        {
+            /** @var \Kirby\Cms\StructureObject $instance */
+            return $instance->podcasterTranscriptFile();
+        }
+        /**
+         * Returns the podcasterChapterTimestamp field.
+         *
+         * Uses a `text` field in the `pages/episode.podcasterChapters` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/text
+         */
+        public function podcasterChapterTimestamp(): \Kirby\Content\Field
+        {
+            /** @var \Kirby\Cms\StructureObject $instance */
+            return $instance->podcasterChapterTimestamp();
+        }
+        /**
+         * Returns the podcasterChapterTitle field.
+         *
+         * Uses a `text` field in the `pages/episode.podcasterChapters` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/text
+         */
+        public function podcasterChapterTitle(): \Kirby\Content\Field
+        {
+            /** @var \Kirby\Cms\StructureObject $instance */
+            return $instance->podcasterChapterTitle();
+        }
+        /**
+         * Returns the podcasterChapterUrl field.
+         *
+         * Uses a `url` field in the `pages/episode.podcasterChapters` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/url
+         */
+        public function podcasterChapterUrl(): \Kirby\Content\Field
+        {
+            /** @var \Kirby\Cms\StructureObject $instance */
+            return $instance->podcasterChapterUrl();
+        }
+        /**
+         * Returns the podcasterChapterImage field.
+         *
+         * Uses a `files` field in the `pages/episode.podcasterChapters` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/files
+         */
+        public function podcasterChapterImage(): \Kirby\Content\Field
+        {
+            /** @var \Kirby\Cms\StructureObject $instance */
+            return $instance->podcasterChapterImage();
+        }
+        /**
+         * Returns the profile_label field.
+         *
+         * Uses a `text` field in the `pages/participant.external_profiles` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/text
+         */
+        public function profile_label(): \Kirby\Content\Field
+        {
+            /** @var \Kirby\Cms\StructureObject $instance */
+            return $instance->profile_label();
+        }
+        /**
+         * Returns the podcasterMainCategory field.
+         *
+         * Uses a `select` field in the `pages/podcasterfeed.podcasterCategories` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/select
+         */
+        public function podcasterMainCategory(): \Kirby\Content\Field
+        {
+            /** @var \Kirby\Cms\StructureObject $instance */
+            return $instance->podcasterMainCategory();
+        }
+        /**
+         * Returns the colorType field.
+         *
+         * Uses a `select` field in the `pages/podcasterfeed.podcasterPodloveColors` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/select
+         */
+        public function colorType(): \Kirby\Content\Field
+        {
+            /** @var \Kirby\Cms\StructureObject $instance */
+            return $instance->colorType();
+        }
+        /**
+         * Returns the hex field.
+         *
+         * Uses a `text` field in the `pages/podcasterfeed.podcasterPodloveColors` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/text
+         */
+        public function hex(): \Kirby\Content\Field
+        {
+            /** @var \Kirby\Cms\StructureObject $instance */
+            return $instance->hex();
+        }
+        /**
+         * Returns the fontType field.
+         *
+         * Uses a `select` field in the `pages/podcasterfeed.podcasterPodloveFonts` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/select
+         */
+        public function fontType(): \Kirby\Content\Field
+        {
+            /** @var \Kirby\Cms\StructureObject $instance */
+            return $instance->fontType();
+        }
+        /**
+         * Returns the name field.
+         *
+         * Uses a `text` field in the `pages/podcasterfeed.podcasterPodloveFonts` blueprint.\
+         * Uses a `text` field in the `pages/team.members` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/text
+         */
+        public function name(): \Kirby\Content\Field
+        {
+            /** @var \Kirby\Cms\StructureObject $instance */
+            return $instance->name();
+        }
+        /**
+         * Returns the family field.
+         *
+         * Uses a `tags` field in the `pages/podcasterfeed.podcasterPodloveFonts` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/tags
+         */
+        public function family(): \Kirby\Content\Field
+        {
+            /** @var \Kirby\Cms\StructureObject $instance */
+            return $instance->family();
+        }
+        /**
+         * Returns the weight field.
+         *
+         * Uses a `number` field in the `pages/podcasterfeed.podcasterPodloveFonts` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/number
+         */
+        public function weight(): \Kirby\Content\Field
+        {
+            /** @var \Kirby\Cms\StructureObject $instance */
+            return $instance->weight();
+        }
+        /**
+         * Returns the src field.
+         *
+         * Uses a `tags` field in the `pages/podcasterfeed.podcasterPodloveFonts` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/tags
+         */
+        public function src(): \Kirby\Content\Field
+        {
+            /** @var \Kirby\Cms\StructureObject $instance */
+            return $instance->src();
+        }
+        /**
+         * Returns the client field.
+         *
+         * Uses a `select` field in the `pages/podcasterfeed.podcasterPodloveClients` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/select
+         */
+        public function client(): \Kirby\Content\Field
+        {
+            /** @var \Kirby\Cms\StructureObject $instance */
+            return $instance->client();
+        }
+        /**
+         * Returns the service field.
+         *
+         * Uses a `text` field in the `pages/podcasterfeed.podcasterPodloveClients` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/text
+         */
+        public function service(): \Kirby\Content\Field
+        {
+            /** @var \Kirby\Cms\StructureObject $instance */
+            return $instance->service();
+        }
+        /**
+         * Returns the roleId field.
+         *
+         * Uses a `number` field in the `pages/podcasterfeed.podcasterPodloveRoles` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/number
+         */
+        public function roleId(): \Kirby\Content\Field
+        {
+            /** @var \Kirby\Cms\StructureObject $instance */
+            return $instance->roleId();
+        }
+        /**
+         * Returns the roleTitle field.
+         *
+         * Uses a `text` field in the `pages/podcasterfeed.podcasterPodloveRoles` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/text
+         */
+        public function roleTitle(): \Kirby\Content\Field
+        {
+            /** @var \Kirby\Cms\StructureObject $instance */
+            return $instance->roleTitle();
+        }
+        /**
+         * Returns the groupId field.
+         *
+         * Uses a `number` field in the `pages/podcasterfeed.podcasterPodloveGroups` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/number
+         */
+        public function groupId(): \Kirby\Content\Field
+        {
+            /** @var \Kirby\Cms\StructureObject $instance */
+            return $instance->groupId();
+        }
+        /**
+         * Returns the groupTitle field.
+         *
+         * Uses a `text` field in the `pages/podcasterfeed.podcasterPodloveGroups` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/text
+         */
+        public function groupTitle(): \Kirby\Content\Field
+        {
+            /** @var \Kirby\Cms\StructureObject $instance */
+            return $instance->groupTitle();
+        }
+        /**
+         * Returns the role field.
+         *
+         * Uses a `text` field in the `pages/team.members` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/text
+         */
+        public function role(): \Kirby\Content\Field
+        {
+            /** @var \Kirby\Cms\StructureObject $instance */
+            return $instance->role();
+        }
+        /**
+         * Returns the bio field.
+         *
+         * Uses a `textarea` field in the `pages/team.members` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/textarea
+         */
+        public function bio(): \Kirby\Content\Field
+        {
+            /** @var \Kirby\Cms\StructureObject $instance */
+            return $instance->bio();
         }
     }
     class Page
@@ -132,7 +520,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/files
          */
-        public function podcasterAudio(): \Kirby\Cms\Field
+        public function podcasterAudio(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->podcasterAudio();
@@ -144,7 +532,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/structure
          */
-        public function podcasterTranscript(): \Kirby\Cms\Field
+        public function podcasterTranscript(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->podcasterTranscript();
@@ -157,7 +545,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/files
          */
-        public function podcasterCover(): \Kirby\Cms\Field
+        public function podcasterCover(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->podcasterCover();
@@ -169,7 +557,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/hidden
          */
-        public function podcasterEmpty(): \Kirby\Cms\Field
+        public function podcasterEmpty(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->podcasterEmpty();
@@ -181,7 +569,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/hidden
          */
-        public function podcasterEmpty2(): \Kirby\Cms\Field
+        public function podcasterEmpty2(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->podcasterEmpty2();
@@ -193,7 +581,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/headline
          */
-        public function headlineSeasonEpisode(): \Kirby\Cms\Field
+        public function headlineSeasonEpisode(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->headlineSeasonEpisode();
@@ -205,7 +593,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/number
          */
-        public function podcasterSeason(): \Kirby\Cms\Field
+        public function podcasterSeason(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->podcasterSeason();
@@ -217,10 +605,22 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/number
          */
-        public function podcasterEpisode(): \Kirby\Cms\Field
+        public function podcasterEpisode(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->podcasterEpisode();
+        }
+        /**
+         * Returns the podcasterEpisodeTotal field.
+         *
+         * Uses a `number` field in the `pages/episode` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/number
+         */
+        public function podcasterEpisodeTotal(): \Kirby\Content\Field
+        {
+            /** @var \Kirby\Cms\Page $instance */
+            return $instance->podcasterEpisodeTotal();
         }
         /**
          * Returns the podcasterEpisodeType field.
@@ -229,7 +629,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/select
          */
-        public function podcasterEpisodeType(): \Kirby\Cms\Field
+        public function podcasterEpisodeType(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->podcasterEpisodeType();
@@ -241,7 +641,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/info
          */
-        public function podcasterEpisodeTypeTrailerInfo(): \Kirby\Cms\Field
+        public function podcasterEpisodeTypeTrailerInfo(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->podcasterEpisodeTypeTrailerInfo();
@@ -253,7 +653,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/info
          */
-        public function podcasterEpisodeTypeBonusInfo(): \Kirby\Cms\Field
+        public function podcasterEpisodeTypeBonusInfo(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->podcasterEpisodeTypeBonusInfo();
@@ -265,7 +665,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/line
          */
-        public function line2(): \Kirby\Cms\Field
+        public function line2(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->line2();
@@ -277,7 +677,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/headline
          */
-        public function headlineEpisodeDetails(): \Kirby\Cms\Field
+        public function headlineEpisodeDetails(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->headlineEpisodeDetails();
@@ -290,7 +690,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/text
          */
-        public function podcasterTitle(): \Kirby\Cms\Field
+        public function podcasterTitle(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->podcasterTitle();
@@ -303,7 +703,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/text
          */
-        public function podcasterSubtitle(): \Kirby\Cms\Field
+        public function podcasterSubtitle(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->podcasterSubtitle();
@@ -311,12 +711,12 @@ namespace Kirby\Cms
         /**
          * Returns the podcasterDescription field.
          *
-         * Uses a `textarea` field in the `pages/episode` blueprint.\
+         * Uses a `markdown` field in the `pages/episode` blueprint.\
          * Uses a `textarea` field in the `pages/podcasterfeed` blueprint.
          *
          * @see https://getkirby.com/docs/reference/panel/fields/textarea
          */
-        public function podcasterDescription(): \Kirby\Cms\Field
+        public function podcasterDescription(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->podcasterDescription();
@@ -328,7 +728,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/structure
          */
-        public function podcasterChapters(): \Kirby\Cms\Field
+        public function podcasterChapters(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->podcasterChapters();
@@ -340,7 +740,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/headline
          */
-        public function headlineContributors(): \Kirby\Cms\Field
+        public function headlineContributors(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->headlineContributors();
@@ -353,7 +753,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/users
          */
-        public function podcasterAuthor(): \Kirby\Cms\Field
+        public function podcasterAuthor(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->podcasterAuthor();
@@ -365,7 +765,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/pages
          */
-        public function podcasterHosts(): \Kirby\Cms\Field
+        public function podcasterHosts(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->podcasterHosts();
@@ -377,7 +777,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/pages
          */
-        public function podcasterGuests(): \Kirby\Cms\Field
+        public function podcasterGuests(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->podcasterGuests();
@@ -389,7 +789,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/line
          */
-        public function line(): \Kirby\Cms\Field
+        public function line(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->line();
@@ -401,7 +801,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/headline
          */
-        public function headlineBreakingchanges(): \Kirby\Cms\Field
+        public function headlineBreakingchanges(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->headlineBreakingchanges();
@@ -414,7 +814,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/toggle
          */
-        public function podcasterExplicit(): \Kirby\Cms\Field
+        public function podcasterExplicit(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->podcasterExplicit();
@@ -427,7 +827,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/toggle
          */
-        public function podcasterBlock(): \Kirby\Cms\Field
+        public function podcasterBlock(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->podcasterBlock();
@@ -439,26 +839,34 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/date
          */
-        public function date(): \Kirby\Cms\Field
+        public function date(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->date();
         }
         /**
+         * Returns the rerelease field.
+         *
+         * Uses a `date` field in the `pages/episode` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/date
+         */
+        public function rerelease(): \Kirby\Content\Field
+        {
+            /** @var \Kirby\Cms\Page $instance */
+            return $instance->rerelease();
+        }
+        /**
          * Returns the text field.
          *
-         * Uses a `textarea` field in the `pages/episode` blueprint.\
+         * Uses a `markdown` field in the `pages/episode` blueprint.\
          * Uses a `blocks` field in the `pages/home` blueprint.\
-         * Uses a `blocks` field in the `pages/mediathek` blueprint.\
          * Uses a `blocks` field in the `pages/page` blueprint.\
-         * Uses a `blocks` field in the `pages/season` blueprint.\
-         * Uses a `blocks` field in the `pages/team` blueprint.\
-         * Uses a `blocks` field in the `pages/teilnehmende` blueprint.
+         * Uses a `blocks` field in the `pages/team` blueprint.
          *
-         * @see https://getkirby.com/docs/reference/panel/fields/textarea
          * @see https://getkirby.com/docs/reference/panel/fields/blocks
          */
-        public function text(): \Kirby\Cms\Field
+        public function text(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->text();
@@ -470,7 +878,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/toggle
          */
-        public function kommentsEnabledOnpage(): \Kirby\Cms\Field
+        public function kommentsEnabledOnpage(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->kommentsEnabledOnpage();
@@ -480,10 +888,498 @@ namespace Kirby\Cms
          *
          * Uses a `CommentsTable` field in the `pages/episode` blueprint.
          */
-        public function kommentsInbox(): \Kirby\Cms\Field
+        public function kommentsInbox(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->kommentsInbox();
+        }
+        /**
+         * Returns the form_fields field.
+         *
+         * Uses a `layout` field in the `pages/form` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/layout
+         */
+        public function form_fields(): \Kirby\Content\Field
+        {
+            /** @var \Kirby\Cms\Page $instance */
+            return $instance->form_fields();
+        }
+        /**
+         * Returns the save_headline field.
+         *
+         * Uses a `headline` field in the `pages/form` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/headline
+         */
+        public function save_headline(): \Kirby\Content\Field
+        {
+            /** @var \Kirby\Cms\Page $instance */
+            return $instance->save_headline();
+        }
+        /**
+         * Returns the save_entries field.
+         *
+         * Uses a `toggle` field in the `pages/form` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/toggle
+         */
+        public function save_entries(): \Kirby\Content\Field
+        {
+            /** @var \Kirby\Cms\Page $instance */
+            return $instance->save_entries();
+        }
+        /**
+         * Returns the save_gap field.
+         *
+         * Uses a `gap` field in the `pages/form` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/gap
+         */
+        public function save_gap(): \Kirby\Content\Field
+        {
+            /** @var \Kirby\Cms\Page $instance */
+            return $instance->save_gap();
+        }
+        /**
+         * Returns the submit_headline field.
+         *
+         * Uses a `headline` field in the `pages/form` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/headline
+         */
+        public function submit_headline(): \Kirby\Content\Field
+        {
+            /** @var \Kirby\Cms\Page $instance */
+            return $instance->submit_headline();
+        }
+        /**
+         * Returns the label_submit field.
+         *
+         * Uses a `text` field in the `pages/form` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/text
+         */
+        public function label_submit(): \Kirby\Content\Field
+        {
+            /** @var \Kirby\Cms\Page $instance */
+            return $instance->label_submit();
+        }
+        /**
+         * Returns the submit_gap field.
+         *
+         * Uses a `gap` field in the `pages/form` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/gap
+         */
+        public function submit_gap(): \Kirby\Content\Field
+        {
+            /** @var \Kirby\Cms\Page $instance */
+            return $instance->submit_gap();
+        }
+        /**
+         * Returns the success_headline field.
+         *
+         * Uses a `headline` field in the `pages/form` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/headline
+         */
+        public function success_headline(): \Kirby\Content\Field
+        {
+            /** @var \Kirby\Cms\Page $instance */
+            return $instance->success_headline();
+        }
+        /**
+         * Returns the success_type field.
+         *
+         * Uses a `toggles` field in the `pages/form` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/toggles
+         */
+        public function success_type(): \Kirby\Content\Field
+        {
+            /** @var \Kirby\Cms\Page $instance */
+            return $instance->success_type();
+        }
+        /**
+         * Returns the success_text field.
+         *
+         * Uses a `writer` field in the `pages/form` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/writer
+         */
+        public function success_text(): \Kirby\Content\Field
+        {
+            /** @var \Kirby\Cms\Page $instance */
+            return $instance->success_text();
+        }
+        /**
+         * Returns the success_page field.
+         *
+         * Uses a `pages` field in the `pages/form` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/pages
+         */
+        public function success_page(): \Kirby\Content\Field
+        {
+            /** @var \Kirby\Cms\Page $instance */
+            return $instance->success_page();
+        }
+        /**
+         * Returns the success_gap field.
+         *
+         * Uses a `gap` field in the `pages/form` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/gap
+         */
+        public function success_gap(): \Kirby\Content\Field
+        {
+            /** @var \Kirby\Cms\Page $instance */
+            return $instance->success_gap();
+        }
+        /**
+         * Returns the error_headline field.
+         *
+         * Uses a `headline` field in the `pages/form` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/headline
+         */
+        public function error_headline(): \Kirby\Content\Field
+        {
+            /** @var \Kirby\Cms\Page $instance */
+            return $instance->error_headline();
+        }
+        /**
+         * Returns the error_invalidFields field.
+         *
+         * Uses a `writer` field in the `pages/form` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/writer
+         */
+        public function error_invalidFields(): \Kirby\Content\Field
+        {
+            /** @var \Kirby\Cms\Page $instance */
+            return $instance->error_invalidFields();
+        }
+        /**
+         * Returns the error_gap field.
+         *
+         * Uses a `gap` field in the `pages/form` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/gap
+         */
+        public function error_gap(): \Kirby\Content\Field
+        {
+            /** @var \Kirby\Cms\Page $instance */
+            return $instance->error_gap();
+        }
+        /**
+         * Returns the confirmationEmail_headline field.
+         *
+         * Uses a `headline` field in the `pages/form` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/headline
+         */
+        public function confirmationEmail_headline(): \Kirby\Content\Field
+        {
+            /** @var \Kirby\Cms\Page $instance */
+            return $instance->confirmationEmail_headline();
+        }
+        /**
+         * Returns the confirmationEmail_enabled field.
+         *
+         * Uses a `toggle` field in the `pages/form` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/toggle
+         */
+        public function confirmationEmail_enabled(): \Kirby\Content\Field
+        {
+            /** @var \Kirby\Cms\Page $instance */
+            return $instance->confirmationEmail_enabled();
+        }
+        /**
+         * Returns the confirmationEmail_to field.
+         *
+         * Uses a `form-email-select` field in the `pages/form` blueprint.
+         */
+        public function confirmationEmail_to(): \Kirby\Content\Field
+        {
+            /** @var \Kirby\Cms\Page $instance */
+            return $instance->confirmationEmail_to();
+        }
+        /**
+         * Returns the confirmationEmail_from field.
+         *
+         * Uses a `select` field in the `pages/form` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/select
+         */
+        public function confirmationEmail_from(): \Kirby\Content\Field
+        {
+            /** @var \Kirby\Cms\Page $instance */
+            return $instance->confirmationEmail_from();
+        }
+        /**
+         * Returns the confirmationEmail_subject field.
+         *
+         * Uses a `text` field in the `pages/form` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/text
+         */
+        public function confirmationEmail_subject(): \Kirby\Content\Field
+        {
+            /** @var \Kirby\Cms\Page $instance */
+            return $instance->confirmationEmail_subject();
+        }
+        /**
+         * Returns the confirmationEmail_type field.
+         *
+         * Uses a `toggles` field in the `pages/form` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/toggles
+         */
+        public function confirmationEmail_type(): \Kirby\Content\Field
+        {
+            /** @var \Kirby\Cms\Page $instance */
+            return $instance->confirmationEmail_type();
+        }
+        /**
+         * Returns the confirmationEmail_body field.
+         *
+         * Uses a `textarea` field in the `pages/form` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/textarea
+         */
+        public function confirmationEmail_body(): \Kirby\Content\Field
+        {
+            /** @var \Kirby\Cms\Page $instance */
+            return $instance->confirmationEmail_body();
+        }
+        /**
+         * Returns the confirmationEmail_template field.
+         *
+         * Uses a `select` field in the `pages/form` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/select
+         */
+        public function confirmationEmail_template(): \Kirby\Content\Field
+        {
+            /** @var \Kirby\Cms\Page $instance */
+            return $instance->confirmationEmail_template();
+        }
+        /**
+         * Returns the confirmationEmail_gap field.
+         *
+         * Uses a `gap` field in the `pages/form` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/gap
+         */
+        public function confirmationEmail_gap(): \Kirby\Content\Field
+        {
+            /** @var \Kirby\Cms\Page $instance */
+            return $instance->confirmationEmail_gap();
+        }
+        /**
+         * Returns the notificationEmail_headline field.
+         *
+         * Uses a `headline` field in the `pages/form` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/headline
+         */
+        public function notificationEmail_headline(): \Kirby\Content\Field
+        {
+            /** @var \Kirby\Cms\Page $instance */
+            return $instance->notificationEmail_headline();
+        }
+        /**
+         * Returns the notificationEmail_enabled field.
+         *
+         * Uses a `toggle` field in the `pages/form` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/toggle
+         */
+        public function notificationEmail_enabled(): \Kirby\Content\Field
+        {
+            /** @var \Kirby\Cms\Page $instance */
+            return $instance->notificationEmail_enabled();
+        }
+        /**
+         * Returns the notificationEmail_to field.
+         *
+         * Uses a `email` field in the `pages/form` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/email
+         */
+        public function notificationEmail_to(): \Kirby\Content\Field
+        {
+            /** @var \Kirby\Cms\Page $instance */
+            return $instance->notificationEmail_to();
+        }
+        /**
+         * Returns the notificationEmail_from field.
+         *
+         * Uses a `select` field in the `pages/form` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/select
+         */
+        public function notificationEmail_from(): \Kirby\Content\Field
+        {
+            /** @var \Kirby\Cms\Page $instance */
+            return $instance->notificationEmail_from();
+        }
+        /**
+         * Returns the notificationEmail_subject field.
+         *
+         * Uses a `text` field in the `pages/form` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/text
+         */
+        public function notificationEmail_subject(): \Kirby\Content\Field
+        {
+            /** @var \Kirby\Cms\Page $instance */
+            return $instance->notificationEmail_subject();
+        }
+        /**
+         * Returns the notificationEmail_type field.
+         *
+         * Uses a `toggles` field in the `pages/form` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/toggles
+         */
+        public function notificationEmail_type(): \Kirby\Content\Field
+        {
+            /** @var \Kirby\Cms\Page $instance */
+            return $instance->notificationEmail_type();
+        }
+        /**
+         * Returns the notificationEmail_body field.
+         *
+         * Uses a `textarea` field in the `pages/form` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/textarea
+         */
+        public function notificationEmail_body(): \Kirby\Content\Field
+        {
+            /** @var \Kirby\Cms\Page $instance */
+            return $instance->notificationEmail_body();
+        }
+        /**
+         * Returns the notificationEmail_template field.
+         *
+         * Uses a `select` field in the `pages/form` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/select
+         */
+        public function notificationEmail_template(): \Kirby\Content\Field
+        {
+            /** @var \Kirby\Cms\Page $instance */
+            return $instance->notificationEmail_template();
+        }
+        /**
+         * Returns the notificationEmail_gap field.
+         *
+         * Uses a `gap` field in the `pages/form` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/gap
+         */
+        public function notificationEmail_gap(): \Kirby\Content\Field
+        {
+            /** @var \Kirby\Cms\Page $instance */
+            return $instance->notificationEmail_gap();
+        }
+        /**
+         * Returns the brevo_headline field.
+         *
+         * Uses a `headline` field in the `pages/form` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/headline
+         */
+        public function brevo_headline(): \Kirby\Content\Field
+        {
+            /** @var \Kirby\Cms\Page $instance */
+            return $instance->brevo_headline();
+        }
+        /**
+         * Returns the brevo_enabled field.
+         *
+         * Uses a `toggle` field in the `pages/form` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/toggle
+         */
+        public function brevo_enabled(): \Kirby\Content\Field
+        {
+            /** @var \Kirby\Cms\Page $instance */
+            return $instance->brevo_enabled();
+        }
+        /**
+         * Returns the brevo_email field.
+         *
+         * Uses a `form-email-select` field in the `pages/form` blueprint.
+         */
+        public function brevo_email(): \Kirby\Content\Field
+        {
+            /** @var \Kirby\Cms\Page $instance */
+            return $instance->brevo_email();
+        }
+        /**
+         * Returns the brevo_listId field.
+         *
+         * Uses a `number` field in the `pages/form` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/number
+         */
+        public function brevo_listId(): \Kirby\Content\Field
+        {
+            /** @var \Kirby\Cms\Page $instance */
+            return $instance->brevo_listId();
+        }
+        /**
+         * Returns the brevo_updateEnabled field.
+         *
+         * Uses a `toggle` field in the `pages/form` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/toggle
+         */
+        public function brevo_updateEnabled(): \Kirby\Content\Field
+        {
+            /** @var \Kirby\Cms\Page $instance */
+            return $instance->brevo_updateEnabled();
+        }
+        /**
+         * Returns the brevo_doubleOptIn field.
+         *
+         * Uses a `toggle` field in the `pages/form` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/toggle
+         */
+        public function brevo_doubleOptIn(): \Kirby\Content\Field
+        {
+            /** @var \Kirby\Cms\Page $instance */
+            return $instance->brevo_doubleOptIn();
+        }
+        /**
+         * Returns the brevo_redirectionUrl field.
+         *
+         * Uses a `url` field in the `pages/form` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/url
+         */
+        public function brevo_redirectionUrl(): \Kirby\Content\Field
+        {
+            /** @var \Kirby\Cms\Page $instance */
+            return $instance->brevo_redirectionUrl();
+        }
+        /**
+         * Returns the brevo_templateId field.
+         *
+         * Uses a `number` field in the `pages/form` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/number
+         */
+        public function brevo_templateId(): \Kirby\Content\Field
+        {
+            /** @var \Kirby\Cms\Page $instance */
+            return $instance->brevo_templateId();
         }
         /**
          * Returns the popularEpisodes field.
@@ -492,10 +1388,53 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/pages
          */
-        public function popularEpisodes(): \Kirby\Cms\Field
+        public function popularEpisodes(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->popularEpisodes();
+        }
+        /**
+         * Returns the header field.
+         *
+         * Uses a `text` field in the `pages/mediathek` blueprint.\
+         * Uses a `text` field in the `pages/season` blueprint.\
+         * Uses a `text` field in the `pages/teilnehmende` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/text
+         */
+        public function header(): \Kirby\Content\Field
+        {
+            /** @var \Kirby\Cms\Page $instance */
+            return $instance->header();
+        }
+        /**
+         * Returns the lead field.
+         *
+         * Uses a `textarea` field in the `pages/mediathek` blueprint.\
+         * Uses a `textarea` field in the `pages/participant` blueprint.\
+         * Uses a `textarea` field in the `pages/season` blueprint.\
+         * Uses a `textarea` field in the `pages/teilnehmende` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/textarea
+         */
+        public function lead(): \Kirby\Content\Field
+        {
+            /** @var \Kirby\Cms\Page $instance */
+            return $instance->lead();
+        }
+        /**
+         * Returns the blocks field.
+         *
+         * Uses a `blocks` field in the `pages/mediathek` blueprint.\
+         * Uses a `blocks` field in the `pages/season` blueprint.\
+         * Uses a `blocks` field in the `pages/teilnehmende` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/blocks
+         */
+        public function blocks(): \Kirby\Content\Field
+        {
+            /** @var \Kirby\Cms\Page $instance */
+            return $instance->blocks();
         }
         /**
          * Returns the first_name field.
@@ -505,7 +1444,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/text
          */
-        public function first_name(): \Kirby\Cms\Field
+        public function first_name(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->first_name();
@@ -518,7 +1457,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/text
          */
-        public function last_name(): \Kirby\Cms\Field
+        public function last_name(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->last_name();
@@ -531,7 +1470,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/text
          */
-        public function profession(): \Kirby\Cms\Field
+        public function profession(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->profession();
@@ -543,7 +1482,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/textarea
          */
-        public function description(): \Kirby\Cms\Field
+        public function description(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->description();
@@ -555,7 +1494,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/structure
          */
-        public function external_profiles(): \Kirby\Cms\Field
+        public function external_profiles(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->external_profiles();
@@ -567,7 +1506,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/users
          */
-        public function linked_user(): \Kirby\Cms\Field
+        public function linked_user(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->linked_user();
@@ -579,7 +1518,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/files
          */
-        public function profile_image(): \Kirby\Cms\Field
+        public function profile_image(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->profile_image();
@@ -591,7 +1530,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/radio
          */
-        public function participant_role(): \Kirby\Cms\Field
+        public function participant_role(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->participant_role();
@@ -603,7 +1542,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/checkboxes
          */
-        public function additional_roles(): \Kirby\Cms\Field
+        public function additional_roles(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->additional_roles();
@@ -615,7 +1554,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/select
          */
-        public function gender_identities(): \Kirby\Cms\Field
+        public function gender_identities(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->gender_identities();
@@ -627,7 +1566,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/text
          */
-        public function self_described_gender(): \Kirby\Cms\Field
+        public function self_described_gender(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->self_described_gender();
@@ -639,7 +1578,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/text
          */
-        public function pronouns(): \Kirby\Cms\Field
+        public function pronouns(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->pronouns();
@@ -651,7 +1590,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/info
          */
-        public function participation_stats(): \Kirby\Cms\Field
+        public function participation_stats(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->participation_stats();
@@ -663,7 +1602,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/headline
          */
-        public function headlineInfos(): \Kirby\Cms\Field
+        public function headlineInfos(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->headlineInfos();
@@ -675,7 +1614,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/text
          */
-        public function podcasterCopyright(): \Kirby\Cms\Field
+        public function podcasterCopyright(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->podcasterCopyright();
@@ -687,7 +1626,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/tags
          */
-        public function podcasterKeywords(): \Kirby\Cms\Field
+        public function podcasterKeywords(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->podcasterKeywords();
@@ -699,7 +1638,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/structure
          */
-        public function podcasterCategories(): \Kirby\Cms\Field
+        public function podcasterCategories(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->podcasterCategories();
@@ -711,7 +1650,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/radio
          */
-        public function podcasterType(): \Kirby\Cms\Field
+        public function podcasterType(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->podcasterType();
@@ -723,7 +1662,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/select
          */
-        public function podcasterLanguage(): \Kirby\Cms\Field
+        public function podcasterLanguage(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->podcasterLanguage();
@@ -735,7 +1674,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/users
          */
-        public function podcasterOwner(): \Kirby\Cms\Field
+        public function podcasterOwner(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->podcasterOwner();
@@ -747,7 +1686,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/headline
          */
-        public function headlineInfo(): \Kirby\Cms\Field
+        public function headlineInfo(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->headlineInfo();
@@ -759,7 +1698,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/slug
          */
-        public function podcastId(): \Kirby\Cms\Field
+        public function podcastId(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->podcastId();
@@ -771,7 +1710,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/url
          */
-        public function podcasterLink(): \Kirby\Cms\Field
+        public function podcasterLink(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->podcasterLink();
@@ -783,7 +1722,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/url
          */
-        public function podcasterAtomLink(): \Kirby\Cms\Field
+        public function podcasterAtomLink(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->podcasterAtomLink();
@@ -795,7 +1734,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/pages
          */
-        public function podcasterSource(): \Kirby\Cms\Field
+        public function podcasterSource(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->podcasterSource();
@@ -807,7 +1746,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/headline
          */
-        public function headlineDanger(): \Kirby\Cms\Field
+        public function headlineDanger(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->headlineDanger();
@@ -819,7 +1758,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/info
          */
-        public function infoDanger(): \Kirby\Cms\Field
+        public function infoDanger(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->infoDanger();
@@ -831,7 +1770,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/toggle
          */
-        public function podcasterComplete(): \Kirby\Cms\Field
+        public function podcasterComplete(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->podcasterComplete();
@@ -843,7 +1782,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/url
          */
-        public function podcasterNewFeedUrl(): \Kirby\Cms\Field
+        public function podcasterNewFeedUrl(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->podcasterNewFeedUrl();
@@ -855,7 +1794,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/headline
          */
-        public function headlinePlayer(): \Kirby\Cms\Field
+        public function headlinePlayer(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->headlinePlayer();
@@ -867,7 +1806,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/select
          */
-        public function playerType(): \Kirby\Cms\Field
+        public function playerType(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->playerType();
@@ -879,7 +1818,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/info
          */
-        public function infoPlayer(): \Kirby\Cms\Field
+        public function infoPlayer(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->infoPlayer();
@@ -891,7 +1830,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/headline
          */
-        public function headlinePodlove(): \Kirby\Cms\Field
+        public function headlinePodlove(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->headlinePodlove();
@@ -903,7 +1842,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/select
          */
-        public function podcasterPodloveActiveTab(): \Kirby\Cms\Field
+        public function podcasterPodloveActiveTab(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->podcasterPodloveActiveTab();
@@ -915,7 +1854,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/structure
          */
-        public function podcasterPodloveColors(): \Kirby\Cms\Field
+        public function podcasterPodloveColors(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->podcasterPodloveColors();
@@ -927,7 +1866,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/structure
          */
-        public function podcasterPodloveFonts(): \Kirby\Cms\Field
+        public function podcasterPodloveFonts(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->podcasterPodloveFonts();
@@ -939,7 +1878,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/structure
          */
-        public function podcasterPodloveClients(): \Kirby\Cms\Field
+        public function podcasterPodloveClients(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->podcasterPodloveClients();
@@ -951,7 +1890,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/multiselect
          */
-        public function podcasterPodloveShareChannels(): \Kirby\Cms\Field
+        public function podcasterPodloveShareChannels(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->podcasterPodloveShareChannels();
@@ -963,7 +1902,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/toggle
          */
-        public function podcasterPodloveSharePlaytime(): \Kirby\Cms\Field
+        public function podcasterPodloveSharePlaytime(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->podcasterPodloveSharePlaytime();
@@ -975,7 +1914,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/structure
          */
-        public function podcasterPodloveRoles(): \Kirby\Cms\Field
+        public function podcasterPodloveRoles(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->podcasterPodloveRoles();
@@ -987,7 +1926,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/structure
          */
-        public function podcasterPodloveGroups(): \Kirby\Cms\Field
+        public function podcasterPodloveGroups(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->podcasterPodloveGroups();
@@ -999,7 +1938,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/headline
          */
-        public function headlineMatomo(): \Kirby\Cms\Field
+        public function headlineMatomo(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->headlineMatomo();
@@ -1011,7 +1950,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/info
          */
-        public function infoMatomo(): \Kirby\Cms\Field
+        public function infoMatomo(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->infoMatomo();
@@ -1023,7 +1962,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/toggle
          */
-        public function podcasterMatomoEnabled(): \Kirby\Cms\Field
+        public function podcasterMatomoEnabled(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->podcasterMatomoEnabled();
@@ -1035,7 +1974,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/text
          */
-        public function podcasterMatomoSiteId(): \Kirby\Cms\Field
+        public function podcasterMatomoSiteId(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->podcasterMatomoSiteId();
@@ -1047,7 +1986,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/toggle
          */
-        public function podcasterMatomoTrackGoal(): \Kirby\Cms\Field
+        public function podcasterMatomoTrackGoal(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->podcasterMatomoTrackGoal();
@@ -1059,7 +1998,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/text
          */
-        public function podcasterMatomoGoalId(): \Kirby\Cms\Field
+        public function podcasterMatomoGoalId(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->podcasterMatomoGoalId();
@@ -1071,7 +2010,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/toggle
          */
-        public function podcasterMatomoTrackEvent(): \Kirby\Cms\Field
+        public function podcasterMatomoTrackEvent(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->podcasterMatomoTrackEvent();
@@ -1083,7 +2022,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/text
          */
-        public function podcasterMatomoEventName(): \Kirby\Cms\Field
+        public function podcasterMatomoEventName(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->podcasterMatomoEventName();
@@ -1095,7 +2034,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/toggle
          */
-        public function podcasterMatomoAction(): \Kirby\Cms\Field
+        public function podcasterMatomoAction(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->podcasterMatomoAction();
@@ -1107,7 +2046,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/toggle
          */
-        public function podcasterMatomoFeedEnabled(): \Kirby\Cms\Field
+        public function podcasterMatomoFeedEnabled(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->podcasterMatomoFeedEnabled();
@@ -1119,7 +2058,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/text
          */
-        public function podcasterMatomoFeedSiteId(): \Kirby\Cms\Field
+        public function podcasterMatomoFeedSiteId(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->podcasterMatomoFeedSiteId();
@@ -1131,7 +2070,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/toggle
          */
-        public function podcasterMatomoFeedTrackGoal(): \Kirby\Cms\Field
+        public function podcasterMatomoFeedTrackGoal(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->podcasterMatomoFeedTrackGoal();
@@ -1143,7 +2082,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/toggle
          */
-        public function podcasterMatomoFeedPage(): \Kirby\Cms\Field
+        public function podcasterMatomoFeedPage(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->podcasterMatomoFeedPage();
@@ -1155,7 +2094,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/text
          */
-        public function podcasterMatomoFeedGoalId(): \Kirby\Cms\Field
+        public function podcasterMatomoFeedGoalId(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->podcasterMatomoFeedGoalId();
@@ -1167,7 +2106,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/toggle
          */
-        public function podcasterMatomoFeedTrackEvent(): \Kirby\Cms\Field
+        public function podcasterMatomoFeedTrackEvent(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->podcasterMatomoFeedTrackEvent();
@@ -1179,7 +2118,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/text
          */
-        public function podcasterMatomoFeedEventName(): \Kirby\Cms\Field
+        public function podcasterMatomoFeedEventName(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->podcasterMatomoFeedEventName();
@@ -1191,7 +2130,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/toggle
          */
-        public function podcasterMatomoFeedAction(): \Kirby\Cms\Field
+        public function podcasterMatomoFeedAction(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->podcasterMatomoFeedAction();
@@ -1203,7 +2142,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/headline
          */
-        public function headlinePodTrac(): \Kirby\Cms\Field
+        public function headlinePodTrac(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->headlinePodTrac();
@@ -1215,7 +2154,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/toggle
          */
-        public function podTracEnabled(): \Kirby\Cms\Field
+        public function podTracEnabled(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->podTracEnabled();
@@ -1227,10 +2166,80 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/url
          */
-        public function podTracUrl(): \Kirby\Cms\Field
+        public function podTracUrl(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->podTracUrl();
+        }
+        /**
+         * Returns the info_note field.
+         *
+         * Uses a `info` field in the `pages/suche` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/info
+         */
+        public function info_note(): \Kirby\Content\Field
+        {
+            /** @var \Kirby\Cms\Page $instance */
+            return $instance->info_note();
+        }
+        /**
+         * Returns the reindex field.
+         *
+         * Uses a `tw-search-reindex` field in the `pages/suche` blueprint.
+         */
+        public function reindex(): \Kirby\Content\Field
+        {
+            /** @var \Kirby\Cms\Page $instance */
+            return $instance->reindex();
+        }
+        /**
+         * Returns the search_placeholder field.
+         *
+         * Uses a `text` field in the `pages/suche` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/text
+         */
+        public function search_placeholder(): \Kirby\Content\Field
+        {
+            /** @var \Kirby\Cms\Page $instance */
+            return $instance->search_placeholder();
+        }
+        /**
+         * Returns the search_dialog_title field.
+         *
+         * Uses a `text` field in the `pages/suche` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/text
+         */
+        public function search_dialog_title(): \Kirby\Content\Field
+        {
+            /** @var \Kirby\Cms\Page $instance */
+            return $instance->search_dialog_title();
+        }
+        /**
+         * Returns the search_results_limit field.
+         *
+         * Uses a `number` field in the `pages/suche` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/number
+         */
+        public function search_results_limit(): \Kirby\Content\Field
+        {
+            /** @var \Kirby\Cms\Page $instance */
+            return $instance->search_results_limit();
+        }
+        /**
+         * Returns the search_comments_enabled field.
+         *
+         * Uses a `toggle` field in the `pages/suche` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/toggle
+         */
+        public function search_comments_enabled(): \Kirby\Content\Field
+        {
+            /** @var \Kirby\Cms\Page $instance */
+            return $instance->search_comments_enabled();
         }
         /**
          * Returns the members field.
@@ -1239,7 +2248,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/structure
          */
-        public function members(): \Kirby\Cms\Field
+        public function members(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->members();
@@ -1251,7 +2260,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/textarea
          */
-        public function testimonial_text(): \Kirby\Cms\Field
+        public function testimonial_text(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->testimonial_text();
@@ -1263,7 +2272,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/files
          */
-        public function photo(): \Kirby\Cms\Field
+        public function photo(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->photo();
@@ -1275,10 +2284,20 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/textarea
          */
-        public function intro(): \Kirby\Cms\Field
+        public function intro(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\Page $instance */
             return $instance->intro();
+        }
+        public function icGetMastodonUrl()
+        {
+            /** @var \Kirby\Cms\Page $instance */
+            return $instance->icGetMastodonUrl();
+        }
+        public function icGetBlueskyUrl()
+        {
+            /** @var \Kirby\Cms\Page $instance */
+            return $instance->icGetBlueskyUrl();
         }
         public function commentCount($language = null): int
         {
@@ -1330,309 +2349,10 @@ namespace Kirby\Cms
             /** @var \Kirby\Cms\Page $instance */
             return $instance->participationTotalCount();
         }
-    }
-    class StructureObject
-    {
-        /**
-         * Returns the podcasterTranscriptLanguage field.
-         *
-         * Uses a `select` field in the `pages/episode.podcasterTranscript` blueprint.
-         *
-         * @see https://getkirby.com/docs/reference/panel/fields/select
-         */
-        public function podcasterTranscriptLanguage(): \Kirby\Cms\Field
+        public function episodeTypeLabel(): string
         {
-            /** @var \Kirby\Cms\StructureObject $instance */
-            return $instance->podcasterTranscriptLanguage();
-        }
-        /**
-         * Returns the podcasterTranscriptFile field.
-         *
-         * Uses a `files` field in the `pages/episode.podcasterTranscript` blueprint.
-         *
-         * @see https://getkirby.com/docs/reference/panel/fields/files
-         */
-        public function podcasterTranscriptFile(): \Kirby\Cms\Field
-        {
-            /** @var \Kirby\Cms\StructureObject $instance */
-            return $instance->podcasterTranscriptFile();
-        }
-        /**
-         * Returns the podcasterChapterTimestamp field.
-         *
-         * Uses a `text` field in the `pages/episode.podcasterChapters` blueprint.
-         *
-         * @see https://getkirby.com/docs/reference/panel/fields/text
-         */
-        public function podcasterChapterTimestamp(): \Kirby\Cms\Field
-        {
-            /** @var \Kirby\Cms\StructureObject $instance */
-            return $instance->podcasterChapterTimestamp();
-        }
-        /**
-         * Returns the podcasterChapterTitle field.
-         *
-         * Uses a `text` field in the `pages/episode.podcasterChapters` blueprint.
-         *
-         * @see https://getkirby.com/docs/reference/panel/fields/text
-         */
-        public function podcasterChapterTitle(): \Kirby\Cms\Field
-        {
-            /** @var \Kirby\Cms\StructureObject $instance */
-            return $instance->podcasterChapterTitle();
-        }
-        /**
-         * Returns the podcasterChapterUrl field.
-         *
-         * Uses a `url` field in the `pages/episode.podcasterChapters` blueprint.
-         *
-         * @see https://getkirby.com/docs/reference/panel/fields/url
-         */
-        public function podcasterChapterUrl(): \Kirby\Cms\Field
-        {
-            /** @var \Kirby\Cms\StructureObject $instance */
-            return $instance->podcasterChapterUrl();
-        }
-        /**
-         * Returns the podcasterChapterImage field.
-         *
-         * Uses a `files` field in the `pages/episode.podcasterChapters` blueprint.
-         *
-         * @see https://getkirby.com/docs/reference/panel/fields/files
-         */
-        public function podcasterChapterImage(): \Kirby\Cms\Field
-        {
-            /** @var \Kirby\Cms\StructureObject $instance */
-            return $instance->podcasterChapterImage();
-        }
-        /**
-         * Returns the network field.
-         *
-         * Uses a `select` field in the `pages/participant.external_profiles` blueprint.
-         *
-         * @see https://getkirby.com/docs/reference/panel/fields/select
-         */
-        public function network(): \Kirby\Cms\Field
-        {
-            /** @var \Kirby\Cms\StructureObject $instance */
-            return $instance->network();
-        }
-        /**
-         * Returns the url field.
-         *
-         * Uses a `url` field in the `pages/participant.external_profiles` blueprint.
-         *
-         * @see https://getkirby.com/docs/reference/panel/fields/url
-         */
-        public function url(): \Kirby\Cms\Field
-        {
-            /** @var \Kirby\Cms\StructureObject $instance */
-            return $instance->url();
-        }
-        /**
-         * Returns the profile_label field.
-         *
-         * Uses a `text` field in the `pages/participant.external_profiles` blueprint.
-         *
-         * @see https://getkirby.com/docs/reference/panel/fields/text
-         */
-        public function profile_label(): \Kirby\Cms\Field
-        {
-            /** @var \Kirby\Cms\StructureObject $instance */
-            return $instance->profile_label();
-        }
-        /**
-         * Returns the podcasterMainCategory field.
-         *
-         * Uses a `select` field in the `pages/podcasterfeed.podcasterCategories` blueprint.
-         *
-         * @see https://getkirby.com/docs/reference/panel/fields/select
-         */
-        public function podcasterMainCategory(): \Kirby\Cms\Field
-        {
-            /** @var \Kirby\Cms\StructureObject $instance */
-            return $instance->podcasterMainCategory();
-        }
-        /**
-         * Returns the colorType field.
-         *
-         * Uses a `select` field in the `pages/podcasterfeed.podcasterPodloveColors` blueprint.
-         *
-         * @see https://getkirby.com/docs/reference/panel/fields/select
-         */
-        public function colorType(): \Kirby\Cms\Field
-        {
-            /** @var \Kirby\Cms\StructureObject $instance */
-            return $instance->colorType();
-        }
-        /**
-         * Returns the hex field.
-         *
-         * Uses a `text` field in the `pages/podcasterfeed.podcasterPodloveColors` blueprint.
-         *
-         * @see https://getkirby.com/docs/reference/panel/fields/text
-         */
-        public function hex(): \Kirby\Cms\Field
-        {
-            /** @var \Kirby\Cms\StructureObject $instance */
-            return $instance->hex();
-        }
-        /**
-         * Returns the fontType field.
-         *
-         * Uses a `select` field in the `pages/podcasterfeed.podcasterPodloveFonts` blueprint.
-         *
-         * @see https://getkirby.com/docs/reference/panel/fields/select
-         */
-        public function fontType(): \Kirby\Cms\Field
-        {
-            /** @var \Kirby\Cms\StructureObject $instance */
-            return $instance->fontType();
-        }
-        /**
-         * Returns the name field.
-         *
-         * Uses a `text` field in the `pages/podcasterfeed.podcasterPodloveFonts` blueprint.\
-         * Uses a `text` field in the `pages/team.members` blueprint.
-         *
-         * @see https://getkirby.com/docs/reference/panel/fields/text
-         */
-        public function name(): \Kirby\Cms\Field
-        {
-            /** @var \Kirby\Cms\StructureObject $instance */
-            return $instance->name();
-        }
-        /**
-         * Returns the family field.
-         *
-         * Uses a `tags` field in the `pages/podcasterfeed.podcasterPodloveFonts` blueprint.
-         *
-         * @see https://getkirby.com/docs/reference/panel/fields/tags
-         */
-        public function family(): \Kirby\Cms\Field
-        {
-            /** @var \Kirby\Cms\StructureObject $instance */
-            return $instance->family();
-        }
-        /**
-         * Returns the weight field.
-         *
-         * Uses a `number` field in the `pages/podcasterfeed.podcasterPodloveFonts` blueprint.
-         *
-         * @see https://getkirby.com/docs/reference/panel/fields/number
-         */
-        public function weight(): \Kirby\Cms\Field
-        {
-            /** @var \Kirby\Cms\StructureObject $instance */
-            return $instance->weight();
-        }
-        /**
-         * Returns the src field.
-         *
-         * Uses a `tags` field in the `pages/podcasterfeed.podcasterPodloveFonts` blueprint.
-         *
-         * @see https://getkirby.com/docs/reference/panel/fields/tags
-         */
-        public function src(): \Kirby\Cms\Field
-        {
-            /** @var \Kirby\Cms\StructureObject $instance */
-            return $instance->src();
-        }
-        /**
-         * Returns the client field.
-         *
-         * Uses a `select` field in the `pages/podcasterfeed.podcasterPodloveClients` blueprint.
-         *
-         * @see https://getkirby.com/docs/reference/panel/fields/select
-         */
-        public function client(): \Kirby\Cms\Field
-        {
-            /** @var \Kirby\Cms\StructureObject $instance */
-            return $instance->client();
-        }
-        /**
-         * Returns the service field.
-         *
-         * Uses a `text` field in the `pages/podcasterfeed.podcasterPodloveClients` blueprint.
-         *
-         * @see https://getkirby.com/docs/reference/panel/fields/text
-         */
-        public function service(): \Kirby\Cms\Field
-        {
-            /** @var \Kirby\Cms\StructureObject $instance */
-            return $instance->service();
-        }
-        /**
-         * Returns the roleId field.
-         *
-         * Uses a `number` field in the `pages/podcasterfeed.podcasterPodloveRoles` blueprint.
-         *
-         * @see https://getkirby.com/docs/reference/panel/fields/number
-         */
-        public function roleId(): \Kirby\Cms\Field
-        {
-            /** @var \Kirby\Cms\StructureObject $instance */
-            return $instance->roleId();
-        }
-        /**
-         * Returns the roleTitle field.
-         *
-         * Uses a `text` field in the `pages/podcasterfeed.podcasterPodloveRoles` blueprint.
-         *
-         * @see https://getkirby.com/docs/reference/panel/fields/text
-         */
-        public function roleTitle(): \Kirby\Cms\Field
-        {
-            /** @var \Kirby\Cms\StructureObject $instance */
-            return $instance->roleTitle();
-        }
-        /**
-         * Returns the groupId field.
-         *
-         * Uses a `number` field in the `pages/podcasterfeed.podcasterPodloveGroups` blueprint.
-         *
-         * @see https://getkirby.com/docs/reference/panel/fields/number
-         */
-        public function groupId(): \Kirby\Cms\Field
-        {
-            /** @var \Kirby\Cms\StructureObject $instance */
-            return $instance->groupId();
-        }
-        /**
-         * Returns the groupTitle field.
-         *
-         * Uses a `text` field in the `pages/podcasterfeed.podcasterPodloveGroups` blueprint.
-         *
-         * @see https://getkirby.com/docs/reference/panel/fields/text
-         */
-        public function groupTitle(): \Kirby\Cms\Field
-        {
-            /** @var \Kirby\Cms\StructureObject $instance */
-            return $instance->groupTitle();
-        }
-        /**
-         * Returns the role field.
-         *
-         * Uses a `text` field in the `pages/team.members` blueprint.
-         *
-         * @see https://getkirby.com/docs/reference/panel/fields/text
-         */
-        public function role(): \Kirby\Cms\Field
-        {
-            /** @var \Kirby\Cms\StructureObject $instance */
-            return $instance->role();
-        }
-        /**
-         * Returns the bio field.
-         *
-         * Uses a `textarea` field in the `pages/team.members` blueprint.
-         *
-         * @see https://getkirby.com/docs/reference/panel/fields/textarea
-         */
-        public function bio(): \Kirby\Cms\Field
-        {
-            /** @var \Kirby\Cms\StructureObject $instance */
-            return $instance->bio();
+            /** @var \Kirby\Cms\Page $instance */
+            return $instance->episodeTypeLabel();
         }
     }
     class File
@@ -1644,7 +2364,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/text
          */
-        public function episodeTitle(): \Kirby\Cms\Field
+        public function episodeTitle(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\File $instance */
             return $instance->episodeTitle();
@@ -1656,7 +2376,7 @@ namespace Kirby\Cms
          *
          * @see https://getkirby.com/docs/reference/panel/fields/text
          */
-        public function duration(): \Kirby\Cms\Field
+        public function duration(): \Kirby\Content\Field
         {
             /** @var \Kirby\Cms\File $instance */
             return $instance->duration();
@@ -1687,6 +2407,374 @@ namespace Kirby\Cms
         {
             /** @var \Kirby\Cms\LayoutColumn $instance */
             return $instance->blocks($includeHidden);
+        }
+    }
+}
+
+namespace 
+{
+    class KontaktPage
+    {
+        /**
+         * Returns the header field.
+         *
+         * Uses a `text` field in the `pages/kontakt` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/text
+         */
+        public function header(): \Kirby\Content\Field
+        {
+            /** @var \KontaktPage $instance */
+            return $instance->header();
+        }
+        /**
+         * Returns the lead field.
+         *
+         * Uses a `textarea` field in the `pages/kontakt` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/textarea
+         */
+        public function lead(): \Kirby\Content\Field
+        {
+            /** @var \KontaktPage $instance */
+            return $instance->lead();
+        }
+        /**
+         * Returns the blocks field.
+         *
+         * Uses a `blocks` field in the `pages/kontakt` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/blocks
+         */
+        public function blocks(): \Kirby\Content\Field
+        {
+            /** @var \KontaktPage $instance */
+            return $instance->blocks();
+        }
+        /**
+         * Returns the form_fields field.
+         *
+         * Uses a `layout` field in the `pages/kontakt` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/layout
+         */
+        public function form_fields(): \Kirby\Content\Field
+        {
+            /** @var \KontaktPage $instance */
+            return $instance->form_fields();
+        }
+        /**
+         * Returns the delivery_info field.
+         *
+         * Uses a `info` field in the `pages/kontakt` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/info
+         */
+        public function delivery_info(): \Kirby\Content\Field
+        {
+            /** @var \KontaktPage $instance */
+            return $instance->delivery_info();
+        }
+        /**
+         * Returns the submit_headline field.
+         *
+         * Uses a `headline` field in the `pages/kontakt` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/headline
+         */
+        public function submit_headline(): \Kirby\Content\Field
+        {
+            /** @var \KontaktPage $instance */
+            return $instance->submit_headline();
+        }
+        /**
+         * Returns the label_submit field.
+         *
+         * Uses a `text` field in the `pages/kontakt` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/text
+         */
+        public function label_submit(): \Kirby\Content\Field
+        {
+            /** @var \KontaktPage $instance */
+            return $instance->label_submit();
+        }
+        /**
+         * Returns the submit_gap field.
+         *
+         * Uses a `gap` field in the `pages/kontakt` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/gap
+         */
+        public function submit_gap(): \Kirby\Content\Field
+        {
+            /** @var \KontaktPage $instance */
+            return $instance->submit_gap();
+        }
+        /**
+         * Returns the success_headline field.
+         *
+         * Uses a `headline` field in the `pages/kontakt` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/headline
+         */
+        public function success_headline(): \Kirby\Content\Field
+        {
+            /** @var \KontaktPage $instance */
+            return $instance->success_headline();
+        }
+        /**
+         * Returns the success_type field.
+         *
+         * Uses a `toggles` field in the `pages/kontakt` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/toggles
+         */
+        public function success_type(): \Kirby\Content\Field
+        {
+            /** @var \KontaktPage $instance */
+            return $instance->success_type();
+        }
+        /**
+         * Returns the success_text field.
+         *
+         * Uses a `writer` field in the `pages/kontakt` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/writer
+         */
+        public function success_text(): \Kirby\Content\Field
+        {
+            /** @var \KontaktPage $instance */
+            return $instance->success_text();
+        }
+        /**
+         * Returns the success_page field.
+         *
+         * Uses a `pages` field in the `pages/kontakt` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/pages
+         */
+        public function success_page(): \Kirby\Content\Field
+        {
+            /** @var \KontaktPage $instance */
+            return $instance->success_page();
+        }
+        /**
+         * Returns the success_gap field.
+         *
+         * Uses a `gap` field in the `pages/kontakt` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/gap
+         */
+        public function success_gap(): \Kirby\Content\Field
+        {
+            /** @var \KontaktPage $instance */
+            return $instance->success_gap();
+        }
+        /**
+         * Returns the error_headline field.
+         *
+         * Uses a `headline` field in the `pages/kontakt` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/headline
+         */
+        public function error_headline(): \Kirby\Content\Field
+        {
+            /** @var \KontaktPage $instance */
+            return $instance->error_headline();
+        }
+        /**
+         * Returns the error_invalidFields field.
+         *
+         * Uses a `writer` field in the `pages/kontakt` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/writer
+         */
+        public function error_invalidFields(): \Kirby\Content\Field
+        {
+            /** @var \KontaktPage $instance */
+            return $instance->error_invalidFields();
+        }
+        /**
+         * Returns the error_gap field.
+         *
+         * Uses a `gap` field in the `pages/kontakt` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/gap
+         */
+        public function error_gap(): \Kirby\Content\Field
+        {
+            /** @var \KontaktPage $instance */
+            return $instance->error_gap();
+        }
+        /**
+         * Returns the save_headline field.
+         *
+         * Uses a `headline` field in the `pages/kontakt` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/headline
+         */
+        public function save_headline(): \Kirby\Content\Field
+        {
+            /** @var \KontaktPage $instance */
+            return $instance->save_headline();
+        }
+        /**
+         * Returns the save_entries field.
+         *
+         * Uses a `toggle` field in the `pages/kontakt` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/toggle
+         */
+        public function save_entries(): \Kirby\Content\Field
+        {
+            /** @var \KontaktPage $instance */
+            return $instance->save_entries();
+        }
+        /**
+         * Returns the save_gap field.
+         *
+         * Uses a `gap` field in the `pages/kontakt` blueprint.
+         *
+         * @see https://getkirby.com/docs/reference/panel/fields/gap
+         */
+        public function save_gap(): \Kirby\Content\Field
+        {
+            /** @var \KontaktPage $instance */
+            return $instance->save_gap();
+        }
+        public function icGetMastodonUrl()
+        {
+            /** @var \KontaktPage $instance */
+            return $instance->icGetMastodonUrl();
+        }
+        public function icGetBlueskyUrl()
+        {
+            /** @var \KontaktPage $instance */
+            return $instance->icGetBlueskyUrl();
+        }
+        public function commentCount($language = null): int
+        {
+            /** @var \KontaktPage $instance */
+            return $instance->commentCount($language);
+        }
+        public function commentsAreEnabled()
+        {
+            /** @var \KontaktPage $instance */
+            return $instance->commentsAreEnabled();
+        }
+        public function comments()
+        {
+            /** @var \KontaktPage $instance */
+            return $instance->comments();
+        }
+        public function atomLink()
+        {
+            /** @var \KontaktPage $instance */
+            return $instance->atomLink();
+        }
+        public function feedCover()
+        {
+            /** @var \KontaktPage $instance */
+            return $instance->feedCover();
+        }
+        public function podloveRoles()
+        {
+            /** @var \KontaktPage $instance */
+            return $instance->podloveRoles();
+        }
+        public function podloveGroups()
+        {
+            /** @var \KontaktPage $instance */
+            return $instance->podloveGroups();
+        }
+        public function participationHostCount(): int
+        {
+            /** @var \KontaktPage $instance */
+            return $instance->participationHostCount();
+        }
+        public function participationGuestCount(): int
+        {
+            /** @var \KontaktPage $instance */
+            return $instance->participationGuestCount();
+        }
+        public function participationTotalCount(): int
+        {
+            /** @var \KontaktPage $instance */
+            return $instance->participationTotalCount();
+        }
+        public function episodeTypeLabel(): string
+        {
+            /** @var \KontaktPage $instance */
+            return $instance->episodeTypeLabel();
+        }
+    }
+    class FormEntryPage
+    {
+        public function icGetMastodonUrl()
+        {
+            /** @var \FormEntryPage $instance */
+            return $instance->icGetMastodonUrl();
+        }
+        public function icGetBlueskyUrl()
+        {
+            /** @var \FormEntryPage $instance */
+            return $instance->icGetBlueskyUrl();
+        }
+        public function commentCount($language = null): int
+        {
+            /** @var \FormEntryPage $instance */
+            return $instance->commentCount($language);
+        }
+        public function commentsAreEnabled()
+        {
+            /** @var \FormEntryPage $instance */
+            return $instance->commentsAreEnabled();
+        }
+        public function comments()
+        {
+            /** @var \FormEntryPage $instance */
+            return $instance->comments();
+        }
+        public function atomLink()
+        {
+            /** @var \FormEntryPage $instance */
+            return $instance->atomLink();
+        }
+        public function feedCover()
+        {
+            /** @var \FormEntryPage $instance */
+            return $instance->feedCover();
+        }
+        public function podloveRoles()
+        {
+            /** @var \FormEntryPage $instance */
+            return $instance->podloveRoles();
+        }
+        public function podloveGroups()
+        {
+            /** @var \FormEntryPage $instance */
+            return $instance->podloveGroups();
+        }
+        public function participationHostCount(): int
+        {
+            /** @var \FormEntryPage $instance */
+            return $instance->participationHostCount();
+        }
+        public function participationGuestCount(): int
+        {
+            /** @var \FormEntryPage $instance */
+            return $instance->participationGuestCount();
+        }
+        public function participationTotalCount(): int
+        {
+            /** @var \FormEntryPage $instance */
+            return $instance->participationTotalCount();
+        }
+        public function episodeTypeLabel(): string
+        {
+            /** @var \FormEntryPage $instance */
+            return $instance->episodeTypeLabel();
         }
     }
 }
@@ -2244,18 +3332,95 @@ namespace Kirby\Content
             /** @var \Kirby\Content\Field $instance */
             return $instance->xml();
         }
+        public function emoticons()
+        {
+            /** @var \Kirby\Content\Field $instance */
+            return $instance->emoticons();
+        }
     }
     class Content
     {
         /**
          * Returns all registered field objects
          *
-         * @return \Kirby\Cms\Field[]
+         * @return \Kirby\Content\Field[]
          */
         public function fields(): array
         {
             /** @var \Kirby\Content\Content $instance */
             return $instance->fields();
+        }
+    }
+}
+
+namespace Medienbaecker\HelpView
+{
+    class HelpPage
+    {
+        public function icGetMastodonUrl()
+        {
+            /** @var \Medienbaecker\HelpView\HelpPage $instance */
+            return $instance->icGetMastodonUrl();
+        }
+        public function icGetBlueskyUrl()
+        {
+            /** @var \Medienbaecker\HelpView\HelpPage $instance */
+            return $instance->icGetBlueskyUrl();
+        }
+        public function commentCount($language = null): int
+        {
+            /** @var \Medienbaecker\HelpView\HelpPage $instance */
+            return $instance->commentCount($language);
+        }
+        public function commentsAreEnabled()
+        {
+            /** @var \Medienbaecker\HelpView\HelpPage $instance */
+            return $instance->commentsAreEnabled();
+        }
+        public function comments()
+        {
+            /** @var \Medienbaecker\HelpView\HelpPage $instance */
+            return $instance->comments();
+        }
+        public function atomLink()
+        {
+            /** @var \Medienbaecker\HelpView\HelpPage $instance */
+            return $instance->atomLink();
+        }
+        public function feedCover()
+        {
+            /** @var \Medienbaecker\HelpView\HelpPage $instance */
+            return $instance->feedCover();
+        }
+        public function podloveRoles()
+        {
+            /** @var \Medienbaecker\HelpView\HelpPage $instance */
+            return $instance->podloveRoles();
+        }
+        public function podloveGroups()
+        {
+            /** @var \Medienbaecker\HelpView\HelpPage $instance */
+            return $instance->podloveGroups();
+        }
+        public function participationHostCount(): int
+        {
+            /** @var \Medienbaecker\HelpView\HelpPage $instance */
+            return $instance->participationHostCount();
+        }
+        public function participationGuestCount(): int
+        {
+            /** @var \Medienbaecker\HelpView\HelpPage $instance */
+            return $instance->participationGuestCount();
+        }
+        public function participationTotalCount(): int
+        {
+            /** @var \Medienbaecker\HelpView\HelpPage $instance */
+            return $instance->participationTotalCount();
+        }
+        public function episodeTypeLabel(): string
+        {
+            /** @var \Medienbaecker\HelpView\HelpPage $instance */
+            return $instance->episodeTypeLabel();
         }
     }
 }
@@ -2537,6 +3702,26 @@ namespace Kirby\Toolkit
         public static function uuid(string $value, array|string|null $type = null): bool
         {
             return V::uuid($value, $type);
+        }
+        public static function file($value)
+        {
+            return V::file($value);
+        }
+        public static function requiredFile($value)
+        {
+            return V::requiredFile($value);
+        }
+        public static function filesize($value, $size)
+        {
+            return V::filesize($value, $size);
+        }
+        public static function mime($value, $allowed)
+        {
+            return V::mime($value, $allowed);
+        }
+        public static function image($value)
+        {
+            return V::image($value);
         }
     }
 }
