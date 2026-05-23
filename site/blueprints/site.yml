@@ -97,38 +97,6 @@ tabs:
           tags:
             label: Tags
             type: tags
-          impressumHeadline:
-            label:
-              en: Legal notice
-              de: Impressum
-            type: headline
-          impressumName:
-            label:
-              en: Name
-              de: Name
-            type: text
-          impressumStreet:
-            label:
-              en: Street & No.
-              de: Straße & Nr.
-            type: text
-          impressumCity:
-            label:
-              en: ZIP & City
-              de: PLZ & Ort
-            type: text
-          impressumEmail:
-            label:
-              en: E-Mail
-              de: E-Mail
-            type: email
-            icon: email
-          impressumPhone:
-            label:
-              en: Phone (optional)
-              de: Telefon (optional)
-            type: tel
-            icon: phone
 
       - width: 1/3
         fields:

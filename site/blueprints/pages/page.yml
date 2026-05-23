@@ -8,9 +8,4 @@ columns:
     sections:
       content:
         type: fields
-        fields:
-          text:
-            extends: fields/content-blocks
-            label:
-              de: Inhalt
-              en: Content
+        extends: fields/lead-blocks

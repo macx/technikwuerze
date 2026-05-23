@@ -88,5 +88,5 @@ main {
 }
 
 .page-content {
-  padding-block: var(--sp-xl) var(--sp-xxl);
+  margin-block: var(--sp-xl) var(--sp-xxl);
 }
