@@ -28,6 +28,7 @@ if ($episodeTotal === '') {
 }
 
 $podloveTemplate = asset('assets/podlove/tw-player-template.html')->url();
+$contentBlocks = $page->blocks()->toBlocks();
 
 $getInitials = static function (Kirby\Cms\Page $participant): string {
   $firstName = trim((string) $participant->first_name()->value());
@@ -175,9 +176,9 @@ snippet('layout', slots: true);
       </div>
     <?php endif; ?>
 
-    <?php if ($page->text()->isNotEmpty()): ?>
+    <?php if ($contentBlocks->isNotEmpty()): ?>
       <section class="content-text content narrow">
-        <?= $page->text()->kt() ?>
+        <?= $contentBlocks ?>
       </section>
     <?php endif; ?>
 

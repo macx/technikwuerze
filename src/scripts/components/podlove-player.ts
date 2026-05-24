@@ -5,6 +5,13 @@ type PodlovePayload = {
   template: string | null
   transparent: boolean
   variant: string | null
+  storePromise?: Promise<any>
+}
+
+type PodloveStore = {
+  dispatch: (action: { type: string; payload?: unknown }) => void
+  getState?: () => Record<string, unknown>
+  subscribe?: (listener: () => void) => () => void
 }
 
 type PodloveConfig = {
@@ -15,7 +22,11 @@ type PodloveConfig = {
   [key: string]: unknown
 }
 
-type PodlovePlayerFn = (selector: string, episode: unknown, config: unknown) => void
+type PodlovePlayerFn = (
+  selector: string,
+  episode: unknown,
+  config: unknown
+) => Promise<PodloveStore>
 
 type PodloveWindow = Window & {
   podlovePlayer?: PodlovePlayerFn
@@ -23,6 +34,7 @@ type PodloveWindow = Window & {
     activeMode: 'light' | 'dark'
     observer: IntersectionObserver | null
     payloads: Map<HTMLElement, PodlovePayload>
+    stores: Map<HTMLElement, Promise<any>>
     scriptPromise: Promise<void> | null
   }
 }
@@ -30,6 +42,8 @@ type PodloveWindow = Window & {
 const PODLOVE_SCRIPT_SELECTOR = 'script[data-podlove-embed]'
 const PODLOVE_SCRIPT_URL = 'https://cdn.podlove.org/web-player/5.x/embed.js'
 const IFRAME_THEME_STYLE_ID = 'twz-podlove-theme'
+const REQUEST_PLAYTIME = 'PLAYER_REQUEST_PLAYTIME'
+const REQUEST_PLAY = 'PLAYER_REQUEST_PLAY'
 
 const DEFAULT_VISIBLE_COMPONENTS = [
   'poster',
@@ -384,18 +398,167 @@ const remountPlayersForTheme = (win: PodloveWindow): void => {
   }
 }
 
-const mountPlayer = (payload: PodlovePayload): void => {
-  const win = window as PodloveWindow
-  const element = document.querySelector<HTMLElement>(payload.selector)
+const getPrimaryPlayerStore = (): Promise<PodloveStore> | null => {
+  const state = (window as PodloveWindow).__twzPodloveState
+  if (!state || state.stores.size === 0) {
+    return null
+  }
 
-  if (!element || element.dataset.podloveMounted === '1') {
+  const firstEntry = state.stores.values().next()
+  return firstEntry.done ? null : firstEntry.value
+}
+
+const getPrimaryPlayerHost = (): HTMLElement | null => {
+  return document.querySelector<HTMLElement>('[data-podlove-player]')
+}
+
+const waitForPlayerReady = (store: PodloveStore): Promise<PodloveStore> => {
+  const currentLifecycle = store.getState?.().lifecycle
+  if (currentLifecycle === 'ready' || typeof store.subscribe !== 'function') {
+    return Promise.resolve(store)
+  }
+
+  return new Promise((resolve) => {
+    const unsubscribe = store.subscribe?.(() => {
+      if (store.getState?.().lifecycle !== 'ready') {
+        return
+      }
+
+      unsubscribe?.()
+      resolve(store)
+    })
+  })
+}
+
+const nextAnimationFrame = (): Promise<void> => {
+  return new Promise((resolve) => {
+    window.requestAnimationFrame(() => resolve())
+  })
+}
+
+const settlePlayerAfterReady = async (store: PodloveStore): Promise<PodloveStore> => {
+  await Promise.resolve()
+  await nextAnimationFrame()
+
+  return store
+}
+
+const requestPlayerSeek = (store: PodloveStore, playtime: number): void => {
+  store.dispatch({ type: REQUEST_PLAYTIME, payload: playtime })
+}
+
+const ensurePrimaryPlayerStore = (): Promise<PodloveStore> | null => {
+  const existingStore = getPrimaryPlayerStore()
+  if (existingStore) {
+    return existingStore
+  }
+
+  const win = window as PodloveWindow
+  const state = win.__twzPodloveState
+  if (!state || state.payloads.size === 0) {
+    return null
+  }
+
+  const firstPayload = state.payloads.values().next()
+  if (firstPayload.done) {
+    return null
+  }
+
+  return mountPlayer(firstPayload.value)
+}
+
+const setActiveTranscriptTimestamp = (button: HTMLButtonElement): void => {
+  for (const timestampButton of document.querySelectorAll<HTMLButtonElement>(
+    '.tw-transcript-timestamp'
+  )) {
+    if (timestampButton === button) {
+      timestampButton.dataset.playerActive = '1'
+      timestampButton.setAttribute('aria-current', 'true')
+      continue
+    }
+
+    delete timestampButton.dataset.playerActive
+    timestampButton.removeAttribute('aria-current')
+  }
+}
+
+const initTranscriptTimestampLinks = (): void => {
+  if (document.documentElement.dataset.twzTranscriptTimestampListener === '1') {
     return
   }
 
-  loadPodloveScript(win)
+  document.addEventListener('click', (event) => {
+    const target = event.target
+    if (!(target instanceof HTMLElement)) {
+      return
+    }
+
+    const button = target.closest<HTMLButtonElement>('.tw-transcript-timestamp[data-timestamp]')
+    if (!button) {
+      return
+    }
+
+    const playtime = Number(button.dataset.timestamp)
+    if (!Number.isFinite(playtime) || playtime < 0) {
+      return
+    }
+
+    const storePromise = ensurePrimaryPlayerStore()
+    if (!storePromise) {
+      return
+    }
+
+    event.preventDefault()
+    button.dataset.playerPending = '1'
+
+    storePromise
+      .then((store) => waitForPlayerReady(store))
+      .then((store) => settlePlayerAfterReady(store))
+      .then(async (store) => {
+        if (!store || typeof store.dispatch !== 'function') {
+          return
+        }
+
+        requestPlayerSeek(store, playtime)
+        store.dispatch({ type: REQUEST_PLAY })
+        await nextAnimationFrame()
+        requestPlayerSeek(store, playtime)
+
+        delete button.dataset.playerPending
+        setActiveTranscriptTimestamp(button)
+
+        const playerHost = getPrimaryPlayerHost()
+        playerHost?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      })
+      .catch(() => {
+        delete button.dataset.playerPending
+        // Ignore player access errors and keep transcript links inert.
+      })
+  })
+
+  document.documentElement.dataset.twzTranscriptTimestampListener = '1'
+}
+
+const mountPlayer = (payload: PodlovePayload): Promise<PodloveStore> | null => {
+  const win = window as PodloveWindow
+  const element = document.querySelector<HTMLElement>(payload.selector)
+
+  if (!element) {
+    return null
+  }
+
+  if (payload.storePromise) {
+    return payload.storePromise
+  }
+
+  if (element.dataset.podloveMounted === '1') {
+    return win.__twzPodloveState?.stores.get(element) ?? null
+  }
+
+  const storePromise = loadPodloveScript(win)
     .then(() => {
       if (!win.podlovePlayer || element.dataset.podloveMounted === '1') {
-        return
+        return win.__twzPodloveState?.stores.get(element) ?? payload.storePromise ?? null
       }
 
       if (payload.variant) {
@@ -436,13 +599,25 @@ const mountPlayer = (payload: PodlovePayload): void => {
         configForMount = configObject
       }
 
-      win.podlovePlayer(payload.selector, payload.episode, configForMount)
+      const mountedStorePromise = win.podlovePlayer(
+        payload.selector,
+        payload.episode,
+        configForMount
+      )
+      payload.storePromise = mountedStorePromise
+      win.__twzPodloveState?.stores.set(element, mountedStorePromise)
       element.dataset.podloveMounted = '1'
       applyIframeTheme(element, getActiveColorMode())
+      return mountedStorePromise
     })
     .catch(() => {
       // Keep the page stable if the external player script cannot be loaded.
+      return Promise.reject(new Error('Podlove player mount failed'))
     })
+
+  payload.storePromise = storePromise
+  win.__twzPodloveState?.stores.set(element, storePromise)
+  return storePromise
 }
 
 export const initPodlovePlayers = (): void => {
@@ -453,9 +628,12 @@ export const initPodlovePlayers = (): void => {
       activeMode: getActiveColorMode(),
       observer: null,
       payloads: new Map(),
+      stores: new Map(),
       scriptPromise: null,
     }
   }
+
+  initTranscriptTimestampLinks()
 
   const entries = Array.from(document.querySelectorAll<HTMLElement>('[data-podlove-player]'))
   if (entries.length === 0) {

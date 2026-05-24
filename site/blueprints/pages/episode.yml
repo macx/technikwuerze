@@ -35,26 +35,8 @@ tabs:
             type: date
             width: 1/3
             time: true
-          text:
-            label:
-              de: Text
-              en: Text
-            type: markdown
-            size: large
-            font: monospace
-            buttons:
-              - headlines
-              - divider
-              - bold
-              - italic
-              - code
-              - divider
-              - link
-              - file
-              - divider
-              - blockquote
-              - ul
-              - ol
+          blocks:
+            extends: fields/episode-blocks
   comments:
     label:
       de: Kommentare

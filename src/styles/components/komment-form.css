@@ -1,5 +1,6 @@
 .form-komments {
   margin-block-start: var(--sp-content);
+  font-size: var(--fs-root);
 
   .kommentform-header {
     display: flex;

@@ -1,0 +1,58 @@
+name:
+  en: Transcript
+  de: Transkript
+icon: text
+preview: transcript
+wysiwyg: true
+fields:
+  headline:
+    type: text
+    label:
+      en: Headline
+      de: Überschrift
+    default: Transkript
+  intro:
+    type: textarea
+    size: small
+    label:
+      en: Intro
+      de: Einleitung
+  segments:
+    type: structure
+    label:
+      en: Segments
+      de: Abschnitte
+    columns:
+      speaker:
+        width: 1/4
+      timestamp:
+        width: 1/6
+      text:
+        width: 7/12
+    fields:
+      speaker:
+        type: text
+        width: 1/3
+        label:
+          en: Speaker
+          de: Sprecher
+      timestamp:
+        type: text
+        width: 1/6
+        label:
+          en: Timestamp
+          de: Zeitstempel
+        placeholder: 00:48
+      text:
+        type: markdown
+        width: 1/1
+        label:
+          en: Text
+          de: Text
+        buttons:
+          - bold
+          - italic
+          - link
+          - ul
+          - ol
+        size: medium

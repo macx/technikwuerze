@@ -25,6 +25,8 @@ Dieser Ordner enthält einmalige/temporäre Import-Artefakte für die Technikwü
   Übernimmt Datum, Summary und Content aus WordPress-XML in Episoden.
 - `normalize_episode_markdown.php`  
   Normalisiert importierte Inhalte auf Markdown.
+- `rename_episode_slugs_to_tw.php`
+  Vereinheitlicht Episoden-Slugteile auf `tw{gesamtfolge}-{titel}` (staffelweise, mit Dry-Run/Apply).
 - `import_wp_comments_to_komments_sqlite.php`  
   Importiert WordPress-Kommentare in `content/.db/komments.sqlite`.
 - `map_legacy_reply_mentions.php`  

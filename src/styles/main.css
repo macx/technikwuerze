@@ -49,3 +49,4 @@ COMPONENTS
 @import '@plugins/technikwuerze/assets/teaser.css' layer(components);
 @import '@plugins/technikwuerze/assets/handwritten.css' layer(components);
 @import '@plugins/technikwuerze/assets/testimonials.css' layer(components);
+@import '@plugins/technikwuerze/assets/transcript.css' layer(components);
