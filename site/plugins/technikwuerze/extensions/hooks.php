@@ -3,6 +3,8 @@
 declare(strict_types=1);
 
 use Kirby\Cms\Page;
+use Kirby\Cms\File;
+use Kirby\Http\Response;
 
 return [
   'file.create:after' => function ($file) {
@@ -43,5 +45,24 @@ return [
   },
   'komments.comment.replied' => function ($comment) {
     twSearchHandleCommentChange($comment);
+  },
+  'route:after' => function ($route, string $path, string $method, $result, bool $final) {
+    if (option('debug') !== true) {
+      return $result;
+    }
+
+    if ($method !== 'GET') {
+      return $result;
+    }
+
+    if (str_contains($path, '/download/') !== true) {
+      return $result;
+    }
+
+    if ($result instanceof File !== true) {
+      return $result;
+    }
+
+    return Response::file($result->root());
   },
 ];

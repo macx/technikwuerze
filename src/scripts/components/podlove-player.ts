@@ -14,6 +14,11 @@ type PodloveStore = {
   subscribe?: (listener: () => void) => () => void
 }
 
+type TranscriptTimestampPoint = {
+  button: HTMLButtonElement
+  playtime: number
+}
+
 type PodloveConfig = {
   theme?: {
     tokens?: Record<string, string>
@@ -44,6 +49,25 @@ const PODLOVE_SCRIPT_URL = 'https://cdn.podlove.org/web-player/5.x/embed.js'
 const IFRAME_THEME_STYLE_ID = 'twz-podlove-theme'
 const REQUEST_PLAYTIME = 'PLAYER_REQUEST_PLAYTIME'
 const REQUEST_PLAY = 'PLAYER_REQUEST_PLAY'
+const PODLOVE_STATE_PATHS: Array<Array<string>> = [
+  ['playtime'],
+  ['playtimeMs'],
+  ['runtime', 'playtime'],
+  ['runtime', 'playtimeMs'],
+  ['player', 'playtime'],
+  ['player', 'playtimeMs'],
+  ['position'],
+  ['runtime', 'position'],
+  ['player', 'position'],
+  ['currentTime'],
+  ['runtime', 'currentTime'],
+  ['player', 'currentTime'],
+  ['timepiece', 'playtime'],
+  ['timepiece', 'position'],
+  ['time'],
+  ['runtime', 'time'],
+]
+const transcriptSyncedStores = new WeakSet<PodloveStore>()
 
 const DEFAULT_VISIBLE_COMPONENTS = [
   'poster',
@@ -447,6 +471,135 @@ const requestPlayerSeek = (store: PodloveStore, playtime: number): void => {
   store.dispatch({ type: REQUEST_PLAYTIME, payload: playtime })
 }
 
+const getTranscriptTimestampPoints = (): Array<TranscriptTimestampPoint> => {
+  const points: Array<TranscriptTimestampPoint> = []
+
+  for (const button of document.querySelectorAll<HTMLButtonElement>(
+    '.tw-transcript-timestamp[data-timestamp]'
+  )) {
+    const playtime = Number(button.dataset.timestamp)
+    if (!Number.isFinite(playtime) || playtime < 0) {
+      continue
+    }
+
+    points.push({ button, playtime })
+  }
+
+  points.sort((a, b) => a.playtime - b.playtime)
+  return points
+}
+
+const getValueAtPath = (source: unknown, path: Array<string>): unknown => {
+  let current: unknown = source
+
+  for (const segment of path) {
+    if (!current || typeof current !== 'object') {
+      return undefined
+    }
+
+    if (typeof (current as { get?: (key: string) => unknown }).get === 'function') {
+      current = (current as { get: (key: string) => unknown }).get(segment)
+      continue
+    }
+
+    if (Array.isArray(current)) {
+      return undefined
+    }
+
+    current = (current as Record<string, unknown>)[segment]
+  }
+
+  return current
+}
+
+const normalizePlaytimeToMilliseconds = (
+  playtime: number,
+  points: Array<TranscriptTimestampPoint>
+): number => {
+  const maxTimestamp = points.length > 0 ? points[points.length - 1].playtime : 0
+
+  // Heuristic: transcript timestamps are in ms; if store value looks like seconds, convert.
+  if (maxTimestamp >= 60_000 && playtime > 0 && playtime < maxTimestamp / 20) {
+    return playtime * 1000
+  }
+
+  return playtime
+}
+
+const getStorePlaytime = (store: PodloveStore): number | null => {
+  const rawState = store.getState?.()
+  if (!rawState || typeof rawState !== 'object') {
+    return null
+  }
+
+  const state =
+    typeof (rawState as { toJS?: () => unknown }).toJS === 'function'
+      ? (rawState as { toJS: () => unknown }).toJS()
+      : rawState
+
+  const points = getTranscriptTimestampPoints()
+
+  for (const path of PODLOVE_STATE_PATHS) {
+    const value = getValueAtPath(state, path)
+    if (typeof value !== 'number' || Number.isFinite(value) !== true || value < 0) {
+      continue
+    }
+
+    return normalizePlaytimeToMilliseconds(value, points)
+  }
+
+  return null
+}
+
+const syncActiveTranscriptTimestamp = (playtime: number): void => {
+  const points = getTranscriptTimestampPoints()
+  if (points.length === 0) {
+    return
+  }
+
+  const normalizedPlaytime = normalizePlaytimeToMilliseconds(playtime, points)
+
+  let active = points[0]
+  for (const point of points) {
+    if (point.playtime > normalizedPlaytime) {
+      break
+    }
+
+    active = point
+  }
+
+  setActiveTranscriptTimestamp(active.button)
+}
+
+const syncTranscriptTimestampsWithStore = (store: PodloveStore): void => {
+  if (transcriptSyncedStores.has(store) || typeof store.subscribe !== 'function') {
+    return
+  }
+
+  transcriptSyncedStores.add(store)
+
+  let frameRequested = false
+  const scheduleSync = () => {
+    if (frameRequested) {
+      return
+    }
+
+    frameRequested = true
+    window.requestAnimationFrame(() => {
+      frameRequested = false
+      const playtime = getStorePlaytime(store)
+      if (playtime === null) {
+        return
+      }
+
+      syncActiveTranscriptTimestamp(playtime)
+    })
+  }
+
+  store.subscribe(scheduleSync)
+  scheduleSync()
+}
+
 const ensurePrimaryPlayerStore = (): Promise<PodloveStore> | null => {
   const existingStore = getPrimaryPlayerStore()
   if (existingStore) {
@@ -604,6 +757,15 @@ const mountPlayer = (payload: PodlovePayload): Promise<PodloveStore> | null => {
         payload.episode,
         configForMount
       )
+      void mountedStorePromise
+        .then((store) => waitForPlayerReady(store))
+        .then((store) => {
+          syncTranscriptTimestampsWithStore(store)
+        })
+        .catch(() => {
+          // Ignore store subscription errors and keep transcript links inert.
+        })
+
       payload.storePromise = mountedStorePromise
       win.__twzPodloveState?.stores.set(element, mountedStorePromise)
       element.dataset.podloveMounted = '1'
