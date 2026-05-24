@@ -73,8 +73,13 @@ $timestampToMs = static function (string $value): int {
                   type="button"
                   class="tw-transcript-timestamp"
                   data-timestamp="<?= $timestampMs ?>"
-                  aria-label="Springe zu <?= esc($timestamp, 'attr') ?>"
-                ><?= esc($timestamp) ?></button>
+                  aria-label="Springe zu <?= $speaker !== ''
+                    ? esc($speaker . ' bei ' . $timestamp, 'attr')
+                    : esc($timestamp, 'attr') ?>"
+                >
+                  <span class="tw-transcript-timestamp-icon" aria-hidden="true"></span>
+                  <span class="tw-transcript-timestamp-time"><?= esc($timestamp) ?></span>
+                </button>
               <?php endif; ?>
             </header>
           <?php endif; ?>
