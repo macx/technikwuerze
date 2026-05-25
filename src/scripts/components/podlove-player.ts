@@ -688,7 +688,10 @@ const shouldFollowActiveChange = (activePlaytime: number): boolean => {
   return true
 }
 
-const shouldIgnoreManualSeekEndGlitch = (playtime: number, points: Array<TranscriptTimestampPoint>): boolean => {
+const shouldIgnoreManualSeekEndGlitch = (
+  playtime: number,
+  points: Array<TranscriptTimestampPoint>
+): boolean => {
   if (lastManualTranscriptSeekPlaytime === null) {
     return false
   }
