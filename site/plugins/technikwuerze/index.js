@@ -287,23 +287,6 @@ panel.plugin('tw/brand', {
         </div>
       `,
     },
-    transcript: {
-      computed: {
-        title() {
-          return fallback(this.content.headline, 'Transkript')
-        },
-        count() {
-          return structureCount(this.content.segments)
-        },
-      },
-      template: `
-        <div class="twz-block-preview">
-          <p class="kicker">Transkript</p>
-          <h3 class="title">{{ title }}</h3>
-          <p class="meta">{{ count }} Abschnitte</p>
-        </div>
-      `,
-    },
   },
   fields: {
     'tw-search-reindex': {

@@ -64,6 +64,8 @@
   },
 
   // Git configuration hints
+  "git.autoRepositoryDetection": "subFolders",
+  "git.scanRepositories": ["site/plugins/kirby-tw-transcript"],
   "git.ignoredRepositories": ["${workspaceFolder}/content"],
 
   // TypeScript/JavaScript

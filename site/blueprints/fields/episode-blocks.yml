@@ -11,7 +11,7 @@ fieldsets:
       - text
       - list
       - address
-      - transcript
+      - tw-transcript
   media:
     label:
       en: Media
