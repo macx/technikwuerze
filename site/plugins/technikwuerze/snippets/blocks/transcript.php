@@ -6,6 +6,7 @@
 $headline = trim((string) $block->headline()->value());
 $intro = trim((string) $block->intro()->value());
 $segments = $block->segments()->toStructure();
+$repeatSpeakerPerSegment = $block->repeatSpeakerPerSegment()->toBool();
 
 if ($segments->isEmpty()) {
   return;
@@ -36,6 +37,21 @@ $timestampToMs = static function (string $value): int {
 
   return ((int) $matches[1] * 60 + (int) $matches[2]) * 1000;
 };
+
+$uniqueSpeakers = [];
+foreach ($segments as $segment) {
+  $speaker = trim((string) $segment->speaker()->value());
+  if ($speaker === '') {
+    continue;
+  }
+
+  if (!in_array($speaker, $uniqueSpeakers, true)) {
+    $uniqueSpeakers[] = $speaker;
+  }
+}
+
+$singleSpeakerName = count($uniqueSpeakers) === 1 ? $uniqueSpeakers[0] : '';
+$showGlobalSpeaker = $singleSpeakerName !== '' && $repeatSpeakerPerSegment === false;
 ?>
 <section class="tw-transcript" aria-labelledby="<?= $headline !== ''
   ? esc($block->id(), 'attr') . '-headline'
@@ -48,6 +64,13 @@ $timestampToMs = static function (string $value): int {
     <div class="tw-transcript-intro"><?= $block->intro()->kt() ?></div>
   <?php endif; ?>
 
+  <?php if ($showGlobalSpeaker): ?>
+    <p class="tw-transcript-global-speaker">
+      <span class="tw-transcript-global-speaker-label">Sprecher:</span>
+      <span class="tw-transcript-speaker"><?= esc($singleSpeakerName) ?></span>
+    </p>
+  <?php endif; ?>
+
   <ol class="tw-transcript-segments" id="<?= esc($block->id(), 'attr') ?>-segments">
     <?php foreach ($segments as $segment): ?>
       <?php
@@ -55,6 +78,8 @@ $timestampToMs = static function (string $value): int {
       $timestamp = trim((string) $segment->timestamp()->value());
       $timestampMs = $timestampToMs($timestamp);
       $text = trim((string) $segment->text()->value());
+      $showSpeakerInSegment = $speaker !== '' && !$showGlobalSpeaker;
+      $labelSpeaker = $speaker !== '' ? $speaker : $singleSpeakerName;
 
       if ($speaker === '' && $timestamp === '' && $text === '') {
         continue;
@@ -62,9 +87,9 @@ $timestampToMs = static function (string $value): int {
       ?>
       <li class="tw-transcript-segment">
         <article>
-          <?php if ($speaker !== '' || $timestamp !== ''): ?>
+          <?php if ($showSpeakerInSegment || $timestamp !== ''): ?>
             <header class="tw-transcript-segment-meta">
-              <?php if ($speaker !== ''): ?>
+              <?php if ($showSpeakerInSegment): ?>
                 <span class="tw-transcript-speaker"><?= esc($speaker) ?></span>
               <?php endif; ?>
 
@@ -73,8 +98,8 @@ $timestampToMs = static function (string $value): int {
                   type="button"
                   class="tw-transcript-timestamp"
                   data-timestamp="<?= $timestampMs ?>"
-                  aria-label="Springe zu <?= $speaker !== ''
-                    ? esc($speaker . ' bei ' . $timestamp, 'attr')
+                  aria-label="Springe zu <?= $labelSpeaker !== ''
+                    ? esc($labelSpeaker . ' bei ' . $timestamp, 'attr')
                     : esc($timestamp, 'attr') ?>"
                 >
                   <span class="tw-transcript-timestamp-icon" aria-hidden="true"></span>

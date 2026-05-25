@@ -11,6 +11,17 @@
       margin-block-end: var(--sp);
     }
 
+    .tw-transcript-global-speaker {
+      margin-block: 0 var(--sp-s);
+      color: var(--clr-text-light);
+      font-size: var(--fs-s);
+    }
+
+    .tw-transcript-global-speaker-label {
+      font-weight: var(--fw-medium);
+      margin-inline-end: 0.35rem;
+    }
+
     .tw-transcript-segments {
       list-style: none;
       padding: 0;
@@ -23,6 +34,7 @@
       margin: 0;
       padding-block-start: 0.9rem;
       border-block-start: 1px solid var(--clr-border-bright);
+      scroll-margin-top: calc(var(--header-size) + var(--sp) + var(--sp));
     }
 
     .tw-transcript-segment-meta {

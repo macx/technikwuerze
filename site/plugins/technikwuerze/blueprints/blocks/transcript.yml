@@ -17,6 +17,21 @@ fields:
     label:
       en: Intro
       de: Einleitung
+  repeatSpeakerPerSegment:
+    type: toggle
+    width: 1/2
+    default: false
+    text:
+      - en: 'No'
+        de: 'Nein'
+      - en: 'Yes'
+        de: 'Ja'
+    label:
+      en: Repeat speaker name in each segment
+      de: Sprechername in jedem Abschnitt wiederholen
+    help:
+      en: If disabled and only one speaker exists, the speaker is shown once above the transcript.
+      de: Wenn deaktiviert und nur ein Sprecher vorhanden ist, wird der Name einmal oberhalb des Transkripts angezeigt.
   segments:
     type: structure
     label:

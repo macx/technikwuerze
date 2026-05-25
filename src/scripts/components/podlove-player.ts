@@ -68,6 +68,17 @@ const PODLOVE_STATE_PATHS: Array<Array<string>> = [
   ['runtime', 'time'],
 ]
 const transcriptSyncedStores = new WeakSet<PodloveStore>()
+const MAX_AUTO_FOLLOW_JUMP_MS = 180_000
+let lastActiveTranscriptPlaytime: number | null = null
+let lastAutoFollowAt = 0
+const AUTO_FOLLOW_MIN_INTERVAL_MS = 700
+const MANUAL_SEEK_GLITCH_GUARD_MS = 20_000
+const MANUAL_SEEK_NEAR_START_MS = 30_000
+const END_OF_TRACK_TOLERANCE_MS = 1_500
+const END_OF_TRACK_GLITCH_RATIO = 0.85
+const END_OF_TRACK_GLITCH_MIN_JUMP_MS = 45_000
+let lastManualTranscriptSeekAt = 0
+let lastManualTranscriptSeekPlaytime: number | null = null
 
 const DEFAULT_VISIBLE_COMPONENTS = [
   'poster',
@@ -471,12 +482,26 @@ const requestPlayerSeek = (store: PodloveStore, playtime: number): void => {
   store.dispatch({ type: REQUEST_PLAYTIME, payload: playtime })
 }
 
-const getTranscriptTimestampPoints = (): Array<TranscriptTimestampPoint> => {
+const isSyncableTranscriptButton = (button: HTMLButtonElement): boolean => {
+  const segment = button.closest<HTMLElement>('.tw-transcript-segment')
+  if (!segment) {
+    return false
+  }
+
+  const content = segment.querySelector<HTMLElement>('.tw-transcript-content')
+  return (content?.textContent ?? '').trim() !== ''
+}
+
+const getTranscriptTimestampPoints = (syncableOnly = false): Array<TranscriptTimestampPoint> => {
   const points: Array<TranscriptTimestampPoint> = []
 
   for (const button of document.querySelectorAll<HTMLButtonElement>(
     '.tw-transcript-timestamp[data-timestamp]'
   )) {
+    if (syncableOnly && !isSyncableTranscriptButton(button)) {
+      continue
+    }
+
     const playtime = Number(button.dataset.timestamp)
     if (!Number.isFinite(playtime) || playtime < 0) {
       continue
@@ -537,7 +562,9 @@ const getStorePlaytime = (store: PodloveStore): number | null => {
       ? (rawState as { toJS: () => unknown }).toJS()
       : rawState
 
-  const points = getTranscriptTimestampPoints()
+  const points = getTranscriptTimestampPoints(true)
+  const fallbackPoints = points.length > 0 ? points : getTranscriptTimestampPoints(false)
+  const maxTimestamp = fallbackPoints[fallbackPoints.length - 1]?.playtime ?? 0
 
   for (const path of PODLOVE_STATE_PATHS) {
     const value = getValueAtPath(state, path)
@@ -545,19 +572,165 @@ const getStorePlaytime = (store: PodloveStore): number | null => {
       continue
     }
 
-    return normalizePlaytimeToMilliseconds(value, points)
+    const normalized = normalizePlaytimeToMilliseconds(value, fallbackPoints)
+
+    // Reject values that look like duration/metadata instead of current position.
+    if (maxTimestamp > 0 && normalized > maxTimestamp + 30_000) {
+      continue
+    }
+
+    return normalized
   }
 
   return null
 }
 
+const hasTranscriptTimestamps = (): boolean =>
+  document.querySelector('.tw-transcript-timestamp[data-timestamp]') !== null
+
+const updateStickyPlayerAvailability = (): void => {
+  const stickyPlayers = document.querySelectorAll<HTMLElement>('.episode-player-sticky')
+  const enableSticky = hasTranscriptTimestamps()
+
+  for (const stickyPlayer of stickyPlayers) {
+    stickyPlayer.classList.toggle('is-sticky-enabled', enableSticky)
+  }
+}
+
+const getStickyHeaderOffset = (): number => {
+  const rootStyles = window.getComputedStyle(document.documentElement)
+  const header = Number.parseFloat(rootStyles.getPropertyValue('--header-size')) || 0
+  const content = Number.parseFloat(rootStyles.getPropertyValue('--sp-content')) || 0
+  return Math.max(0, header + content)
+}
+
+const getStickyPlayerBottomOffset = (): number => {
+  const headerOffset = getStickyHeaderOffset()
+  const stickyPlayer = document.querySelector<HTMLElement>(
+    '.episode-player-sticky.is-sticky-enabled'
+  )
+  if (!stickyPlayer) {
+    return headerOffset
+  }
+
+  const rect = stickyPlayer.getBoundingClientRect()
+  const stickyTop = Number.parseFloat(
+    window.getComputedStyle(stickyPlayer).getPropertyValue('top') || '0'
+  )
+
+  // Only reserve player space while it is actually pinned at the top.
+  if (Math.abs(rect.top - stickyTop) > 2 || rect.bottom <= headerOffset) {
+    return headerOffset
+  }
+
+  // Cap reservation so large player heights can't force scroll target to page top.
+  const cappedBottom = Math.min(rect.bottom, window.innerHeight * 0.55)
+  return Math.max(headerOffset, cappedBottom)
+}
+
+const getTranscriptFollowOffset = (): number => getStickyPlayerBottomOffset() + 16
+
+const shouldAutoFollowTranscript = (button: HTMLButtonElement): boolean => {
+  const transcriptRoot = button.closest<HTMLElement>('.tw-transcript')
+  if (!transcriptRoot) {
+    return false
+  }
+
+  const rect = transcriptRoot.getBoundingClientRect()
+  const viewportTop = getTranscriptFollowOffset()
+  return rect.bottom > viewportTop && rect.top < window.innerHeight
+}
+
+const followActiveTranscriptEntry = (button: HTMLButtonElement): void => {
+  if (!shouldAutoFollowTranscript(button)) {
+    return
+  }
+
+  const now = Date.now()
+  if (now - lastAutoFollowAt < AUTO_FOLLOW_MIN_INTERVAL_MS) {
+    return
+  }
+
+  const segment = button.closest<HTMLElement>('.tw-transcript-segment')
+  if (!segment) {
+    return
+  }
+
+  const stickyOffset = getTranscriptFollowOffset()
+  const segmentTop = window.scrollY + segment.getBoundingClientRect().top
+  const targetTop = Math.max(segmentTop - stickyOffset, 0)
+
+  if (Math.abs(window.scrollY - targetTop) < 2) {
+    return
+  }
+
+  window.scrollTo({ top: targetTop, behavior: 'smooth' })
+  lastAutoFollowAt = now
+}
+
+const shouldFollowActiveChange = (activePlaytime: number): boolean => {
+  if (lastActiveTranscriptPlaytime === null) {
+    lastActiveTranscriptPlaytime = activePlaytime
+    return false
+  }
+
+  const delta = activePlaytime - lastActiveTranscriptPlaytime
+  lastActiveTranscriptPlaytime = activePlaytime
+
+  if (delta <= 0) {
+    return false
+  }
+
+  if (delta > MAX_AUTO_FOLLOW_JUMP_MS) {
+    return false
+  }
+
+  return true
+}
+
+const shouldIgnoreManualSeekEndGlitch = (playtime: number, points: Array<TranscriptTimestampPoint>): boolean => {
+  if (lastManualTranscriptSeekPlaytime === null) {
+    return false
+  }
+
+  const elapsedSinceManualSeek = Date.now() - lastManualTranscriptSeekAt
+  if (elapsedSinceManualSeek > MANUAL_SEEK_GLITCH_GUARD_MS) {
+    lastManualTranscriptSeekPlaytime = null
+    return false
+  }
+
+  if (lastManualTranscriptSeekPlaytime > MANUAL_SEEK_NEAR_START_MS) {
+    return false
+  }
+
+  const endPlaytime = points[points.length - 1]?.playtime ?? 0
+  if (endPlaytime <= 0) {
+    return false
+  }
+
+  const jumpFromManual = playtime - lastManualTranscriptSeekPlaytime
+  if (jumpFromManual < END_OF_TRACK_GLITCH_MIN_JUMP_MS) {
+    return false
+  }
+
+  const nearEndByTolerance = playtime >= endPlaytime - END_OF_TRACK_TOLERANCE_MS
+  const nearEndByRatio = playtime >= endPlaytime * END_OF_TRACK_GLITCH_RATIO
+
+  return nearEndByTolerance || nearEndByRatio
+}
+
 const syncActiveTranscriptTimestamp = (playtime: number): void => {
-  const points = getTranscriptTimestampPoints()
+  const points = getTranscriptTimestampPoints(true)
   if (points.length === 0) {
+    lastActiveTranscriptPlaytime = null
     return
   }
 
   const normalizedPlaytime = normalizePlaytimeToMilliseconds(playtime, points)
+
+  if (shouldIgnoreManualSeekEndGlitch(normalizedPlaytime, points)) {
+    return
+  }
 
   let active = points[0]
   for (const point of points) {
@@ -568,7 +741,10 @@ const syncActiveTranscriptTimestamp = (playtime: number): void => {
     active = point
   }
 
-  setActiveTranscriptTimestamp(active.button)
+  const changed = setActiveTranscriptTimestamp(active.button)
+  if (changed && shouldFollowActiveChange(active.playtime)) {
+    followActiveTranscriptEntry(active.button)
+  }
 }
 
 const syncTranscriptTimestampsWithStore = (store: PodloveStore): void => {
@@ -577,6 +753,8 @@ const syncTranscriptTimestampsWithStore = (store: PodloveStore): void => {
   }
 
   transcriptSyncedStores.add(store)
+  let initialPlaytimeSettled = false
+  let suspiciousInitialIgnoredCount = 0
 
   let frameRequested = false
   const scheduleSync = () => {
@@ -590,6 +768,23 @@ const syncTranscriptTimestampsWithStore = (store: PodloveStore): void => {
       const playtime = getStorePlaytime(store)
       if (playtime === null) {
         return
+      }
+
+      if (!initialPlaytimeSettled) {
+        const points = getTranscriptTimestampPoints(true)
+        const maxPlaytime = points[points.length - 1]?.playtime ?? 0
+
+        // Some players report duration first; skip a few of those frames.
+        if (
+          maxPlaytime > 0 &&
+          playtime >= maxPlaytime - 1_000 &&
+          suspiciousInitialIgnoredCount < 5
+        ) {
+          suspiciousInitialIgnoredCount += 1
+          return
+        }
+
+        initialPlaytimeSettled = true
       }
 
       syncActiveTranscriptTimestamp(playtime)
@@ -620,19 +815,37 @@ const ensurePrimaryPlayerStore = (): Promise<PodloveStore> | null => {
   return mountPlayer(firstPayload.value)
 }
 
-const setActiveTranscriptTimestamp = (button: HTMLButtonElement): void => {
+const setActiveTranscriptTimestamp = (button: HTMLButtonElement): boolean => {
+  let changed = false
+
   for (const timestampButton of document.querySelectorAll<HTMLButtonElement>(
     '.tw-transcript-timestamp'
   )) {
     if (timestampButton === button) {
+      if (
+        timestampButton.dataset.playerActive !== '1' ||
+        timestampButton.getAttribute('aria-current') !== 'true'
+      ) {
+        changed = true
+      }
+
       timestampButton.dataset.playerActive = '1'
       timestampButton.setAttribute('aria-current', 'true')
       continue
     }
 
+    if (
+      timestampButton.dataset.playerActive === '1' ||
+      timestampButton.getAttribute('aria-current') === 'true'
+    ) {
+      changed = true
+    }
+
     delete timestampButton.dataset.playerActive
     timestampButton.removeAttribute('aria-current')
   }
+
+  return changed
 }
 
 const initTranscriptTimestampLinks = (): void => {
@@ -679,6 +892,10 @@ const initTranscriptTimestampLinks = (): void => {
 
         delete button.dataset.playerPending
         setActiveTranscriptTimestamp(button)
+        lastActiveTranscriptPlaytime = playtime
+        lastAutoFollowAt = Date.now()
+        lastManualTranscriptSeekAt = Date.now()
+        lastManualTranscriptSeekPlaytime = playtime
 
         const playerHost = getPrimaryPlayerHost()
         playerHost?.scrollIntoView({ behavior: 'smooth', block: 'start' })
@@ -795,6 +1012,7 @@ export const initPodlovePlayers = (): void => {
     }
   }
 
+  updateStickyPlayerAvailability()
   initTranscriptTimestampLinks()
 
   const entries = Array.from(document.querySelectorAll<HTMLElement>('[data-podlove-player]'))

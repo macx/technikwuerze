@@ -118,18 +118,20 @@ snippet('layout', slots: true);
       <?php endif; ?>
     </header>
 
-    <?php if ($page->podcasterAudio()->isNotEmpty()): ?>
-      <div class="content narrow">
-        <?php snippet(
-          'podcast-player',
-          [
-            'page' => $page,
-            'template' => $podloveTemplate,
-            'transparent' => true,
-            'mediaPosition' => 'left',
-          ],
-          slots: true,
-        ); ?>
+    <div class="episode-sections">
+      <?php if ($page->podcasterAudio()->isNotEmpty()): ?>
+        <div class="episode-player-wrapper">
+          <div class="content narrow episode-player-sticky">
+          <?php snippet(
+            'podcast-player',
+            [
+              'page' => $page,
+              'template' => $podloveTemplate,
+              'transparent' => true,
+              'mediaPosition' => 'left',
+            ],
+            slots: true,
+          ); ?>
           <?php slot(); ?>
             <div class="text-xs">
               <strong class="text-strong text-secondary">
@@ -173,14 +175,15 @@ snippet('layout', slots: true);
             <?php endif; ?>
           <?php endslot(); ?>
         <?php endsnippet(); ?>
-      </div>
-    <?php endif; ?>
+        </div>
+      <?php endif; ?>
 
-    <?php if ($contentBlocks->isNotEmpty()): ?>
-      <section class="content-text content narrow">
-        <?= $contentBlocks ?>
-      </section>
-    <?php endif; ?>
+      <?php if ($contentBlocks->isNotEmpty()): ?>
+        <section class="content-text content narrow">
+          <?= $contentBlocks ?>
+        </section>
+      <?php endif; ?>
+    </div>
 
     <?php if ($page->commentsAreEnabled()): ?>
       <hr />
