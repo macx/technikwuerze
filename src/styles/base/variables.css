@@ -90,6 +90,22 @@
   --ease-drawer-transform: cubic-bezier(0.2, 0.8, 0.2, 1);
   --dur-drawer-transform: 280ms;
 
+  /* tw-transcript plugin */
+  --tw-transcript-accent: var(--clr-primary);
+  --tw-transcript-on-accent: var(--clr-text-bright);
+  --tw-transcript-speaker-color: var(--clr-secondary);
+  --tw-transcript-text-muted: var(--clr-text-light);
+  --tw-transcript-border-color: var(--clr-border-bright);
+  --tw-transcript-spacing-block: var(--sp-l);
+  --tw-transcript-spacing-gap: var(--sp);
+  --tw-transcript-spacing-sm: var(--sp-s);
+  --tw-transcript-scroll-offset: calc(var(--header-size) + var(--sp) + var(--sp));
+  --tw-transcript-font-size-sm: var(--fs-s);
+  --tw-transcript-font-size-xs: var(--fs-xs);
+  --tw-transcript-font-weight-medium: var(--fw-medium);
+  --tw-transcript-font-weight-bold: var(--fw-bold);
+  --tw-transcript-transition: var(--transition-short);
+
   @media (width >= 48em) {
     --sp-content: 2rem;
   }
