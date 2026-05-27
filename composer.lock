@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a6cfb3484ec9f46f2533405859f0efb8",
+    "content-hash": "639e0b3a648c5d34051605b22b872d68",
     "packages": [
         {
             "name": "arnoson/kirby-form-builder",
@@ -1429,6 +1429,66 @@
                 }
             ],
             "time": "2026-05-07T15:14:56+00:00"
+        },
+        {
+            "name": "macx/kirby-tw-transcript",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/macx/kirby-tw-transcript.git",
+                "reference": "5c0fceebd9e36ca1237069a114bd575d00939cba"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/macx/kirby-tw-transcript/zipball/5c0fceebd9e36ca1237069a114bd575d00939cba",
+                "reference": "5c0fceebd9e36ca1237069a114bd575d00939cba",
+                "shasum": ""
+            },
+            "require": {
+                "getkirby/cms": "^5.0",
+                "getkirby/composer-installer": "^1.2",
+                "php": ">=8.2"
+            },
+            "default-branch": true,
+            "type": "kirby-plugin",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "0.9.x-dev"
+                },
+                "kirby": {
+                    "install": true
+                }
+            },
+            "autoload": {
+                "classmap": [
+                    "lib"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Technikwuerze",
+                    "email": "info@technikwuerze.de"
+                }
+            ],
+            "description": "Beta Kirby transcript plugin for Technikwuerze",
+            "homepage": "https://github.com/macx/kirby-tw-transcript",
+            "keywords": [
+                "kirby",
+                "kirby-plugin",
+                "panel",
+                "podcast",
+                "podlove",
+                "transcript"
+            ],
+            "support": {
+                "issues": "https://github.com/macx/kirby-tw-transcript/issues",
+                "source": "https://github.com/macx/kirby-tw-transcript",
+                "docs": "https://github.com/macx/kirby-tw-transcript#readme"
+            },
+            "time": "2026-05-27T09:10:04+00:00"
         },
         {
             "name": "matomo/matomo-php-tracker",
@@ -3529,7 +3589,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {},
+    "stability-flags": {
+        "macx/kirby-tw-transcript": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

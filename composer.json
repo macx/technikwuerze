@@ -16,8 +16,18 @@
     "medienbaecker/kirby-help-view": "^1.2",
     "vlucas/phpdotenv": "^5.6",
     "fabianmichael/kirby-markdown-field": "^4.0",
-    "mauricerenck/indieconnector": "^2.15"
+    "mauricerenck/indieconnector": "^2.15",
+    "macx/kirby-tw-transcript": "0.9.x-dev"
   },
+  "require-dev": {
+    "lukaskleinschmidt/kirby-types": "^2.0"
+  },
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/macx/kirby-tw-transcript"
+    }
+  ],
   "config": {
     "optimize-autoloader": true,
     "allow-plugins": {
@@ -28,8 +38,5 @@
     "kirby": {
       "install": true
     }
-  },
-  "require-dev": {
-    "lukaskleinschmidt/kirby-types": "^2.0"
   }
 }
