@@ -59,7 +59,9 @@
       "isBackground": true,
       "problemMatcher": {
         "owner": "vite-build",
-        "pattern": { "regexp": "." },
+        "pattern": {
+          "regexp": "."
+        },
         "background": {
           "activeOnStart": true,
           "beginsPattern": ".",
@@ -87,6 +89,42 @@
         "panel": "new",
         "close": true
       }
+    },
+    {
+      "label": "Run script",
+      "type": "shell",
+      "command": "node check-git.js",
+      "isBackground": false
+    },
+    {
+      "label": "Run script cjs",
+      "type": "shell",
+      "command": "mv check-git.js check-git.cjs && node check-git.cjs",
+      "isBackground": false
+    },
+    {
+      "label": "Run script cjs",
+      "type": "shell",
+      "command": "node check-git.cjs",
+      "isBackground": false
+    },
+    {
+      "label": "Run js",
+      "type": "shell",
+      "command": "node check-git2.js",
+      "isBackground": false
+    },
+    {
+      "label": "Cleanup",
+      "type": "shell",
+      "command": "rm -f git-out.txt check-git2.js check-git.cjs check-git.js",
+      "isBackground": false
+    },
+    {
+      "label": "Format",
+      "type": "shell",
+      "command": "pnpm run format",
+      "isBackground": false
     }
   ]
 }

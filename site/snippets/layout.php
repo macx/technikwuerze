@@ -11,7 +11,7 @@ $sharing = [
   'twitter' => 'technikwürze',
 ];
 
-$favicon = asset('assets/favicon.ico');
+$favicon = asset('assets/favicon.svg');
 ?>
 <!doctype html>
 <html lang="de" class="no-js">
@@ -35,6 +35,8 @@ $favicon = asset('assets/favicon.ico');
   <?php endif; ?>
   <?php if ($favicon->exists()): ?>
     <link rel="icon" href="<?= $favicon->url() ?>">
+  <?php else: ?>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎙️</text></svg>">
   <?php endif; ?>
 
   <?php snippet('webmention-endpoint'); ?>

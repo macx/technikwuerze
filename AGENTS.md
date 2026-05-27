@@ -185,3 +185,10 @@ Maintain and evolve the Technikwürze Kirby site safely and consistently:
 - Validate workflow YAML syntax and run a local sanity check of referenced paths.
 - Keep `ops/bootstrap-production.sh` and `ops/deploy-manual-rsync.sh` aligned with docs/workflows.
 - Prefer a dedicated deploy SSH user with write access limited to the deployment target (`html`) only.
+
+## 13) Overall Principles
+
+- Do not include comments in code to show changes or explain decisions; instead, update this `AGENTS.md` and other documentation files to reflect new patterns and conventions.
+- Always prefer explicit, readable code and configuration over implicit or "magic" behavior.
+- If writing comments to point out non-obvious behavior, consider if the code can be refactored to be more self-explanatory instead.
+- If writings comments, use english language.
