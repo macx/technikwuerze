@@ -1,6 +1,20 @@
 @charset "UTF-8";
 
-@layer base, components;
+@layer plugins, base, components;
+
+/*
+┌──────────────────────────────────┐
+  PLUGINS
+└──────────────────────────────────┘
+*/
+@import '@plugins/technikwuerze/assets/brand.css' layer(components);
+@import '@plugins/technikwuerze/assets/podcast-networks.css' layer(components);
+@import '@plugins/technikwuerze/assets/podcast-episodes.css' layer(components);
+@import '@plugins/technikwuerze/assets/podcast-stats.css' layer(components);
+@import '@plugins/technikwuerze/assets/teaser.css' layer(components);
+@import '@plugins/technikwuerze/assets/handwritten.css' layer(components);
+@import '@plugins/technikwuerze/assets/testimonials.css' layer(components);
+@import '@plugins/kirby-tw-transcript/assets/tw-transcript.css' layer(plugins);
 
 /*
 ┌──────────────────────────────────┐
@@ -36,17 +50,3 @@ COMPONENTS
 @import './components/komment-comments.css' layer(components);
 @import './components/komment-mentions.css' layer(components);
 @import './components/komment-form.css' layer(components);
-
-/*
-┌──────────────────────────────────┐
-  PLUGINS
-└──────────────────────────────────┘
-*/
-@import '@plugins/technikwuerze/assets/brand.css' layer(components);
-@import '@plugins/technikwuerze/assets/podcast-networks.css' layer(components);
-@import '@plugins/technikwuerze/assets/podcast-episodes.css' layer(components);
-@import '@plugins/technikwuerze/assets/podcast-stats.css' layer(components);
-@import '@plugins/technikwuerze/assets/teaser.css' layer(components);
-@import '@plugins/technikwuerze/assets/handwritten.css' layer(components);
-@import '@plugins/technikwuerze/assets/testimonials.css' layer(components);
-@import '@plugins/kirby-tw-transcript/assets/tw-transcript.css' layer(components);

@@ -50,7 +50,7 @@ a:any-link {
     font-size: calc(1em * var(--content-heading-scale));
   }
 
-  a:any-link {
+  :where(a:any-link) {
     color: var(--clr-primary);
     text-decoration: underline;
     text-underline-offset: 0.2em;
@@ -62,12 +62,11 @@ a:any-link {
     }
   }
 
-  p {
+  :where(p) {
     margin-block: 0 0.8em;
   }
 
-  ul,
-  ol {
+  :where(ul:not([class]), ol:not([class])) {
     margin-block: 0.6em 1.2em;
 
     li {
@@ -79,11 +78,11 @@ a:any-link {
     }
   }
 
-  ul {
+  :where(ul:not([class])) {
     padding-inline-start: 1.5em;
   }
 
-  ol {
+  :where(ol:not([class])) {
     padding-inline-start: 2em;
   }
 }

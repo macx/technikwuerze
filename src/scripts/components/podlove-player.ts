@@ -483,21 +483,19 @@ const requestPlayerSeek = (store: PodloveStore, playtime: number): void => {
 }
 
 const isSyncableTranscriptButton = (button: HTMLButtonElement): boolean => {
-  const segment = button.closest<HTMLElement>('.tw-transcript-segment')
+  const segment = button.closest<HTMLElement>('.segment')
   if (!segment) {
     return false
   }
 
-  const content = segment.querySelector<HTMLElement>('.tw-transcript-content')
+  const content = segment.querySelector<HTMLElement>('.content')
   return (content?.textContent ?? '').trim() !== ''
 }
 
 const getTranscriptTimestampPoints = (syncableOnly = false): Array<TranscriptTimestampPoint> => {
   const points: Array<TranscriptTimestampPoint> = []
 
-  for (const button of document.querySelectorAll<HTMLButtonElement>(
-    '.tw-transcript-timestamp[data-timestamp]'
-  )) {
+  for (const button of document.querySelectorAll<HTMLButtonElement>('.timestamp[data-timestamp]')) {
     if (syncableOnly && !isSyncableTranscriptButton(button)) {
       continue
     }
@@ -586,7 +584,7 @@ const getStorePlaytime = (store: PodloveStore): number | null => {
 }
 
 const hasTranscriptTimestamps = (): boolean =>
-  document.querySelector('.tw-transcript-timestamp[data-timestamp]') !== null
+  document.querySelector('.timestamp[data-timestamp]') !== null
 
 const updateStickyPlayerAvailability = (): void => {
   const stickyPlayers = document.querySelectorAll<HTMLElement>('.episode-player-sticky')
@@ -651,7 +649,7 @@ const followActiveTranscriptEntry = (button: HTMLButtonElement): void => {
     return
   }
 
-  const segment = button.closest<HTMLElement>('.tw-transcript-segment')
+  const segment = button.closest<HTMLElement>('.segment')
   if (!segment) {
     return
   }
@@ -821,9 +819,7 @@ const ensurePrimaryPlayerStore = (): Promise<PodloveStore> | null => {
 const setActiveTranscriptTimestamp = (button: HTMLButtonElement): boolean => {
   let changed = false
 
-  for (const timestampButton of document.querySelectorAll<HTMLButtonElement>(
-    '.tw-transcript-timestamp'
-  )) {
+  for (const timestampButton of document.querySelectorAll<HTMLButtonElement>('.timestamp')) {
     if (timestampButton === button) {
       if (
         timestampButton.dataset.playerActive !== '1' ||
@@ -862,7 +858,7 @@ const initTranscriptTimestampLinks = (): void => {
       return
     }
 
-    const button = target.closest<HTMLButtonElement>('.tw-transcript-timestamp[data-timestamp]')
+    const button = target.closest<HTMLButtonElement>('.timestamp[data-timestamp]')
     if (!button) {
       return
     }
@@ -981,6 +977,15 @@ const mountPlayer = (payload: PodlovePayload): Promise<PodloveStore> | null => {
         .then((store) => waitForPlayerReady(store))
         .then((store) => {
           syncTranscriptTimestampsWithStore(store)
+          // Ensure Podlove sliders do not violate a11y focus rules
+          setTimeout(() => {
+            for (const input of element.querySelectorAll<HTMLInputElement>(
+              'input[type="range"][aria-hidden="true"]'
+            )) {
+              input.removeAttribute('aria-hidden')
+              input.setAttribute('tabindex', '-1')
+            }
+          }, 300)
         })
         .catch(() => {
           // Ignore store subscription errors and keep transcript links inert.

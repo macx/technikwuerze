@@ -95,9 +95,9 @@
   --tw-transcript-on-accent: var(--clr-text-bright);
   --tw-transcript-speaker-color: var(--clr-secondary);
   --tw-transcript-text-muted: var(--clr-text-light);
-  --tw-transcript-border-color: var(--clr-border-bright);
+  --tw-transcript-border-color: var(--clr-line);
   --tw-transcript-spacing-block: var(--sp-l);
-  --tw-transcript-spacing-gap: var(--sp);
+  --tw-transcript-spacing-gap: 1em;
   --tw-transcript-spacing-sm: var(--sp-s);
   --tw-transcript-scroll-offset: calc(var(--header-size) + var(--sp) + var(--sp));
   --tw-transcript-font-size-sm: var(--fs-s);
@@ -105,6 +105,13 @@
   --tw-transcript-font-weight-medium: var(--fw-medium);
   --tw-transcript-font-weight-bold: var(--fw-bold);
   --tw-transcript-transition: var(--transition-short);
+  --tw-transcript-line-color: color-mix(
+    in srgb,
+    var(--tw-transcript-accent) 35%,
+    var(--tw-transcript-border-color)
+  );
+  --tw-transcript-bg-color: var(--clr-shade-light);
+  --tw-transcript-border-radius: var(--radius-s);
 
   @media (width >= 48em) {
     --sp-content: 2rem;
