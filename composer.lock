@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "639e0b3a648c5d34051605b22b872d68",
+    "content-hash": "b2e9824fdec59482fd70e0cc8ed3f62d",
     "packages": [
         {
             "name": "arnoson/kirby-form-builder",
@@ -1432,16 +1432,16 @@
         },
         {
             "name": "macx/kirby-tw-transcript",
-            "version": "dev-main",
+            "version": "v0.10.0-beta.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/macx/kirby-tw-transcript.git",
-                "reference": "5c0fceebd9e36ca1237069a114bd575d00939cba"
+                "reference": "23309b3d4740c92b16cb780889f9ca5a001bdd1c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/macx/kirby-tw-transcript/zipball/5c0fceebd9e36ca1237069a114bd575d00939cba",
-                "reference": "5c0fceebd9e36ca1237069a114bd575d00939cba",
+                "url": "https://api.github.com/repos/macx/kirby-tw-transcript/zipball/23309b3d4740c92b16cb780889f9ca5a001bdd1c",
+                "reference": "23309b3d4740c92b16cb780889f9ca5a001bdd1c",
                 "shasum": ""
             },
             "require": {
@@ -1449,7 +1449,6 @@
                 "getkirby/composer-installer": "^1.2",
                 "php": ">=8.2"
             },
-            "default-branch": true,
             "type": "kirby-plugin",
             "extra": {
                 "branch-alias": {
@@ -1488,7 +1487,7 @@
                 "source": "https://github.com/macx/kirby-tw-transcript",
                 "docs": "https://github.com/macx/kirby-tw-transcript#readme"
             },
-            "time": "2026-05-27T09:10:04+00:00"
+            "time": "2026-05-27T09:35:29+00:00"
         },
         {
             "name": "matomo/matomo-php-tracker",
@@ -3590,7 +3589,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "macx/kirby-tw-transcript": 20
+        "macx/kirby-tw-transcript": 10
     },
     "prefer-stable": false,
     "prefer-lowest": false,
