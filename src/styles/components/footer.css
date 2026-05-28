@@ -56,11 +56,17 @@
 }
 
 .about-us {
-  --c-clr-text: var(--clr-surface);
-  --c-clr-border: color-mix(in oklab, var(--clr-surface) 40%, transparent);
-  --social-links-hover-bg: color-mix(in oklab, white 18%, transparent);
-  --tooltip-bg: var(--clr-surface);
-  --tooltip-text: var(--clr-bg-footer);
+  --c-clr-text: light-dark(var(--clr-surface), var(--clr-text));
+  --c-clr-border: light-dark(
+    color-mix(in oklab, var(--clr-surface) 40%, transparent),
+    color-mix(in oklab, var(--clr-text) 35%, transparent)
+  );
+  --social-links-hover-bg: light-dark(
+    color-mix(in oklab, white 18%, transparent),
+    color-mix(in oklab, var(--clr-text) 18%, transparent)
+  );
+  --tooltip-bg: light-dark(var(--clr-surface), var(--clr-text));
+  --tooltip-text: light-dark(var(--clr-bg-footer), var(--clr-bg-dark));
 
   background-color: var(--clr-bg-footer);
   color: var(--c-clr-text);

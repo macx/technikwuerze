@@ -2,6 +2,7 @@
   --button-bg: transparent;
   --button-scheme: var(--color-scheme, var(--clr-primary));
   --button-color: var(--button-scheme);
+  --button-on-solid: light-dark(var(--clr-text-bright), var(--clr-bg-dark));
   --button-border: var(--button-scheme);
   --button-sp-block: 0.5rem;
   --button-sp-inline: 1rem 0.875rem;
@@ -43,7 +44,7 @@
 
   &.button-primary {
     --button-bg: var(--button-scheme);
-    --button-color: var(--clr-text-bright);
+    --button-color: var(--button-on-solid);
   }
 
   &.button-compact {
@@ -64,7 +65,7 @@
 
     &.button-primary:is(:hover, :focus-visible) {
       --button-bg: color-mix(in srgb, var(--button-scheme) 88%, var(--clr-bg-light) 12%);
-      --button-color: var(--clr-text-bright);
+      --button-color: var(--button-on-solid);
       --button-border: var(--button-scheme);
     }
   }

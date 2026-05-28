@@ -195,7 +195,7 @@ snippet('layout', slots: true);
 
       <?php if ($actualMentions->count() > 0): ?>
       <section class="episode-mentions content medium">
-        <h2 class="comments-headline">
+        <h2 class="comments-headline section-headline">
           Erwähnungen
           <span class="count-bubble"><?= $actualMentions->count() ?></span>
         </h2>
@@ -213,7 +213,7 @@ snippet('layout', slots: true);
       <?php endif; ?>
 
       <section class="episode-comments content medium">
-        <h2 class="comments-headline">
+        <h2 class="comments-headline section-headline">
           Kommentare
           <span class="count-bubble"><?= $actualComments->count() ?></span>
         </h2>

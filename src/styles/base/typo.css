@@ -32,25 +32,27 @@ a:any-link {
 @scope (.content-text) {
   --content-heading-scale: 0.8;
 
-  :where(h2, h3, h4) {
+  h2,
+  h3,
+  h4 {
     text-align: start;
     color: var(--clr-secondary);
     margin-block: 1.5em 0.5em;
   }
 
-  :where(h2) {
+  h2 {
     font-size: calc(var(--fs-title-2nd) * var(--content-heading-scale));
   }
 
-  :where(h3) {
+  h3 {
     font-size: calc(var(--fs-title-3rd) * var(--content-heading-scale));
   }
 
-  :where(h4) {
+  h4 {
     font-size: calc(1em * var(--content-heading-scale));
   }
 
-  :where(a:any-link) {
+  a:any-link {
     color: var(--clr-primary);
     text-decoration: underline;
     text-underline-offset: 0.2em;
@@ -62,11 +64,12 @@ a:any-link {
     }
   }
 
-  :where(p) {
+  p {
     margin-block: 0 0.8em;
   }
 
-  :where(ul:not([class]), ol:not([class])) {
+  ul:not([class]),
+  ol:not([class]) {
     margin-block: 0.6em 1.2em;
 
     li {
@@ -78,11 +81,11 @@ a:any-link {
     }
   }
 
-  :where(ul:not([class])) {
+  ul:not([class]) {
     padding-inline-start: 1.5em;
   }
 
-  :where(ol:not([class])) {
+  ol:not([class]) {
     padding-inline-start: 2em;
   }
 }
@@ -283,4 +286,11 @@ hr {
   mask-position: center;
   mask-repeat: no-repeat;
   mask-size: 100% 100%;
+}
+
+.section-headline,
+.tw-transcript summary h2 {
+  font-size: 2rem;
+  font-weight: var(--fw-title);
+  color: var(--clr-text);
 }

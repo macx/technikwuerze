@@ -179,8 +179,8 @@ const getThemeTokens = (mode: 'light' | 'dark'): Record<string, string> => {
       brand: '#c6a3ff',
       brandDark: '#c6a3ff',
       brandDarkest: '#c6a3ff',
-      brandLightest: 'hsl(0 0% 23%)',
-      shadeBase: 'hsl(0 0% 23%)',
+      brandLightest: 'hsl(30 9% 22%)',
+      shadeBase: 'hsl(30 9% 22%)',
       shadeDark: 'rgba(255, 255, 255, 0.1)',
       contrast: '#ffffff',
       alt: '#ffffff',
@@ -266,7 +266,7 @@ const loadPodloveScript = (win: PodloveWindow): Promise<void> => {
 }
 
 const getIframeThemeStyle = (mode: 'light' | 'dark'): string => {
-  const background = mode === 'dark' ? 'hsl(0 0% 23%)' : '#fffcd1'
+  const background = mode === 'dark' ? 'hsl(30 9% 22%)' : '#fffcd1'
   const contrast = mode === 'dark' ? '#ffffff' : '#2e2e2e'
   const divider = mode === 'dark' ? 'rgba(255, 255, 255, 0.2)' : 'rgba(0, 0, 0, 0.2)'
 
@@ -343,7 +343,7 @@ const patchIframeTheme = (iframe: HTMLIFrameElement, mode: 'light' | 'dark'): bo
     ;(app as HTMLElement).style.opacity = '1'
     ;(app as HTMLElement).style.transition = 'none'
     ;(app as HTMLElement).style.animation = 'none'
-    ;(app as HTMLElement).style.backgroundColor = mode === 'dark' ? 'hsl(0 0% 23%)' : '#fffcd1'
+    ;(app as HTMLElement).style.backgroundColor = mode === 'dark' ? 'hsl(30 9% 22%)' : '#fffcd1'
   }
 
   const dividerColor = mode === 'dark' ? 'rgba(255, 255, 255, 0.2)' : 'rgba(0, 0, 0, 0.2)'
