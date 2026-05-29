@@ -30,26 +30,24 @@ a:any-link {
 }
 
 @scope (.content-text) {
-  --content-heading-scale: 0.8;
-
   h2,
   h3,
   h4 {
     text-align: start;
     color: var(--clr-secondary);
-    margin-block: 1.5em 0.5em;
+    margin-block: 1.8em 0.4em;
   }
 
   h2 {
-    font-size: calc(var(--fs-title-2nd) * var(--content-heading-scale));
+    font-size: var(--fs-content-title-2nd);
   }
 
   h3 {
-    font-size: calc(var(--fs-title-3rd) * var(--content-heading-scale));
+    font-size: var(--fs-content-title-3rd);
   }
 
   h4 {
-    font-size: calc(1em * var(--content-heading-scale));
+    font-size: var(--fs-content-title-4th);
   }
 
   a:any-link {
