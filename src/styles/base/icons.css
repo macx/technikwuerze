@@ -69,6 +69,22 @@
   --msi-icon: 'calendar_month';
 }
 
+.msi-donut {
+  --msi-icon: 'donut_large';
+}
+
+.msi-podcasts {
+  --msi-icon: 'podcasts';
+}
+
+.msi-play-circle {
+  --msi-icon: 'play_circle';
+}
+
+.msi-ssid-chart {
+  --msi-icon: 'ssid_chart';
+}
+
 .msi-download {
   --msi-icon: 'download';
 }

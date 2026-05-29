@@ -13,6 +13,11 @@ $formatInteger = static function (int $value): string {
   return number_format($value, 0, ',', '.');
 };
 
+$formatPercent = static function (float $value): string {
+  $percentString = rtrim(rtrim(number_format($value, 2, '.', ''), '0'), '.');
+  return $percentString . '%';
+};
+
 $publishedEpisodeCount =
   site()
     ->find('mediathek')
@@ -60,7 +65,7 @@ $resolveTotalDownloads = static function (): ?int {
   return $totalDownloads;
 };
 
-$resolveEstimatedSubscribers = static function (): ?int {
+$resolveDownloadsLastMonth = static function (): ?int {
   if (option('mauricerenck.podcaster.statsInternal', false) !== true) {
     return null;
   }
@@ -75,29 +80,45 @@ $resolveEstimatedSubscribers = static function (): ?int {
     return null;
   }
 
-  $podcastTools = new \mauricerenck\Podcaster\Podcast();
-  $rssFeed = $podcastTools->getPodcastFromId($podcastId);
-  if (!isset($rssFeed)) {
+  $dbType = option('mauricerenck.podcaster.statsType', 'sqlite');
+  $stats =
+    $dbType === 'sqlite'
+      ? new \mauricerenck\Podcaster\PodcasterStatsSqlite()
+      : new \mauricerenck\Podcaster\PodcasterStatsMysql();
+
+  $lastMonthTimestamp = strtotime('first day of last month');
+  $year = date('Y', $lastMonthTimestamp);
+  $month = date('n', $lastMonthTimestamp);
+  $reports = $stats->getQuickReports($podcastId, $year, $month);
+
+  if ($reports === false) {
     return null;
   }
 
-  $episodes = $podcastTools->getEpisodes($rssFeed);
-  if ($episodes === false || !isset($episodes)) {
+  $monthDownloads = 0;
+  foreach ($reports['detailed']->toArray() as $result) {
+    $monthDownloads += (int) round((float) ($result->downloads ?? 0));
+  }
+
+  return $monthDownloads;
+};
+
+$resolveTopTenShare = static function (?int $totalDownloads): ?float {
+  if ($totalDownloads === null || $totalDownloads <= 0) {
     return null;
   }
 
-  $latestEpisodes = $episodes
-    ->filter(function ($child) {
-      return (int) $child->date()->toDate('U') <= time() - 48 * 60 * 60;
-    })
-    ->limit(3);
-
-  $episodeList = [];
-  foreach ($latestEpisodes as $episode) {
-    $episodeList[$episode->uid()] = date('Y-m-d', $episode->date()->toDate('U') + 24 * 60 * 60);
+  if (option('mauricerenck.podcaster.statsInternal', false) !== true) {
+    return null;
   }
 
-  if ($episodeList === []) {
+  $feedPage = site()->index()->filterBy('intendedTemplate', 'podcasterfeed')->first();
+  if ($feedPage === null) {
+    return null;
+  }
+
+  $podcastId = trim((string) $feedPage->podcastId()->value());
+  if ($podcastId === '') {
     return null;
   }
 
@@ -107,27 +128,26 @@ $resolveEstimatedSubscribers = static function (): ?int {
       ? new \mauricerenck\Podcaster\PodcasterStatsSqlite()
       : new \mauricerenck\Podcaster\PodcasterStatsMysql();
 
-  $results = $stats->getEstimatedSubscribers($podcastId, $episodeList);
-  if ($results === false) {
+  $topEpisodes = $stats->getTopEpisodes($podcastId);
+  if ($topEpisodes === false) {
     return null;
   }
 
-  $estSubscribers = 0;
-  $resultCount = 0;
-  foreach ($results as $result) {
-    $estSubscribers += (int) round((float) ($result->total_downloads ?? 0));
-    $resultCount++;
+  $topTenDownloads = 0;
+  foreach ($topEpisodes->toArray() as $episode) {
+    $topTenDownloads += (int) round((float) ($episode->downloads ?? 0));
   }
 
-  if ($resultCount === 0) {
+  if ($topTenDownloads <= 0) {
     return null;
   }
 
-  return (int) round($estSubscribers / $resultCount);
+  return min(100.0, ($topTenDownloads / $totalDownloads) * 100.0);
 };
 
 $totalDownloads = $resolveTotalDownloads();
-$estimatedSubscribers = $resolveEstimatedSubscribers();
+$downloadsLastMonth = $resolveDownloadsLastMonth();
+$topTenShare = $resolveTopTenShare($totalDownloads);
 
 $stats = [];
 foreach ($block->stats()->toStructure() as $item) {
@@ -148,13 +168,24 @@ foreach ($block->stats()->toStructure() as $item) {
     } else {
       $value = $formatInteger((int) $totalDownloads);
     }
-  } elseif ($valueType === 'estimated_subscribers') {
-    if ($estimatedSubscribers === null) {
+  } elseif ($valueType === 'downloads_last_month') {
+    if ($downloadsLastMonth === null) {
       $rawInteger = trim((string) $item->integer_value()->value());
       $value =
         $rawInteger === '' ? $formatInteger(0) : $formatInteger((int) round((float) $rawInteger));
     } else {
-      $value = $formatInteger((int) $estimatedSubscribers);
+      $value = $formatInteger((int) $downloadsLastMonth);
+    }
+  } elseif ($valueType === 'top10_share') {
+    if ($topTenShare === null) {
+      $rawPercent = trim((string) $item->percent_value()->value());
+      if ($rawPercent === '') {
+        $value = $formatPercent(0.0);
+      } else {
+        $value = $formatPercent((float) $rawPercent);
+      }
+    } else {
+      $value = $formatPercent((float) $topTenShare);
     }
   } elseif ($valueType === 'published_episodes') {
     $value = $formatInteger((int) $listedEpisodeCount);
@@ -166,9 +197,7 @@ foreach ($block->stats()->toStructure() as $item) {
       continue;
     }
 
-    $percentValue = (float) $rawPercent;
-    $percentString = rtrim(rtrim(number_format($percentValue, 2, '.', ''), '0'), '.');
-    $value = $percentString . '%';
+    $value = $formatPercent((float) $rawPercent);
   } else {
     $rawInteger = trim((string) $item->integer_value()->value());
     if ($rawInteger === '') {

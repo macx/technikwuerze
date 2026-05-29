@@ -61,6 +61,10 @@ fields:
           msi-adaptive-audio-mic: msi-adaptive-audio-mic
           msi-av-timer: msi-av-timer
           msi-person-filled: msi-person-filled
+          msi-donut: msi-donut
+          msi-podcasts: msi-podcasts
+          msi-play-circle: msi-play-circle
+          msi-ssid-chart: msi-ssid-chart
       value_type:
         type: select
         width: 1/2
@@ -78,9 +82,12 @@ fields:
           total_downloads:
             en: Total downloads (live)
             de: Downloads gesamt (live)
-          estimated_subscribers:
-            en: Estimated subscribers (live approximation)
-            de: Geschätzte Abonnenten (live Näherung)
+          downloads_last_month:
+            en: Downloads last month (live)
+            de: Downloads letzter Monat (live)
+          top10_share:
+            en: Top-10 share (live)
+            de: Top-10-Anteil (live)
           published_episodes:
             en: Published episodes (live)
             de: Veröffentlichte Episoden (live)
