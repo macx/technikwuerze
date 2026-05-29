@@ -46,15 +46,16 @@ $resolveTotalDownloads = static function (): ?int {
       ? new \mauricerenck\Podcaster\PodcasterStatsSqlite()
       : new \mauricerenck\Podcaster\PodcasterStatsMysql();
 
-  $results = $stats->getFeedsGraphData($podcastId);
-  if ($results === false) {
+  $year = date('Y');
+  $month = date('n');
+  $reports = $stats->getQuickReports($podcastId, $year, $month);
+
+  if ($reports === false) {
     return null;
   }
 
-  $totalDownloads = 0;
-  foreach ($results->toArray() as $row) {
-    $totalDownloads += (int) round((float) ($row->downloads ?? 0));
-  }
+  $overallRows = $reports['overall']->toArray();
+  $totalDownloads = (int) round((float) ($overallRows[0]->downloads ?? 0));
 
   return $totalDownloads;
 };
