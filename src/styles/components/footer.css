@@ -71,6 +71,7 @@
   background-color: var(--clr-bg-footer);
   color: var(--c-clr-text);
   font-size: var(--fs-s);
+  line-height: var(--lh-m);
 
   a {
     color: var(--c-clr-text);
@@ -113,11 +114,12 @@
 
   .footer-contact-hint {
     color: var(--clr-text-bright);
+    line-height: var(--lh-m);
 
     .handwriting {
       display: block;
       font-family: var(--ff-hand);
-      font-size: 1.5rem;
+      font-size: 1.75rem;
       font-weight: 300;
     }
   }

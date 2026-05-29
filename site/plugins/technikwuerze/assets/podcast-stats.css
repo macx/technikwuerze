@@ -20,20 +20,20 @@
 
       display: grid;
       grid-template-columns: repeat(var(--stats-columns), minmax(0, 1fr));
-      gap: var(--sp);
+      gap: var(--sp-l);
       align-items: stretch;
     }
 
     .tw-podcast-stats-item {
       display: grid;
       grid-template-rows: auto 1fr auto;
-      gap: var(--sp-xs);
+      gap: var(--sp-xxs);
       block-size: 100%;
     }
 
     .tw-podcast-stats-icon {
       color: var(--clr-secondary);
-      font-size: 3.7rem;
+      font-size: 2.8125rem;
       font-variation-settings:
         'FILL' 0,
         'wght' 200,
@@ -45,7 +45,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: var(--fs);
+      font-size: var(--fs-s);
     }
 
     .tw-podcast-stats-value {

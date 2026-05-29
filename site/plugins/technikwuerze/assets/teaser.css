@@ -55,7 +55,7 @@
       padding: var(--sp-xs);
       border-radius: 50%;
       background-color: var(--clr-secondary);
-      color: var(--clr-text-bright);
+      color: var(--clr-text-opposite);
       font-size: 0.78rem;
       font-weight: 700;
       text-transform: uppercase;

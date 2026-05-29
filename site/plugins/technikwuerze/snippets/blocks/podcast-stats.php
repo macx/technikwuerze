@@ -89,8 +89,8 @@ $stats = array_slice($stats, 0, 4);
       <?php foreach ($stats as $stat): ?>
         <li class="tw-podcast-stats-item">
           <i class="<?= esc($stat['icon'], 'attr') ?> tw-podcast-stats-icon" aria-hidden="true"></i>
-          <span class="tw-podcast-stats-label"><?= esc($stat['label']) ?></span>
           <span class="tw-podcast-stats-value"><?= esc($stat['value']) ?></span>
+          <span class="tw-podcast-stats-label"><?= esc($stat['label']) ?></span>
         </li>
       <?php endforeach; ?>
     </ul>
