@@ -169,7 +169,7 @@ foreach ($block->stats()->toStructure() as $item) {
       $value = $formatInteger((int) $totalDownloads);
     }
   } elseif ($valueType === 'downloads_last_month') {
-    if ($downloadsLastMonth === null) {
+    if ($downloadsLastMonth === null || $downloadsLastMonth === 0) {
       $rawInteger = trim((string) $item->integer_value()->value());
       $value =
         $rawInteger === '' ? $formatInteger(0) : $formatInteger((int) round((float) $rawInteger));
