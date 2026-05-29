@@ -46,3 +46,32 @@ rsync -avz ./content/avatars/ user@host:/var/www/technikwuerze/content/avatars/
 
 - format: `vX.Y.Z` (or `technikwuerze-vX.Y.Z`)
 - created by `release-it` and pushed from local
+
+## Podcaster Update Checklist (Pinned + Patch)
+
+1. Keep `mauricerenck/podcaster` pinned to an exact version in `composer.json`.
+2. If updating Podcaster, update the pinned version intentionally (no broad constraints).
+3. Rebase/adjust `patches/podcaster-central-audio-feed.patch` against the new upstream file.
+4. Run `composer update mauricerenck/podcaster cweagans/composer-patches`.
+5. Confirm patch apply in Composer output and verify `site/plugins/podcaster/lib/Podcast.php` contains the `getAudioFile()` based filter.
+6. Run tests/checks and validate feed output before tagging a release.
+
+## Feed Smoke Test
+
+Use this after local setup (`php` server running) and after production deploy.
+
+```bash
+# Local feed item count (should be > 0)
+. ./.env 2>/dev/null || true
+[ -n "$DEV_HOST" ] || DEV_HOST=127.0.0.1
+[ -n "$DEV_PHP_PORT" ] || DEV_PHP_PORT=8000
+curl -fsSL "http://$DEV_HOST:$DEV_PHP_PORT/mediathek/feed" | rg -c "<item>"
+
+# Production feed item count (replace host)
+curl -fsSL "https://technikwuerze.de/mediathek/feed" | rg -c "<item>"
+```
+
+Expected result:
+
+- command exits with status `0`
+- item count is greater than `0`

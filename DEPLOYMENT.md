@@ -120,6 +120,18 @@ Expected production config (`site/config/config.production.php`):
   - podcaster stats sqlite
 - Binary/runtime files are not versioned in Git; sync with `rsync` when needed.
 
+## Podcaster Patch Policy
+
+- `mauricerenck/podcaster` is pinned to an exact version in `composer.json`.
+- A Composer patch is applied during `composer install`:
+  - patch file: `patches/podcaster-central-audio-feed.patch`
+  - target package: `mauricerenck/podcaster`
+- The patch exists because episodes reference central audio files via `file://...` in `content/audio/`.
+- Any plugin update must follow this order:
+  1. Update pinned version intentionally.
+  2. Re-validate/rebase patch against new upstream code.
+  3. Run tests and verify feed output before release.
+
 ## Release Trigger
 
 1. Work on `develop` as usual and push your commits.
