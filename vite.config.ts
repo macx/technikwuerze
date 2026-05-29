@@ -20,6 +20,9 @@ export default defineConfig(({ command, mode }) => {
         '@plugins': resolve(__dirname, 'site/plugins'),
       },
     },
+    css: {
+      devSourcemap: true,
+    },
 
     build: {
       outDir: resolve(__dirname, 'public/dist'),
@@ -30,6 +33,9 @@ export default defineConfig(({ command, mode }) => {
         input: {
           main: resolve(__dirname, 'src/index.ts'),
         },
+      },
+      css: {
+        devSourcemap: false,
       },
     },
 
