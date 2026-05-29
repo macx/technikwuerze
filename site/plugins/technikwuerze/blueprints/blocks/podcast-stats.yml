@@ -75,9 +75,15 @@ fields:
           percent:
             en: Percent
             de: Prozent
+          total_downloads:
+            en: Total downloads (live)
+            de: Downloads gesamt (live)
+          published_episodes:
+            en: Published episodes (live)
+            de: Veröffentlichte Episoden (live)
           total_episodes:
-            en: Total episodes (determined)
-            de: Folgen gesamt (ermittelt)
+            en: Total episodes (determined, legacy)
+            de: Folgen gesamt (ermittelt, Altbestand)
       integer_value:
         type: number
         width: 1/2

@@ -21,6 +21,46 @@ $publishedEpisodeCount =
     ->published()
     ->count() ?? 0;
 
+$listedEpisodeCount =
+  site()->find('mediathek')?->index()->filterBy('intendedTemplate', 'episode')->listed()->count() ??
+  0;
+
+$resolveTotalDownloads = static function (): ?int {
+  if (option('mauricerenck.podcaster.statsInternal', false) !== true) {
+    return null;
+  }
+
+  $feedPage = site()->index()->filterBy('intendedTemplate', 'podcasterfeed')->first();
+  if ($feedPage === null) {
+    return null;
+  }
+
+  $podcastId = trim((string) $feedPage->podcastId()->value());
+  if ($podcastId === '') {
+    return null;
+  }
+
+  $dbType = option('mauricerenck.podcaster.statsType', 'sqlite');
+  $stats =
+    $dbType === 'sqlite'
+      ? new \mauricerenck\Podcaster\PodcasterStatsSqlite()
+      : new \mauricerenck\Podcaster\PodcasterStatsMysql();
+
+  $results = $stats->getFeedsGraphData($podcastId);
+  if ($results === false) {
+    return null;
+  }
+
+  $totalDownloads = 0;
+  foreach ($results->toArray() as $row) {
+    $totalDownloads += (int) round((float) ($row->downloads ?? 0));
+  }
+
+  return $totalDownloads;
+};
+
+$totalDownloads = $resolveTotalDownloads();
+
 $stats = [];
 foreach ($block->stats()->toStructure() as $item) {
   $label = trim((string) $item->label()->value());
@@ -32,7 +72,17 @@ foreach ($block->stats()->toStructure() as $item) {
   $valueType = trim((string) $item->value_type()->or('integer')->value());
   $value = '';
 
-  if ($valueType === 'total_episodes') {
+  if ($valueType === 'total_downloads') {
+    if ($totalDownloads === null) {
+      $rawInteger = trim((string) $item->integer_value()->value());
+      $value =
+        $rawInteger === '' ? $formatInteger(0) : $formatInteger((int) round((float) $rawInteger));
+    } else {
+      $value = $formatInteger((int) $totalDownloads);
+    }
+  } elseif ($valueType === 'published_episodes') {
+    $value = $formatInteger((int) $listedEpisodeCount);
+  } elseif ($valueType === 'total_episodes') {
     $value = $formatInteger((int) $publishedEpisodeCount);
   } elseif ($valueType === 'percent') {
     $rawPercent = trim((string) $item->percent_value()->value());
