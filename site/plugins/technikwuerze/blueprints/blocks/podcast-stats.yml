@@ -78,6 +78,9 @@ fields:
           total_downloads:
             en: Total downloads (live)
             de: Downloads gesamt (live)
+          estimated_subscribers:
+            en: Estimated subscribers (live approximation)
+            de: Geschätzte Abonnenten (live Näherung)
           published_episodes:
             en: Published episodes (live)
             de: Veröffentlichte Episoden (live)

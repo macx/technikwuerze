@@ -59,7 +59,74 @@ $resolveTotalDownloads = static function (): ?int {
   return $totalDownloads;
 };
 
+$resolveEstimatedSubscribers = static function (): ?int {
+  if (option('mauricerenck.podcaster.statsInternal', false) !== true) {
+    return null;
+  }
+
+  $feedPage = site()->index()->filterBy('intendedTemplate', 'podcasterfeed')->first();
+  if ($feedPage === null) {
+    return null;
+  }
+
+  $podcastId = trim((string) $feedPage->podcastId()->value());
+  if ($podcastId === '') {
+    return null;
+  }
+
+  $podcastTools = new \mauricerenck\Podcaster\Podcast();
+  $rssFeed = $podcastTools->getPodcastFromId($podcastId);
+  if (!isset($rssFeed)) {
+    return null;
+  }
+
+  $episodes = $podcastTools->getEpisodes($rssFeed);
+  if ($episodes === false || !isset($episodes)) {
+    return null;
+  }
+
+  $latestEpisodes = $episodes
+    ->filter(function ($child) {
+      return (int) $child->date()->toDate('U') <= time() - 48 * 60 * 60;
+    })
+    ->limit(3);
+
+  $episodeList = [];
+  foreach ($latestEpisodes as $episode) {
+    $episodeList[$episode->uid()] = date('Y-m-d', $episode->date()->toDate('U') + 24 * 60 * 60);
+  }
+
+  if ($episodeList === []) {
+    return null;
+  }
+
+  $dbType = option('mauricerenck.podcaster.statsType', 'sqlite');
+  $stats =
+    $dbType === 'sqlite'
+      ? new \mauricerenck\Podcaster\PodcasterStatsSqlite()
+      : new \mauricerenck\Podcaster\PodcasterStatsMysql();
+
+  $results = $stats->getEstimatedSubscribers($podcastId, $episodeList);
+  if ($results === false) {
+    return null;
+  }
+
+  $estSubscribers = 0;
+  $resultCount = 0;
+  foreach ($results as $result) {
+    $estSubscribers += (int) round((float) ($result->total_downloads ?? 0));
+    $resultCount++;
+  }
+
+  if ($resultCount === 0) {
+    return null;
+  }
+
+  return (int) round($estSubscribers / $resultCount);
+};
+
 $totalDownloads = $resolveTotalDownloads();
+$estimatedSubscribers = $resolveEstimatedSubscribers();
 
 $stats = [];
 foreach ($block->stats()->toStructure() as $item) {
@@ -79,6 +146,14 @@ foreach ($block->stats()->toStructure() as $item) {
         $rawInteger === '' ? $formatInteger(0) : $formatInteger((int) round((float) $rawInteger));
     } else {
       $value = $formatInteger((int) $totalDownloads);
+    }
+  } elseif ($valueType === 'estimated_subscribers') {
+    if ($estimatedSubscribers === null) {
+      $rawInteger = trim((string) $item->integer_value()->value());
+      $value =
+        $rawInteger === '' ? $formatInteger(0) : $formatInteger((int) round((float) $rawInteger));
+    } else {
+      $value = $formatInteger((int) $estimatedSubscribers);
     }
   } elseif ($valueType === 'published_episodes') {
     $value = $formatInteger((int) $listedEpisodeCount);
