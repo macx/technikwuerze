@@ -32,7 +32,7 @@
     {
       "label": "⚡ Vite Dev Server",
       "type": "shell",
-      "command": ". ./.env 2>/dev/null || true; [ -n \"$DEV_HOST\" ] || DEV_HOST=127.0.0.1; [ -n \"$DEV_VITE_PORT\" ] || DEV_VITE_PORT=5173; [ -d .dev ] && rm -rf .dev || true; pnpm exec vite --host \"$DEV_HOST\" --port \"$DEV_VITE_PORT\"",
+      "command": ". ./.env 2>/dev/null || true; [ -n \"$DEV_HOST\" ] || DEV_HOST=127.0.0.1; [ -n \"$DEV_VITE_PORT\" ] || DEV_VITE_PORT=5173; [ -d .dev ] && rm -rf .dev || true; corepack pnpm exec vite --host \"$DEV_HOST\" --port \"$DEV_VITE_PORT\"",
       "isBackground": true,
       "problemMatcher": {
         "owner": "vite-server",
@@ -55,7 +55,7 @@
     {
       "label": "🏗️ Vite Build Watch",
       "type": "shell",
-      "command": ". ./.env 2>/dev/null || true; VITE_WATCH=true pnpm exec vite build --watch",
+      "command": ". ./.env 2>/dev/null || true; VITE_WATCH=true corepack pnpm exec vite build --watch",
       "isBackground": true,
       "problemMatcher": {
         "owner": "vite-build",
@@ -123,7 +123,7 @@
     {
       "label": "Format",
       "type": "shell",
-      "command": "pnpm run format",
+      "command": "corepack pnpm run format",
       "isBackground": false
     }
   ]
