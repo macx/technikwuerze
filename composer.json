@@ -18,7 +18,8 @@
     "vlucas/phpdotenv": "^5.6",
     "fabianmichael/kirby-markdown-field": "^4.0",
     "mauricerenck/indieconnector": "^2.15",
-    "macx/kirby-tw-transcript": "0.10.0-beta.1"
+    "macx/kirby-tw-transcript": "@beta",
+    "scottboms/link-scanner": "^1.0"
   },
   "require-dev": {
     "lukaskleinschmidt/kirby-types": "^2.0"

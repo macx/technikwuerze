@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "698cddf552eaafe43a229eacb3017681",
+    "content-hash": "25c114ea7591956213b4ff3b9aa3ce66",
     "packages": [
         {
             "name": "arnoson/kirby-form-builder",
@@ -2497,6 +2497,65 @@
                 "source": "https://github.com/php-fig/log/tree/3.0.2"
             },
             "time": "2024-09-11T13:17:53+00:00"
+        },
+        {
+            "name": "scottboms/link-scanner",
+            "version": "1.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/scottboms/kirby-link-scanner.git",
+                "reference": "036bb5a748a65e5888207c42982bcb9cdfc9558a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/scottboms/kirby-link-scanner/zipball/036bb5a748a65e5888207c42982bcb9cdfc9558a",
+                "reference": "036bb5a748a65e5888207c42982bcb9cdfc9558a",
+                "shasum": ""
+            },
+            "require": {
+                "getkirby/cms": "^5.0",
+                "getkirby/composer-installer": "^1.1",
+                "php": ">=8.3.0"
+            },
+            "type": "kirby-plugin",
+            "extra": {
+                "installer-name": "link-scanner"
+            },
+            "autoload": {
+                "psr-4": {
+                    "ScottBoms\\LinkScanner\\": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Scott Boms",
+                    "email": "plugins@scottboms.com",
+                    "homepage": "https://scottboms.com"
+                }
+            ],
+            "description": "Link Scanner plugin for Kirby",
+            "homepage": "https://github.com/scottboms/kirby-link-scanner",
+            "keywords": [
+                "api",
+                "applemusic",
+                "kirby",
+                "kirby-cms",
+                "kirby-plugin",
+                "kirby4",
+                "kirby5",
+                "kirby5-plugin",
+                "music"
+            ],
+            "support": {
+                "docs": "https://github.com/scottboms/kirby-link-scanner/blob/main/README.md",
+                "issues": "https://github.com/scottboms/kirby-link-scanner/issues",
+                "source": "https://github.com/scottboms/kirby-link-scanner"
+            },
+            "time": "2026-04-05T05:47:23+00:00"
         },
         {
             "name": "symfony/deprecation-contracts",

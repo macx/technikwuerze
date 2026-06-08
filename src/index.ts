@@ -9,10 +9,13 @@ import './styles/main.css'
 
 /* SCRIPTS */
 import { initHeaderNav } from './scripts/components/header-nav'
-import { initPodlovePlayers } from './scripts/components/podlove-player'
 import { initSearchDialog } from './scripts/components/search-dialog'
 import { initModeSwitch } from './scripts/components/theme-switch'
 import { initViewTransitions } from './scripts/components/view-transitions'
+
+/* Podlove-Player */
+import { initPodlovePlayers } from '/site/plugins/kirby-tw-transcript/src/podlove-player.ts'
+import '/site/plugins/kirby-tw-transcript/assets/tw-transcript.css'
 
 import { initKomments } from './scripts/components/komments'
 

@@ -12,9 +12,6 @@
 !/site/plugins/technikwuerze/
 !/site/plugins/technikwuerze/**
 
-# Separate Git repository
-/site/plugins/kirby-tw-transcript
-
 /media/*
 !/media/index.html
 /public/media/*

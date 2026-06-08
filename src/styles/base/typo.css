@@ -103,6 +103,7 @@ a:any-link {
     letter-spacing: -0.1rem;
     margin-block: 0 0.4em;
     text-wrap: balance;
+    hyphens: auto;
   }
 
   .subtitle {

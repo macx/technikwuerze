@@ -16,8 +16,8 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    background-color: var(--clr-bg-footer);
-    color: var(--clr-surface);
+    background-color: var(--clr-text);
+    color: var(--clr-text-opposite);
     font-family: var(--ff);
     font-size: var(--fs-s);
     font-weight: var(--fw-bold);
@@ -32,7 +32,7 @@
       inset-inline-start: -0.6rem;
       inset-block-end: 20%;
       border: 0.35rem solid transparent;
-      border-inline-end-color: var(--clr-bg-footer);
+      border-inline-end-color: var(--clr-text);
     }
   }
 }
