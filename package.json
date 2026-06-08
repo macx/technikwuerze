@@ -11,9 +11,9 @@
   ],
   "scripts": {
     "dev": "vite",
-    "build": "npm run test && vite build && cp public/dist/.vite/manifest.json public/dist/manifest.json",
+    "build": "corepack pnpm run test && vite build && cp public/dist/.vite/manifest.json public/dist/manifest.json",
     "preview": "vite preview",
-    "test": "npm run type-check && npm run format:check && vitest run",
+    "test": "corepack pnpm run type-check && corepack pnpm run format:check && vitest run",
     "test:watch": "vitest",
     "type-check": "tsc --noEmit",
     "format": "prettier --write \"**/*.{ts,js,css,json,md,php}\"",
