@@ -5,6 +5,11 @@ p {
 a:any-link {
   accent-color: var(--clr-accent);
   outline-color: var(--clr-accent);
+
+  &:focus-visible {
+    outline: var(--focus-outline);
+    outline-offset: var(--focus-outline-offset);
+  }
 }
 
 :where(h2:not([class]), h3:not([class])) {

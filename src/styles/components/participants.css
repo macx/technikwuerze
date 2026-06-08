@@ -55,7 +55,7 @@
 
   .tw-participants-card {
     display: grid;
-    gap: var(--sp);
+    gap: var(--sp-xs);
 
     text-decoration: none;
     color: inherit;
@@ -77,8 +77,9 @@
 
     span {
       display: block;
-      font-size: 1.125rem;
-      font-weight: var(--fw-bold);
+      font-size: 1.25em;
+      font-family: var(--ff-brand);
+      font-weight: var(--fw-title);
       color: var(--clr-primary);
     }
 
