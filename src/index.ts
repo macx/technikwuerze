@@ -14,9 +14,9 @@ import { initModeSwitch } from './scripts/components/theme-switch'
 import { initViewTransitions } from './scripts/components/view-transitions'
 
 /* Podlove-Player */
-// @ts-ignore - ignore included typescript from composer-packages
-import { initPodlovePlayers } from '../site/plugins/kirby-tw-transcript/src/podlove-player.ts'
-import '../site/plugins/kirby-tw-transcript/assets/tw-transcript.css'
+// @ts-ignore - ignore missing types from composer-packages
+import { initPodlovePlayers } from '@plugins/kirby-tw-transcript/assets/tw-transcript.js'
+import '@plugins/kirby-tw-transcript/assets/tw-transcript.css'
 
 import { initKomments } from './scripts/components/komments'
 
