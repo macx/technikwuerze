@@ -74,7 +74,7 @@ $tooltipIdPrefix = 'social-tooltip-' . substr(md5($navClass . '|' . $navLabel), 
     <span class="social-links-item has-tooltip">
       <a href="<?= esc($url) ?>" class="social-links-link" target="<?= esc(
   $target,
-) ?>" rel="<?= esc($rel) ?>" aria-describedby="<?= esc($tooltipId) ?>">
+) ?>" rel="<?= esc($rel) ?>">
         <span class="social-links-sr-label"><?= esc($linkLabel) ?></span>
         <span class="social-links-icon" aria-hidden="true">
           <?= asset($iconPath)->read() ?>

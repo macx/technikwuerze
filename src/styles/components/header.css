@@ -24,6 +24,22 @@
   color: var(--clr-primary);
   text-decoration: none;
   margin-inline-start: var(--sp-content);
+
+  padding-block: 0.5rem;
+  padding-inline: 1rem;
+  border-radius: var(--radius-button);
+  background-color: transparent;
+  transition: background-color 120ms var(--ease-drawer-transform);
+
+  &:hover,
+  &:focus-visible {
+    background-color: var(--clr-hover);
+  }
+
+  &:focus-visible:not(:hover) {
+    outline: var(--focus-outline);
+    outline-offset: var(--focus-outline-offset);
+  }
 }
 
 .header-tools {
@@ -116,8 +132,9 @@
   text-align: end;
 
   &:focus-visible {
-    outline: 4px solid currentcolor;
-    outline-offset: 2px;
+    --focus-color: currentcolor;
+    outline: var(--focus-outline);
+    outline-offset: var(--focus-outline-offset);
   }
 
   @media (pointer: fine) {

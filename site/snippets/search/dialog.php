@@ -48,8 +48,6 @@ $settings = twSearchSettings();
           <select
           id="search-dialog-category"
           name="category"
-          aria-label="Kategorie auswählen"
-          title="Kategorie auswählen"
           >
           <?php foreach ($categories as $key => $label): ?>
             <option value="<?= $key ?>"<?= $key === $selectedCategory ? ' selected' : '' ?>><?= esc(

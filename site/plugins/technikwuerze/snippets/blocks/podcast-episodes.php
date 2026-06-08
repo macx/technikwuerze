@@ -249,6 +249,10 @@ $formatDuration = static function ($episode): string {
               <?php endif; ?>
 
               <div class="tw-podcast-episodes-persons" aria-label="Mitwirkende">
+                <span class="sr-only">
+                  <?= esc($hostCount) ?> Moderator<?= $hostCount === 1 ? '' : 'en' ?>, 
+                  <?= esc($guestCount) ?> Gäst<?= $guestCount === 1 ? 'e' : 'e' ?>
+                </span>
                 <?php for ($i = 0; $i < $hostCount; $i++): ?>
                   <span class="msi-person-outline" aria-hidden="true"></span>
                 <?php endfor; ?>

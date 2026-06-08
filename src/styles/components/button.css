@@ -27,7 +27,8 @@
   transition:
     color 120ms var(--ease-drawer-transform),
     background-color 120ms var(--ease-drawer-transform),
-    border-color 120ms var(--ease-drawer-transform);
+    border-color 120ms var(--ease-drawer-transform),
+    box-shadow 120ms var(--ease-drawer-transform);
 
   i {
     font-size: 1.2em;
@@ -37,9 +38,14 @@
     flex-direction: row-reverse;
   }
 
-  &:focus-visible {
+  &:hover:not(:focus-visible) {
     outline: none;
     box-shadow: 0 0 0 0.375rem color-mix(in srgb, var(--button-border) 18%, transparent);
+  }
+
+  &:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 0.375rem color-mix(in srgb, var(--button-border) 60%, transparent);
   }
 
   &.button-primary {
@@ -60,7 +66,7 @@
       --button-border: var(--button-scheme);
 
       outline: none;
-      box-shadow: 0 0 0 0.375rem color-mix(in srgb, var(--button-border) 18%, transparent);
+      box-shadow: 0 0 0 0.375rem color-mix(in srgb, var(--button-border) 60%, transparent);
     }
 
     &.button-primary:is(:hover, :focus-visible) {

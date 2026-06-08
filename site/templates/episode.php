@@ -81,7 +81,8 @@ $renderParticipantAvatars = static function (Kirby\Cms\Pages $participants) use 
           <img
             class="episode-participants-avatar"
             src="<?= $image->crop(192, 192)->url() ?>"
-            alt="<?= esc($displayName) ?>"
+            alt=""
+            aria-hidden="true"
             loading="lazy"
           >
         <?php else: ?>

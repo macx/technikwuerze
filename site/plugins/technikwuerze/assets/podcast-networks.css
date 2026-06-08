@@ -27,6 +27,11 @@
         &:focus-visible {
           background-color: var(--clr-hover);
         }
+
+        &:focus-visible {
+          outline: var(--focus-outline);
+          outline-offset: var(--focus-outline-offset);
+        }
       }
 
       svg {

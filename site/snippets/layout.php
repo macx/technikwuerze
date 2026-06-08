@@ -4,7 +4,9 @@
 
 $sharing = [
   'url' => $page->url(),
-  'title' => $site->title()->html(),
+  'title' => $page->isHomePage()
+    ? $site->title()->html()
+    : $page->title()->html() . ' · ' . $site->title()->html(),
   'name' => 'technikwürze',
   'description' => Escape::html($site->description()->value() || ''),
   'tags' => '',
@@ -51,10 +53,11 @@ $favicon = asset('assets/favicon.svg');
 </head>
 
 <body>
+  <a href="#main-content" class="sr-only skip-link">Zum Inhalt springen</a>
   <?php snippet('layout/header'); ?>
   <?php snippet('search/dialog'); ?>
 
-  <main>
+  <main id="main-content">
     <?= $slot ?>
   </main>
 

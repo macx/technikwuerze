@@ -95,7 +95,9 @@ if ($mobilePointerText === '') {
       <li>
         <a
           href="<?= $network['url'] ?>"
-          aria-label="<?= esc($network['label'], 'attr') ?>"
+          aria-label="<?= $network['mode'] === 'copy'
+            ? esc($network['label']) . ' (kopiert Feed-Adresse)'
+            : esc($network['label']) ?>"
           class="<?= $network['id'] === $defaultNetwork['id'] ? 'is-pointer-target' : '' ?>"
           data-network-id="<?= esc($network['id'], 'attr') ?>"
           data-network-label="<?= esc($network['label'], 'attr') ?>"

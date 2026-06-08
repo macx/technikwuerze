@@ -84,8 +84,6 @@
           class="theme-switch-select"
           id="search-page-category"
           name="category"
-          aria-label="Kategorie auswählen"
-          title="Kategorie auswählen"
         >
           <?php foreach ($categories as $key => $label): ?>
             <option value="<?= $key ?>"<?= $key === $category ? ' selected' : '' ?>><?= esc(

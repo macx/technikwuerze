@@ -108,9 +108,9 @@ if (!in_array($displayLayout, ['cards', 'list'], true)) {
         <li>
           <a href="<?= $participant->url() ?>" class="tw-participants-card" >
             <?php if ($image): ?>
-              <img src="<?= $image->crop(320, 320)->url() ?>" alt="<?= esc(
-  $fullName,
-) ?>" class="participant-image" data-vt-group="participant-image" data-vt-name="<?= esc(
+              <img src="<?= $image
+                ->crop(320, 320)
+                ->url() ?>" alt="" aria-hidden="true" class="participant-image" data-vt-group="participant-image" data-vt-name="<?= esc(
   $transitionImageName,
 ) ?>" loading="lazy">
             <?php endif; ?>
