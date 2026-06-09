@@ -17,6 +17,18 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          tools: composer:v2
+
+      - name: Validate Composer files
+        run: composer validate --strict
+
+      - name: Install Composer dependencies
+        run: composer install --no-interaction --prefer-dist
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -34,14 +46,5 @@ jobs:
       - name: Build production assets
         run: pnpm run build
 
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.4'
-          tools: composer:v2
-
       - name: Run PHP lint smoke checks
         run: pnpm run test:php
-
-      - name: Validate Composer files
-        run: composer validate --strict
