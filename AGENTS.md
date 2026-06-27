@@ -60,6 +60,13 @@ Maintain and evolve the Technikwürze Kirby site safely and consistently:
 - Content repo ignores `*.sqlite`, `*.db`, audio/video binaries and avatar binaries in `content/avatars/`.
 - Keep placeholders like `.gitkeep` tracked where needed.
 
+### Kirby User Accounts
+
+- `site/accounts/` is never versioned or synced (gitignored, excluded from `.rsyncignore`) — each environment (local, production) manages its own accounts independently.
+- Content (feed page `Podcasterauthor`/`Podcasterowner`, episode `Podcasterauthor`, participant `Linked-user`) references accounts via `user://<uuid>`. Because content IS shared between environments via the content repo, any such UUID must resolve to an account with the same identity in every environment, or the reference silently resolves to nothing (e.g. missing `<itunes:author>`/`<itunes:owner>` in the RSS feed).
+- Canonical account: UUID `qwP3CCVv` = David Eiken (`realmacx@gmail.com`), the podcast's show identity, linked from `content/3_teilnehmende/14_david-eiken/participant.txt` via `Linked-user`. Any environment must provision an account with this exact UUID for podcast author/owner references to resolve.
+- When bootstrapping a new environment (see `ops/bootstrap-production.sh`), recreate this account folder with the same UUID before relying on podcast author/owner fields.
+
 ## 5) Language & Content Conventions
 
 - Content text should use proper German umlauts (`ä`, `ö`, `ü`, `Ä`, `Ö`, `Ü`, `ß`) where linguistically correct.
