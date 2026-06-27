@@ -21,6 +21,7 @@
   BASE
 └──────────────────────────────────┘
 */
+@import './base/fonts.css' layer(base);
 @import './base/variables.css' layer(base);
 @import './base/layout.css' layer(base);
 @import './base/view-transitions.css' layer(base);

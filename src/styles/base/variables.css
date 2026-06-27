@@ -8,8 +8,8 @@
   --max-lead: 55ch;
 
   /* TYPOGRAPHY */
-  --ff: 'Manrope Variable', system-ui, -apple-system, sans-serif;
-  --ff-brand: 'Bricolage Grotesque Variable', sans-serif;
+  --ff: 'Case', 'Times', system-ui, -apple-system, sans-serif;
+  --ff-brand: 'McQueen', 'Times', sans-serif;
   --ff-hand: 'Caveat Variable', cursive;
 
   --fw: 400;
