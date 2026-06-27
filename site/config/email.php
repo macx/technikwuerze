@@ -1,0 +1,39 @@
+<?php
+
+$mailNoreply = $_ENV['TW_MAIL_NOREPLY'] ?? null;
+$contactRecipient = $_ENV['TW_CONTACT_RECIPIENT'] ?? null;
+$smtpHost = $_ENV['TW_SMTP_HOST'] ?? '';
+$smtpPort = (int) ($_ENV['TW_SMTP_PORT'] ?? 587);
+$smtpSecurity = $_ENV['TW_SMTP_SECURITY'] ?? 'tls';
+$smtpUser = $_ENV['TW_SMTP_USER'] ?? '';
+$smtpPass = $_ENV['TW_SMTP_PASS'] ?? '';
+
+$emailConfig = [];
+$contactFormConfig = [
+  'recipient' => $contactRecipient,
+  'noreply' => $mailNoreply,
+  'notificationSubject' => 'Neue Nachricht über das Kontaktformular',
+  'confirmationSubject' => 'Danke für deine Nachricht',
+];
+
+if ($mailNoreply !== null) {
+  $emailConfig['noreply'] = $mailNoreply;
+}
+
+if ($smtpHost !== '' && $smtpUser !== '' && $smtpPass !== '') {
+  $emailConfig['transport'] = [
+    'type' => 'smtp',
+    'host' => $smtpHost,
+    'port' => $smtpPort,
+    'security' => $smtpSecurity,
+    'auth' => true,
+    'username' => $smtpUser,
+    'password' => $smtpPass,
+  ];
+}
+
+return [
+  // Mail defaults for Kirby email + Uniform based forms.
+  'email' => $emailConfig,
+  'tw.contactForm' => $contactFormConfig,
+];

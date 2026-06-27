@@ -1,0 +1,23 @@
+title:
+  de: Cover
+  en: Covers
+icon: image
+
+options:
+  delete: false
+  changeSlug: false
+
+tabs:
+  files:
+    label:
+      de: Episoden-Cover
+      en: Episode covers
+    sections:
+      cover_files:
+        type: files
+        layout: cards
+        template: podcaster-cover
+        query: page.images
+        image:
+          cover: true
+          ratio: 1/1

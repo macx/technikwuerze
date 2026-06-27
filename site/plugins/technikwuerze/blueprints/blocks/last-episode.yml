@@ -2,6 +2,7 @@ name:
   en: Last Episode
   de: Letzte Episode
 icon: audio
+preview: last-episode
 label:
   en: 'Shows the last episode of the podcast'
   de: 'Zeigt die letzte Episode des Podcasts an'

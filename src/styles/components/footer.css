@@ -1,28 +1,146 @@
-.site-footer {
-  --c-logo-size: 15rem;
-  --c-text-size: 1.25rem;
+.gold-sponsors {
+  --c-flex-direction: column;
+  --c-flex-justify: center;
+  --c-flex-gap: var(--sp-s);
 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  text-align: center;
-  padding-block: var(--sp-l);
+  padding-block: var(--sp-xl);
   padding-inline: var(--sp-content);
+  text-align: center;
 
-  .site-footer-label {
-    font-family: var(--ff-hand);
-    font-size: var(--c-text-size);
-    color: var(--clr-secondary);
+  header {
+    margin-block-end: var(--sp);
   }
 
-  .site-footer-logo {
-    display: inline-block;
+  .sponsors {
+    display: flex;
+    flex-direction: var(--c-flex-direction);
+    justify-content: var(--c-flex-justify);
+    align-items: center;
+    gap: var(--c-flex-gap);
+
+    .handwriting {
+      font-size: 2.75rem;
+    }
+  }
+
+  .handwriting {
     color: var(--clr-secondary);
+    font-size: 1.5rem;
+    font-weight: var(--fw-bold);
+  }
+
+  .sponsor {
+    display: block;
+    color: var(--clr-secondary);
+    inline-size: var(--c-logo-size);
+
+    &[data-sponsor='mittwald'] {
+      --c-logo-size: 14rem;
+      padding-block-start: var(--c-mittwald-padding, 0);
+    }
+
+    &[data-sponsor='kirby'] {
+      --c-logo-size: 11rem;
+    }
 
     svg {
       display: block;
-      inline-size: var(--c-logo-size);
+    }
+  }
+
+  @media (width >= 48em) {
+    --c-flex-direction: row;
+    --c-flex-gap: 2rem;
+    --c-mittwald-padding: 0.875rem;
+  }
+}
+
+.about-us {
+  --c-clr-text: light-dark(var(--clr-surface), var(--clr-text));
+  --c-clr-border: light-dark(
+    color-mix(in oklab, var(--clr-surface) 40%, transparent),
+    color-mix(in oklab, var(--clr-text) 35%, transparent)
+  );
+  --social-links-hover-bg: light-dark(
+    color-mix(in oklab, white 18%, transparent),
+    color-mix(in oklab, var(--clr-text) 18%, transparent)
+  );
+  --tooltip-bg: light-dark(var(--clr-surface), var(--clr-text));
+  --tooltip-text: light-dark(var(--clr-bg-footer), var(--clr-bg-dark));
+
+  background-color: var(--clr-bg-footer);
+  color: var(--c-clr-text);
+  font-size: var(--fs-s);
+  line-height: var(--lh-m);
+
+  a {
+    color: var(--c-clr-text);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+    text-decoration-color: var(--c-clr-border);
+    transition: all 200ms ease;
+
+    &:hover,
+    &:focus-visible {
+      text-decoration-color: var(--clr-text-bright);
+    }
+  }
+
+  .inner {
+    padding-block: var(--sp-xl);
+    padding-inline: var(--sp-content);
+  }
+
+  .about-us {
+    color: var(--c-clr-text);
+  }
+
+  .footer-bottom {
+    margin-block-start: var(--sp-l);
+    padding-block-start: var(--sp-m);
+    border-block-start: 1px solid var(--c-clr-border);
+
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp);
+  }
+
+  .footer-meta-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sp-m);
+    margin-block-end: var(--sp);
+  }
+
+  .footer-contact-hint {
+    color: var(--clr-text-bright);
+    line-height: var(--lh-m);
+
+    .handwriting {
+      display: block;
+      font-family: var(--ff-hand);
+      font-size: 1.75rem;
+      font-weight: 300;
+    }
+  }
+
+  .footer-social {
+    color: inherit;
+    --social-links-tooltip-bg-context: var(--c-clr-text);
+    --social-links-tooltip-text-context: var(--clr-bg-footer);
+  }
+
+  @media (width >= 64em) {
+    .footer-bottom {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--sp-m);
+    }
+
+    .footer-social {
+      justify-content: flex-end;
+      flex-shrink: 0;
     }
   }
 }

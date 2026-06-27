@@ -1,11 +1,15 @@
 import { defineConfig, loadEnv } from 'vite'
 import { resolve } from 'path'
+import dns from 'node:dns'
 import kirby from 'vite-plugin-kirby'
+
+dns.setDefaultResultOrder('verbatim')
 
 export default defineConfig(({ command, mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
-  const devHost = env.DEV_HOST || 'localhost'
+  const devHost = env.DEV_HOST || '127.0.0.1'
   const devVitePort = Number(env.DEV_VITE_PORT || 5173)
+  const watchContent = env.DEV_WATCH_CONTENT !== 'false'
 
   return {
     root: '.',
@@ -16,16 +20,22 @@ export default defineConfig(({ command, mode }) => {
         '@plugins': resolve(__dirname, 'site/plugins'),
       },
     },
+    css: {
+      devSourcemap: true,
+    },
 
     build: {
-      outDir: resolve(__dirname, 'dist'),
+      outDir: resolve(__dirname, 'public/dist'),
       assetsDir: '',
-      emptyOutDir: true,
-      manifest: 'manifest.json',
+      emptyOutDir: !process.env.VITE_WATCH,
+      manifest: true,
       rollupOptions: {
         input: {
           main: resolve(__dirname, 'src/index.ts'),
         },
+      },
+      css: {
+        devSourcemap: false,
       },
     },
 
@@ -37,16 +47,12 @@ export default defineConfig(({ command, mode }) => {
       watch: {
         ignored: [
           '**/content/.git/**',
+          '**/content/**/_changes/**',
           '**/content/**/*.sqlite',
           '**/content/**/*.mp3',
           '**/content/**/*.m4a',
           '**/content/**/*.wav',
         ],
-      },
-      hmr: {
-        host: devHost,
-        clientPort: devVitePort,
-        protocol: 'ws',
       },
     },
 
@@ -57,10 +63,15 @@ export default defineConfig(({ command, mode }) => {
           './site/plugins/**/*.php',
           './site/plugins/**/*.html',
           './site/plugins/**/*.css',
-          './content/**/*.txt',
-          './content/**/*.yml',
-          './content/**/*.yaml',
-          './content/**/*.json',
+          ...(watchContent
+            ? [
+                './content/**/*.txt',
+                './content/**/*.yml',
+                './content/**/*.yaml',
+                './content/**/*.json',
+                '!./content/**/_changes/**',
+              ]
+            : []),
         ],
       }),
     ],

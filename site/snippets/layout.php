@@ -2,28 +2,18 @@
 /** @var Kirby\Cms\Site $site */
 /** @var Kirby\Cms\Page $page */
 
-use Kirby\Filesystem\F;
-
-$viteConfigPath = kirby()->root('config') . '/vite.config.php';
-$viteOutDir = 'dist';
-if (F::exists($viteConfigPath)) {
-  $viteConfig = require $viteConfigPath;
-  $viteOutDir = $viteConfig['outDir'] ?? $viteOutDir;
-}
-
-$viteDevDir = kirby()->root('base') ?? kirby()->root('index');
-$viteHasDevServer = F::exists($viteDevDir . '/.dev');
-$viteHasManifest = F::exists(kirby()->root('index') . '/' . $viteOutDir . '/manifest.json');
-
 $sharing = [
   'url' => $page->url(),
-  'title' => $site->title()->html(),
+  'title' => $page->isHomePage()
+    ? $site->title()->html()
+    : $page->title()->html() . ' · ' . $site->title()->html(),
   'name' => 'technikwürze',
   'description' => Escape::html($site->description()->value() || ''),
   'tags' => '',
-  'image' => $site->url() . '/assets/images/resp/sharing/lauftrainer-david-hannover-fb.jpg',
   'twitter' => 'technikwürze',
 ];
+
+$favicon = asset('assets/favicon.svg');
 ?>
 <!doctype html>
 <html lang="de" class="no-js">
@@ -33,23 +23,25 @@ $sharing = [
   <title><?= $sharing['title'] ?></title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="HandheldFriendly" content="true">
 
-  <?php if ($viteHasDevServer || $viteHasManifest): ?>
-    <?= vite()->css('src/index.ts', [], true) ?>
-    <?= vite()->js('src/index.ts', [], true) ?>
-  <?php endif; ?>
-  <?= css('/assets/mediathek.css') ?>
-  <?= css('/assets/participants.css') ?>
-  <?= css('/media/plugins/mauricerenck/komments/komments.css', ['defer' => true]) ?>
-  <?= css('/assets/komments-default.css') ?>
+  <?php snippet('layout/preload-fonts'); ?>
+
+  <?= vite()->css('src/index.ts', [], true) ?>
+  <?= vite()->js('src/index.ts', [], true) ?>
 
   <?php if (!$page->is('error')): ?>
     <link rel="canonical" href="<?php echo $sharing['url']; ?>">
   <?php endif; ?>
-  <link rel="icon" href="/assets/images/favicon.ico">
+  <?php if ($favicon->exists()): ?>
+    <link rel="icon" href="<?= $favicon->url() ?>">
+  <?php else: ?>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎙️</text></svg>">
+  <?php endif; ?>
+
+  <?php snippet('webmention-endpoint'); ?>
 
   <meta name="theme-color" content="#fff">
 
@@ -58,12 +50,17 @@ $sharing = [
     <meta name="keywords" content="<?php echo $page->metaKeywords(); ?>">
   <?php endif; ?>
   <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
+  <link rel="alternate" type="application/rss+xml" title="<?= $sharing[
+    'name'
+  ] ?> Podcast" href="https://technikwuerze.de/mediathek/feed">
 </head>
 
 <body>
+  <a href="#main-content" class="sr-only skip-link">Zum Inhalt springen</a>
   <?php snippet('layout/header'); ?>
+  <?php snippet('search/dialog'); ?>
 
-  <main>
+  <main id="main-content">
     <?= $slot ?>
   </main>
 

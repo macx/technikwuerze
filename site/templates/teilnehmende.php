@@ -7,28 +7,27 @@
  */
 
 snippet('layout', slots: true); ?>
-<?php slot(); ?>
-  <?php $participants = $page
-    ->children()
-    ->listed()
-    ->sortBy('last_name', 'asc', 'first_name', 'asc'); ?>
+  <?php slot(); ?>
+    <?php if ($page->header()->isNotEmpty()): ?>
+      <div class="page-header">
+        <h1 class="title">
+          <?= $page->header()->html() ?>
+        </h1>
 
-  <?php if ($page->text()->isNotEmpty()): ?>
-    <div class="teilnehmende-intro">
-      <?= $page->text()->kt() ?>
-    </div>
-  <?php endif; ?>
+        <?php if ($page->lead()->isNotEmpty()): ?>
+          <p class="lead">
+            <?= $page->lead()->kti() ?>
+          </p>
+        <?php endif; ?>
+      </div>
+    <?php endif; ?>
 
-  <ul class="participant-list-columns">
-    <?php foreach ($participants as $participant): ?>
-      <li>
-        <a href="<?= $participant->url() ?>">
-          <?= esc(
-            trim($participant->first_name()->value() . ' ' . $participant->last_name()->value()),
-          ) ?>
-        </a>
-      </li>
-    <?php endforeach; ?>
-  </ul>
-<?php endslot(); ?>
+    <?= $page->blocks()->toBlocks() ?>
+
+    <?php if ($page->text()->isNotEmpty()): ?>
+      <div class="teilnehmende-intro">
+        <?= $textBlocks->isNotEmpty() ? $textBlocks : $page->text()->kt() ?>
+      </div>
+    <?php endif; ?>
+  <?php endslot(); ?>
 <?php endsnippet(); ?>

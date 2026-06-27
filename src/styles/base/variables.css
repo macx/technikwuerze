@@ -1,49 +1,110 @@
 :root {
   /* LAYOUT */
   --header-size: 5rem;
-  --content-max-size: 77.5rem;
+  --content-max-size: 80rem;
+  --medium-max-size: 72rem;
+  --narrow-max-size: 59rem;
+
+  --max-lead: 55ch;
 
   /* TYPOGRAPHY */
-  --ff: 'Manrope Variable', system-ui, -apple-system, sans-serif;
-  --ff-brand: 'Bricolage Grotesque Variable', sans-serif;
+  --ff: 'Case', system-ui, -apple-system, sans-serif;
+  --ff-brand: 'McQueen', sans-serif;
   --ff-hand: 'Caveat Variable', cursive;
 
   --fw: 400;
+  --fw-medium: 500;
   --fw-bold: 600;
+  --fw-title: 800;
 
-  --lh: 1.4;
+  /* vp-min: 500px, vp-max: 1000px */
+  --fs: clamp(1.125rem, 0.875rem + 0.8vw, 1.375rem);
+  --fs-s: clamp(0.875rem, 0.75rem + 0.4vw, 1rem);
+  --fs-xs: clamp(0.75rem, 0.625rem + 0.4vw, 0.875rem);
+  --fs-r: clamp(1rem, 0.875rem + 0.4vw, 1.125rem);
+  --fs-m: clamp(1.5rem, 1rem + 1.6vw, 2rem);
+  --fs-l: clamp(1.75rem, 1.125rem + 2.4vw, 3rem);
+  --fs-title: clamp(3.4rem, -1rem + 9.6vw, 6.2rem);
+  --fs-subtitle: clamp(1.2rem, -0.41rem + 4vw, 2.5625rem);
+  --fs-title-2nd: clamp(2.1rem, -0.5rem + 5.5vw, 4rem);
+  --fs-title-3rd: clamp(1.4rem, -0.5rem + 5vw, 3rem);
+  --fs-lead: clamp(1.1875rem, 0.95rem + 1.2vw, 1.6875rem);
+  --fs-root: 1.125rem;
+
+  --fs-content-title-2nd: clamp(1.5rem, -0.45rem + 5vw, 2.8rem);
+  --fs-content-title-3rd: clamp(1.2rem, -0.2rem + 3.6vw, 2.2rem);
+  --fs-content-title-4th: clamp(1.05rem, -0.05rem + 2.7vw, 1.7rem);
+
+  --lh: 1.3;
+  --lh-s: 1.2;
+  --lh-m: 1.5;
 
   /* COLORS */
-  --clr-surface: light-dark(hsl(56 100% 79%), hsl(0 0% 18%));
-  --clr-bg-light: light-dark(hsl(56 100% 91%), hsl(0 0% 45%));
-  --clr-bg-dark: light-dark(hsl(56 65% 71%), hsl(0 0% 13%));
-  --clr-text: light-dark(hsl(0 0% 18%), hsl(0 0% 100%));
-  --clr-text-bright: light-dark(hsl(0 0% 100%), hsl(0 0% 18%));
+  --clr-surface: light-dark(hsl(56 100% 79%), hsl(32 11% 16%));
+  --clr-bg-light: light-dark(hsl(56 100% 91%), hsl(30 9% 22%));
+  --clr-bg-dark: light-dark(hsl(56 65% 71%), hsl(24 12% 11%));
+  --clr-shade-light: light-dark(
+    color-mix(in oklab, var(--clr-surface), white 10%),
+    color-mix(in oklab, var(--clr-surface), black 10%)
+  );
+  --clr-shade-dark: light-dark(
+    color-mix(in oklab, var(--clr-surface), black 2%),
+    color-mix(in oklab, var(--clr-surface), white 2%)
+  );
+
+  --clr-bg-footer: light-dark(hsl(18 18% 18%), hsl(24 16% 14%));
+  --clr-text: light-dark(hsl(0 0% 18%), hsl(44 27% 92%));
+  --clr-text-light: light-dark(hsl(0 0% 0% / 0.5), hsl(44 20% 80% / 0.7));
+  --clr-text-bright: light-dark(hsl(0 0% 100%), hsl(56 100% 88%));
+  --clr-text-opposite: light-dark(hsl(44 27% 92%), hsl(0 0% 18%));
   --clr-primary: light-dark(hsl(129 100% 26%), hsl(56 100% 79%));
   --clr-secondary: light-dark(hsl(263 60% 50%), hsl(263 100% 82%));
-  --clr-border: light-dark(hsl(0 0% 0% / 0.1), hsl(0 0% 100% / 0.1));
-  --clr-border-bright: light-dark(hsl(0 0% 100% / 0.15), hsl(0 0% 0% / 0.1));
+  --clr-line: light-dark(
+    color-mix(in oklab, var(--clr-surface), black 15%),
+    color-mix(in oklab, var(--clr-surface), white 15%)
+  );
+  --clr-border: light-dark(hsl(0 0% 0% / 0.2), hsl(44 18% 80% / 0.22));
+  --clr-border-bright: light-dark(hsl(0 0% 100% / 0.15), hsl(44 28% 88% / 0.24));
   --clr-shadow: light-dark(hsl(0 0% 0% / 0.25), hsl(0 0% 0% / 0.25));
-  --clr-hover: light-dark(hsl(0 0% 0% / 0.1), hsl(0 0% 100% / 0.1));
+  --clr-hover: light-dark(hsl(0 0% 0% / 0.1), hsl(56 45% 84% / 0.14));
+  --clr-accent: light-dark(hsl(263 60% 50%), hsl(263 100% 82%));
 
   /* SPACING */
-  --sp-xs: 0.5rem;
-  --sp-s: 0.625rem;
-  --sp: 1rem;
-  --sp-m: 1.25rem;
-  --sp-l: 1.875rem;
-  --sp-xl: 3.75rem;
-  --sp-content: max(1.875rem, 2vw);
+  --sp-xxs: 0.625rem;
+  --sp-xs: 0.75rem;
+  --sp-s: 1.25rem;
+  --sp: 1.5rem;
+  --sp-m: 1.875rem;
+  --sp-l: 3.125rem;
+  --sp-xl: 4rem;
+  --sp-xxl: 6.5rem;
+  --sp-content: 1.25rem;
+  --sp-col-gap: 3rem;
 
   /* OTHER */
+  --radius: 1rem;
+  --radius-s: 0.5rem;
   --radius-button: 1.25rem;
-  --radius-button-inner: 0.75rem;
+  --radius-button-s: 0.75rem;
+  --radius-button-xs: 0.625rem;
   --shadow-size: 0.5rem;
 
-  --podlove-player-margin-top: 1rem;
+  --focus-color: var(--clr-secondary);
+  --focus-outline: 4px solid var(--focus-color, var(--clr-secondary));
+  --focus-outline-offset: 2px;
 
+  --transition-short: 90ms ease-out;
   --ease-drawer-transform: cubic-bezier(0.2, 0.8, 0.2, 1);
   --dur-drawer-transform: 280ms;
+
+  /* tw-transcript plugin */
+  --podlove-player-margin-top: 1rem;
+  --twt-color-bg: var(--clr-shade-light);
+  --twt-color-accent: var(--clr-primary);
+
+  @media (width >= 48em) {
+    --sp-content: 2rem;
+  }
 }
 
 html[mode='dark'] {

@@ -11,21 +11,25 @@
 !/site/plugins/.gitkeep
 !/site/plugins/technikwuerze/
 !/site/plugins/technikwuerze/**
+
 /media/*
 !/media/index.html
+/public/media/*
+/public/site/
+/public/content/
 
 # Content - separate Git repository
 /content
 
 # Composer
 /vendor
-composer.lock
 
 # Node
 node_modules
 
 # Vite
 /dist
+/public/dist/
 .dev
 
 # Environment

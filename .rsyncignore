@@ -14,10 +14,15 @@ build/
 # runtime-managed content and state
 content/
 media/
+public/media/
 site/accounts/
 site/cache/
 site/sessions/
 storage/
+
+# host-managed HTTP auth secrets (e.g. Mittwald Verzeichnisschutz)
+.htpasswd
+public/.htpasswd
 
 # local dev/runtime files
 .DS_Store

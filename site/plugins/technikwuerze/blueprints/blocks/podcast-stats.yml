@@ -1,0 +1,120 @@
+name:
+  en: Podcast Stats
+  de: Podcast-Statistiken
+icon: chart
+preview: podcast-stats
+label:
+  en: Podcast Stats
+  de: Podcast-Statistiken
+fields:
+  headline:
+    type: text
+    label:
+      en: Headline
+      de: Überschrift
+    placeholder:
+      en: Podcast Stats
+      de: Podcast-Statistiken
+
+  stats:
+    type: structure
+    label:
+      en: Stat tiles
+      de: Statistik-Kacheln
+    min: 4
+    max: 4
+    columns: label
+      label:
+        text: true
+      integer_value:
+        text: true
+      percent_value:
+        text: true
+    fields:
+      label:
+        type: text
+        label:
+          en: Label
+          de: Bezeichnung
+        width: 1/2
+      icon:
+        type: select
+        label:
+          en: Icon class
+          de: Icon-Klasse
+        width: 1/2
+        default: msi-schedule
+        options:
+          msi-dark-mode: msi-dark-mode
+          msi-light-mode: msi-light-mode
+          msi-routine: msi-routine
+          msi-menu: msi-menu
+          msi-close: msi-close
+          msi-arrow-forward: msi-arrow-forward
+          msi-arrow-back: msi-arrow-back
+          msi-schedule: msi-schedule
+          msi-person-outline: msi-person-outline
+          msi-calendar: msi-calendar
+          msi-download: msi-download
+          msi-diversity-1: msi-diversity-1
+          msi-podcasts: msi-podcasts
+          msi-adaptive-audio-mic: msi-adaptive-audio-mic
+          msi-av-timer: msi-av-timer
+          msi-person-filled: msi-person-filled
+          msi-donut: msi-donut
+          msi-podcasts: msi-podcasts
+          msi-play-circle: msi-play-circle
+          msi-ssid-chart: msi-ssid-chart
+      value_type:
+        type: select
+        width: 1/2
+        label:
+          en: Value type
+          de: Wert-Typ
+        default: integer
+        options:
+          integer:
+            en: Integer
+            de: Ganzzahl
+          percent:
+            en: Percent
+            de: Prozent
+          total_downloads:
+            en: Total downloads (live)
+            de: Downloads gesamt (live)
+          downloads_last_month:
+            en: Downloads last month (live)
+            de: Downloads letzter Monat (live)
+          top10_share:
+            en: Top-10 share (live)
+            de: Top-10-Anteil (live)
+          published_episodes:
+            en: Published episodes (live)
+            de: Veröffentlichte Episoden (live)
+          total_episodes:
+            en: Total episodes (determined, legacy)
+            de: Folgen gesamt (ermittelt, Altbestand)
+      integer_value:
+        type: number
+        width: 1/2
+        label:
+          en: Integer
+          de: Ganzzahl
+        step: 1
+        min: 0
+        default: 0
+        when:
+          value_type: integer
+      percent_value:
+        type: number
+        width: 1/2
+        label:
+          en: Percent
+          de: Prozent
+        step: 0.1
+        min: 0
+        max: 100
+        default: 0
+        after: '%'
+        when:
+          value_type: percent

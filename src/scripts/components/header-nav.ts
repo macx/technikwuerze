@@ -21,7 +21,7 @@ export const initHeaderNav = (): void => {
   }
 
   // Keep existing CSS hooks for mobile open/close and desktop hiding.
-  navButton.classList.add('main-nav__toggle')
+  navButton.classList.add('main-nav-toggle')
 
   const setExpanded = (expanded: boolean): void => {
     navButton.setAttribute('aria-expanded', String(expanded))

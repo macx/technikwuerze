@@ -7,9 +7,8 @@ columns:
         type: fields
         fields:
           text:
+            extends: fields/content-blocks
             label: Intro
-            type: textarea
-            size: medium
           members:
             label: Mitglieder
             type: structure

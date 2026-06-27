@@ -12,8 +12,23 @@ const getStoredMode = (): ModeSetting | null => {
   return isModeSetting(stored) ? stored : null
 }
 
+const getEffectiveMode = (mode: ModeSetting): 'light' | 'dark' => {
+  if (mode === 'light' || mode === 'dark') {
+    return mode
+  }
+  return darkMediaQuery.matches ? 'dark' : 'light'
+}
+
 const applyMode = (mode: ModeSetting): void => {
   root.setAttribute('mode', mode)
+  root.dispatchEvent(
+    new CustomEvent('twz:modechange', {
+      detail: {
+        mode,
+        effectiveMode: getEffectiveMode(mode),
+      },
+    })
+  )
 }
 
 const syncModeSelects = (mode: ModeSetting): void => {
@@ -26,6 +41,9 @@ const saveMode = (mode: ModeSetting): void => {
   localStorage.setItem(MODE_STORAGE_KEY, mode)
 }
 
+const closeMainNav = (): void =>
+  document.querySelector<HTMLButtonElement>('.main-nav-toggle[aria-expanded="true"]')?.click()
+
 export const initModeSwitch = (): void => {
   const initialMode = getStoredMode() ?? 'system'
   applyMode(initialMode)
@@ -33,6 +51,7 @@ export const initModeSwitch = (): void => {
 
   for (const select of document.querySelectorAll<HTMLSelectElement>('[data-mode-select]')) {
     select.addEventListener('change', () => {
+      closeMainNav()
       const nextMode: ModeSetting = isModeSetting(select.value) ? select.value : 'system'
       applyMode(nextMode)
       syncModeSelects(nextMode)
@@ -46,6 +65,10 @@ export const initModeSwitch = (): void => {
     if (!select) {
       continue
     }
+
+    switchRoot.addEventListener('click', () => {
+      closeMainNav()
+    })
 
     switchRoot.dataset.enhanced = 'true'
   }

@@ -1,0 +1,78 @@
+title:
+  de: Testimonial
+  en: Testimonial
+icon: user
+
+create:
+  title: '{{ page.first_name }} {{ page.last_name }}'
+  slug: '{{ page.first_name.slug }}-{{ page.last_name.slug }}'
+  fields:
+    - first_name
+    - last_name
+
+status:
+  draft:
+    label:
+      de: Entwurf
+      en: Draft
+  unlisted:
+    label:
+      de: Aktiv
+      en: Active
+
+tabs:
+  content:
+    label:
+      de: Inhalt
+      en: Content
+    columns:
+      - width: 2/3
+        sections:
+          fields:
+            type: fields
+            fields:
+              first_name:
+                type: text
+                width: 1/2
+                required: true
+                label:
+                  de: Vorname
+                  en: First name
+              last_name:
+                type: text
+                width: 1/2
+                required: true
+                label:
+                  de: Nachname
+                  en: Last name
+              profession:
+                type: text
+                label:
+                  de: Beruf
+                  en: Profession
+              testimonial_text:
+                type: textarea
+                size: medium
+                required: true
+                label:
+                  de: Testimonial
+                  en: Testimonial
+      - width: 1/3
+        sections:
+          media:
+            type: fields
+            fields:
+              photo:
+                type: files
+                multiple: false
+                layout: cards
+                query: page.images
+                label:
+                  de: Bild
+                  en: Image
+                image:
+                  cover: true
+                  ratio: 1/1
+                uploads:
+                  template: testimonial-image
+                  parent: page

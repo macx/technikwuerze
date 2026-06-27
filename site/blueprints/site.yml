@@ -7,40 +7,19 @@ tabs:
       de: Dashboard
     icon: dashboard
     columns:
-      - width: 1/3
+      - width: 2/3
         sections:
           pages:
             type: pages
-            query: site.find("mediathek").index.filterBy("intendedTemplate", "episode").sortBy("date", "desc").limit(20)
+            query: site.find("mediathek").index.filterBy("intendedTemplate", "episode").sortBy("date", "desc").limit(12)
             label:
               en: Latest Episodes
               de: Letzte Folgen
             layout: list
-            info: "{{ page.date.toDate('d.m.Y H:i') }}"
-
-      - width: 1/3
-        sections:
-          listed:
-            label:
-              en: Pages
-              de: Seiten
-            type: pages
-            templates:
-              - home
-              - mediathek
-              - teilnehmende
-            status: listed
-            layout: list
-            info: "{{ page.children.count }}"
-            columns:
-              subpages:
-                label: Seiten
-                align: center
-                value: "{{ page.children.count }}"
-                width: 1/6
             image:
-              query: page.cover.tofile
-              cover: true
+              query: page.podcasterCover.tofile
+              back: var(--menu-color-back)
+            info: "{{ page.date.toDate('d.m.Y H:i') }}"
 
       - width: 1/3
         sections:
@@ -50,6 +29,35 @@ tabs:
               en: Drafts
               de: Entwürfe
             status: drafts
+            templates:
+              - page
+              - season
+              - episode
+              - participant
+              - testimonials
+              - podcasterfeed
+              - covers
+            image:
+              query: page.cover.tofile
+              cover: true
+          listed:
+            label:
+              en: Pages
+              de: Seiten
+            type: pages
+            templates:
+              - home
+              - mediathek
+              - teilnehmende
+              - kontakt
+            status: listed
+            layout: list
+            info: '{{ page.children.count }} Seiten'
+            columns:
+              subpages:
+                label: Seiten
+                align: center
+                width: 1/6
             image:
               query: page.cover.tofile
               cover: true
@@ -64,40 +72,96 @@ tabs:
               query: page.cover.tofile
               cover: true
 
-
   settings:
     label:
       en: Settings
       de: Einstellungen
     icon: cog
     columns:
-        - width: 2/3
-          fields:
-            description:
-              label:
-                en: Description
-                de: Kurzbeschreibung
-              type: textarea
-              size: small
-              minlength: 50
-              maxlength: 190
-              buttons: false
-            tags:
-              label: Tags
-              type: tags
+      - width: 1/3
+        fields:
+          generalHeadline:
+            label:
+              en: General
+              de: Allgemein
+            type: headline
+          description:
+            label:
+              en: Description
+              de: Kurzbeschreibung
+            type: textarea
+            size: medium
+            minlength: 50
+            maxlength: 190
+            buttons: false
+          tags:
+            label: Tags
+            type: tags
 
-        - width: 1/4
-          fields:
-            mastodon:
-              label: Mastodon
-              type: text
-              before: "@"
-              icon: mastodon
-            instagram:
-              label: Instagram
-              type: text
-              before: "@"
-              icon: instagram
+      - width: 1/3
+        fields:
+          footerHeadline:
+            label:
+              en: Footer
+              de: Footer
+            type: headline
+          footerSponsorsHint:
+            label:
+              en: Sponsor notice
+              de: Sponsoren-Hinweis
+            type: text
+          footerAboutUs:
+            label:
+              en: About us
+              de: Wir über uns
+            type: textarea
+            size: small
+          footerContactLabel:
+            label:
+              en: Handwriting
+              de: Handschriflich
+            type: text
+            size: small
+          footerContactHint:
+            label:
+              en: Contact note
+              de: Kontakt-Hinweis
+            type: textarea
+            size: small
+
+      - width: 1/3
+        fields:
+          socialHeadline:
+            label:
+              en: Social media
+              de: Social Media
+            type: headline
+          socialLinks:
+            label:
+              en: Social links
+              de: Social Links
+            extends: fields/social-links
+            default:
+              - network: bluesky
+                url: https://bsky.app/
+              - network: mastodon
+                url: https://mastodon.social/
+              - network: threads
+                url: https://www.threads.net/
+              - network: instagram
+                url: https://www.instagram.com/
+              - network: tiktok
+                url: https://www.tiktok.com/
+              - network: youtube
+                url: https://www.youtube.com/
+              - network: discord
+                url: https://discord.com/
+              - network: linkedin
+                url: https://www.linkedin.com/
+              - network: twitch
+                url: https://www.twitch.tv/
+              - network: x
+                url: https://x.com/
 
   email:
     label:

@@ -1,0 +1,41 @@
+type: structure
+sortable: true
+fields:
+  network:
+    label:
+      en: Network
+      de: Netzwerk
+    type: select
+    options:
+      bluesky: Bluesky
+      mastodon: Mastodon
+      threads: Threads
+      instagram: Instagram
+      tiktok: TikTok
+      youtube: YouTube
+      discord: Discord
+      linkedin: LinkedIn
+      twitch: Twitch
+      x: X
+      github:
+        de: GitHub
+        en: GitHub
+      amazon:
+        de: Amazon
+        en: Amazon
+      website:
+        de: Website
+        en: Website
+      other:
+        de: Sonstiges
+        en: Other
+    required: true
+  url:
+    label: URL
+    type: url
+    required: true
+columns:
+  network:
+    width: 1/3
+  url:
+    width: 2/3

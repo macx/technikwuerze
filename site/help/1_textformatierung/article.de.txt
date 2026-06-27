@@ -1,0 +1,47 @@
+Title: Textformatierung
+----
+Icon: text
+----
+Color: gray-600
+----
+Text:
+Hier findest du alle wichtigen Informationen zur Formatierung von Texten mit Markdown und spezialisierten Kirby-Tags. 
+
+## Standard Markdown
+
+Du kannst die gängigsten Textformatierungen einfach über Markdown schreiben:
+
+- **Fett**: `**fetter Text**`
+- *Kursiv*: `*kursiver Text*`
+- Listen: Einfach mit `- ` (für Aufzählungen) oder `1. ` (für nummerierte Listen) am Zeilenanfang.
+- Zitate: Mit `> ` am Zeilenanfang.
+
+Außerdem gibt es die Standard-Kirby-Tags für Links oder Bilder:
+- Links: `(link: https://example.com text: Linktext)`
+
+## Eigene Kirby-Tags der Technikwürze
+
+Für spezielle inhaltliche Elemente haben wir im Redaktionssystem eigene Kirby-Tags hinterlegt:
+
+### Kleiner Text (Small)
+Setzt einen Text etwas kleiner. Du kannst optional `tone: light` verwenden.
+- Syntax: `(small: Kleiner Zusatz)`
+
+### Tastenkürzel (Kbd)
+Stellt Tastenkombinationen visuell als Tasten dar.
+- Syntax: `(kbd: Cmd + K)`
+
+### Abkürzungen (Abbr)
+Deklariert eine Abkürzung und zeigt dem Nutzer beim Darüberfahren mit der Maus eine Erklärung an.
+- Syntax: `(abbr: API title: Application Programming Interface)`
+
+### Badges
+Hebt ein kurzes Wort als kleines "Schildchen" hervor. Unterstützt verschiedene Farbtöne über das Attribut `tone`.
+- Standard: `(badge: Neu)`
+- Positiv: `(badge: Stabil tone: ok)`
+- Warnung: `(badge: Achtung tone: warn)`
+
+### Hinweise (Asides / Callouts)
+Rendert einen inhaltlichen Hinweis als hervorgehobene Box, ähnlich wie in Dokumentationen. Du kannst hierfür `hinweis` oder den englischen Alias `note` verwenden.
+- Syntax: `(hinweis: Das ist ein wichtiger Kontext, der hervorgehoben wird.)`
+- Alias: `(note: Das geht ebenfalls.)`

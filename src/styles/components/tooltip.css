@@ -1,0 +1,48 @@
+.has-tooltip {
+  position: relative;
+  display: inline-flex;
+}
+
+.tooltip {
+  position: absolute;
+  inset-block-end: calc(100% + 0.35rem);
+  inset-inline-start: 50%;
+  transform: translate(-50%, 0.2rem);
+
+  padding-block: 0.3rem;
+  padding-inline: 0.5rem;
+  border-radius: 0.35rem;
+  background-color: var(--tooltip-bg, var(--clr-bg-footer));
+  color: var(--tooltip-text, var(--clr-surface));
+  font-size: 0.72rem;
+  line-height: 1.2;
+  white-space: nowrap;
+  z-index: 10;
+
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity var(--transition-short),
+    transform var(--transition-short);
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset-block-start: 100%;
+    inset-inline-start: 50%;
+    transform: translateX(-50%);
+    border: 0.35rem solid transparent;
+    border-block-start-color: var(--tooltip-bg, var(--clr-bg-footer));
+  }
+}
+
+.has-tooltip:is(:hover, :focus-within) .tooltip {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tooltip {
+    transition: none;
+  }
+}

@@ -1,20 +1,25 @@
-.c-button {
-  --c-button-bg: transparent;
-  --c-button-color: var(--clr-secondary);
-  --c-button-border: var(--clr-secondary);
+:is(.button, [class^='button-'], [class*=' button-'], button[type='submit']) {
+  --button-bg: transparent;
+  --button-scheme: var(--color-scheme, var(--clr-primary));
+  --button-color: var(--button-scheme);
+  --button-on-solid: light-dark(var(--clr-text-bright), var(--clr-bg-dark));
+  --button-border: var(--button-scheme);
+  --button-sp-block: 0.5rem;
+  --button-sp-inline: 1rem 0.875rem;
+  --button-fz: clamp(1rem, 0.4vw + 0.95rem, 1.25rem);
 
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5em;
-  padding-block: 0.55em;
-  padding-inline: 1em;
-  border: 2px solid var(--c-button-border);
-  border-radius: var(--radius-button);
-  background-color: var(--c-button-bg);
-  color: var(--c-button-color);
+  padding-block: var(--button-sp-block);
+  padding-inline: var(--button-sp-inline);
+  border: 2px solid var(--button-border);
+  border-radius: var(--radius-button-s);
+  background-color: var(--button-bg);
+  color: var(--button-color);
   font: inherit;
-  font-size: clamp(1rem, 0.4vw + 0.95rem, 2rem);
+  font-size: var(--button-fz);
   font-weight: var(--fw-bold);
   line-height: 1.1;
   text-decoration: none;
@@ -22,39 +27,52 @@
   transition:
     color 120ms var(--ease-drawer-transform),
     background-color 120ms var(--ease-drawer-transform),
-    border-color 120ms var(--ease-drawer-transform);
-}
+    border-color 120ms var(--ease-drawer-transform),
+    box-shadow 120ms var(--ease-drawer-transform);
 
-.c-button__icon {
-  font-size: 1.2em;
-}
-
-.c-button[data-icon-position='right'] {
-  flex-direction: row-reverse;
-}
-
-.c-button.primary {
-  --c-button-bg: var(--clr-secondary);
-  --c-button-color: var(--clr-text-bright);
-  --c-button-border: var(--clr-secondary);
-}
-
-.c-button.outline {
-  --c-button-bg: transparent;
-  --c-button-color: var(--clr-secondary);
-  --c-button-border: color-mix(in srgb, var(--clr-secondary) 65%, var(--clr-text) 35%);
-}
-
-@media (pointer: fine) {
-  .c-button:is(:hover, :focus-visible) {
-    --c-button-bg: color-mix(in srgb, var(--clr-secondary) 88%, var(--clr-bg-light) 12%);
-    --c-button-color: var(--clr-text-bright);
-    --c-button-border: var(--clr-secondary);
+  i {
+    font-size: 1.2em;
   }
 
-  .c-button.outline:is(:hover, :focus-visible) {
-    --c-button-bg: color-mix(in srgb, var(--clr-secondary) 15%, transparent);
-    --c-button-color: var(--clr-secondary);
-    --c-button-border: var(--clr-secondary);
+  &[data-icon-position='right'] {
+    flex-direction: row-reverse;
+  }
+
+  &:hover:not(:focus-visible) {
+    outline: none;
+    box-shadow: 0 0 0 0.375rem color-mix(in srgb, var(--button-border) 18%, transparent);
+  }
+
+  &:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 0.375rem color-mix(in srgb, var(--button-border) 60%, transparent);
+  }
+
+  &.button-primary {
+    --button-bg: var(--button-scheme);
+    --button-color: var(--button-on-solid);
+  }
+
+  &.button-compact {
+    --button-sp-block: 0.35em;
+    --button-sp-inline: 0.7em 0.6em;
+    --button-fz: 0.85em;
+  }
+
+  @media (pointer: fine) {
+    &:is(:hover, :focus-visible) {
+      --button-bg: color-mix(in srgb, var(--button-scheme) 15%, transparent);
+      --button-color: var(--button-scheme);
+      --button-border: var(--button-scheme);
+
+      outline: none;
+      box-shadow: 0 0 0 0.375rem color-mix(in srgb, var(--button-border) 60%, transparent);
+    }
+
+    &.button-primary:is(:hover, :focus-visible) {
+      --button-bg: color-mix(in srgb, var(--button-scheme) 88%, var(--clr-bg-light) 12%);
+      --button-color: var(--button-on-solid);
+      --button-border: var(--button-scheme);
+    }
   }
 }

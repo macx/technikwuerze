@@ -12,20 +12,45 @@ $episodes = $page
   ->published()
   ->sortBy('date', 'desc');
 
-snippet('layout/podcast', slots: true);
+snippet('layout', slots: true);
 ?>
 
 <?php slot(); ?>
-  <?php foreach ($episodes as $episode): ?>
-    <article>
-      <h3>
-        <a href="<?= $episode->url() ?>"><?= $episode->title()->html() ?></a>
-        <?php if ($episode->date()->isNotEmpty()): ?>
-          (<?= $episode->date()->toDate('d.m.Y') ?>)
-        <?php endif; ?>
-      </h3>
-      <?php snippet('podcaster-player', ['page' => $episode]); ?>
-    </article>
-  <?php endforeach; ?>
+  <div class="page-header content">
+    <h1 class="title">
+      <?= $page->title()->html() ?>
+    </h1>
+
+    <?php if ($page->lead()->isNotEmpty()): ?>
+      <p class="lead">
+        <?= $page->lead()->kti() ?>
+      </p>
+    <?php endif; ?>
+  </div>
+
+  <?= $page->blocks()->toBlocks() ?>
+
+  <?php if ($episodes->isNotEmpty()): ?>
+    <section class="season content">
+      <ul class="episodes-list">
+        <?php foreach ($episodes as $episode): ?>
+          <?php $episodeNumber = trim((string) $episode->podcasterepisodetotal()->value()); ?>
+          <li<?php e(
+            $episodeNumber !== '',
+            ' data-episode-number="' . esc($episodeNumber) . '"',
+          ); ?>>
+            <a href="<?= $episode->url() ?>">
+              <?= $episode->title()->value() ?><br />
+              <span class="text-s">
+                <?php if ($episode->date()->isNotEmpty()): ?>
+                  <span><?= $episode->date()->toDate('d.m.Y') ?></span>
+                <?php endif; ?>
+              </span>
+            </a>
+          </li>
+        <?php endforeach; ?>
+      </ul>
+    </section>
+  <?php endif; ?>
 <?php endslot(); ?>
 <?php endsnippet(); ?>

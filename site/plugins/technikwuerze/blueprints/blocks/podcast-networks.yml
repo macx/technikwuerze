@@ -2,6 +2,7 @@ name:
   en: Podcast Networks
   de: Podcast-Netzwerke
 icon: audio
+preview: podcast-networks
 label:
   en: Podcast network links with pointer
   de: Podcast-Netzwerk-Links mit Pointer
@@ -22,11 +23,28 @@ fields:
       de: 'Pointer-Text (Ende)'
     placeholder: 'anhören'
 
+  listento_mobile:
+    type: text
+    width: 1/3
+    label:
+      en: 'Pointer text (mobile)'
+      de: 'Pointer-Text (Mobil)'
+    placeholder: 'Jetzt anhören auf'
+
   networks:
     type: structure
     label:
       en: Networks
       de: Netzwerke
+    columns:
+      network:
+        text: true
+      mode:
+        text: true
+      hover_text:
+        text: true
+      copied_text:
+        text: true
     fields:
       network:
         type: select
@@ -45,6 +63,7 @@ fields:
           amazonmusic: Amazon Music
           spotify: Spotify
           pocketcasts: Pocket Casts
+          twitch: Twitch
         width: 1/3
 
       mode:

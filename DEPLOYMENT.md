@@ -14,11 +14,12 @@ This project uses a split deployment model:
 - build assets
 - validate composer config
 
-2. `Release Please` workflow runs on pushes to `main`:
+2. Release is created locally with `release-it`:
 
-- opens or updates a release PR
-- proposes version bump + changelog updates
-- creates tag + GitHub release when the release PR is merged
+- runs tests before release
+- bumps `package.json` version
+- creates release commit + tag (`vX.Y.Z`)
+- pushes commit and tag
 
 3. `Deploy From Tag` workflow runs on release tags (`v*`, `technikwuerze-v*`):
 
@@ -28,6 +29,8 @@ This project uses a split deployment model:
 - clears Kirby cache on server
 
 `content/`, `media/`, accounts, cache and sessions are excluded from `rsync` via `.rsyncignore`.
+Host-managed HTTP auth secrets (`.htpasswd`, including `public/.htpasswd`) are excluded so `rsync --delete` does not remove Mittwald credentials.
+`.htaccess` stays deploy-managed to keep Kirby rewrite rules stable.
 
 ## Required GitHub Secrets
 
@@ -117,11 +120,24 @@ Expected production config (`site/config/config.production.php`):
   - podcaster stats sqlite
 - Binary/runtime files are not versioned in Git; sync with `rsync` when needed.
 
+## Podcaster Patch Policy
+
+- `mauricerenck/podcaster` is pinned to an exact version in `composer.json`.
+- A Composer patch is applied during `composer install`:
+  - patch file: `patches/podcaster-central-audio-feed.patch`
+  - target package: `mauricerenck/podcaster`
+- The patch exists because episodes reference central audio files via `file://...` in `content/audio/`.
+- Any plugin update must follow this order:
+  1. Update pinned version intentionally.
+  2. Re-validate/rebase patch against new upstream code.
+  3. Run tests and verify feed output before release.
+
 ## Release Trigger
 
-1. Merge your `develop` -> `main` PR.
-2. Let `Release Please` create/update the release PR.
-3. Merge the release PR to create the release tag and GitHub Release.
+1. Work on `develop` as usual and push your commits.
+2. Run `pnpm release` (or `pnpm release:patch|minor|major`).
+3. `release-it` creates and pushes the release commit + tag.
+4. Tag push triggers `Deploy From Tag` automatically.
 
 Manual fallback from local machine:
 

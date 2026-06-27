@@ -1,0 +1,159 @@
+.episode-comments {
+  margin-block-start: var(--sp-xl);
+
+  > h2 {
+    margin-block: 0 var(--sp);
+  }
+}
+
+.comments-headline {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-s);
+
+  .count-bubble {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--clr-text);
+    color: var(--clr-text-opposite);
+    font-family: var(--ff);
+    font-size: var(--fs-s);
+    font-weight: var(--fw-bold);
+    line-height: 1;
+    padding: 0.35rem 0.6rem;
+    border-radius: 0.35rem;
+
+    /* Speech bubble tail */
+    &::after {
+      content: '';
+      position: absolute;
+      inset-inline-start: -0.6rem;
+      inset-block-end: 20%;
+      border: 0.35rem solid transparent;
+      border-inline-end-color: var(--clr-text);
+    }
+  }
+}
+
+.thread,
+.thread ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.thread {
+  --thread-line-indent: var(--sp);
+  --thread-line-size: 2px;
+  --thread-line-color: var(--clr-line);
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp);
+  font-size: var(--fs-root);
+
+  > li {
+    position: relative;
+    anchor-scope: --comment, --reply;
+  }
+
+  .replies {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp);
+
+    margin-block-start: var(--sp);
+    padding-inline-start: calc(var(--thread-line-indent) * 2 + var(--thread-line-size));
+  }
+
+  .comment,
+  .reply {
+    border: 1px solid var(--clr-line);
+    border-radius: var(--radius-s);
+    padding-block: var(--sp);
+    padding-inline: var(--thread-line-indent) var(--sp);
+    background-color: var(--clr-shade-dark);
+
+    .comment-header {
+      display: flex;
+      align-items: center;
+      gap: var(--sp-xs);
+      margin-block-end: var(--sp-xs);
+
+      img,
+      svg,
+      .komment-avatar-initials {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        object-fit: cover;
+        background-color: var(--clr-bg-dark);
+      }
+
+      .comment-author-meta {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 0;
+
+        a.u-url {
+          font-size: 0.8em;
+          color: var(--clr-text-light);
+          text-decoration: none;
+
+          &:hover {
+            color: var(--clr-primary);
+          }
+        }
+      }
+
+      .p-author,
+      .u-author {
+        font-weight: 700;
+        color: var(--clr-text);
+        text-decoration: none;
+      }
+
+      .u-author:hover {
+        text-decoration: underline;
+      }
+    }
+
+    .comment-text {
+      max-inline-size: 75ch;
+    }
+
+    .comment-footer {
+      text-align: end;
+    }
+  }
+
+  .comment {
+    anchor-name: --comment;
+  }
+
+  .reply {
+    anchor-name: --reply;
+    anchor-scope: --reply; /* WICHTIG: Damit jede Antwort ihren eigenen Anker behält */
+
+    &::after {
+      content: '';
+      display: block;
+
+      border: var(--thread-line-size) solid var(--thread-line-color);
+      border-right-color: transparent;
+      border-top-color: transparent;
+      border-bottom-left-radius: 12px;
+
+      position: absolute;
+      z-index: -1;
+
+      inset-block-start: calc(anchor(--comment end) - 1px);
+      inset-inline-start: calc(anchor(--comment start) + var(--thread-line-indent));
+      inset-inline-end: calc(anchor(--reply start) + 12px);
+      inset-block-end: anchor(--reply 50%);
+    }
+  }
+}

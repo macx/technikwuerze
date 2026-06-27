@@ -15,9 +15,10 @@ tabs:
     sections:
       audio_files:
         type: files
-        layout: cards
+        layout: list
         template: podcaster-episode
-        query: page.audio
+        info: '{{ file.Episodetitle }}<br />{{ file.duration }}'
+        query: page.audio.sortBy("filename", "asc")
         image:
           cover: true
           ratio: 1/1

@@ -91,7 +91,7 @@ Use the **Run and Debug** panel in Visual Studio Code:
 
 What starts automatically:
 
-- PHP server on `http://localhost:8000` by default (`kirby/router.php`)
+- PHP server on `http://localhost:8000` by default (`php -S ... -t public kirby/router.php`)
 - Vite dev server on `http://localhost:5173` by default (HMR assets)
 - Chrome incognito window with:
   - `http://<DEV_HOST>:<DEV_PHP_PORT>/`
@@ -104,7 +104,7 @@ What starts automatically:
 If you prefer to start the servers manually, run the following commands in separate terminal windows:
 
 ```bash
-php -S localhost:8000 kirby/router.php
+php -S localhost:8000 -t public kirby/router.php
 pnpm run dev
 ```
 
@@ -119,14 +119,16 @@ pnpm run build
 
 ## Release and Deployment
 
-- `CI` validates PRs and pushes.
-- Production deploys only from tags `v*` via workflow `Deploy From Tag`.
-- Create your normal `develop` -> `main` PR with `pnpm release` (or manually in GitHub).
-- Optional browser fallback: `pnpm release:open`.
-- PR title/body template is stored in `.github/release-pr-body.md`.
-- After merge to `main`, `Release Please` opens/updates a release PR automatically.
-- Merge the release PR to create tag + GitHub Release.
-- Tag creation triggers `Deploy From Tag` automatically.
+- `CI` validates pull requests to `main` and pushes to `main`.
+- Production deploys only from tags (`v*`, `technikwuerze-v*`) via workflow `Deploy From Tag`.
+- Daily work stays on `develop`.
+- When you want to go live, run one of:
+  - `pnpm release` (interactive)
+  - `pnpm release:patch`
+  - `pnpm release:minor`
+  - `pnpm release:major`
+- `release-it` runs tests, bumps `package.json`, creates commit + tag, and pushes both.
+- Tag push triggers `Deploy From Tag` automatically.
 - Deploy excludes are defined in `.rsyncignore`; `content/`, `media/`, `site/accounts/`, cache, and sessions are never deployed from this repo.
 
 ## Runtime Data Policy
@@ -134,7 +136,29 @@ pnpm run build
 - Content is managed in the separate `technikwuerze-content` repository.
 - Audio files are centralized in `content/audio/`.
 - Runtime DBs live in `content/.db/`.
-- Binary runtime files (audio/sqlite) are synced with `rsync`, not Git.
+- Binary runtime files (`audio`, `covers`, `avatars`, sqlite) are synced with `rsync`, not Git.
+
+### Keep Local Runtime Data in Sync
+
+```bash
+# pull all DB files from content/.db
+pnpm run sync:pull:db
+
+# pull only audio
+pnpm run sync:pull:audio
+
+# pull covers + avatars
+pnpm run sync:pull:covers
+
+# push all DB files from content/.db (asks for confirmation)
+pnpm run sync:push:db
+
+# push only audio (asks for confirmation)
+pnpm run sync:push:audio
+
+# push covers + avatars (asks for confirmation)
+pnpm run sync:push:covers
+```
 
 ## License
 

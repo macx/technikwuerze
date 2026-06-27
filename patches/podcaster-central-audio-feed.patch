@@ -1,0 +1,11 @@
+--- a/lib/Podcast.php	2026-05-29 19:53:11
++++ b/lib/Podcast.php	2026-05-29 19:53:11
+@@ -80,7 +80,7 @@
+                 return $child->date()->toDate() <= time();
+             })
+             ->filter(function ($child) {
+-                return $child->hasAudio();
++                return !is_null($this->getAudioFile($child));
+             })
+             ->sortBy('date', 'desc');
+     }

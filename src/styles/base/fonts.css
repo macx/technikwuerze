@@ -1,0 +1,19 @@
+/**
+  * McQueen Variable Font
+  * Range: 200 - 1000
+  */
+@font-face {
+  font-family: 'McQueen';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 200 1000;
+  src: url('/assets/fonts/McQueenVAR.woff2') format('woff2') tech(variations);
+}
+
+@font-face {
+  font-family: 'Case';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 50 1000;
+  src: url('/assets/fonts/CaseVAR.woff2') format('woff2') tech(variations);
+}

@@ -1,0 +1,65 @@
+.social-links {
+  --social-links-hover-bg: color-mix(in oklab, currentColor 12%, transparent);
+  --social-links-tooltip-bg: var(
+    --social-links-tooltip-bg-context,
+    color-mix(in oklab, var(--clr-bg-footer) 88%, transparent)
+  );
+  --social-links-tooltip-text: var(--social-links-tooltip-text-context, #fff);
+
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0;
+}
+
+.social-links-item {
+  position: relative;
+  display: inline-flex;
+}
+
+.social-links-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 2.45rem;
+  block-size: 2.45rem;
+  border-radius: var(--radius-button-s);
+  color: inherit;
+  text-decoration: none;
+  transition: background-color var(--transition-short);
+
+  &:hover,
+  &:focus-visible {
+    background-color: var(--social-links-hover-bg);
+  }
+
+  .social-links-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .social-links-sr-label {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    border: 0;
+    white-space: nowrap;
+  }
+
+  svg {
+    display: block;
+    inline-size: 1.25rem;
+    block-size: 1.25rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tooltip {
+    transition: none;
+  }
+}

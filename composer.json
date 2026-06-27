@@ -5,19 +5,45 @@
   "license": "MIT",
   "require": {
     "php": ">=8.2",
+    "cweagans/composer-patches": "^1.7",
     "getkirby/cms": "^5.0",
-    "arnoson/kirby-vite": "^4.0",
+    "arnoson/kirby-vite": "^5.0",
     "thathoff/kirby-git-content": "^5.4",
-    "mauricerenck/podcaster": "^3.4",
-    "mauricerenck/komments": "^3.7"
+    "mauricerenck/podcaster": "3.4.0",
+    "mauricerenck/komments": "^3.7",
+    "mzur/kirby-uniform": "^5.7",
+    "arnoson/kirby-loupe": "^0.4",
+    "arnoson/kirby-form-builder": "^0.9.1",
+    "medienbaecker/kirby-help-view": "^1.2",
+    "vlucas/phpdotenv": "^5.6",
+    "fabianmichael/kirby-markdown-field": "^4.0",
+    "mauricerenck/indieconnector": "^2.15",
+    "macx/kirby-tw-transcript": "@beta",
+    "scottboms/link-scanner": "^1.0"
   },
+  "require-dev": {
+    "lukaskleinschmidt/kirby-types": "^2.0"
+  },
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/macx/kirby-tw-transcript"
+    }
+  ],
   "config": {
     "optimize-autoloader": true,
     "allow-plugins": {
-      "getkirby/composer-installer": true
+      "getkirby/composer-installer": true,
+      "cweagans/composer-patches": true
     }
   },
   "extra": {
+    "composer-exit-on-patch-failure": true,
+    "patches": {
+      "mauricerenck/podcaster": {
+        "Support central audio references in feed": "patches/podcaster-central-audio-feed.patch"
+      }
+    },
     "kirby": {
       "install": true
     }

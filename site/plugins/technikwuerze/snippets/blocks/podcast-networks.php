@@ -10,6 +10,7 @@ $networkOptions = [
   'amazonmusic' => 'Amazon Music',
   'spotify' => 'Spotify',
   'pocketcasts' => 'Pocket Casts',
+  'twitch' => 'Twitch',
 ];
 
 $activeNetworks = [];
@@ -56,10 +57,20 @@ if ($favoriteNetwork !== '') {
 }
 
 $defaultIsCustom = $defaultNetwork['mode'] === 'copy' && $defaultNetwork['hoverText'] !== '';
+$mobilePointerText = trim((string) $block->pointer_mobile()->value());
+if ($mobilePointerText === '') {
+  $mobilePointerText = trim((string) $block->listento_mobile()->value());
+}
 ?>
 <div class="tw-brand-networks<?= $hasFavoritePointer ? ' has-default-pointer' : '' ?>">
+  <?php if ($mobilePointerText !== ''): ?>
+    <p class="pointer-mobile handwriting">
+      <?= esc($mobilePointerText) ?>
+    </p>
+  <?php endif; ?>
+
   <div class="pointer">
-    <span class="pointer-text<?= $defaultIsCustom ? ' is-rss-custom' : '' ?>">
+    <span class="pointer-text handwriting<?= $defaultIsCustom ? ' is-rss-custom' : '' ?>">
       <span class="pointer-start">
         <?= esc($block->listento_start()->value()) ?>
       </span>
@@ -84,7 +95,9 @@ $defaultIsCustom = $defaultNetwork['mode'] === 'copy' && $defaultNetwork['hoverT
       <li>
         <a
           href="<?= $network['url'] ?>"
-          aria-label="<?= esc($network['label'], 'attr') ?>"
+          aria-label="<?= $network['mode'] === 'copy'
+            ? esc($network['label']) . ' (kopiert Feed-Adresse)'
+            : esc($network['label']) ?>"
           class="<?= $network['id'] === $defaultNetwork['id'] ? 'is-pointer-target' : '' ?>"
           data-network-id="<?= esc($network['id'], 'attr') ?>"
           data-network-label="<?= esc($network['label'], 'attr') ?>"

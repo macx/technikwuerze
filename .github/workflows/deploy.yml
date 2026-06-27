@@ -6,6 +6,9 @@ on:
       - 'v*'
       - 'technikwuerze-v*'
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 concurrency:
   group: production-deploy
   cancel-in-progress: false
@@ -15,22 +18,31 @@ jobs:
     runs-on: ubuntu-latest
     environment: production
     permissions:
-      contents: read
+      contents: write
 
     steps:
       - name: Checkout tagged release
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          token: ${{ secrets.RELEASE_TOKEN }}
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          tools: composer:v2
+
+      - name: Install Composer production dependencies
+        run: composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version: '24'
 
       - name: Enable Corepack
         run: corepack enable
-
 
       - name: Install Node dependencies
         run: pnpm install --frozen-lockfile
@@ -41,14 +53,15 @@ jobs:
       - name: Build production assets
         run: pnpm run build
 
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.4'
-          tools: composer:v2
-
-      - name: Install Composer production dependencies
-        run: composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist
+      - name: Merge release tag into main
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git fetch origin main:main
+          git checkout main
+          git merge ${{ github.ref_name }} --no-ff -m "chore(release): merge ${{ github.ref_name }} into main"
+          git push origin main
+          git checkout ${{ github.ref_name }}
 
       - name: Setup SSH agent
         uses: webfactory/ssh-agent@v0.9.0
@@ -60,8 +73,27 @@ jobs:
           DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
           DEPLOY_PORT: ${{ secrets.DEPLOY_PORT }}
         run: |
-          mkdir -p ~/.ssh
-          ssh-keyscan -p "${DEPLOY_PORT:-22}" -H "$DEPLOY_HOST" >> ~/.ssh/known_hosts
+          SSH_HOME="${HOME:-$RUNNER_TEMP}"
+          SSH_DIR="$SSH_HOME/.ssh"
+          mkdir -p "$SSH_DIR"
+          chmod 700 "$SSH_DIR"
+          ssh-keyscan -p "${DEPLOY_PORT:-22}" -H "$DEPLOY_HOST" >> "$SSH_DIR/known_hosts"
+          chmod 644 "$SSH_DIR/known_hosts"
+
+      - name: Preflight content safety check
+        env:
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+          DEPLOY_PORT: ${{ secrets.DEPLOY_PORT }}
+          DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+          DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
+        run: |
+          ssh -p "${DEPLOY_PORT:-22}" "${DEPLOY_USER}@${DEPLOY_HOST}" "
+            set -e
+            if [ ! -d '${DEPLOY_PATH}/content/.git' ]; then
+              echo 'ERROR: ${DEPLOY_PATH}/content/.git is missing. Refusing deploy to protect content.'
+              exit 1
+            fi
+          "
 
       - name: Deploy code via rsync
         env:
@@ -71,7 +103,8 @@ jobs:
           DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
         run: |
           RSYNC_RSH="ssh -p ${DEPLOY_PORT:-22}"
-          rsync -az --delete --delete-excluded \
+          # Never use --delete-excluded here, it would delete protected paths like content/
+          rsync -az --delete \
             --exclude-from='.rsyncignore' \
             -e "$RSYNC_RSH" \
             ./ "${DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_PATH}/"

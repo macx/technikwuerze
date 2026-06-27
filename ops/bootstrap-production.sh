@@ -12,16 +12,17 @@ CONTENT_REPO="${CONTENT_REPO:-git@github.com:macx/technikwuerze-content.git}"
 mkdir -p "${DEPLOY_PATH}"
 cd "${DEPLOY_PATH}"
 
-mkdir -p site/cache site/sessions site/accounts media content/.db content/audio
+mkdir -p site/cache site/sessions site/accounts media content/.db content/audio content/avatars
 
 if [[ ! -d content/.git ]]; then
   rm -rf content
   git clone "${CONTENT_REPO}" content
 fi
 
-mkdir -p content/.db content/audio
+mkdir -p content/.db content/audio content/avatars
 [[ -f content/.db/.gitkeep ]] || touch content/.db/.gitkeep
 [[ -f content/audio/.gitkeep ]] || touch content/audio/.gitkeep
+[[ -f content/avatars/.gitkeep ]] || touch content/avatars/.gitkeep
 
 echo "Bootstrap completed at ${DEPLOY_PATH}."
 echo "Next steps:"

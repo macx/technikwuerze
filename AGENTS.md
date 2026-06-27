@@ -27,7 +27,7 @@ Maintain and evolve the Technikwürze Kirby site safely and consistently:
 
 - Main repo must not depend on uncommitted content-side runtime state.
 - Content repo is authoritative for Kirby content files.
-- Binary runtime data (audio files, sqlite DB files) is synchronized by `rsync`, not Git.
+- Binary runtime data (audio files, avatar images, sqlite DB files) is synchronized by `rsync`, not Git.
 
 ## 4) Data Storage Rules (Important)
 
@@ -38,6 +38,12 @@ Maintain and evolve the Technikwürze Kirby site safely and consistently:
   - `- file://<uuid>`
 - Do not copy MP3 files into each episode directory.
 - Keep `content/audio/.gitkeep` present.
+
+### Avatars
+
+- Participant avatars are centralized in `content/avatars/`.
+- Participants reference avatars via file UUID in `Profile-image`.
+- Keep `content/avatars/.gitkeep` present.
 
 ### Databases
 
@@ -51,8 +57,15 @@ Maintain and evolve the Technikwürze Kirby site safely and consistently:
 ### Gitignore intent
 
 - Main repo ignores local sqlite artifacts (including `/.sqlite/`).
-- Content repo ignores `*.sqlite`, `*.db`, audio/video binaries.
+- Content repo ignores `*.sqlite`, `*.db`, audio/video binaries and avatar binaries in `content/avatars/`.
 - Keep placeholders like `.gitkeep` tracked where needed.
+
+### Kirby User Accounts
+
+- `site/accounts/` is never versioned or synced (gitignored, excluded from `.rsyncignore`) — each environment (local, production) manages its own accounts independently.
+- Content (feed page `Podcasterauthor`/`Podcasterowner`, episode `Podcasterauthor`, participant `Linked-user`) references accounts via `user://<uuid>`. Because content IS shared between environments via the content repo, any such UUID must resolve to an account with the same identity in every environment, or the reference silently resolves to nothing (e.g. missing `<itunes:author>`/`<itunes:owner>` in the RSS feed).
+- Canonical account: UUID `qwP3CCVv` = David Eiken (`realmacx@gmail.com`), the podcast's show identity, linked from `content/3_teilnehmende/14_david-eiken/participant.txt` via `Linked-user`. Any environment must provision an account with this exact UUID for podcast author/owner references to resolve.
+- When bootstrapping a new environment (see `ops/bootstrap-production.sh`), recreate this account folder with the same UUID before relying on podcast author/owner fields.
 
 ## 5) Language & Content Conventions
 
@@ -75,6 +88,11 @@ Maintain and evolve the Technikwürze Kirby site safely and consistently:
 - Episodes live under `content/2_mediathek/staffel-*/...`.
 - Hosts/Guests are assigned via participant page references.
 - Audio field in episode panel is configured to select/upload from central `site.find("audio")`.
+- Kirby status for episodes is folder-name driven (no `Status:` field in `episode.txt`):
+  - `draft`: episode folder is inside `_drafts/`
+  - `unlisted`: episode folder name is `NNN-slug` (example: `001-tw188-...`)
+  - `listed/public`: episode folder name is `YYYYMMDDHHMM_NNN-slug` (example: `201302031820_001-tw188-...`)
+- For bulk publishing of episodes, derive `YYYYMMDDHHMM` from `Date:` in `episode.txt`.
 
 ## 8) Migration Workspace Policy
 
@@ -91,10 +109,21 @@ Maintain and evolve the Technikwürze Kirby site safely and consistently:
 - Never run destructive git commands (`reset --hard`, etc.) unless explicitly requested.
 - Do not revert user changes you did not create.
 - Prefer minimal diffs and maintain existing style.
+- For CSS inside `@scope`, prefer collecting descendant rules under a shared `:scope { ... }` block instead of repeating `:scope .selector` for each rule.
+- CSS authoring style:
+  - avoid BEM for new code; prefer CSS Nesting with low nesting depth,
+  - use one root component class and nest short child selectors below it (example: `.search-dialog { .header {} .input {} .actions {} }`),
+  - prefer element selectors inside component scopes or logical single-class selectors,
+  - avoid repeating long prefixed child class names like `.component-child-element`; bundle them under the component root instead,
+  - define modifier states nested under the main component rule (example: `.tw-badge { &.ok { ... } &.warn { ... } }`),
+  - avoid repeating the same full selector for states/modifiers; nest states directly (`.link { &:hover {} &.active {} }`),
+  - prefer ARIA/data/state attributes over additional utility/state classes where feasible,
+  - keep responsive rules mobile-first and place `@container`/`@media` blocks at the end of a block on level 1.
 - For bulk transforms, add safeguards and verify with spot checks.
 - Run Prettier after edits on touched files before finishing work:
   - `pnpm exec prettier --write <files...>`
   - or `pnpm run format` for broader sweeps when appropriate.
+- Special case: `site/config/vite.config.php` is auto-generated and still must be formatted with Prettier after Vite config changes (`pnpm exec prettier --write site/config/vite.config.php`), otherwise CI `format:check` can fail.
 - If changing content at scale:
   - protect technical fields/references,
   - run pattern checks before/after.
@@ -125,7 +154,7 @@ Maintain and evolve the Technikwürze Kirby site safely and consistently:
 
 - Keep three workflows:
   - `CI` (`.github/workflows/test.yml`) for PR/push checks
-  - `Release Please` (`.github/workflows/release-please.yml`) for release PR + tag orchestration
+  - `release-it` (local CLI) for version bump + tag creation
   - `Deploy From Tag` (`.github/workflows/deploy.yml`) for production rollouts from tags only
 - Use Corepack-managed pnpm from `package.json` (`packageManager`) in CI.
 - Keep `pnpm-lock.yaml` versioned; CI uses `pnpm install --frozen-lockfile`.
@@ -135,15 +164,20 @@ Maintain and evolve the Technikwürze Kirby site safely and consistently:
 ### Release policy
 
 - Releases are semantic tags (`vX.Y.Z`).
-- `Release Please` manages release PRs and release tags from `main`.
+- `release-it` creates the version commit and release tag from `develop`.
 - Deployments run only when a release tag is pushed (`v*`, `technikwuerze-v*`).
+- On release tag push, `deploy.yml`'s `deploy` job merges the tag into `main` (`git merge <tag> --no-ff`, pushed with `secrets.RELEASE_TOKEN`) only after tests and the production build succeed, and before the rsync deploy steps run — so `main` mirrors the latest released state but a broken build never reaches `main`. This mirrors the release flow used in the `davideiken` project.
 
 ### Server model
 
+- Webserver document root in production must point to `public/` (not repository root).
 - `content/` is a dedicated Git repository on production and must exist as `content/.git`.
 - Main code deployment must never overwrite `content/`, `media/`, accounts, cache or sessions.
+- Main code deployment must preserve host-managed HTTP auth secrets (`.htpasswd`, including `public/.htpasswd`) via `.rsyncignore`.
+- Keep `.htaccess` deploy-managed so Kirby rewrite rules in `public/.htaccess` stay consistent.
 - Runtime binaries/state are not in Git:
   - `content/audio/` (audio files)
+  - `content/avatars/` (participant avatar image files)
   - `content/.db/*.sqlite` (komments + podcaster stats)
 - Runtime binaries/state are synchronized manually via `rsync` when needed.
 
@@ -154,6 +188,15 @@ Maintain and evolve the Technikwürze Kirby site safely and consistently:
   - deployment docs,
   - this `AGENTS.md`.
 - Never introduce a deploy step that writes `content/` from main repo CI.
+- Never use `rsync --delete-excluded` in deploy flows. With `content/` in excludes, this can delete production content.
+- Keep a deploy preflight check that requires `${DEPLOY_PATH}/content/.git` to exist before any rsync runs.
 - Validate workflow YAML syntax and run a local sanity check of referenced paths.
 - Keep `ops/bootstrap-production.sh` and `ops/deploy-manual-rsync.sh` aligned with docs/workflows.
 - Prefer a dedicated deploy SSH user with write access limited to the deployment target (`html`) only.
+
+## 13) Overall Principles
+
+- Do not include comments in code to show changes or explain decisions; instead, update this `AGENTS.md` and other documentation files to reflect new patterns and conventions.
+- Always prefer explicit, readable code and configuration over implicit or "magic" behavior.
+- If writing comments to point out non-obvious behavior, consider if the code can be refactored to be more self-explanatory instead.
+- If writings comments, use english language.

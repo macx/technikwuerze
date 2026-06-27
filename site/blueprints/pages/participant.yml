@@ -54,6 +54,15 @@ tabs:
                   en: Profession
                 type: text
                 width: 1/1
+              lead:
+                label:
+                  de: Kurzbeschreibung
+                  en: Short description
+                type: textarea
+                buttons:
+                  - bold
+                  - italic
+                width: 1/1
               description:
                 label:
                   de: Beschreibung
@@ -64,50 +73,8 @@ tabs:
                 label:
                   de: Externe Profile
                   en: External profiles
-                type: structure
+                extends: fields/social-links
                 fields:
-                  network:
-                    label:
-                      de: Netzwerk
-                      en: Network
-                    type: select
-                    options:
-                      instagram:
-                        de: Instagram
-                        en: Instagram
-                      x:
-                        de: X
-                        en: X
-                      mastodon:
-                        de: Mastodon
-                        en: Mastodon
-                      youtube:
-                        de: YouTube
-                        en: YouTube
-                      blog:
-                        de: Blog
-                        en: Blog
-                      linkedin:
-                        de: LinkedIn
-                        en: LinkedIn
-                      github:
-                        de: GitHub
-                        en: GitHub
-                      amazon:
-                        de: Amazon
-                        en: Amazon
-                      website:
-                        de: Website
-                        en: Website
-                      other:
-                        de: Sonstiges
-                        en: Other
-                  url:
-                    label:
-                      de: URL
-                      en: URL
-                    type: url
-                    required: true
                   profile_label:
                     label:
                       de: Bezeichnung
@@ -135,11 +102,12 @@ tabs:
                   de: Profilbild
                   en: Profile image
                 type: files
+                layout: cardlets
                 multiple: false
-                query: page.images
+                query: site.find("avatars").images
                 uploads:
                   template: profile-image
-                  parent: page
+                  parent: site.find("avatars")
               participant_role:
                 label:
                   de: Rolle
@@ -204,3 +172,17 @@ tabs:
                   de: Pronomen
                   en: Pronouns
                 type: text
+              participation_stats:
+                label:
+                  de: Mitwirkungen
+                  en: Participations
+                type: info
+                text:
+                  de: |
+                    Gesamt: **{{ page.participationTotalCount }}**
+                    Als Host: **{{ page.participationHostCount }}**
+                    Als Gast: **{{ page.participationGuestCount }}**
+                  en: |
+                    Total: **{{ page.participationTotalCount }}**
+                    As host: **{{ page.participationHostCount }}**
+                    As guest: **{{ page.participationGuestCount }}**

@@ -1,0 +1,526 @@
+<!doctype html>
+<html lang="de" class="no-js">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Technikw&uuml;rze</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="HandheldFriendly" content="true" />
+
+    <script src="http://127.0.0.1:5173/@vite/client" type="module"></script>
+    <script src="http://127.0.0.1:5173/src/index.ts" type="module"></script>
+    <link rel="canonical" href="http://127.0.0.1:8000/kontakt" />
+
+    <meta name="theme-color" content="#fff" />
+
+    <meta name="description" content="1" />
+    <meta name="keywords" content="" />
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
+  </head>
+
+  <body>
+    <header class="main-header">
+      <a href="http://127.0.0.1:8000" class="website-title"> Technikwürze </a>
+
+      <nav aria-label="Hauptnavigation" id="main-nav">
+        <ul id="main-nav-list">
+          <li>
+            <a href="http://127.0.0.1:8000" class="main-nav-link"> Start </a>
+          </li>
+          <li>
+            <a href="http://127.0.0.1:8000/mediathek" class="main-nav-link"> Mediathek </a>
+          </li>
+          <li>
+            <a href="http://127.0.0.1:8000/teilnehmende" class="main-nav-link"> Teilnehmende </a>
+          </li>
+          <li>
+            <a href="http://127.0.0.1:8000/kontakt" aria-current="page" class="main-nav-link">
+              Kontakt
+            </a>
+          </li>
+        </ul>
+
+        <template id="main-nav-button">
+          <button
+            type="button"
+            class="main-nav-button"
+            aria-expanded="false"
+            aria-label="Menü"
+            aria-controls="main-nav-list"
+          >
+            <i class="msi-menu"></i>
+          </button>
+        </template>
+      </nav>
+
+      <div class="header-tools">
+        <button
+          type="button"
+          class="main-nav-button"
+          aria-label="Suche öffnen"
+          title="Suche öffnen"
+          aria-haspopup="dialog"
+          aria-controls="site-search-dialog"
+          data-search-dialog-open
+        >
+          <i class="msi-search"></i>
+        </button>
+        <div class="theme-switch" data-theme-switch>
+          <select
+            class="theme-switch-select"
+            id="mode-select"
+            data-mode-select
+            aria-label="Farbmodus auswählen"
+            title="Farbmodus auswählen"
+          >
+            <button class="main-nav-button" aria-hidden="true" tabindex="-1">
+              <selectedcontent></selectedcontent>
+            </button>
+            <option value="system">
+              <i class="msi-routine" aria-hidden="true"></i>
+              <span>Automatisch</span>
+            </option>
+            <option value="light">
+              <i class="msi-light-mode" aria-hidden="true"></i>
+              <span>Hell</span>
+            </option>
+            <option value="dark">
+              <i class="msi-dark-mode" aria-hidden="true"></i>
+              <span>Dunkel</span>
+            </option>
+          </select>
+        </div>
+      </div>
+    </header>
+    <dialog id="site-search-dialog" class="site-search-dialog" data-search-dialog>
+      <form
+        class="site-search-dialog-form"
+        method="get"
+        action="http://127.0.0.1:8000/suche"
+        role="search"
+      >
+        <header class="site-search-dialog-header">
+          <h2>Titel suchdialog</h2>
+          <button
+            class="main-nav-button"
+            type="button"
+            aria-label="Suche schließen"
+            data-search-dialog-close
+          >
+            <i class="msi-close"></i>
+          </button>
+        </header>
+
+        <label for="site-search-dialog-query">Suchbegriff</label>
+        <input
+          id="site-search-dialog-query"
+          type="search"
+          name="q"
+          value=""
+          placeholder="Suche (noch nicht gestaltet)"
+          required
+          data-search-dialog-input
+        />
+
+        <div class="site-search-dialog-actions">
+          <div class="theme-switch" data-enhanced="true">
+            <label for="site-search-dialog-category">Kategorie</label>
+            <select
+              class="theme-switch-select"
+              id="site-search-dialog-category"
+              name="category"
+              aria-label="Kategorie auswählen"
+              title="Kategorie auswählen"
+            >
+              <option value="all">Alle</option>
+              <option value="content" selected>Inhalte</option>
+              <option value="episode">Episoden</option>
+              <option value="participant">Teilnehmende</option>
+              <option value="comment">Kommentare</option>
+            </select>
+          </div>
+
+          <button class="button-primary" type="submit">Suchen</button>
+        </div>
+      </form>
+    </dialog>
+
+    <main>
+      <div class="page-header">
+        <h1 class="title">Kontakt &amp; Austausch</h1>
+
+        <p class="lead">
+          <strong
+            >Du hast Feedback zu einer Folge, eine spannende Themenidee oder möchtest uns als
+            Podcast-Pioniere für eine Kooperation anfragen? Wir freuen uns auf deine
+            Nachricht!</strong
+          >
+        </p>
+      </div>
+
+      <div class="content narrow">
+        <div class="card contact-form">
+          <h2 id="contact-form-heading">Schreib uns</h2>
+
+          <form action="http://127.0.0.1:8000/kontakt" autocomplete="off" method="POST">
+            <div class="form-row">
+              <div class="form-column" style="--span: 3">
+                <div class="form-field" data-field-type="text">
+                  <label for="kontakt/field/name"> Name <span aria-hidden="true">*</span> </label
+                  ><input
+                    id="kontakt/field/name"
+                    type="text"
+                    minlength="2"
+                    name="name"
+                    placeholder="  "
+                    required
+                  />
+                </div>
+              </div>
+              <div class="form-column" style="--span: 3">
+                <div class="form-field" data-field-type="email">
+                  <label for="kontakt/field/email"> E-Mail <span aria-hidden="true">*</span> </label
+                  ><input id="kontakt/field/email" name="email" placeholder="  " required />
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-column" style="--span: 6">
+                <div class="form-field" data-field-type="textarea">
+                  <label for="kontakt/field/message">
+                    Nachricht <span aria-hidden="true">*</span> </label
+                  ><textarea
+                    id="kontakt/field/message"
+                    name="message"
+                    placeholder="  "
+                    required
+                  ></textarea>
+                </div>
+              </div>
+            </div>
+            <input type="hidden" name="form_name" value="Kontakt" />
+            <input
+              type="hidden"
+              name="csrf_token"
+              value="be9b1b119cf9bb1e0771e1052c93513a43e044dca69a05dc3cde077c484ecc6e"
+            />
+            <input
+              type="text"
+              name="website"
+              class="uniform__potty"
+              tabindex="-1"
+              autocomplete="off"
+            />
+            <button type="submit" name="form_id" value="page-twisqxvr9csyz1ro">
+              Nachricht senden
+            </button>
+          </form>
+        </div>
+
+        <h2>Post für die Pioniere</h2>
+        <p>
+          Wir freuen uns riesig über Post! Egal ob du uns Rezensionsexemplare spannender Fachbücher
+          schicken willst oder uns mit selbstgenähten Technikwürze-Fan-Kissen überraschst – unser
+          Studio-Sofa hat noch Platz.
+        </p>
+        <p>
+          Vom Bügeldruck-T-Shirt mit unseren Gesichtern bitten wir jedoch höflich Abstand zu nehmen
+          (unser Ego ist auch so schon groß genug). Für Sponsoring-Anfragen, Hardware-Tests oder
+          handgeschriebene Liebesbriefe im Überformat an die Webentwicklung ist die folgende
+          Packstation der richtige Ort:
+        </p>
+        <p>David Maciejewski<br />Postnummer 2739821<br />Packstation 136<br />32429 Minden</p>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <section class="gold-sponsors">
+        <header class="handwriting">Mit freundlicher Unterstützung durch</header>
+
+        <div class="sponsors">
+          <a
+            href="https://www.mittwald.de/"
+            class="sponsor"
+            target="_blank"
+            rel="noopener"
+            data-sponsor="mittwald"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              xml:space="preserve"
+              id="Layer_1"
+              x="0"
+              y="0"
+              viewBox="275 250.7 2081.8 386.4"
+              role="img"
+              aria-labelledby="mittwald-title"
+            >
+              <title id="mittwald-title">Mittwald</title>
+              <path
+                fill="currentColor"
+                d="M602.9 358.3c-30.6 0-67.5 15.5-86.8 47.7-13.9-30-40.2-47.7-82.6-47.7-30.2 0-60 15.2-76.4 37l-8.9-45.1-73.2 14.4 8.9 45.4v221.7h71.8V492.9c0-35.4 18.2-66.5 54.7-66.5 38.6 0 46.6 26.3 46.6 61.6v143.7h71.8V490.2c0-35.4 19.3-63.8 54.7-63.8 38.1 0 46.6 26.3 46.6 61.6v149l71.8-14.1v-144c.2-68.6-23.4-120.6-99-120.6M773.5 250.7c-24.7 0-45.4 20.7-45.4 46 0 24.7 20.7 45.4 45.4 45.4 25.3 0 46-20.7 46-45.4 0-25.3-20.7-46-46-46M738.1 363.5h71.8v268.2h-71.8zM1132.6 574.9c-12.9 0-24.1-7.5-24.1-30.6V421.6h74.1l-18.5-57.9h-55.6v-86.6l-71.8 14.1v72.5H943v-86.6l-71.8 14.1v72.5h-39.1v57.9h39.1v123.8c0 60.6 28.9 91.7 82.6 91.7 28.4 0 52-9.6 68.1-20.4l-20.4-53.1c-2.1 1.6-17.2 11.3-34.3 11.3-12.9 0-24.1-7.5-24.1-30.6V421.6h93.6v123.8c0 60.6 28.9 91.7 82.6 91.7 28.4 0 52-9.6 68.1-20.4l-20.4-53.1c-2.2 1.7-17.2 11.3-34.4 11.3M1505.3 363.7 1464 506.8c-5.4 18.8-8 39.5-8 39.5s-2.7-20.8-7-39l-32.7-143.7h-70.8l-32.7 143.7c-4.3 18.2-6.4 39-6.4 39s-3.2-20.8-8.6-39.5l-40.7-143.1h-70.2l85.8 268.6h65.4l35.9-144.7c4.3-18.2 7.5-37.9 7.5-37.9s2.7 19.7 7 37.9l35.9 144.7h64.9l85.8-268.6zM1769.1 396.4c-19.3-25.7-52.5-38.1-83.6-38.1-74 0-121.2 62.2-121.2 139.4s47.2 139.4 121.2 139.4c31.1 0 64.9-11.8 83.6-37.5V637l70.2-13.7V363.7h-70.2zm-65.4 174.2c-38.6 0-66.5-30.6-66.5-72.9 0-41.8 27.9-72.9 66.5-72.9 37 0 63.8 31.1 63.8 72.9 0 42.9-26.8 72.9-63.8 72.9M1875.3 631.7h71.8V276.9l-71.8 14.2zM2177.4 393.2c-19.3-23.1-49.9-35.4-80.9-35.4-74 0-122.2 62.2-122.2 139.4s47.2 139.4 121.2 139.4c32.2 0 66.5-11.8 85.8-37.5v37.7l68.1-14.1v-337h-71.8v107.5zm-63.8 176.9c-38.6 0-66.5-30.6-66.5-72.9 0-41.8 27.9-72.9 66.5-72.9 37 0 63.8 31.1 63.8 72.9 0 42.9-26.9 72.9-63.8 72.9M2285 559.5h71.8v71.8H2285z"
+              />
+            </svg>
+          </a>
+
+          <span class="handwriting">&</span>
+
+          <a
+            href="https://getkirby.com/"
+            class="sponsor"
+            target="_blank"
+            rel="noopener"
+            data-sponsor="kirby"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 121 42"
+              role="img"
+              aria-labelledby="kirby-logo-title"
+              fill="currentColor"
+            >
+              <title id="kirby-logo-title">Kirby</title>
+              <path
+                d="m18 0 18 10.498v21.004L18 42 0 31.502V10.498zM2 11.693v18.614l16 9.332 16-9.332V11.693L18 2.36z"
+              />
+              <path
+                d="m26 21-5 2.59V24h5v4H10v-4h5v-.437L10 21v-5l8 4.297L26 16m36.774 7.603-1.97 2.162v5.255H56V11.095h4.803v8.785l1.67-2.531 4.297-6.254h5.94l-6.734 8.813L72.71 31.02h-5.693zM78.58 31.02h-4.626V16.213h4.626zm11.796-10.633-1.519-.11q-2.175 0-2.792 1.369v9.374h-4.611V16.213h4.324l.15 1.902q1.164-2.175 3.244-2.176.738 0 1.286.164zm15.41 3.352q0 3.64-1.506 5.598-1.506 1.956-4.242 1.956-2.26 0-3.64-1.792l-.192 1.519h-4.133V10h4.612v7.403q1.286-1.464 3.325-1.464 2.764 0 4.27 1.984t1.505 5.584v.232zm-4.626-.287q0-2.134-.568-3.045-.568-.91-1.745-.91-1.56 0-2.162 1.19v5.885q.588 1.177 2.19 1.177 1.628 0 2.066-1.587.219-.78.219-2.71m12.425 1.109 2.464-8.348h4.94l-6.035 17.284-.26.63Q113.407 37 110.151 37a7.2 7.2 0 0 1-1.903-.274v-3.298h.602q.972 0 1.485-.28.514-.281.76-1.006l.37-.985-5.146-14.944h4.926zM76.25 15a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5"
+              />
+            </svg>
+          </a>
+        </div>
+      </section>
+
+      <div class="about-us">
+        <div class="content inner">
+          <p class="about-us">
+            <strong>Technikwürze: Podcast-Pioniere seit 2005.</strong> Die Stimme für Gestaltung und
+            Entwicklung. Wir bieten Medienschaffenden fundierte Fachbeiträge, Interviews und
+            Reportagen für die tägliche Arbeit. Das Original – informativ, ehrlich und unterhaltsam.
+          </p>
+
+          <div class="footer-bottom">
+            <div class="footer-meta">
+              <nav class="footer-meta-links" aria-label="Rechtliches und Kontakt">
+                <a href="http://127.0.0.1:8000/impressum"> Impressum </a>
+                <a href="http://127.0.0.1:8000/datenschutz"> Datenschutz </a>
+                <a href="http://127.0.0.1:8000/kontakt"> Kontakt </a>
+              </nav>
+
+              <p class="footer-contact-hint">
+                <span class="handwriting"> Du möchtest uns etwas zuschicken? </span>
+                Unsere Postanschrift für Pakete findest du auf der
+                <a href="http://127.0.0.1:8000/kontakt">Kontaktseite</a>.
+              </p>
+            </div>
+
+            <nav class="footer-social" aria-label="Social Media">
+              <a
+                href="https://technikwurze.de"
+                class="footer-social-link"
+                target="_blank"
+                rel="noopener"
+                aria-label="Bluesky"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  role="img"
+                  aria-label="Bluesky"
+                  fill="currentColor"
+                >
+                  <title>Bluesky</title>
+                  <path
+                    d="M5.202 2.857C7.954 4.922 10.913 9.11 12 11.358c1.087-2.247 4.046-6.436 6.798-8.501C20.783 1.366 24 .213 24 3.883c0 .732-.42 6.156-.667 7.037-.856 3.061-3.978 3.842-6.755 3.37 4.854.826 6.089 3.562 3.422 6.299-5.065 5.196-7.28-1.304-7.847-2.97-.104-.305-.152-.448-.153-.327 0-.121-.05.022-.153.327-.568 1.666-2.782 8.166-7.847 2.97-2.667-2.737-1.432-5.473 3.422-6.3-2.777.473-5.899-.308-6.755-3.369C.42 10.04 0 4.615 0 3.883c0-3.67 3.217-2.517 5.202-1.026"
+                  />
+                </svg>
+              </a>
+              <a
+                href="https://technikwurze.de"
+                class="footer-social-link"
+                target="_blank"
+                rel="noopener"
+                aria-label="Mastodon"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  role="img"
+                  aria-label="Mastodon"
+                  fill="currentColor"
+                >
+                  <title>Mastodon</title>
+                  <path
+                    d="M23.268 5.313c-.35-2.578-2.617-4.61-5.304-5.004C17.51.242 15.792 0 11.813 0h-.03c-3.98 0-4.835.242-5.288.309C3.882.692 1.496 2.518.917 5.127.64 6.412.61 7.837.661 9.143c.074 1.874.088 3.745.26 5.611.118 1.24.325 2.47.62 3.68.55 2.237 2.777 4.098 4.96 4.857 2.336.792 4.849.923 7.256.38q.398-.092.786-.213c.585-.184 1.27-.39 1.774-.753a.06.06 0 0 0 .023-.043v-1.809a.05.05 0 0 0-.02-.041.05.05 0 0 0-.046-.01 20.3 20.3 0 0 1-4.709.545c-2.73 0-3.463-1.284-3.674-1.818a5.6 5.6 0 0 1-.319-1.433.053.053 0 0 1 .066-.054c1.517.363 3.072.546 4.632.546.376 0 .75 0 1.125-.01 1.57-.044 3.224-.124 4.768-.422q.059-.011.11-.024c2.435-.464 4.753-1.92 4.989-5.604.008-.145.03-1.52.03-1.67.002-.512.167-3.63-.024-5.545m-3.748 9.195h-2.561V8.29c0-1.309-.55-1.976-1.67-1.976-1.23 0-1.846.79-1.846 2.35v3.403h-2.546V8.663c0-1.56-.617-2.35-1.848-2.35-1.112 0-1.668.668-1.67 1.977v6.218H4.822V8.102q0-1.965 1.011-3.12c.696-.77 1.608-1.164 2.74-1.164 1.311 0 2.302.5 2.962 1.498l.638 1.06.638-1.06c.66-.999 1.65-1.498 2.96-1.498 1.13 0 2.043.395 2.74 1.164q1.012 1.155 1.012 3.12z"
+                  />
+                </svg>
+              </a>
+              <a
+                href="https://technikwurze.de"
+                class="footer-social-link"
+                target="_blank"
+                rel="noopener"
+                aria-label="Threads"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  role="img"
+                  aria-label="Threads"
+                  fill="currentColor"
+                >
+                  <title>Threads</title>
+                  <path
+                    d="M12.186 24h-.007c-3.581-.024-6.334-1.205-8.184-3.509C2.35 18.44 1.5 15.586 1.472 12.01v-.017c.03-3.579.879-6.43 2.525-8.482C5.845 1.205 8.6.024 12.18 0h.014c2.746.02 5.043.725 6.826 2.098 1.677 1.29 2.858 3.13 3.509 5.467l-2.04.569c-1.104-3.96-3.898-5.984-8.304-6.015-2.91.022-5.11.936-6.54 2.717C4.307 6.504 3.616 8.914 3.589 12c.027 3.086.718 5.496 2.057 7.164 1.43 1.783 3.631 2.698 6.54 2.717 2.623-.02 4.358-.631 5.8-2.045 1.647-1.613 1.618-3.593 1.09-4.798-.31-.71-.873-1.3-1.634-1.75-.192 1.352-.622 2.446-1.284 3.272-.886 1.102-2.14 1.704-3.73 1.79-1.202.065-2.361-.218-3.259-.801-1.063-.689-1.685-1.74-1.752-2.964-.065-1.19.408-2.285 1.33-3.082.88-.76 2.119-1.207 3.583-1.291a14 14 0 0 1 3.02.142c-.126-.742-.375-1.332-.75-1.757-.513-.586-1.308-.883-2.359-.89h-.029c-.844 0-1.992.232-2.721 1.32l-1.757-1.18c.98-1.454 2.568-2.256 4.478-2.256h.044c3.194.02 5.097 1.975 5.287 5.388q.163.07.321.142c1.49.7 2.58 1.761 3.154 3.07.797 1.82.871 4.79-1.548 7.158-1.85 1.81-4.094 2.628-7.277 2.65Zm1.003-11.69q-.362 0-.739.021c-1.836.103-2.98.946-2.916 2.143.067 1.256 1.452 1.839 2.784 1.767 1.224-.065 2.818-.543 3.086-3.71a10.5 10.5 0 0 0-2.215-.221"
+                  />
+                </svg>
+              </a>
+              <a
+                href="https://technikwurze.de"
+                class="footer-social-link"
+                target="_blank"
+                rel="noopener"
+                aria-label="Instagram"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  role="img"
+                  aria-label="Instagram"
+                  fill="currentColor"
+                >
+                  <title>Instagram</title>
+                  <path
+                    d="M7.03.084c-1.277.06-2.149.264-2.91.563a5.9 5.9 0 0 0-2.124 1.388 5.9 5.9 0 0 0-1.38 2.127C.321 4.926.12 5.8.064 7.076s-.069 1.688-.063 4.947.021 3.667.083 4.947c.061 1.277.264 2.149.563 2.911.308.789.72 1.457 1.388 2.123a5.9 5.9 0 0 0 2.129 1.38c.763.295 1.636.496 2.913.552 1.278.056 1.689.069 4.947.063s3.668-.021 4.947-.082c1.28-.06 2.147-.265 2.91-.563a5.9 5.9 0 0 0 2.123-1.388 5.9 5.9 0 0 0 1.38-2.129c.295-.763.496-1.636.551-2.912.056-1.28.07-1.69.063-4.948-.006-3.258-.02-3.667-.081-4.947-.06-1.28-.264-2.148-.564-2.911a5.9 5.9 0 0 0-1.387-2.123 5.86 5.86 0 0 0-2.128-1.38C19.074.322 18.202.12 16.924.066 15.647.009 15.236-.006 11.977 0S8.31.021 7.03.084m.14 21.693c-1.17-.05-1.805-.245-2.228-.408a3.7 3.7 0 0 1-1.382-.895 3.7 3.7 0 0 1-.9-1.378c-.165-.423-.363-1.058-.417-2.228-.06-1.264-.072-1.644-.08-4.848-.006-3.204.006-3.583.061-4.848.05-1.169.246-1.805.408-2.228.216-.561.477-.96.895-1.382a3.7 3.7 0 0 1 1.379-.9c.423-.165 1.057-.361 2.227-.417 1.265-.06 1.644-.072 4.848-.08 3.203-.006 3.583.006 4.85.062 1.168.05 1.804.244 2.227.408.56.216.96.475 1.382.895s.681.817.9 1.378c.165.422.362 1.056.417 2.227.06 1.265.074 1.645.08 4.848.005 3.203-.006 3.583-.061 4.848-.051 1.17-.245 1.805-.408 2.23-.216.56-.477.96-.896 1.38a3.7 3.7 0 0 1-1.378.9c-.422.165-1.058.362-2.226.418-1.266.06-1.645.072-4.85.079s-3.582-.006-4.848-.06m9.783-16.192a1.44 1.44 0 1 0 1.437-1.442 1.44 1.44 0 0 0-1.437 1.442M5.839 12.012a6.161 6.161 0 1 0 12.323-.024 6.162 6.162 0 0 0-12.323.024M8 12.008A4 4 0 1 1 12.008 16 4 4 0 0 1 8 12.008"
+                  />
+                </svg>
+              </a>
+              <a
+                href="https://technikwurze.de"
+                class="footer-social-link"
+                target="_blank"
+                rel="noopener"
+                aria-label="TikTok"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  role="img"
+                  aria-label="TikTok"
+                  fill="currentColor"
+                >
+                  <title>TikTok</title>
+                  <path
+                    d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07"
+                  />
+                </svg>
+              </a>
+              <a
+                href="https://technikwurze.de"
+                class="footer-social-link"
+                target="_blank"
+                rel="noopener"
+                aria-label="YouTube"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  role="img"
+                  aria-label="YouTube"
+                  fill="currentColor"
+                >
+                  <title>YouTube</title>
+                  <path
+                    d="M23.498 6.186a3.02 3.02 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.02 3.02 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.02 3.02 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.02 3.02 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814M9.545 15.568V8.432L15.818 12z"
+                  />
+                </svg>
+              </a>
+              <a
+                href="https://technikwurze.de"
+                class="footer-social-link"
+                target="_blank"
+                rel="noopener"
+                aria-label="Discord"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  role="img"
+                  aria-label="Discord"
+                  fill="currentColor"
+                >
+                  <title>Discord</title>
+                  <path
+                    d="M20.317 4.37a19.8 19.8 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.3 18.3 0 0 0-5.487 0 13 13 0 0 0-.617-1.25.08.08 0 0 0-.079-.037A19.7 19.7 0 0 0 3.677 4.37a.1.1 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.08.08 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.08.08 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13 13 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10 10 0 0 0 .372-.292.07.07 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.07.07 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.3 12.3 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.08.08 0 0 0 .084.028 19.8 19.8 0 0 0 6.002-3.03.08.08 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.06.06 0 0 0-.031-.03M8.02 15.33c-1.182 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418m7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418"
+                  />
+                </svg>
+              </a>
+              <a
+                href="https://technikwurze.de"
+                class="footer-social-link"
+                target="_blank"
+                rel="noopener"
+                aria-label="LinkedIn"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  role="img"
+                  aria-label="LinkedIn"
+                  fill="currentColor"
+                >
+                  <title>LinkedIn</title>
+                  <path
+                    d="M22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0zM7.119 20.452H3.555V9h3.564zM5.337 7.433a2.062 2.062 0 1 1 0-4.124 2.062 2.062 0 0 1 0 4.124m15.115 13.019h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455z"
+                  />
+                </svg>
+              </a>
+              <a
+                href="https://technikwurze.de"
+                class="footer-social-link"
+                target="_blank"
+                rel="noopener"
+                aria-label="Twitch"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  role="img"
+                  aria-label="Twitch"
+                  fill="currentColor"
+                >
+                  <title>Twitch</title>
+                  <path
+                    d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0 1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714Z"
+                  />
+                </svg>
+              </a>
+              <a
+                href="https://technikwurze.de"
+                class="footer-social-link"
+                target="_blank"
+                rel="noopener"
+                aria-label="X"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  role="img"
+                  aria-label="X"
+                  fill="currentColor"
+                >
+                  <title>X</title>
+                  <path
+                    d="M14.234 10.162 22.977 0h-2.072l-7.591 8.824L7.251 0H.258l9.168 13.343L.258 24H2.33l8.016-9.318L16.749 24h6.993zm-2.837 3.299-.929-1.329L3.076 1.56h3.182l5.965 8.532.929 1.329 7.754 11.09h-3.182z"
+                  />
+                </svg>
+              </a>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

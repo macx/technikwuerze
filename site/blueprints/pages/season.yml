@@ -1,20 +1,19 @@
 title: Season
 
 columns:
-  - width: 2/3
-    sections:
-      content:
-        type: fields
-        fields:
-          text:
-            label: Beschreibung
-            type: textarea
-            size: medium
-  - width: 1/3
+  - width: 1/2
     sections:
       episodes:
         type: pages
         label: Folgen
+        info: '{{ page.podcasterSubtitle }}<br />{{ page.date.toDate("d.m.Y") }}'
         templates:
           - episode
+        search: true
         sortBy: date desc
+        layout: list
+
+  - width: 1/2
+    sections:
+      lead-blocks:
+        extends: fields/lead-blocks

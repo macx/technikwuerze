@@ -1,0 +1,11 @@
+title:
+  de: Seite
+  en: Page
+icon: page
+
+columns:
+  - width: 1/1
+    sections:
+      content:
+        type: fields
+        extends: fields/lead-blocks

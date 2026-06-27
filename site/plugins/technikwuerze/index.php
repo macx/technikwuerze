@@ -1,55 +1,47 @@
 <?php
 
+require_once __DIR__ . '/lib/participant-image.php';
+require_once __DIR__ . '/lib/participant-stats.php';
+require_once __DIR__ . '/lib/site-search.php';
+require_once __DIR__ . '/lib/contact-form-action.php';
+
+$pageMethods = require __DIR__ . '/extensions/page-methods.php';
+$hooks = require __DIR__ . '/extensions/hooks.php';
+$api = require __DIR__ . '/extensions/api.php';
+$tags = require __DIR__ . '/extensions/tags.php';
+$translations = require __DIR__ . '/extensions/translations.php';
+
 Kirby::plugin('tw/brand', [
+  'translations' => $translations,
   'blueprints' => [
     'blocks/brand-logo' => __DIR__ . '/blueprints/blocks/brand-logo.yml',
     'blocks/podcast-networks' => __DIR__ . '/blueprints/blocks/podcast-networks.yml',
     'blocks/last-episode' => __DIR__ . '/blueprints/blocks/last-episode.yml',
+    'blocks/podcast-episodes' => __DIR__ . '/blueprints/blocks/podcast-episodes.yml',
+    'blocks/podcast-stats' => __DIR__ . '/blueprints/blocks/podcast-stats.yml',
+    'blocks/teaser' => __DIR__ . '/blueprints/blocks/teaser.yml',
+    'blocks/participants-list' => __DIR__ . '/blueprints/blocks/participants-list.yml',
+    'blocks/handwritten' => __DIR__ . '/blueprints/blocks/handwritten.yml',
+    'blocks/testimonials' => __DIR__ . '/blueprints/blocks/testimonials.yml',
+    'blocks/address' => __DIR__ . '/blueprints/blocks/address.yml',
   ],
   'snippets' => [
     'blocks/brand-logo' => __DIR__ . '/snippets/blocks/brand-logo.php',
     'blocks/podcast-networks' => __DIR__ . '/snippets/blocks/podcast-networks.php',
     'blocks/last-episode' => __DIR__ . '/snippets/blocks/last-episode.php',
+    'blocks/podcast-episodes' => __DIR__ . '/snippets/blocks/podcast-episodes.php',
+    'blocks/podcast-stats' => __DIR__ . '/snippets/blocks/podcast-stats.php',
+    'blocks/teaser' => __DIR__ . '/snippets/blocks/teaser.php',
+    'blocks/participants-list' => __DIR__ . '/snippets/blocks/participants-list.php',
+    'blocks/handwritten' => __DIR__ . '/snippets/blocks/handwritten.php',
+    'blocks/testimonials' => __DIR__ . '/snippets/blocks/testimonials.php',
+    'blocks/address' => __DIR__ . '/snippets/blocks/address.php',
   ],
-  'hooks' => [
-    'file.create:after' => function ($file) {
-      twGenerateParticipantProfileVariants($file);
-    },
-    'file.replace:after' => function ($newFile, $oldFile) {
-      twGenerateParticipantProfileVariants($newFile);
-    },
+  'fields' => [
+    'tw-search-reindex' => [],
   ],
+  'api' => $api,
+  'tags' => $tags,
+  'pageMethods' => $pageMethods,
+  'hooks' => $hooks,
 ]);
-
-function twGenerateParticipantProfileVariants($file): void
-{
-  if ($file->type() !== 'image') {
-    return;
-  }
-
-  $parent = $file->parent();
-
-  if ($parent === null || $parent->intendedTemplate()->name() !== 'participant') {
-    return;
-  }
-
-  try {
-    $file->thumb([
-      'width' => 800,
-      'height' => 800,
-      'crop' => true,
-      'quality' => 82,
-      'format' => 'webp',
-    ]);
-
-    $file->thumb([
-      'width' => 800,
-      'height' => 800,
-      'crop' => true,
-      'quality' => 84,
-      'format' => 'jpg',
-    ]);
-  } catch (\Throwable $e) {
-    kirby()->log('participant-image')->error($e->getMessage());
-  }
-}

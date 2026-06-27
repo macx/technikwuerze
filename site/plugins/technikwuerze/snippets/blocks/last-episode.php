@@ -7,61 +7,53 @@ $headline = trim((string) $block->header()->value());
 if ($headline === '') {
   $headline = 'Aktuelle Folge';
 }
-$podloveTemplate = asset('assets/podlove/last-episode-template.html')->url();
+$podloveTemplate = asset('assets/podlove/tw-player-template.html')->url();
 
 $mediathek = site()->find('mediathek');
+$episodeCandidates = $mediathek
+  ?->index()
+  ->filterBy('intendedTemplate', 'episode')
+  ->listed()
+  ->sortBy('date', 'desc', 'podcasterseason', 'desc', 'podcasterepisode', 'desc');
+
 $latestEpisode = null;
-$latestSeasonTs = -1;
-
-if ($mediathek) {
-  $seasons = $mediathek->children()->filterBy('intendedTemplate', 'season')->published();
-
-  foreach ($seasons as $season) {
-    $seasonLatestEpisode = $season
-      ->children()
-      ->filterBy('intendedTemplate', 'episode')
-      ->published()
-      ->sortBy('date', 'desc')
-      ->first();
-
-    if (!$seasonLatestEpisode) {
-      continue;
-    }
-
-    $seasonLatestTs = (int) ($seasonLatestEpisode->date()->toDate('U') ?? 0);
-    if ($seasonLatestTs > $latestSeasonTs) {
-      $latestSeasonTs = $seasonLatestTs;
-      $latestEpisode = $seasonLatestEpisode;
+if ($episodeCandidates && $episodeCandidates->isNotEmpty()) {
+  $podcast = new \mauricerenck\Podcaster\Podcast();
+  foreach ($episodeCandidates as $candidate) {
+    if ($podcast->getAudioFile($candidate) !== null) {
+      $latestEpisode = $candidate;
+      break;
     }
   }
 }
 ?>
 
 <?php if ($latestEpisode): ?>
-  <section class="tw-last-episode">
-    <div class="tw-last-episode-layout">
-      <div class="tw-last-episode-intro">
+  <section class="tw-last-episode content narrow">
+    <?php snippet(
+      'podcast-player',
+      [
+        'page' => $latestEpisode,
+        'template' => $podloveTemplate,
+        'transparent' => true,
+        'containerClass' => '',
+      ],
+      slots: true,
+    ); ?>
+      <?php slot(); ?>
         <h2><?= esc($headline) ?></h2>
 
-        <p class="tw-last-episode-text">
-          <?= esc($latestEpisode->podcasterdescription()->short(120)) ?>
+        <p class="podcast-player-text">
+          <?= $latestEpisode->podcasterdescription()->kti()->short(150) ?>
         </p>
 
-        <div class="tw-last-episode-actions">
-          <a class="c-button primary" data-icon-position="right" href="<?= $latestEpisode->url() ?>">
-            <span class="c-button__icon msi-arrow-forward" aria-hidden="true"></span>
+        <div class="podcast-player-actions">
+          <a href="<?= $latestEpisode->url() ?>" class="button-primary" data-icon-position="right" style="--color-scheme: var(--clr-secondary)">
+            <i class="msi-arrow-forward" aria-hidden="true"></i>
             <span>Zur Folge</span>
           </a>
         </div>
-      </div>
-
-      <article class="tw-last-episode-player">
-        <?php snippet('podcaster-player', [
-          'page' => $latestEpisode,
-          'template' => $podloveTemplate,
-          'debug' => true,
-        ]); ?>
-      </article>
-    </div>
+      <?php endslot(); ?>
+    <?php endsnippet(); ?>
   </section>
 <?php endif; ?>
