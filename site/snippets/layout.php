@@ -50,6 +50,9 @@ $favicon = asset('assets/favicon.svg');
     <meta name="keywords" content="<?php echo $page->metaKeywords(); ?>">
   <?php endif; ?>
   <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
+  <link rel="alternate" type="application/rss+xml" title="<?= $sharing[
+    'name'
+  ] ?> Podcast" href="https://technikwuerze.de/mediathek/feed">
 </head>
 
 <body>
