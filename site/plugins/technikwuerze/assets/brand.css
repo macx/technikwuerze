@@ -21,18 +21,16 @@
 
         &:nth-of-type(1) {
           font-variation-settings:
-            'wght' 460,
-            'wdth' 98,
-            'opsz' 46;
+            'wght' 200,
+            'opsz' 12;
           animation: twBrandPulse 10s ease-in-out infinite both;
           animation-delay: -5s;
         }
 
         &:nth-of-type(2) {
           font-variation-settings:
-            'wght' 620,
-            'wdth' 104,
-            'opsz' 58;
+            'wght' 1000,
+            'opsz' 60;
           animation: twBrandPulse 10s ease-in-out infinite both;
         }
       }
@@ -265,20 +263,17 @@
 @keyframes twBrandPulse {
   0% {
     font-variation-settings:
-      'wght' 620,
-      'wdth' 104,
-      'opsz' 58;
+      'wght' 1000,
+      'opsz' 60;
   }
   50% {
     font-variation-settings:
-      'wght' 460,
-      'wdth' 98,
-      'opsz' 46;
+      'wght' 200,
+      'opsz' 12;
   }
   100% {
     font-variation-settings:
-      'wght' 620,
-      'wdth' 104,
-      'opsz' 58;
+      'wght' 1000,
+      'opsz' 60;
   }
 }
