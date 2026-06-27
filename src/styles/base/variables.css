@@ -8,8 +8,8 @@
   --max-lead: 55ch;
 
   /* TYPOGRAPHY */
-  --ff: 'Case', 'Times', system-ui, -apple-system, sans-serif;
-  --ff-brand: 'McQueen', 'Times', sans-serif;
+  --ff: 'Case', system-ui, -apple-system, sans-serif;
+  --ff-brand: 'McQueen', sans-serif;
   --ff-hand: 'Caveat Variable', cursive;
 
   --fw: 400;
