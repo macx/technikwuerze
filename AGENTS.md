@@ -166,6 +166,7 @@ Maintain and evolve the Technikwürze Kirby site safely and consistently:
 - Releases are semantic tags (`vX.Y.Z`).
 - `release-it` creates the version commit and release tag from `develop`.
 - Deployments run only when a release tag is pushed (`v*`, `technikwuerze-v*`).
+- On release tag push, `deploy.yml`'s `deploy` job merges the tag into `main` (`git merge <tag> --no-ff`, pushed with `secrets.RELEASE_TOKEN`) only after tests and the production build succeed, and before the rsync deploy steps run — so `main` mirrors the latest released state but a broken build never reaches `main`. This mirrors the release flow used in the `davideiken` project.
 
 ### Server model
 
