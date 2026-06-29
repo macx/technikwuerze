@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "25c114ea7591956213b4ff3b9aa3ce66",
+    "content-hash": "9ddd0c70c7b4920b06e7706ff519daf6",
     "packages": [
         {
             "name": "arnoson/kirby-form-builder",
