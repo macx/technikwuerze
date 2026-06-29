@@ -26,6 +26,7 @@
     "sync:pull:db": "bash ops/sync-runtime-from-prod.sh db",
     "sync:pull:audio": "bash ops/sync-runtime-from-prod.sh audio",
     "sync:pull:covers": "bash ops/sync-runtime-from-prod.sh covers",
+    "sync:pull:accounts": "bash ops/sync-runtime-from-prod.sh accounts",
     "sync:push:db": "bash ops/sync-runtime-to-prod.sh db",
     "sync:push:audio": "bash ops/sync-runtime-to-prod.sh audio",
     "sync:push:covers": "bash ops/sync-runtime-to-prod.sh covers"
