@@ -1,11 +1,12 @@
 @scope (.tw-brand) {
   :scope {
+    container-type: inline-size;
     text-align: center;
     margin-block: 0 var(--sp-l);
 
     .animation {
       font-family: var(--ff-brand);
-      font-size: clamp(3.25rem, 12vw, 8rem);
+      font-size: clamp(3.25rem, 16cqi, 16rem);
       letter-spacing: -0.03em;
       text-rendering: geometricPrecision;
 
@@ -37,7 +38,7 @@
     }
 
     .byline {
-      font-size: var(--fs-s);
+      font-size: clamp(var(--fs-s), 0.375rem + 1.6vw, var(--fs));
       color: var(--clr-primary);
       font-weight: var(--fw-bold);
       margin-block-start: 0.5em;
@@ -51,7 +52,7 @@
 
       .byline {
         text-align: end;
-        padding-inline-end: 8vw;
+        padding-inline-end: 5vw;
         max-inline-size: unset;
       }
     }
@@ -112,6 +113,7 @@
       white-space: nowrap;
       opacity: 0;
       transform: translateY(0.25rem);
+      will-change: opacity, transform;
       transition:
         opacity 140ms ease-out,
         transform 220ms var(--ease-drawer-transform);
