@@ -67,8 +67,8 @@
 }
 
 .search-result-mark {
-  background-color: color-mix(in srgb, var(--clr-primary) 15%, transparent);
-  color: inherit;
+  background-color: var(--clr-mark);
+  color: var(--clr-text);
   border-radius: 0.2rem;
   padding-inline: 0.08em;
 }

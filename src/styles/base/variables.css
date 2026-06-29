@@ -69,6 +69,7 @@
   --clr-shadow: light-dark(hsl(0 0% 0% / 0.25), hsl(0 0% 0% / 0.25));
   --clr-hover: light-dark(hsl(0 0% 0% / 0.1), hsl(56 45% 84% / 0.14));
   --clr-accent: light-dark(hsl(263 60% 50%), hsl(263 100% 82%));
+  --clr-mark: light-dark(hsl(14 92% 68%), hsl(14 80% 38%));
 
   /* SPACING */
   --sp-xxs: 0.625rem;
