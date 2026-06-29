@@ -230,55 +230,55 @@ $formatDuration = static function ($episode): string {
       ?>
       <li class="tw-podcast-episodes-item">
         <article>
-            <header>
-              <h3><?= esc($title) ?></h3>
+          <header>
+            <h3><?= esc($title) ?></h3>
 
-              <?php if ($subtitle !== ''): ?>
-                <div class="tw-podcast-episodes-subtitle">
-                  <?= esc($subtitle) ?>
-                </div>
-              <?php endif; ?>
-            </header>
-
-            <div class="tw-podcast-episodes-meta">
-              <?php if ($formatDuration($episode) !== '–'): ?>
-                <div class="tw-podcast-episodes-duration">
-                  <span class="msi-schedule" aria-hidden="true"></span>
-                  <span><?= esc($formatDuration($episode)) ?></span>
-                </div>
-              <?php endif; ?>
-
-              <div class="tw-podcast-episodes-persons" aria-label="Mitwirkende">
-                <span class="sr-only">
-                  <?= esc($hostCount) ?> Moderator<?= $hostCount === 1 ? '' : 'en' ?>, 
-                  <?= esc($guestCount) ?> <?= $guestCount === 1 ? 'Gast' : 'Gäste' ?>
-                </span>
-                <?php for ($i = 0; $i < $hostCount; $i++): ?>
-                  <span class="msi-person-outline" aria-hidden="true"></span>
-                <?php endfor; ?>
-                <?php for ($i = 0; $i < $guestCount; $i++): ?>
-                  <span class="msi-person-filled" aria-hidden="true"></span>
-                <?php endfor; ?>
+            <?php if ($subtitle !== ''): ?>
+              <div class="tw-podcast-episodes-subtitle">
+                <?= esc($subtitle) ?>
               </div>
+            <?php endif; ?>
+          </header>
 
-              <?php if ($publishedDate !== ''): ?>
-                <div class="tw-podcast-episodes-date">
-                  <span class="msi-calendar" aria-hidden="true"></span>
-                  <?= esc($publishedDate) ?>
-                </div>
-              <?php endif; ?>
+          <div class="tw-podcast-episodes-meta">
+            <?php if ($formatDuration($episode) !== '–'): ?>
+              <div class="tw-podcast-episodes-duration">
+                <span class="msi-schedule" aria-hidden="true"></span>
+                <span><?= esc($formatDuration($episode)) ?></span>
+              </div>
+            <?php endif; ?>
+
+            <div class="tw-podcast-episodes-persons" aria-label="Mitwirkende">
+              <span class="sr-only">
+                <?= esc($hostCount) ?> Moderator<?= $hostCount === 1 ? '' : 'en' ?>,
+                <?= esc($guestCount) ?> <?= $guestCount === 1 ? 'Gast' : 'Gäste' ?>
+              </span>
+              <?php for ($i = 0; $i < $hostCount; $i++): ?>
+                <span class="msi-person-outline" aria-hidden="true"></span>
+              <?php endfor; ?>
+              <?php for ($i = 0; $i < $guestCount; $i++): ?>
+                <span class="msi-person-filled" aria-hidden="true"></span>
+              <?php endfor; ?>
             </div>
 
-            <p class="tw-podcast-episodes-teaser">
-              <?= $episode->podcasterdescription()->kti()->short(120) ?>
-            </p>
+            <?php if ($publishedDate !== ''): ?>
+              <div class="tw-podcast-episodes-date">
+                <span class="msi-calendar" aria-hidden="true"></span>
+                <?= esc($publishedDate) ?>
+              </div>
+            <?php endif; ?>
+          </div>
 
-            <div>
-              <a href="<?= $episode->url() ?>" class="button-primary" data-icon-position="right" >
-                <i class="msi-arrow-forward" aria-hidden="true"></i>
-                <span>Zur Folge</span>
-              </a>
-            </div>
+          <p class="tw-podcast-episodes-teaser">
+            <?= $episode->podcasterdescription()->kti()->short(120) ?>
+          </p>
+
+          <div>
+            <a href="<?= $episode->url() ?>" class="button-primary" data-icon-position="right" >
+              <i class="msi-arrow-forward" aria-hidden="true"></i>
+              <span>Zur Folge</span>
+            </a>
+          </div>
         </article>
       </li>
     <?php endforeach; ?>
