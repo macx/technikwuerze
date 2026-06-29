@@ -75,8 +75,8 @@ $currentVisualLabel = (static function (Kirby\Cms\Page $ep): string {
   return implode(' · ', $parts);
 })($page);
 ?>
-<nav class="episode-pagination content medium" aria-label="Navigation zwischen Folgen">
-  <div class="episode-pagination-slot episode-pagination-prev">
+<nav class="pagination-nav content medium" aria-label="Navigation zwischen Folgen">
+  <div class="pagination-nav-slot pagination-nav-prev">
     <?php if ($prevEpisode): ?>
       <a
         href="<?= $prevEpisode->url() ?>"
@@ -89,11 +89,11 @@ $currentVisualLabel = (static function (Kirby\Cms\Page $ep): string {
     <?php endif; ?>
   </div>
 
-  <div class="episode-pagination-current">
+  <div class="pagination-nav-current">
     <span><?= $currentVisualLabel ?></span>
   </div>
 
-  <div class="episode-pagination-slot episode-pagination-next">
+  <div class="pagination-nav-slot pagination-nav-next">
     <?php if ($nextEpisode): ?>
       <a
         href="<?= $nextEpisode->url() ?>"

@@ -39,6 +39,7 @@ COMPONENTS
 @import './components/search-dialog.css' layer(components);
 @import './components/button.css' layer(components);
 @import './components/form.css' layer(components);
+@import './components/pagination-nav.css' layer(components);
 @import './components/episode.css' layer(components);
 @import './components/social-links.css' layer(components);
 @import './components/tooltip.css' layer(components);
