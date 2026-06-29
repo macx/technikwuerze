@@ -37,7 +37,7 @@
     }
 
     .tw-teaser-badge {
-      --c-badge-size: 4.5rem;
+      --c-badge-size: 4rem;
       --c-badge-offset: calc(var(--sp) * -1);
 
       position: absolute;
@@ -56,10 +56,10 @@
       border-radius: 50%;
       background-color: var(--clr-secondary);
       color: var(--clr-text-opposite);
-      font-size: 0.78rem;
+      font-size: 1rem;
       font-weight: 700;
       text-transform: uppercase;
-      line-height: 1;
+      line-height: 1.2;
     }
 
     .tw-teaser-foreword,

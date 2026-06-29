@@ -57,7 +57,7 @@
 
       h3 {
         margin: 0;
-        font-size: clamp(1rem, 0.8rem + 0.9vw, 1.5rem);
+        font-size: clamp(1.25rem, 0.8rem + 0.9vw, 1.5rem);
         font-weight: var(--fw-title);
         line-height: var(--lh-s);
         color: var(--podcast-episodes-scheme);
@@ -78,6 +78,7 @@
       flex-wrap: wrap;
       align-items: center;
       column-gap: var(--sp);
+      row-gap: var(--sp-xs);
       font-size: var(--fs-s);
 
       > * {

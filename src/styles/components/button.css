@@ -1,3 +1,14 @@
+@keyframes button-icon-nudge {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  50% {
+    transform: translateX(25%);
+  }
+}
+
 :is(.button, [class^='button-'], [class*=' button-'], button[type='submit']) {
   --button-bg: transparent;
   --button-scheme: var(--color-scheme, var(--clr-primary));
@@ -36,6 +47,13 @@
 
   &[data-icon-position='right'] {
     flex-direction: row-reverse;
+
+    &:is(:hover, :focus-visible) i,
+    a:is(:hover, :focus-visible) & i {
+      @media (prefers-reduced-motion: no-preference) {
+        animation: button-icon-nudge 500ms var(--ease-drawer-transform) 3;
+      }
+    }
   }
 
   &:hover:not(:focus-visible),

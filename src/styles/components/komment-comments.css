@@ -47,7 +47,7 @@
 .thread {
   --thread-line-indent: var(--sp);
   --thread-line-size: 2px;
-  --thread-line-color: var(--clr-line);
+  --thread-line-color: var(--clr-primary);
 
   display: flex;
   flex-direction: column;

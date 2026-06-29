@@ -37,7 +37,7 @@
     background-color: var(--clr-bg-light);
     border: var(--clr-border);
     padding: var(--sp-s);
-    align-self: center;
+    align-self: start;
     justify-self: center;
 
     :where([id^='podlove-player-']) {

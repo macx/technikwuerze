@@ -282,12 +282,7 @@ hr {
   margin-block: var(--sp-xl);
   margin-inline: auto;
   border-radius: 999px;
-  background: linear-gradient(
-    90deg,
-    color-mix(in srgb, var(--clr-secondary) 70%, transparent),
-    color-mix(in srgb, var(--clr-primary) 85%, transparent),
-    color-mix(in srgb, var(--clr-secondary) 70%, transparent)
-  );
+  background: var(--clr-primary);
   mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 500 20' preserveAspectRatio='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2,10 C 100,-5 150,25 250,10 C 350,-5 400,25 498,10' fill='none' stroke='black' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
   mask-position: center;
   mask-repeat: no-repeat;
@@ -298,5 +293,5 @@ hr {
 .tw-transcript summary h2 {
   font-size: 2rem;
   font-weight: var(--fw-title);
-  color: var(--clr-text);
+  color: var(--clr-primary);
 }

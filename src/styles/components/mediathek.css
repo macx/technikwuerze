@@ -7,14 +7,27 @@
   grid-template-columns: repeat(auto-fill, minmax(25ch, 1fr));
   gap: var(--sp-s) var(--sp-m);
   padding: 0;
+  margin-block: var(--sp-m);
   list-style: none;
 
   li {
+    position: relative;
     display: grid;
     grid-template-columns: 2.6em 1fr;
     grid-template-rows: auto auto;
     grid-template-areas: 'number title' 'number date';
     gap: 0.3em var(--sp-s);
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      inline-size: 0;
+      background-color: var(--clr-bg-dark);
+      border-radius: var(--radius-button);
+      transition: inline-size 200ms var(--ease-drawer-transform);
+    }
 
     &[data-episode-number]::before {
       content: attr(data-episode-number);
@@ -34,9 +47,23 @@
 
     &:hover,
     &:focus {
+      &::after {
+        inline-size: 100%;
+      }
+
       &[data-episode-number]::before {
         background-color: var(--clr-primary);
         color: var(--clr-bg-light);
+      }
+    }
+
+    &:has(:focus-visible) {
+      border-radius: var(--radius-button-xs);
+      outline: var(--focus-outline);
+      outline-offset: var(--focus-outline-offset);
+
+      a {
+        outline: none;
       }
     }
   }
