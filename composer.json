@@ -9,7 +9,7 @@
     "getkirby/cms": "^5.0",
     "arnoson/kirby-vite": "^5.0",
     "thathoff/kirby-git-content": "^5.4",
-    "mauricerenck/podcaster": "3.4.0",
+    "mauricerenck/podcaster": "^3.4.0",
     "mauricerenck/komments": "^3.7",
     "mzur/kirby-uniform": "^5.7",
     "arnoson/kirby-loupe": "^0.4",
@@ -18,7 +18,7 @@
     "vlucas/phpdotenv": "^5.6",
     "fabianmichael/kirby-markdown-field": "^4.0",
     "mauricerenck/indieconnector": "^2.15",
-    "macx/kirby-tw-transcript": "@beta",
+    "macx/kirby-tw-transcript": "^0.10.0-beta.3",
     "scottboms/link-scanner": "^1.0"
   },
   "require-dev": {
@@ -41,7 +41,8 @@
     "composer-exit-on-patch-failure": true,
     "patches": {
       "mauricerenck/podcaster": {
-        "Support central audio references in feed": "patches/podcaster-central-audio-feed.patch"
+        "Support central audio references in feed": "patches/podcaster-central-audio-feed.patch",
+        "Fix HTTP HEAD handling on episode download route for PSP-1/Apple Podcasts compliance": "patches/podcaster-psp-compliance.patch"
       }
     },
     "kirby": {

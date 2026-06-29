@@ -6,7 +6,7 @@ $emailOptions = require __DIR__ . '/email.php';
 $options = [
   'debug' => true,
   'panel' => [
-    'install' => true,
+    'install' => false,
   ],
 
   // Kirby Git Content plugin configuration

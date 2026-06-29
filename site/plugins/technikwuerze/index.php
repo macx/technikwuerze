@@ -1,5 +1,6 @@
 <?php
 
+require_once __DIR__ . '/lib/icon-sprite.php';
 require_once __DIR__ . '/lib/participant-image.php';
 require_once __DIR__ . '/lib/participant-stats.php';
 require_once __DIR__ . '/lib/site-search.php';

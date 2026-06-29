@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @var array<int, array<string, string>> $links
  * @var string|null $label
@@ -10,6 +11,8 @@ $links = $links ?? [];
 if ($links === []) {
   return;
 }
+
+$spritemapUrl = '/dist/assets/social.svg';
 
 $networkLabels = [
   'amazon' => 'Amazon',
@@ -53,17 +56,16 @@ $tooltipIdPrefix = 'social-tooltip-' . substr(md5($navClass . '|' . $navLabel), 
       $linkLabel = $networkLabels[$network] ?? ucfirst($network !== '' ? $network : 'Profil');
     }
 
-    $iconPath = '';
+    $iconSourcePath = '';
     if ($network !== '') {
-      $candidateIconPath = 'assets/social/' . $network . '.svg';
-      $candidateIconRoot = kirby()->root('index') . '/' . $candidateIconPath;
+      $candidateIconSourcePath = kirby()->root('base') . '/src/assets/social/' . $network . '.svg';
 
-      if (is_file($candidateIconRoot)) {
-        $iconPath = $candidateIconPath;
+      if (is_file($candidateIconSourcePath)) {
+        $iconSourcePath = $candidateIconSourcePath;
       }
     }
 
-    if ($iconPath === '') {
+    if ($iconSourcePath === '') {
       continue;
     }
 
@@ -77,7 +79,7 @@ $tooltipIdPrefix = 'social-tooltip-' . substr(md5($navClass . '|' . $navLabel), 
 ) ?>" rel="<?= esc($rel) ?>">
         <span class="social-links-sr-label"><?= esc($linkLabel) ?></span>
         <span class="social-links-icon" aria-hidden="true">
-          <?= asset($iconPath)->read() ?>
+          <?= tw_sprite_icon($iconSourcePath, $spritemapUrl, $network) ?>
         </span>
       </a>
       <span id="<?= esc($tooltipId) ?>" role="tooltip" class="tooltip" aria-hidden="true">
