@@ -7,14 +7,24 @@ return function () {
   $category = twSearchNormalizeCategory((string) get('category'));
   $currentPage = max(1, (int) get('p'));
   $settings = twSearchSettings();
+  $isBlacklisted = twSearchIsBlacklisted($query);
 
-  $results = twSearchSearch($query, $category, (int) $settings['results_limit'], $currentPage);
+  $results = $isBlacklisted
+    ? [
+      'hits' => [],
+      'total' => 0,
+      'page' => 1,
+      'pages' => 0,
+      'limit' => (int) $settings['results_limit'],
+    ]
+    : twSearchSearch($query, $category, (int) $settings['results_limit'], $currentPage);
 
   return [
     'query' => $query,
     'category' => $category,
     'categories' => twSearchCategories(),
     'settings' => $settings,
+    'isBlacklisted' => $isBlacklisted,
     'results' => $results['hits'],
     'total' => $results['total'],
     'currentPage' => $results['page'],

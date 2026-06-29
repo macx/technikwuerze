@@ -127,11 +127,16 @@
   <?php $isElonEasterEgg = mb_strtolower(trim($query)) === 'x'; ?>
   <article class="search-page card-grid content">
     <header class="page-header">
-      <h1 class="title"><?= $isElonEasterEgg
-        ? 'Wo Twitter war, ist jetzt nur noch X.'
-        : esc((string) $settings['result_title']) ?></h1>
+      <h1 class="title"><?= match (true) {
+        $isBlacklisted => 'Spaß hört hier auf.',
+        $isElonEasterEgg => 'Wo Twitter war, ist jetzt nur noch X.',
+        default => esc((string) $settings['result_title']),
+      } ?></h1>
       <p class="lead balance">
-        <?php if ($isElonEasterEgg): ?>
+        <?php if ($isBlacklisted): ?>
+          Wir machen hier gern Spaß, aber hier hört der Spaß auf. Das war aber bestimmt
+          nur ein Versehen – probier's gern mit einem anderen Begriff.
+        <?php elseif ($isElonEasterEgg): ?>
           Am 23. Juli 2023 hat Elon Musk den blauen Vogel erschossen und uns mit einem
           lieblosen „X“ zurückgelassen. Wir trauern still – und suchen lieber weiter nach
           dem guten alten „Twitter“.
@@ -155,7 +160,17 @@
       </p>
     </header>
 
-    <?php if ($isElonEasterEgg): ?>
+    <?php if ($isBlacklisted): ?>
+      <ol class="card-grid-list">
+        <li class="card-grid-item">
+          <article>
+            <div class="card-grid-link">
+              <?php $renderSearchForm(); ?>
+            </div>
+          </article>
+        </li>
+      </ol>
+    <?php elseif ($isElonEasterEgg): ?>
       <ol class="card-grid-list">
         <li class="card-grid-item">
           <article>

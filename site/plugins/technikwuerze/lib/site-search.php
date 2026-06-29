@@ -171,6 +171,38 @@ function twSearchNormalizeCategory(?string $category): string
   return array_key_exists($value, twSearchCategories()) ? $value : 'content';
 }
 
+function twSearchBlacklist(): array
+{
+  static $blacklist = null;
+
+  if (is_array($blacklist)) {
+    return $blacklist;
+  }
+
+  $path = __DIR__ . '/../data/search-blacklist.de.json';
+  $words = is_file($path) ? json_decode((string) file_get_contents($path), true) : null;
+
+  $blacklist = is_array($words) ? $words : [];
+
+  return $blacklist;
+}
+
+function twSearchIsBlacklisted(string $query): bool
+{
+  $query = mb_strtolower(trim($query));
+  if ($query === '') {
+    return false;
+  }
+
+  foreach (twSearchBlacklist() as $word) {
+    if (preg_match('/(*UCP)\b' . preg_quote((string) $word, '/') . '\b/u', $query) === 1) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
 function twSearchIndexPath(): string
 {
   $cacheRoot = twSearchCacheRootPath();
