@@ -209,7 +209,7 @@ $formatDuration = static function ($episode): string {
   return $rawDuration;
 };
 ?>
-<section class="tw-podcast-episodes content" style="--color-scheme: <?= esc(
+<section class="card-grid tw-podcast-episodes content" style="--color-scheme: <?= esc(
   $colorSchemeCssValue,
   'attr',
 ) ?>">
@@ -217,7 +217,7 @@ $formatDuration = static function ($episode): string {
     <h2><?= esc($headline) ?></h2>
   <?php endif; ?>
 
-  <ul class="tw-podcast-episodes-list">
+  <ul class="card-grid-list">
     <?php foreach ($episodes as $episode): ?>
       <?php
       $title = trim((string) $episode->title()->value());
@@ -228,11 +228,11 @@ $formatDuration = static function ($episode): string {
       $hostCount = $hosts->count();
       $guestCount = $guests->count();
       ?>
-      <li class="tw-podcast-episodes-item">
+      <li class="card-grid-item">
         <article>
           <a
             href="<?= $episode->url() ?>"
-            class="tw-podcast-episodes-card-link"
+            class="card-grid-link"
             aria-labelledby="tw-podcast-episode-title-<?= esc($episode->uid(), 'attr') ?>"
           >
             <header>
@@ -241,13 +241,13 @@ $formatDuration = static function ($episode): string {
 ) ?></h3>
 
               <?php if ($subtitle !== ''): ?>
-                <div class="tw-podcast-episodes-subtitle">
+                <div class="card-grid-subtitle">
                   <?= esc($subtitle) ?>
                 </div>
               <?php endif; ?>
             </header>
 
-            <div class="tw-podcast-episodes-meta">
+            <div class="card-grid-meta">
               <?php if ($formatDuration($episode) !== '–'): ?>
                 <div class="tw-podcast-episodes-duration">
                   <span class="msi-schedule" aria-hidden="true"></span>
@@ -276,7 +276,7 @@ $formatDuration = static function ($episode): string {
               <?php endif; ?>
             </div>
 
-            <p class="tw-podcast-episodes-teaser">
+            <p class="card-grid-teaser">
               <?= $episode->podcasterdescription()->kti()->short(120) ?>
             </p>
 
@@ -293,7 +293,7 @@ $formatDuration = static function ($episode): string {
   </ul>
 
   <?php if ($showMediathekButton && $mediathek): ?>
-    <div class="tw-podcast-episodes-footer">
+    <div class="card-grid-footer">
       <a class="button" data-icon-position="right" href="<?= $mediathek->url() ?>">
         <i class="msi-arrow-forward" aria-hidden="true"></i>
         <span>Zur Mediathek</span>
