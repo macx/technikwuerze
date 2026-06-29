@@ -1,0 +1,70 @@
+.gold-sponsors {
+  --c-flex-direction: column;
+  --c-flex-justify: center;
+  --c-flex-gap: var(--sp-xs);
+  --c-handwriting-size: 2rem;
+
+  padding-block: var(--sp-xl);
+  padding-inline: var(--sp-content);
+  text-align: center;
+
+  header {
+    margin-block-end: var(--sp);
+
+    &.handwriting {
+      color: var(--clr-secondary);
+      font-size: 1.5rem;
+      font-weight: var(--fw-bold);
+    }
+  }
+
+  .sponsor-sprite {
+    display: none;
+  }
+
+  .sponsors {
+    display: flex;
+    flex-direction: var(--c-flex-direction);
+    justify-content: var(--c-flex-justify);
+    align-items: center;
+    gap: var(--c-flex-gap);
+
+    .handwriting {
+      color: var(--clr-secondary);
+      font-size: var(--c-handwriting-size);
+      font-weight: var(--fw-bold);
+    }
+  }
+
+  .sponsor {
+    display: block;
+    color: var(--clr-secondary);
+    inline-size: var(--c-logo-size);
+
+    &[data-sponsor='mittwald'] {
+      --c-logo-size: 14rem;
+      padding-block-start: var(--c-mittwald-padding, 0);
+    }
+
+    &[data-sponsor='fontwerk'] {
+      --c-logo-size: 11rem;
+    }
+
+    &[data-sponsor='kirby'] {
+      --c-logo-size: 10rem;
+    }
+
+    .sponsor-icon {
+      display: block;
+      inline-size: 100%;
+      block-size: auto;
+    }
+  }
+
+  @media (width >= 48em) {
+    --c-flex-direction: row;
+    --c-flex-gap: 2.25rem;
+    --c-mittwald-padding: 0.875rem;
+    --c-handwriting-size: 2.5rem;
+  }
+}

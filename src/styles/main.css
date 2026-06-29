@@ -45,6 +45,7 @@ COMPONENTS
 @import './components/podcaster-player.css' layer(components);
 @import './components/podcast-player.css' layer(components);
 @import './components/footer.css' layer(base);
+@import './components/sponsors.css' layer(base);
 @import './components/participants.css' layer(base);
 @import './components/address.css' layer(components);
 @import './components/mediathek.css' layer(components);
