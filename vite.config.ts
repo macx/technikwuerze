@@ -2,6 +2,7 @@ import { defineConfig, loadEnv } from 'vite'
 import { resolve } from 'path'
 import dns from 'node:dns'
 import kirby from 'vite-plugin-kirby'
+import VitePluginSvgSpritemap from '@spiriit/vite-plugin-svg-spritemap'
 
 dns.setDefaultResultOrder('verbatim')
 
@@ -73,6 +74,24 @@ export default defineConfig(({ command, mode }) => {
               ]
             : []),
         ],
+      }),
+      VitePluginSvgSpritemap('./src/assets/social/*.svg', {
+        output: {
+          filename: 'assets/social.svg',
+          use: true,
+          view: false,
+        },
+        prefix: false,
+        styles: false,
+      }),
+      VitePluginSvgSpritemap('./src/assets/networks/*.svg', {
+        output: {
+          filename: 'assets/networks.svg',
+          use: true,
+          view: false,
+        },
+        prefix: false,
+        styles: false,
       }),
     ],
   }

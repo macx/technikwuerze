@@ -1,0 +1,19 @@
+--- a/plugin/routes.php
++++ b/plugin/routes.php
+@@ -72,14 +72,10 @@
+ 
+             $audio = $podcast->getAudioFile($episode);
+ 
+-            // Check if the request method is HEAD
+-            if (kirby()->request()->method() === 'HEAD') {
+-                // Send headers only, no body
+-                return $audio->header(false);
++            if (kirby()->request()->method() !== 'HEAD') {
++                $stats->trackEpisode($feed, $episode, $userAgent);
+             }
+ 
+-            $stats->trackEpisode($feed, $episode, $userAgent);
+-
+             return $audio;
+         },
+     ],

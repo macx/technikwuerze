@@ -1,4 +1,7 @@
 <?php
+$networksSpritemapUrl = '/dist/assets/networks.svg';
+$networksIconSourceDir = kirby()->root('base') . '/src/assets/networks/';
+
 $networks = $block->networks()->toStructure();
 $favoriteNetwork = trim((string) $block->favorite_network()->value());
 
@@ -85,13 +88,17 @@ if ($mobilePointerText === '') {
         : '' ?></span>
     </span>
     <div class="pointer-arrow">
-      <?= asset('assets/networks/pointer.svg')->read() ?>
+      <?= tw_sprite_icon(
+        $networksIconSourceDir . 'pointer.svg',
+        $networksSpritemapUrl,
+        'pointer',
+      ) ?>
     </div>
   </div>
 
   <ul>
     <?php foreach ($activeNetworks as $network): ?>
-      <?php $iconAsset = asset('assets/networks/' . $network['icon'] . '.svg'); ?>
+      <?php $iconSourcePath = $networksIconSourceDir . $network['icon'] . '.svg'; ?>
       <li>
         <a
           href="<?= $network['url'] ?>"
@@ -105,8 +112,8 @@ if ($mobilePointerText === '') {
           data-network-hover-text="<?= esc($network['hoverText'], 'attr') ?>"
           data-network-copied-text="<?= esc($network['copiedText'], 'attr') ?>"
         >
-          <?php if ($iconAsset->exists()): ?>
-            <?= $iconAsset->read() ?>
+          <?php if (is_file($iconSourcePath)): ?>
+            <?= tw_sprite_icon($iconSourcePath, $networksSpritemapUrl, $network['icon']) ?>
           <?php else: ?>
             <?= esc($network['label']) ?>
           <?php endif; ?>

@@ -41,7 +41,8 @@
     "composer-exit-on-patch-failure": true,
     "patches": {
       "mauricerenck/podcaster": {
-        "Support central audio references in feed": "patches/podcaster-central-audio-feed.patch"
+        "Support central audio references in feed": "patches/podcaster-central-audio-feed.patch",
+        "Fix HTTP HEAD handling on episode download route for PSP-1/Apple Podcasts compliance": "patches/podcaster-psp-compliance.patch"
       }
     },
     "kirby": {

@@ -33,14 +33,15 @@
   },
   "devDependencies": {
     "@prettier/plugin-php": "^0.25.0",
+    "@spiriit/vite-plugin-svg-spritemap": "^7.0.0",
     "@types/node": "^25.9.1",
     "open": "^11.0.0",
     "prettier": "^3.8.3",
+    "release-it": "^20.2.0",
     "typescript": "^6.0.3",
     "vite": "^8.0.15",
     "vite-plugin-kirby": "^5.7.1",
-    "vitest": "^4.1.7",
-    "release-it": "^20.2.0"
+    "vitest": "^4.1.7"
   },
   "packageManager": "pnpm@11.5.0",
   "dependencies": {

@@ -24,6 +24,9 @@ importers:
       '@prettier/plugin-php':
         specifier: ^0.25.0
         version: 0.25.0(prettier@3.8.3)
+      '@spiriit/vite-plugin-svg-spritemap':
+        specifier: ^7.0.0
+        version: 7.0.0(vite@8.0.15(@types/node@25.9.1)(jiti@2.7.0))
       '@types/node':
         specifier: ^25.9.1
         version: 25.9.1
@@ -377,6 +380,34 @@ packages:
   '@rolldown/pluginutils@1.0.1':
     resolution: {integrity: sha512-2j9bGt5Jh8hj+vPtgzPtl72j0yRxHAyumoo6TNfAjsLB04UtpSvPbPcDcBMxz7n+9CYB0c1GxQFxYRg2jimqGw==}
 
+  '@spiriit/vite-plugin-svg-spritemap@7.0.0':
+    resolution: {integrity: sha512-+tJbhza1r6FXmGfFltZPKi3k7zq0MQy8ARJ7H/l4VaLKJqC3wi0XtjApFa5BV6VukpJFXUAqmBuar4wnpTpaQg==}
+    engines: {node: ^20.0.0 || >=22.0.0}
+    peerDependencies:
+      '@oxvg/napi': ^0.0.4-1
+      '@oxvg/napi-darwin-arm64': ^0.0.4-1
+      '@oxvg/napi-darwin-x64': ^0.0.4-1
+      '@oxvg/napi-linux-x64-gnu': ^0.0.4-1
+      '@oxvg/napi-win32-x64-msvc': ^0.0.4-1
+      svgo: ^4.0.1
+      vite: ^7.0.0 || ^8.0.0
+      vue: ^3.0.0
+    peerDependenciesMeta:
+      '@oxvg/napi':
+        optional: true
+      '@oxvg/napi-darwin-arm64':
+        optional: true
+      '@oxvg/napi-darwin-x64':
+        optional: true
+      '@oxvg/napi-linux-x64-gnu':
+        optional: true
+      '@oxvg/napi-win32-x64-msvc':
+        optional: true
+      svgo:
+        optional: true
+      vue:
+        optional: true
+
   '@standard-schema/spec@1.1.0':
     resolution: {integrity: sha512-l2aFy5jALhniG5HgqrD6jXLi/rUWrKvqN/qJx6yoJsgKhblVd+iqqU4RCXavm/jPityDo5TCvKMnpjKnOriy0w==}
 
@@ -427,6 +458,10 @@ packages:
 
   '@vitest/utils@4.1.7':
     resolution: {integrity: sha512-T532WBu791cBxJlCl6SO+J14l81DQx6uQHm1bQbmCDY7nqlEIgkza/UFnSBNaUtSf41unldDFjdOBYEQC4b5Hw==}
+
+  '@xmldom/xmldom@0.9.10':
+    resolution: {integrity: sha512-A9gOqLdi6cV4ibazAjcQufGj0B1y/vDqYrcuP6d/6x8P27gRS8643Dj9o1dEKtB6O7fwxb2FgBmJS2mX7gpvdw==}
+    engines: {node: '>=14.6'}
 
   agent-base@8.0.0:
     resolution: {integrity: sha512-QT8i0hCz6C/KQ+KTAbSNwCHDGdmUJl2tp2ZpNlGSWCfhUNVbYG2WLE3MdZGBAgXPV4GAvjGMxo+C1hroyxmZEg==}
@@ -662,6 +697,9 @@ packages:
     resolution: {integrity: sha512-AOIgSQCepiJYwP3ARnGx+5VnTu2HBYdzbGP45eLw1vr3zB3vZLeyed1sC9hnbcOc9/SrMyM5RPQrkGz4aS9Zow==}
     engines: {node: '>= 6'}
 
+  hash-sum@2.0.0:
+    resolution: {integrity: sha512-WdZTbAByD+pHfl/g9QSsBIIwy8IT+EsPiKDs0KNX+zSHhdDLFKdZu0BQHljvO+0QI/BasbMSUa8wYNCZTvhslg==}
+
   http-proxy-agent@8.0.0:
     resolution: {integrity: sha512-7pose0uGgrCJeH2Qh4JcNhWZp3u/oNrWjNYDK4ydOLxOpTw8V8ogHFAmkz0VWq96JBFj4umVJpvmQi287rSYLg==}
     engines: {node: '>= 14'}
@@ -855,6 +893,10 @@ packages:
   mimic-function@5.0.1:
     resolution: {integrity: sha512-VP79XUPxV2CigYP3jWwAUFSku2aKqBH7uTAapFWCBqutsbmDo96KY5o8uh6U+/YSIn5OxJnXp73beVkpqMIGhA==}
     engines: {node: '>=18'}
+
+  mini-svg-data-uri@1.4.4:
+    resolution: {integrity: sha512-r9deDe9p5FJUPZAk3A59wGH7Ii9YrjjWw0jmw/liSbHl2CHiyXj6FcDXDu2K3TjVAXqiJdaw3xxwlZZr9E6nHg==}
+    hasBin: true
 
   ms@2.1.3:
     resolution: {integrity: sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==}
@@ -1511,6 +1553,15 @@ snapshots:
 
   '@rolldown/pluginutils@1.0.1': {}
 
+  '@spiriit/vite-plugin-svg-spritemap@7.0.0(vite@8.0.15(@types/node@25.9.1)(jiti@2.7.0))':
+    dependencies:
+      '@xmldom/xmldom': 0.9.10
+      hash-sum: 2.0.0
+      mini-svg-data-uri: 1.4.4
+      picomatch: 4.0.4
+      tinyglobby: 0.2.17
+      vite: 8.0.15(@types/node@25.9.1)(jiti@2.7.0)
+
   '@standard-schema/spec@1.1.0': {}
 
   '@tybys/wasm-util@0.10.2':
@@ -1575,6 +1626,8 @@ snapshots:
       '@vitest/pretty-format': 4.1.7
       convert-source-map: 2.0.0
       tinyrainbow: 3.1.0
+
+  '@xmldom/xmldom@0.9.10': {}
 
   agent-base@8.0.0: {}
 
@@ -1779,6 +1832,8 @@ snapshots:
     dependencies:
       is-glob: 4.0.3
 
+  hash-sum@2.0.0: {}
+
   http-proxy-agent@8.0.0:
     dependencies:
       agent-base: 8.0.0
@@ -1926,6 +1981,8 @@ snapshots:
       mime-db: 1.54.0
 
   mimic-function@5.0.1: {}
+
+  mini-svg-data-uri@1.4.4: {}
 
   ms@2.1.3: {}
 

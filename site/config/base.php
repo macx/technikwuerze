@@ -40,6 +40,9 @@ return [
     'doNotTrackBots' => true,
     'useApi' => false,
     'setId3Data' => true,
+    'feed' => [
+      'uuid' => true,
+    ],
   ],
 
   // Audio metadata extraction
