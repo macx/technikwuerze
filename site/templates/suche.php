@@ -124,11 +124,18 @@
       '{category}' => esc($categoryLabel),
     ]);
   }; ?>
+  <?php $isElonEasterEgg = mb_strtolower(trim($query)) === 'x'; ?>
   <article class="search-page card-grid content">
     <header class="page-header">
-      <h1 class="title"><?= esc((string) $settings['result_title']) ?></h1>
+      <h1 class="title"><?= $isElonEasterEgg
+        ? 'Wo Twitter war, ist jetzt nur noch X.'
+        : esc((string) $settings['result_title']) ?></h1>
       <p class="lead balance">
-        <?php if ($query === ''): ?>
+        <?php if ($isElonEasterEgg): ?>
+          Am 23. Juli 2023 hat Elon Musk den blauen Vogel erschossen und uns mit einem
+          lieblosen „X“ zurückgelassen. Wir trauern still – und suchen lieber weiter nach
+          dem guten alten „Twitter“.
+        <?php elseif ($query === ''): ?>
           Gib einen Begriff ein, um Treffer zu sehen.
         <?php elseif ($total > 0): ?>
           <?= $renderLeadTemplate(
@@ -148,7 +155,30 @@
       </p>
     </header>
 
-    <?php if ($total === 0): ?>
+    <?php if ($isElonEasterEgg): ?>
+      <ol class="card-grid-list">
+        <li class="card-grid-item">
+          <article>
+            <div class="card-grid-link">
+              <p class="card-grid-teaser">Ehre, wem Ehre gebührt: zurück zum Original.</p>
+
+              <div>
+                <a
+                  class="button-primary"
+                  data-icon-position="right"
+                  href="<?= esc(
+                    $page->url() . '?' . http_build_query(['q' => 'twitter', 'category' => 'all']),
+                  ) ?>"
+                >
+                  <i class="msi-arrow-forward" aria-hidden="true"></i>
+                  <span>Neue Suche</span>
+                </a>
+              </div>
+            </div>
+          </article>
+        </li>
+      </ol>
+    <?php elseif ($total === 0): ?>
       <ol class="card-grid-list">
         <li class="card-grid-item">
           <article>
