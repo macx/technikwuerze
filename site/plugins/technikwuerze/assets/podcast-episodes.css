@@ -30,25 +30,34 @@
 
     .tw-podcast-episodes-item {
       --podcast-episodes-scheme: var(--color-scheme, var(--clr-primary));
+      --c-outline-color: var(--podcast-episodes-scheme);
 
       article {
         display: flex;
         flex-direction: column;
-        gap: var(--sp-s);
-        block-size: 100%;
-        color: currentColor;
-
         block-size: 100%;
         border: 2px solid var(--clr-border);
         border-radius: var(--radius-button);
         background-color: var(--clr-bg-light);
-        padding: var(--sp);
         box-shadow: var(--shadow-size) var(--shadow-size) 0 0 var(--clr-shadow);
+      }
+
+      .tw-podcast-episodes-card-link {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        gap: var(--sp-s);
+        padding: var(--sp);
+        color: currentColor;
+        text-decoration: none;
+        border-radius: var(--radius-button);
+        outline-color: var(--c-outline-color);
+        transition: outline-color var(--transition);
       }
 
       h3 {
         margin: 0;
-        font-size: clamp(1rem, 0.8rem + 0.9vw, 1.5rem);
+        font-size: clamp(1.25rem, 0.8rem + 0.9vw, 1.5rem);
         font-weight: var(--fw-title);
         line-height: var(--lh-s);
         color: var(--podcast-episodes-scheme);
@@ -69,6 +78,7 @@
       flex-wrap: wrap;
       align-items: center;
       column-gap: var(--sp);
+      row-gap: var(--sp-xs);
       font-size: var(--fs-s);
 
       > * {

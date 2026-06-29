@@ -57,6 +57,12 @@ pull_avatars() {
     "./content/avatars/"
 }
 
+pull_accounts() {
+  rsync -avz --delete -e "${RSYNC_SSH[*]}" \
+    "${SYNC_USER}@${SYNC_HOST}:${SYNC_REMOTE_PROJECT_PATH%/}/site/accounts/" \
+    "./site/accounts/"
+}
+
 case "$MODE" in
   db)
     pull_db
@@ -68,8 +74,11 @@ case "$MODE" in
     pull_covers
     pull_avatars
     ;;
+  accounts)
+    pull_accounts
+    ;;
   *)
-    echo "Unknown mode: $MODE (use: db|audio|covers)" >&2
+    echo "Unknown mode: $MODE (use: db|audio|covers|accounts)" >&2
     exit 1
     ;;
 esac

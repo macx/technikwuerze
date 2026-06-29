@@ -44,23 +44,7 @@ foreach (site()->content()->get('socialLinks')->toStructure() as $social) {
 ?>
 
 <footer class="site-footer">
-  <section class="gold-sponsors">
-    <header class="handwriting">
-      <?= site()->content()->get('footerSponsorsHint')->esc() ?>
-    </header>
-
-    <div class="sponsors">
-      <a href="https://www.mittwald.de/" class="sponsor" target="_blank" rel="noopener" data-sponsor="mittwald" aria-label="Mittwald (externer Link, öffnet in neuem Fenster)">
-        <?= asset('assets/logos/mittwald-wortmarke.svg')->read() ?>
-      </a>
-
-      <span class="handwriting">&</span>
-
-      <a href="https://getkirby.com/" class="sponsor" target="_blank" rel="noopener" data-sponsor="kirby" aria-label="Kirby CMS (externer Link, öffnet in neuem Fenster)">
-        <?= asset('assets/logos/kirby.svg')->read() ?>
-      </a>
-    </div>
-  </section>
+  <?php snippet('layout/sponsors'); ?>
 
   <div class="about-us">
     <div class="content inner">

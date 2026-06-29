@@ -5,11 +5,17 @@
     color-mix(in oklab, var(--clr-bg-footer) 88%, transparent)
   );
   --social-links-tooltip-text: var(--social-links-tooltip-text-context, #fff);
+  --social-links-gap: 0;
 
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 0;
+  gap: var(--social-links-gap);
+  max-inline-size: 60%;
+
+  @media (width >= 48em) {
+    --social-links-gap: var(--sp-xs);
+  }
 }
 
 .social-links-item {

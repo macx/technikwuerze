@@ -230,8 +230,15 @@ $formatDuration = static function ($episode): string {
       ?>
       <li class="tw-podcast-episodes-item">
         <article>
+          <a
+            href="<?= $episode->url() ?>"
+            class="tw-podcast-episodes-card-link"
+            aria-labelledby="tw-podcast-episode-title-<?= esc($episode->uid(), 'attr') ?>"
+          >
             <header>
-              <h3><?= esc($title) ?></h3>
+              <h3 id="tw-podcast-episode-title-<?= esc($episode->uid(), 'attr') ?>"><?= esc(
+  $title,
+) ?></h3>
 
               <?php if ($subtitle !== ''): ?>
                 <div class="tw-podcast-episodes-subtitle">
@@ -250,7 +257,7 @@ $formatDuration = static function ($episode): string {
 
               <div class="tw-podcast-episodes-persons" aria-label="Mitwirkende">
                 <span class="sr-only">
-                  <?= esc($hostCount) ?> Moderator<?= $hostCount === 1 ? '' : 'en' ?>, 
+                  <?= esc($hostCount) ?> Moderator<?= $hostCount === 1 ? '' : 'en' ?>,
                   <?= esc($guestCount) ?> <?= $guestCount === 1 ? 'Gast' : 'Gäste' ?>
                 </span>
                 <?php for ($i = 0; $i < $hostCount; $i++): ?>
@@ -274,11 +281,12 @@ $formatDuration = static function ($episode): string {
             </p>
 
             <div>
-              <a href="<?= $episode->url() ?>" class="button-primary" data-icon-position="right" >
+              <span class="button-primary" data-icon-position="right" aria-hidden="true">
                 <i class="msi-arrow-forward" aria-hidden="true"></i>
                 <span>Zur Folge</span>
-              </a>
+              </span>
             </div>
+          </a>
         </article>
       </li>
     <?php endforeach; ?>

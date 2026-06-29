@@ -1,60 +1,3 @@
-.gold-sponsors {
-  --c-flex-direction: column;
-  --c-flex-justify: center;
-  --c-flex-gap: var(--sp-s);
-
-  padding-block: var(--sp-xl);
-  padding-inline: var(--sp-content);
-  text-align: center;
-
-  header {
-    margin-block-end: var(--sp);
-  }
-
-  .sponsors {
-    display: flex;
-    flex-direction: var(--c-flex-direction);
-    justify-content: var(--c-flex-justify);
-    align-items: center;
-    gap: var(--c-flex-gap);
-
-    .handwriting {
-      font-size: 2.75rem;
-    }
-  }
-
-  .handwriting {
-    color: var(--clr-secondary);
-    font-size: 1.5rem;
-    font-weight: var(--fw-bold);
-  }
-
-  .sponsor {
-    display: block;
-    color: var(--clr-secondary);
-    inline-size: var(--c-logo-size);
-
-    &[data-sponsor='mittwald'] {
-      --c-logo-size: 14rem;
-      padding-block-start: var(--c-mittwald-padding, 0);
-    }
-
-    &[data-sponsor='kirby'] {
-      --c-logo-size: 11rem;
-    }
-
-    svg {
-      display: block;
-    }
-  }
-
-  @media (width >= 48em) {
-    --c-flex-direction: row;
-    --c-flex-gap: 2rem;
-    --c-mittwald-padding: 0.875rem;
-  }
-}
-
 .about-us {
   --c-clr-text: light-dark(var(--clr-surface), var(--clr-text));
   --c-clr-border: light-dark(
@@ -79,6 +22,7 @@
     text-underline-offset: 0.2em;
     text-decoration-color: var(--c-clr-border);
     transition: all 200ms ease;
+    border-radius: var(--radius-button);
 
     &:hover,
     &:focus-visible {

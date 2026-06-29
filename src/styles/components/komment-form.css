@@ -26,9 +26,11 @@
 
   .button-jump-reply,
   .button-cancel-reply {
+    --c-outline-color: var(--clr-secondary);
+
     background: transparent;
     border: none;
-    color: var(--clr-text-light);
+    color: var(--clr-secondary);
     cursor: pointer;
     border-radius: var(--radius-button-s);
     aspect-ratio: 1/1;
@@ -47,8 +49,9 @@
 
     &:hover,
     &:focus-visible {
-      color: var(--clr-primary);
-      background-color: var(--clr-bg-raised);
+      --button-border: var(--clr-secondary);
+      color: var(--clr-secondary);
+      background-color: var(--clr-bg-dark);
     }
   }
 
