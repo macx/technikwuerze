@@ -5,10 +5,12 @@ p {
 a:any-link {
   accent-color: var(--clr-accent);
   outline-color: var(--clr-accent);
+  outline-width: 4px;
 
   &:focus-visible {
     outline: var(--focus-outline);
     outline-offset: var(--focus-outline-offset);
+    outline-color: var(--c-outline-color, var(--clr-accent));
   }
 }
 

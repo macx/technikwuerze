@@ -93,9 +93,10 @@
   --focus-outline: 4px solid var(--focus-color, var(--clr-secondary));
   --focus-outline-offset: 2px;
 
-  --transition-short: 90ms ease-out;
   --ease-drawer-transform: cubic-bezier(0.2, 0.8, 0.2, 1);
   --dur-drawer-transform: 280ms;
+  --transition: var(--dur-drawer-transform) var(--ease-drawer-transform);
+  --transition-short: 90ms ease-out;
 
   /* tw-transcript plugin */
   --podlove-player-margin-top: 1rem;
