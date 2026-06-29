@@ -116,7 +116,7 @@ a:any-link {
   .subtitle {
     display: block;
     font-size: var(--fs-subtitle);
-    line-height: var(--lh);
+    line-height: var(--lh-xs);
     margin-block-start: 0.1em;
   }
 
