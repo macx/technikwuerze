@@ -8,8 +8,8 @@ $sharing = [
     ? $site->title()->html()
     : $page->title()->html() . ' · ' . $site->title()->html(),
   'name' => 'technikwürze',
-  'description' => Escape::html($site->description()->value() || ''),
-  'tags' => '',
+  'description' => $site->description()->value(),
+  'tags' => $site->tags()->split(),
   'twitter' => 'technikwürze',
 ];
 
@@ -46,8 +46,8 @@ $favicon = asset('assets/favicon.svg');
   <meta name="theme-color" content="#fff">
 
   <meta name="description" content="<?php echo $sharing['description']; ?>">
-  <?php if ($page->metaKeywords()): ?>
-    <meta name="keywords" content="<?php echo $page->metaKeywords(); ?>">
+  <?php if ($sharing['tags']): ?>
+    <meta name="keywords" content="<?= implode(', ', $sharing['tags']) ?>">
   <?php endif; ?>
   <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
   <link rel="alternate" type="application/rss+xml" title="<?= $sharing[
