@@ -58,96 +58,200 @@
 
     return $result;
   }; ?>
-  <article class="search-page content medium">
-    <header class="page-header">
-      <h1 class="title">Suche</h1>
-      <p class="lead">Durchsuche Inhalte, Episoden, Teilnehmende und Kommentare.</p>
-    </header>
+  <?php $renderSearchForm = function () use (
+    $page,
+    $query,
+    $category,
+    $categories,
+    $settings,
+  ): void {
+    ?>
+    <div class="form search-page-form">
+      <h2>Suchparameter</h2>
 
-    <form class="search-page-form" method="get" action="<?= $page->url() ?>" role="search">
-      <label for="search-page-query">Suchbegriff</label>
-      <input
-        id="search-page-query"
-        class="search-page-input"
-        type="search"
-        name="q"
-        value="<?= esc($query) ?>"
-        placeholder="<?= esc(
-          (string) ($settings['placeholder'] ?? 'z. B. Typografie, Podcast, Kirb…'),
-        ) ?>"
-        required
-      >
+      <form method="get" action="<?= $page->url() ?>" role="search">
+        <div class="form-row">
+          <div class="form-column">
+            <div class="form-field">
+              <label for="search-page-query">Suchbegriff</label>
+              <input
+                id="search-page-query"
+                type="search"
+                name="q"
+                value="<?= esc($query) ?>"
+                placeholder="<?= esc(
+                  (string) ($settings['placeholder'] ?? 'z. B. Typografie, Podcast, Kirb…'),
+                ) ?>"
+                required
+              >
+            </div>
+          </div>
 
-      <div class="theme-switch" data-enhanced="true">
-        <label for="search-page-category">Kategorie</label>
-        <select
-          class="theme-switch-select"
-          id="search-page-category"
-          name="category"
-        >
-          <?php foreach ($categories as $key => $label): ?>
-            <option value="<?= $key ?>"<?= $key === $category ? ' selected' : '' ?>><?= esc(
+          <div class="form-column">
+            <div class="form-field">
+              <label for="search-page-category">Kategorie</label>
+              <select id="search-page-category" name="category">
+                <?php foreach ($categories as $key => $label): ?>
+                  <option value="<?= $key ?>"<?= $key === $category ? ' selected' : '' ?>><?= esc(
   $label,
 ) ?></option>
-          <?php endforeach; ?>
-        </select>
-      </div>
+                <?php endforeach; ?>
+              </select>
+            </div>
+          </div>
+        </div>
 
-      <button type="submit" class="button-primary">Suchen</button>
-    </form>
+        <button class="button-primary" type="submit">Suchen</button>
+      </form>
+    </div>
+  <?php
+  }; ?>
+  <?php $searchResultCta = static fn(string $entity): string => match ($entity) {
+    'episode' => 'Zur Folge',
+    'participant' => 'Profil ansehen',
+    'comment' => 'Zum Kommentar',
+    default => 'Seite ansehen',
+  }; ?>
+  <?php $renderLeadTemplate = static function (
+    string $template,
+    int $count,
+    string $query,
+    string $categoryLabel,
+  ): string {
+    return strtr(esc($template), [
+      '{count}' => esc((string) $count),
+      '{query}' => esc($query),
+      '{category}' => esc($categoryLabel),
+    ]);
+  }; ?>
+  <article class="search-page card-grid content">
+    <header class="page-header">
+      <h1 class="title"><?= esc((string) $settings['result_title']) ?></h1>
+      <p class="lead balance">
+        <?php if ($query === ''): ?>
+          Gib einen Begriff ein, um Treffer zu sehen.
+        <?php elseif ($total > 0): ?>
+          <?= $renderLeadTemplate(
+            (string) $settings['result_lead_success'],
+            $total,
+            $query,
+            $categories[$category],
+          ) ?>
+        <?php else: ?>
+          <?= $renderLeadTemplate(
+            (string) $settings['result_lead_empty'],
+            $total,
+            $query,
+            $categories[$category],
+          ) ?>
+        <?php endif; ?>
+      </p>
+    </header>
 
-    <?php if ($query === ''): ?>
-      <p class="search-page-state">Gib einen Begriff ein, um Treffer zu sehen.</p>
-    <?php elseif ($total === 0): ?>
-      <p class="search-page-state">Keine Treffer für „<?= esc($query) ?>“ in „<?= esc(
-  $categories[$category],
-) ?>“.</p>
+    <?php if ($total === 0): ?>
+      <ol class="card-grid-list">
+        <li class="card-grid-item">
+          <article>
+            <div class="card-grid-link">
+              <?php $renderSearchForm(); ?>
+            </div>
+          </article>
+        </li>
+      </ol>
     <?php else: ?>
-      <p class="search-page-state"><?= $total ?> Treffer für „<?= esc($query) ?>“ in „<?= esc(
-  $categories[$category],
-) ?>“.</p>
+      <ol class="card-grid-list">
+        <li class="card-grid-item">
+          <article>
+            <div class="card-grid-link">
+              <?php $renderSearchForm(); ?>
+            </div>
+          </article>
+        </li>
 
-      <ol class="search-results-list">
         <?php foreach ($results as $result): ?>
-          <li class="search-result-item" data-entity="<?= esc($result['entity']) ?>">
-            <a class="search-result-link" href="<?= esc($result['url']) ?>">
-              <span class="search-result-type"><?= esc($result['entityLabel']) ?></span>
-              <h2 class="search-result-title"><?= $highlightQuery(
-                (string) $result['title'],
-                $query,
-              ) ?></h2>
-              <?php if ($result['subtitle'] !== ''): ?>
-                <p class="search-result-subtitle"><?= $highlightQuery(
-                  (string) $result['subtitle'],
-                  $query,
-                ) ?></p>
-              <?php endif; ?>
-              <?php if ($result['text'] !== ''): ?>
-                <p class="search-result-text"><?= $highlightQuery(
-                  (string) $result['text'],
-                  $query,
-                ) ?></p>
-              <?php endif; ?>
-            </a>
+          <?php $resultDate =
+            $result['entity'] === 'episode' && $result['updatedTs'] > 0
+              ? date('d.m.Y', $result['updatedTs'])
+              : ''; ?>
+          <li class="card-grid-item" data-entity="<?= esc($result['entity']) ?>">
+            <article>
+              <a class="card-grid-link" href="<?= esc($result['url']) ?>">
+                <header>
+                  <h3><?= $highlightQuery((string) $result['title'], $query) ?></h3>
+
+                  <?php if ($result['subtitle'] !== ''): ?>
+                    <div class="card-grid-subtitle"><?= $highlightQuery(
+                      (string) $result['subtitle'],
+                      $query,
+                    ) ?></div>
+                  <?php endif; ?>
+                </header>
+
+                <div class="card-grid-meta">
+                  <div class="search-result-category">
+                    <span class="msi-tag" aria-hidden="true"></span>
+                    <span><?= esc($result['entityLabel']) ?></span>
+                  </div>
+
+                  <?php if ($resultDate !== ''): ?>
+                    <div class="search-result-date">
+                      <span class="msi-calendar" aria-hidden="true"></span>
+                      <?= esc($resultDate) ?>
+                    </div>
+                  <?php endif; ?>
+                </div>
+
+                <?php if ($result['text'] !== ''): ?>
+                  <p class="card-grid-teaser"><?= $highlightQuery(
+                    (string) $result['text'],
+                    $query,
+                  ) ?></p>
+                <?php endif; ?>
+
+                <div>
+                  <span class="button-primary" data-icon-position="right" aria-hidden="true">
+                    <i class="msi-arrow-forward" aria-hidden="true"></i>
+                    <span><?= esc($searchResultCta($result['entity'])) ?></span>
+                  </span>
+                </div>
+              </a>
+            </article>
           </li>
         <?php endforeach; ?>
       </ol>
 
       <?php if ($totalPages > 1): ?>
-        <nav class="search-pagination" aria-label="Suchergebnisseiten">
-          <?php if ($currentPage > 1): ?>
-            <a class="button-secondary" href="<?= esc(
-              $buildSearchPageUrl($currentPage - 1),
-            ) ?>">Zurück</a>
-          <?php endif; ?>
+        <nav class="pagination-nav search-pagination" aria-label="Suchergebnisseiten">
+          <div class="pagination-nav-slot pagination-nav-prev">
+            <?php if ($currentPage > 1): ?>
+              <a
+                class="button"
+                href="<?= esc($buildSearchPageUrl($currentPage - 1)) ?>"
+                aria-label="Vorige Ergebnisseite"
+              >
+                <i class="msi-arrow-back" aria-hidden="true"></i>
+                <span>Zurück</span>
+              </a>
+            <?php endif; ?>
+          </div>
 
-          <span class="search-pagination-info">Seite <?= $currentPage ?> von <?= $totalPages ?></span>
+          <div class="pagination-nav-current">
+            <span>Seite <?= $currentPage ?> von <?= $totalPages ?></span>
+          </div>
 
-          <?php if ($currentPage < $totalPages): ?>
-            <a class="button-secondary" href="<?= esc(
-              $buildSearchPageUrl($currentPage + 1),
-            ) ?>">Weiter</a>
-          <?php endif; ?>
+          <div class="pagination-nav-slot pagination-nav-next">
+            <?php if ($currentPage < $totalPages): ?>
+              <a
+                class="button button-primary"
+                data-icon-position="right"
+                href="<?= esc($buildSearchPageUrl($currentPage + 1)) ?>"
+                aria-label="Nächste Ergebnisseite"
+              >
+                <i class="msi-arrow-forward" aria-hidden="true"></i>
+                <span>Weiter</span>
+              </a>
+            <?php endif; ?>
+          </div>
         </nav>
       <?php endif; ?>
     <?php endif; ?>

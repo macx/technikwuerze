@@ -55,6 +55,9 @@ function twSearchSettings(): array
     'comments_enabled' => true,
     'placeholder' => 'z. B. Typografie, Medien oder Permasteil…',
     'dialog_title' => 'Suche',
+    'result_title' => 'Suche',
+    'result_lead_success' => '{count} Treffer für „{query}“ in „{category}“.',
+    'result_lead_empty' => 'Keine Treffer für „{query}“ in „{category}“.',
   ];
 
   $searchPage = page('suche');
@@ -83,11 +86,29 @@ function twSearchSettings(): array
     $dialogTitle = $defaults['dialog_title'];
   }
 
+  $resultTitle = trim(twSearchReadPageFieldValue($searchPage, 'result_title'));
+  if ($resultTitle === '') {
+    $resultTitle = $defaults['result_title'];
+  }
+
+  $resultLeadSuccess = trim(twSearchReadPageFieldValue($searchPage, 'result_lead_success'));
+  if ($resultLeadSuccess === '') {
+    $resultLeadSuccess = $defaults['result_lead_success'];
+  }
+
+  $resultLeadEmpty = trim(twSearchReadPageFieldValue($searchPage, 'result_lead_empty'));
+  if ($resultLeadEmpty === '') {
+    $resultLeadEmpty = $defaults['result_lead_empty'];
+  }
+
   return [
     'results_limit' => $resultsLimit,
     'comments_enabled' => $commentsEnabled,
     'placeholder' => $placeholder,
     'dialog_title' => $dialogTitle,
+    'result_title' => $resultTitle,
+    'result_lead_success' => $resultLeadSuccess,
+    'result_lead_empty' => $resultLeadEmpty,
   ];
 }
 
