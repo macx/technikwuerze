@@ -1,6 +1,6 @@
 {
   "name": "technikwuerze",
-  "version": "3.13.0",
+  "version": "3.14.0",
   "description": "Website of the first ever podcast for developers in Germany",
   "type": "module",
   "browserslist": [
@@ -11,7 +11,7 @@
   ],
   "scripts": {
     "dev": "vite",
-    "build": "corepack pnpm run test && vite build && cp public/dist/.vite/manifest.json public/dist/manifest.json",
+    "build": "corepack pnpm run generate:search-blacklist && corepack pnpm run test && vite build && cp public/dist/.vite/manifest.json public/dist/manifest.json",
     "preview": "vite preview",
     "test": "corepack pnpm run type-check && corepack pnpm run format:check && vitest run",
     "test:watch": "vitest",
@@ -23,6 +23,7 @@
     "release:patch": "release-it patch",
     "release:minor": "release-it minor",
     "release:major": "release-it major",
+    "generate:search-blacklist": "node scripts/generate-search-blacklist.mjs",
     "sync:pull:db": "bash ops/sync-runtime-from-prod.sh db",
     "sync:pull:audio": "bash ops/sync-runtime-from-prod.sh audio",
     "sync:pull:covers": "bash ops/sync-runtime-from-prod.sh covers",
@@ -32,6 +33,7 @@
     "sync:push:covers": "bash ops/sync-runtime-to-prod.sh covers"
   },
   "devDependencies": {
+    "@2toad/profanity": "^3.3.0",
     "@prettier/plugin-php": "^0.25.0",
     "@spiriit/vite-plugin-svg-spritemap": "^7.0.0",
     "@types/node": "^25.9.1",

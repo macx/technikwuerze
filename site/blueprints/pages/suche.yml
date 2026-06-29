@@ -17,52 +17,90 @@ status:
       de: Öffentlich
       en: Public
 
-sections:
-  info:
-    type: fields
-    fields:
-      info_note:
-        type: info
+columns:
+  - width: 1/2
+    sections:
+      search:
+        type: fields
         label:
-          de: Suchseite
-          en: Search page
-        text:
-          de: Diese Seite rendert die Loupe-Volltextsuche.
-          en: This page renders the Loupe full text search.
-      reindex:
+          de: Suche
+          en: Search
+        fields:
+          info_note:
+            type: info
+            label:
+              de: Suchseite
+              en: Search page
+            text:
+              de: Diese Seite rendert die Loupe-Volltextsuche.
+              en: This page renders the Loupe full text search.
+          search_placeholder:
+            type: text
+            label:
+              de: Platzhalter Suchfeld
+              en: Search placeholder
+            default: z. B. Typografie, Medien oder Permasteil…
+          search_dialog_title:
+            type: text
+            label:
+              de: Titel Suchdialog
+              en: Search dialog title
+            default: Suche
+          search_comments_enabled:
+            type: toggle
+            label:
+              de: Kommentar-Suche aktiv
+              en: Enable comment search
+            default: true
+            text:
+              - de: Aus
+                en: Off
+              - de: An
+                en: On
+
+  - width: 1/2
+    sections:
+      results:
+        type: fields
         label:
-          de: Reindex
-          en: Reindex
-        type: tw-search-reindex
-      search_placeholder:
-        type: text
-        label:
-          de: Platzhalter Suchfeld
-          en: Search placeholder
-        default: z. B. Typografie, Medien oder Permasteil…
-      search_dialog_title:
-        type: text
-        label:
-          de: Titel Suchdialog
-          en: Search dialog title
-        default: Suche
-      search_results_limit:
-        type: number
-        label:
-          de: Treffer pro Seite
-          en: Results per page
-        min: 5
-        max: 200
-        step: 1
-        default: 40
-      search_comments_enabled:
-        type: toggle
-        label:
-          de: Kommentar-Suche aktiv
-          en: Enable comment search
-        default: true
-        text:
-          - de: Aus
-            en: Off
-          - de: An
-            en: On
+          de: Suchergebnisse
+          en: Search results
+        fields:
+          result_title:
+            type: text
+            label:
+              de: Titel
+              en: Title
+            default: Suche
+          result_lead_success:
+            type: text
+            label:
+              de: Lead bei Treffern
+              en: Lead with results
+            default: '{count} Treffer für „{query}“ in „{category}“.'
+            help:
+              de: 'Platzhalter: `{count}`, `{query}`, `{category}`'
+              en: 'Placeholders: `{count}`, `{query}`, `{category}`'
+          result_lead_empty:
+            type: text
+            label:
+              de: Lead ohne Treffer
+              en: Lead with no results
+            default: 'Keine Treffer für „{query}“ in „{category}“.'
+            help:
+              de: 'Platzhalter: `{query}`, `{category}`'
+              en: 'Placeholders: `{query}`, `{category}`'
+          search_results_limit:
+            type: number
+            label:
+              de: Treffer pro Seite
+              en: Results per page
+            min: 5
+            max: 200
+            step: 1
+            default: 40
+          reindex:
+            label:
+              de: Reindex
+              en: Reindex
+            type: tw-search-reindex

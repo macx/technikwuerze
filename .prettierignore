@@ -3,6 +3,7 @@ vendor
 kirby
 dist
 .git
+.claude
 media
 public/media
 site/cache

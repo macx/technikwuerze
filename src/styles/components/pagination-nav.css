@@ -1,0 +1,37 @@
+.pagination-nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas:
+    'current current'
+    'prev    next';
+  align-items: center;
+  gap: var(--sp-xs) var(--sp-s);
+
+  .pagination-nav-slot {
+    display: flex;
+
+    &.pagination-nav-prev {
+      grid-area: prev;
+      justify-content: flex-start;
+    }
+
+    &.pagination-nav-next {
+      grid-area: next;
+      justify-content: flex-end;
+    }
+  }
+
+  .pagination-nav-current {
+    grid-area: current;
+    text-align: center;
+    font-size: var(--fs-s);
+    font-weight: var(--fw-medium);
+    color: var(--clr-text-light, inherit);
+  }
+
+  @media (width >= 36em) {
+    grid-template-columns: 1fr auto 1fr;
+    grid-template-areas: 'prev current next';
+    gap: var(--sp-s);
+  }
+}

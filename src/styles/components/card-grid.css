@@ -1,0 +1,95 @@
+.card-grid {
+  font-size: var(--fs-r);
+
+  > h2 {
+    color: var(--color-scheme, var(--clr-primary));
+  }
+
+  .card-grid-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    justify-content: center;
+    gap: var(--sp) var(--sp-l);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 22rem));
+  }
+
+  .card-grid-item {
+    --card-grid-scheme: var(--color-scheme, var(--clr-primary));
+    --c-outline-color: var(--card-grid-scheme);
+
+    > article,
+    > .card {
+      block-size: 100%;
+    }
+
+    article {
+      display: flex;
+      flex-direction: column;
+      border: 2px solid var(--clr-border);
+      border-radius: var(--radius-button);
+      background-color: var(--clr-bg-light);
+      box-shadow: var(--shadow-size) var(--shadow-size) 0 0 var(--clr-shadow);
+    }
+
+    .card-grid-link {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      gap: var(--sp-s);
+      padding: var(--sp);
+      color: currentColor;
+      text-decoration: none;
+      border-radius: var(--radius-button);
+      outline-color: var(--c-outline-color);
+      transition: outline-color var(--transition);
+    }
+
+    h3 {
+      margin: 0;
+      font-size: clamp(1.25rem, 0.8rem + 0.9vw, 1.5rem);
+      font-weight: var(--fw-title);
+      line-height: var(--lh-s);
+      color: var(--card-grid-scheme);
+      text-align: start;
+      text-wrap: balance;
+    }
+
+    .card-grid-subtitle {
+      margin-block: 0.2em 0;
+      color: var(--card-grid-scheme);
+      font-size: var(--fs-s);
+      font-weight: var(--fw-bold);
+      line-height: var(--lh-s);
+    }
+  }
+
+  .card-grid-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    column-gap: var(--sp);
+    row-gap: var(--sp-xs);
+    font-size: var(--fs-s);
+
+    > * {
+      display: flex;
+      align-items: center;
+      gap: var(--sp-xs);
+      color: var(--card-grid-scheme, var(--clr-primary));
+      margin: 0;
+    }
+  }
+
+  .card-grid-teaser {
+    margin: 0;
+    text-wrap: pretty;
+    flex: 1;
+  }
+
+  .card-grid-footer {
+    margin-block-start: var(--sp-l);
+    text-align: center;
+  }
+}
