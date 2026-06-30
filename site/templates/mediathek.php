@@ -42,7 +42,7 @@ $seasons = $page
 
             <a href="<?= $season->url() ?>" class="button" data-icon-position="right">
               <i class="msi-arrow-forward" aria-hidden="true"></i>
-              Zur Staffel
+              Zur Phase
             </a>
           </header>
 
