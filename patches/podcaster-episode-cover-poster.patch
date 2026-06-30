@@ -1,0 +1,11 @@
+--- a/lib/Podcast.php
++++ b/lib/Podcast.php
+@@ -410,7 +410,7 @@
+             'title' => $episode->podcasterTitle()->value(),
+             'subtitle' => $episode->podcasterSubtitle()->value(),
+             'summary' => $episode->podcasterDescription()->value(),
+             'publicationDate' => $episode->date()->toDate('c'),
+             'duration' => $audioDuration,
+-            'poster' => $feed->podcasterCover()->toFile()->url(),
++            'poster' => $episode->feedCover() ?? $feed->feedCover(),
+             'link' => $episode->url(),

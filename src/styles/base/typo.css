@@ -98,6 +98,35 @@ a:any-link {
   ol:not([class]) {
     padding-inline-start: 2em;
   }
+
+  figure {
+    --c-radius: var(--radius-button);
+    --c-padding: var(--sp-s);
+
+    display: inline-block;
+    background-color: var(--clr-bg-dark);
+    margin-block: 1.5em;
+    margin-inline: auto;
+    padding: var(--sp-s) var(--sp);
+    border: 1px solid var(--clr-border);
+    border-radius: var(--c-radius);
+
+    img {
+      display: block;
+      max-inline-size: 100%;
+      block-size: auto;
+      border-radius: --inner-radius(var(--c-radius), var(--c-padding));
+      overflow: clip;
+      border-block-end: 2px solid var(--clr-border-dark);
+    }
+
+    figcaption {
+      margin-block-start: 0.5em;
+      font-size: var(--fs-s);
+      color: var(--clr-text-light);
+      text-align: center;
+    }
+  }
 }
 
 .page-header {

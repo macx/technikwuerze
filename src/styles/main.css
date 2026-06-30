@@ -23,6 +23,7 @@
 */
 @import './base/fonts.css' layer(base);
 @import './base/variables.css' layer(base);
+@import './base/functions.css' layer(base);
 @import './base/layout.css' layer(base);
 @import './base/view-transitions.css' layer(base);
 @import './base/typo.css' layer(base);

@@ -42,7 +42,8 @@
     "patches": {
       "mauricerenck/podcaster": {
         "Support central audio references in feed": "patches/podcaster-central-audio-feed.patch",
-        "Fix HTTP HEAD handling on episode download route for PSP-1/Apple Podcasts compliance": "patches/podcaster-psp-compliance.patch"
+        "Fix HTTP HEAD handling on episode download route for PSP-1/Apple Podcasts compliance": "patches/podcaster-psp-compliance.patch",
+        "Use episode-specific cover as player poster, falling back to feed cover": "patches/podcaster-episode-cover-poster.patch"
       }
     },
     "kirby": {
