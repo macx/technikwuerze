@@ -1,0 +1,90 @@
+name:
+  en: Recommendation
+  de: Empfehlung
+icon: star
+label: '{{title}}'
+fields:
+  title:
+    type: text
+    required: true
+    label:
+      en: Title
+      de: Titel
+
+  subtitle:
+    type: text
+    label:
+      en: Subtitle
+      de: Untertitel
+
+  category:
+    type: select
+    label:
+      en: Category
+      de: Kategorie
+    default: book
+    options:
+      book:
+        en: Book
+        de: Buch
+      movie:
+        en: Movie
+        de: Film
+      tv-show:
+        en: TV Show
+        de: TV-Serie
+      music:
+        en: Music
+        de: Musik
+
+  image:
+    type: files
+    label:
+      en: Cover image
+      de: Coverbild
+    max: 1
+
+  description:
+    type: textarea
+    label:
+      en: Description
+      de: Beschreibung
+    buttons:
+      - bold
+      - italic
+      - link
+
+  details:
+    type: structure
+    label:
+      en: Details
+      de: Details
+    fields:
+      key:
+        type: text
+        width: 2/6
+        label:
+          en: Label
+          de: Bezeichnung
+        placeholder:
+          en: e.g. Price
+          de: z. B. Preis
+      text:
+        type: text
+        width: 3/6
+        label:
+          en: Value
+          de: Wert
+      suffix:
+        type: text
+        width: 1/6
+        label:
+          en: Suffix
+          de: Suffix
+        placeholder: '€'
+
+  link:
+    type: url
+    label:
+      en: Link (external)
+      de: Link (extern)

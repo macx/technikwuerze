@@ -222,6 +222,8 @@
             <article>
               <a class="card-grid-link" href="<?= esc($result['url']) ?>">
                 <header>
+                  <?php snippet('tag', ['text' => $result['entityLabel']]); ?>
+
                   <h3><?= $highlightQuery((string) $result['title'], $query) ?></h3>
 
                   <?php if ($result['subtitle'] !== ''): ?>
@@ -232,19 +234,14 @@
                   <?php endif; ?>
                 </header>
 
-                <div class="card-grid-meta">
-                  <div class="search-result-category">
-                    <span class="msi-tag" aria-hidden="true"></span>
-                    <span><?= esc($result['entityLabel']) ?></span>
-                  </div>
-
-                  <?php if ($resultDate !== ''): ?>
+                <?php if ($resultDate !== ''): ?>
+                  <div class="card-grid-meta">
                     <div class="search-result-date">
                       <span class="msi-calendar" aria-hidden="true"></span>
                       <?= esc($resultDate) ?>
                     </div>
-                  <?php endif; ?>
-                </div>
+                  </div>
+                <?php endif; ?>
 
                 <?php if ($result['text'] !== ''): ?>
                   <p class="card-grid-teaser"><?= $highlightQuery(

@@ -14,6 +14,7 @@
 @import '@plugins/technikwuerze/assets/teaser.css' layer(components);
 @import '@plugins/technikwuerze/assets/handwritten.css' layer(components);
 @import '@plugins/technikwuerze/assets/testimonials.css' layer(components);
+@import '@plugins/technikwuerze/assets/recommendation.css' layer(components);
 @import '@plugins/kirby-tw-transcript/assets/tw-transcript.css' layer(plugins);
 
 /*
@@ -50,6 +51,7 @@ COMPONENTS
 @import './components/footer.css' layer(base);
 @import './components/sponsors.css' layer(base);
 @import './components/participants.css' layer(base);
+@import './components/tag.css' layer(components);
 @import './components/address.css' layer(components);
 @import './components/mediathek.css' layer(components);
 @import './components/komment-comments.css' layer(components);

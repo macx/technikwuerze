@@ -48,6 +48,7 @@ a:any-link {
     text-align: start;
     color: var(--clr-secondary);
     margin-block: 1.8em 0.4em;
+    text-wrap: balance;
   }
 
   h2 {

@@ -1,0 +1,14 @@
+.tw-tag {
+  display: inline-block;
+  align-self: start;
+  padding-block: 0.2em;
+  padding-inline: 0.8em;
+  border: 1px solid var(--clr-secondary);
+  border-radius: 99rem;
+  background-color: color-mix(in srgb, var(--clr-secondary) 12%, transparent);
+  color: var(--clr-secondary);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-bold);
+  line-height: 1.2;
+  white-space: nowrap;
+}

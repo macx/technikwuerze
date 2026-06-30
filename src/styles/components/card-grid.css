@@ -47,7 +47,7 @@
     }
 
     h3 {
-      margin: 0;
+      margin-block: var(--sp-xs) 0;
       font-size: clamp(1.25rem, 0.8rem + 0.9vw, 1.5rem);
       font-weight: var(--fw-title);
       line-height: var(--lh-s);

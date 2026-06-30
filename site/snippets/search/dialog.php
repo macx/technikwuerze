@@ -36,6 +36,7 @@ $settings = twSearchSettings();
           placeholder="<?= esc(
             (string) ($settings['placeholder'] ?? 'z. B. Typografie, Podcast, Kirb…'),
           ) ?>"
+            autocomplete="off"
             required
             data-search-dialog-input
           >
