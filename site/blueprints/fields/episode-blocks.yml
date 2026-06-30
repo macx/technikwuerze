@@ -21,6 +21,7 @@ fieldsets:
       - image
       - gallery
       - video
+      - recommendation
   snippet:
     label: Snippets
     type: group
