@@ -20,7 +20,7 @@
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    align-self: center;
+    align-self: start;
   }
 
   .podcast-player-text {
@@ -71,7 +71,7 @@
     }
 
     .tw-last-episode-intro {
-      align-self: center;
+      align-self: start;
     }
 
     &[data-media-position='left'] {
