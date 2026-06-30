@@ -136,7 +136,7 @@ snippet('layout', slots: true);
           <?php slot(); ?>
             <div class="text-xs">
               <strong class="text-strong text-secondary">
-                <a href="<?= $page->parent()->url() ?>" class="link-inherit">S<?= $page
+                <a href="<?= $page->parent()->url() ?>" class="link-inherit">P<?= $page
   ->podcasterseason()
   ->or('-') ?></a>
                 ·

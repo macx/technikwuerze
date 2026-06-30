@@ -63,10 +63,10 @@ columns:
         type: fields
         fields:
           headlineSeasonEpisode:
-            label: Season & Episode
+            label: Phase & Episode
             type: headline
           podcasterSeason:
-            label: Season
+            label: Phase
             type: number
             width: 1/4
           podcasterEpisode:

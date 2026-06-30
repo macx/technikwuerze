@@ -66,6 +66,7 @@
   );
   --clr-border: light-dark(hsl(0 0% 0% / 0.2), hsl(44 18% 80% / 0.22));
   --clr-border-bright: light-dark(hsl(0 0% 100% / 0.15), hsl(44 28% 88% / 0.24));
+  --clr-border-dark: light-dark(hsl(0 0% 0% / 0.4), hsl(44 18% 80% / 0.4));
   --clr-shadow: light-dark(hsl(0 0% 0% / 0.25), hsl(0 0% 0% / 0.25));
   --clr-hover: light-dark(hsl(0 0% 0% / 0.1), hsl(56 45% 84% / 0.14));
   --clr-accent: light-dark(hsl(263 60% 50%), hsl(263 100% 82%));

@@ -30,7 +30,7 @@ $episodeShortLabel = static function (Kirby\Cms\Page $ep): string {
   $e = trim((string) $ep->podcasterepisode()->value());
   $parts = [];
   if ($s !== '') {
-    $parts[] = 'S' . $s;
+    $parts[] = 'P' . $s;
   }
   if ($e !== '') {
     $parts[] = 'E' . $e;
@@ -43,7 +43,7 @@ $episodeA11yDetail = static function (Kirby\Cms\Page $ep): string {
   $e = trim((string) $ep->podcasterepisode()->value());
   $parts = [];
   if ($s !== '') {
-    $parts[] = 'Staffel ' . $s;
+    $parts[] = 'Phase ' . $s;
   }
   if ($e !== '') {
     $parts[] = 'Folge ' . $e;
@@ -64,7 +64,7 @@ $currentVisualLabel = (static function (Kirby\Cms\Page $ep): string {
   $total = trim((string) $ep->podcasterepisodetotal()->value());
   $parts = [];
   if ($s !== '') {
-    $parts[] = "Staffel\u{00A0}" . $s;
+    $parts[] = "Phase\u{00A0}" . $s;
   }
   if ($e !== '') {
     $parts[] = "Episode\u{00A0}" . $e;

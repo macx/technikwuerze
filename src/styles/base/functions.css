@@ -1,0 +1,3 @@
+@function --inner-radius(--outer <length>, --padding <length>: 1rem) {
+  result: max(0.25rem, calc(var(--outer) - var(--padding)));
+}
