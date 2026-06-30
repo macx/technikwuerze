@@ -8,7 +8,7 @@ use Loupe\Loupe\Loupe;
 use Loupe\Loupe\LoupeFactory;
 use Loupe\Loupe\SearchParameters;
 
-const TW_SEARCH_META_VERSION = 1;
+const TW_SEARCH_META_VERSION = 4;
 
 function twSearchEnsureDirectory(string $path): string
 {
@@ -165,6 +165,18 @@ function twSearchCategoryLabel(string $category): string
   return twSearchCategories()[$category] ?? twSearchCategories()['content'];
 }
 
+function twSearchEntityLabel(string $entity): string
+{
+  $labels = [
+    'episode' => 'Episode',
+    'participant' => 'Teilnehmende',
+    'comment' => 'Kommentar',
+    'content' => 'Inhalt',
+  ];
+
+  return $labels[$entity] ?? $labels['content'];
+}
+
 function twSearchNormalizeCategory(?string $category): string
 {
   $value = strtolower(trim((string) $category));
@@ -263,8 +275,34 @@ function twSearchPageEntity(Page $page): string
 
 function twSearchPlainText(string $value): string
 {
+  // Strip fenced code blocks
+  $value = preg_replace('/```[\s\S]*?```/u', ' ', $value) ?? $value;
+  // Strip inline code
+  $value = preg_replace('/`[^`\n]+`/u', ' ', $value) ?? $value;
+  // Convert Markdown links/images to their label text
+  $value = preg_replace('/!?\[([^\]]*)\]\([^)]*\)/u', '$1', $value) ?? $value;
+  // Strip Markdown heading markers
+  $value = preg_replace('/^#{1,6}\s+/mu', '', $value) ?? $value;
+  // Strip bold (**text**, __text__) and italic (*text*, _text_)
+  $value = preg_replace('/\*\*([^*]+)\*\*/u', '$1', $value) ?? $value;
+  $value = preg_replace('/__([^_]+)__/u', '$1', $value) ?? $value;
+  $value = preg_replace('/\*([^*\n]+)\*/u', '$1', $value) ?? $value;
+  $value = preg_replace('/_([^_\n]+)_/u', '$1', $value) ?? $value;
+  // Strip list markers
+  $value = preg_replace('/^[*\-+]\s+/mu', '', $value) ?? $value;
+  $value = preg_replace('/^\d+\.\s+/mu', '', $value) ?? $value;
+  // Strip HTML tags
   $value = strip_tags($value);
+  // Strip URLs and Kirby protocol references
+  $value = preg_replace('/https?:\/\/[^\s]+/u', ' ', $value) ?? $value;
   $value = preg_replace('/(?:file|page|user):\/\/[^\s]+/u', ' ', $value) ?? $value;
+  $value =
+    preg_replace(
+      '/\b[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\b/i',
+      ' ',
+      $value,
+    ) ?? $value;
+  // Normalize whitespace
   $value = preg_replace('/\s+/u', ' ', $value) ?? $value;
 
   return trim($value);
@@ -279,13 +317,33 @@ function twSearchPageText(Page $page): string
       continue;
     }
 
-    if (is_scalar($value)) {
-      $chunks[] = (string) $value;
+    if (is_array($value)) {
+      $texts = [];
+      array_walk_recursive($value, static function (mixed $v) use (&$texts): void {
+        if (is_string($v) && trim($v) !== '') {
+          $texts[] = trim($v);
+        }
+      });
+      $chunks[] = implode(' ', $texts);
       continue;
     }
 
-    if (is_array($value)) {
-      $chunks[] = json_encode($value, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) ?: '';
+    if (is_scalar($value)) {
+      $raw = (string) $value;
+      if ($raw !== '' && $raw[0] === '[') {
+        $decoded = json_decode($raw, true);
+        if (is_array($decoded)) {
+          $texts = [];
+          array_walk_recursive($decoded, static function (mixed $v) use (&$texts): void {
+            if (is_string($v) && trim($v) !== '') {
+              $texts[] = trim($v);
+            }
+          });
+          $chunks[] = implode(' ', $texts);
+          continue;
+        }
+      }
+      $chunks[] = $raw;
     }
   }
 
@@ -305,6 +363,86 @@ function twSearchExcerpt(string $text, int $maxLength = 220): string
   }
 
   return rtrim(mb_substr($text, 0, $maxLength - 1)) . '…';
+}
+
+function twSearchQueryContextExcerpt(string $text, string $query, int $maxLength = 220): string
+{
+  $text = twSearchPlainText($text);
+
+  if ($text === '' || mb_strlen($text) <= $maxLength) {
+    return $text;
+  }
+
+  $matchPos = null;
+
+  if (trim($query) !== '') {
+    $rawTerms =
+      preg_split('/[^\p{L}\p{N}]+/u', mb_strtolower($query), -1, PREG_SPLIT_NO_EMPTY) ?: [];
+    $terms = array_values(
+      array_filter($rawTerms, static fn(string $t): bool => mb_strlen($t) >= 2),
+    );
+    $textLower = mb_strtolower($text);
+
+    foreach ($terms as $term) {
+      $pos = mb_strpos($textLower, $term);
+      if ($pos !== false && ($matchPos === null || $pos < $matchPos)) {
+        $matchPos = $pos;
+      }
+    }
+  }
+
+  if ($matchPos === null) {
+    return rtrim(mb_substr($text, 0, $maxLength - 1)) . '…';
+  }
+
+  $half = (int) ($maxLength / 2);
+  $start = max(0, $matchPos - $half);
+  $excerpt = mb_substr($text, $start, $maxLength);
+  $prefix = $start > 0 ? '…' : '';
+  $suffix = $start + $maxLength < mb_strlen($text) ? '…' : '';
+
+  return $prefix . trim($excerpt) . $suffix;
+}
+
+function twSearchPageDisplayText(Page $page): string
+{
+  $entity = twSearchPageEntity($page);
+
+  if ($entity === 'episode') {
+    $parts = [];
+
+    $description = twSearchPlainText((string) $page->podcasterdescription()->value());
+    if ($description !== '') {
+      $parts[] = $description;
+    }
+
+    $contentData = array_change_key_case($page->content()->toArray(), CASE_LOWER);
+    $rawBlocks = $contentData['blocks'] ?? null;
+    $blocksArray = is_array($rawBlocks)
+      ? $rawBlocks
+      : (is_string($rawBlocks) && $rawBlocks !== ''
+        ? json_decode($rawBlocks, true)
+        : null);
+
+    if (is_array($blocksArray)) {
+      $texts = [];
+      array_walk_recursive($blocksArray, static function (mixed $v) use (&$texts): void {
+        if (is_string($v) && trim($v) !== '') {
+          $texts[] = trim($v);
+        }
+      });
+      $blocksText = twSearchPlainText(implode(' ', $texts));
+      if ($blocksText !== '') {
+        $parts[] = $blocksText;
+      }
+    }
+
+    if ($parts !== []) {
+      return implode(' ', $parts);
+    }
+  }
+
+  return twSearchPageText($page);
 }
 
 function twSearchTimestampFromPage(Page $page): int
@@ -333,6 +471,7 @@ function twSearchPageDocument(Page $page): array
   }
 
   $text = twSearchPageText($page);
+  $displayText = twSearchPageDisplayText($page);
 
   return [
     'id' => twSearchPageDocumentId($page->uuid()->toString()),
@@ -342,6 +481,7 @@ function twSearchPageDocument(Page $page): array
     'title_boost' => trim($title . ' ' . $title),
     'subtitle' => $subtitle,
     'text' => $text,
+    'displayText' => $displayText,
     'author' => '',
     'url' => $page->url(),
     'pageTitle' => $title,
@@ -692,6 +832,7 @@ function twSearchSearch(
       'title',
       'subtitle',
       'text',
+      'displayText',
       'author',
       'url',
       'pageTitle',
@@ -716,13 +857,15 @@ function twSearchSearch(
     $entity = (string) ($hit['entity'] ?? 'content');
     $score = (float) ($hit['_rankingScore'] ?? 0.0);
 
+    $displayText = (string) ($hit['displayText'] ?? ($hit['text'] ?? ''));
+
     $hits[] = [
       'id' => (string) ($hit['id'] ?? ''),
       'entity' => $entity,
-      'entityLabel' => twSearchCategoryLabel($entity),
+      'entityLabel' => twSearchEntityLabel($entity),
       'title' => (string) ($hit['title'] ?? ''),
       'subtitle' => (string) ($hit['subtitle'] ?? ''),
-      'text' => twSearchExcerpt((string) ($hit['text'] ?? '')),
+      'text' => twSearchQueryContextExcerpt($displayText, $query),
       'author' => (string) ($hit['author'] ?? ''),
       'url' => (string) ($hit['url'] ?? ''),
       'pageTitle' => (string) ($hit['pageTitle'] ?? ''),
