@@ -87,6 +87,8 @@
     "composer.json": "composer.lock",
     ".gitignore": ".gitattributes"
   },
+  "vitest.rootConfig": "${workspaceFolder}/vitest.config.ts",
+
   "cSpell.words": ["endsnippet", "kirby"],
   "chat.tools.terminal.autoApprove": {
     "/^php -l site/config/config\\.php$/": {

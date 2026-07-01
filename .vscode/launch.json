@@ -5,19 +5,27 @@
       "name": "🚀 Development",
       "type": "node-terminal",
       "request": "launch",
-      "preLaunchTask": "Prepare Development Environment",
+      "preLaunchTask": "⚡ Vite Dev Server",
       "postDebugTask": "🛑 Stop Development Environment",
-      "command": ". ./.env 2>/dev/null || true; DEV_HOST=${DEV_HOST:-127.0.0.1}; DEV_PHP_PORT=${DEV_PHP_PORT:-8000}; open -na \"Google Chrome\" --args --incognito --new-window \"http://$DEV_HOST:$DEV_PHP_PORT/panel\" \"http://$DEV_HOST:$DEV_PHP_PORT/\"; while :; do sleep 3600; done",
-      "cwd": "${workspaceFolder}"
+      "command": ". ./.env 2>/dev/null || true; DEV_HOST=${DEV_HOST:-127.0.0.1}; DEV_PHP_PORT=${DEV_PHP_PORT:-8000}; php -S \"$DEV_HOST:$DEV_PHP_PORT\" -t public kirby/router.php",
+      "serverReadyAction": {
+        "action": "openIntegratedBrowser",
+        "pattern": "Development Server \\(([^)]+)\\) started",
+        "uriFormat": "%s/"
+      }
     },
     {
       "name": "🏗️ Dev Build",
       "type": "node-terminal",
       "request": "launch",
-      "preLaunchTask": "Prepare Build-Dev Environment",
+      "preLaunchTask": "🏗️ Vite Build Watch",
       "postDebugTask": "🛑 Stop Development Environment",
-      "command": ". ./.env 2>/dev/null || true; DEV_HOST=${DEV_HOST:-127.0.0.1}; DEV_PHP_PORT=${DEV_PHP_PORT:-8000}; open -na \"Google Chrome\" --args --incognito --new-window \"http://$DEV_HOST:$DEV_PHP_PORT/\"; while :; do sleep 3600; done",
-      "cwd": "${workspaceFolder}"
+      "command": ". ./.env 2>/dev/null || true; DEV_HOST=${DEV_HOST:-127.0.0.1}; DEV_PHP_PORT=${DEV_PHP_PORT:-8000}; php -S \"$DEV_HOST:$DEV_PHP_PORT\" -t public kirby/router.php",
+      "serverReadyAction": {
+        "action": "openIntegratedBrowser",
+        "pattern": "Development Server \\(([^)]+)\\) started",
+        "uriFormat": "%s/"
+      }
     }
   ]
 }

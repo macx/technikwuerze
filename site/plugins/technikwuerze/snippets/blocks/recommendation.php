@@ -60,7 +60,7 @@ $thumb = $image ? $image->resize(400) : null;
 
     <?php if ($link !== ''): ?>
       <a
-        class="button button-primary"
+        class="button button-compact"
         href="<?= esc($link) ?>"
         target="_blank"
         rel="noopener noreferrer"

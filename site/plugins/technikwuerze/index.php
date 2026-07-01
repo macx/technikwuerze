@@ -38,6 +38,7 @@ Kirby::plugin('tw/brand', [
     'blocks/handwritten' => __DIR__ . '/snippets/blocks/handwritten.php',
     'blocks/testimonials' => __DIR__ . '/snippets/blocks/testimonials.php',
     'blocks/address' => __DIR__ . '/snippets/blocks/address.php',
+    'blocks/heading' => __DIR__ . '/snippets/blocks/heading.php',
     'blocks/recommendation' => __DIR__ . '/snippets/blocks/recommendation.php',
   ],
   'fields' => [

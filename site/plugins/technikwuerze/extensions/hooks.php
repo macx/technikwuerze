@@ -2,11 +2,19 @@
 
 declare(strict_types=1);
 
-use Kirby\Cms\Page;
 use Kirby\Cms\File;
+use Kirby\Cms\Page;
 use Kirby\Http\Response;
+use Kirby\Toolkit\Str;
 
 return [
+  'kirbytext:after' => function (string $text): string {
+    return preg_replace_callback(
+      '/<(h[2-4])>(.*?)<\/\1>/is',
+      fn($m) => "<{$m[1]} id=\"" . Str::slug(strip_tags($m[2])) . "\">{$m[2]}</{$m[1]}>",
+      $text,
+    );
+  },
   'file.create:after' => function ($file) {
     twGenerateParticipantProfileVariants($file);
   },
