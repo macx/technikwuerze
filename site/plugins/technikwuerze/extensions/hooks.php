@@ -12,7 +12,7 @@ return [
     return preg_replace_callback(
       '/<(h[2-4])>(.*?)<\/\1>/is',
       fn($m) => "<{$m[1]} id=\"" . Str::slug(strip_tags($m[2])) . "\">{$m[2]}</{$m[1]}>",
-      $text
+      $text,
     );
   },
   'file.create:after' => function ($file) {
