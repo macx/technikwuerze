@@ -1,6 +1,7 @@
 <?php
 /** @var Kirby\Cms\Site $site */
 /** @var Kirby\Cms\Page $page */
+/** @var string $slot */
 
 $sharing = [
   'url' => $page->url(),
