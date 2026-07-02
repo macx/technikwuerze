@@ -10,12 +10,13 @@
   /* TYPOGRAPHY */
   --ff: 'Case', system-ui, -apple-system, sans-serif;
   --ff-brand: 'McQueen', sans-serif;
-  --ff-hand: 'Caveat Variable', cursive;
+  --ff-hand: 'Supermarker', cursive;
 
   --fw: 400;
   --fw-medium: 500;
   --fw-bold: 600;
   --fw-title: 800;
+  --fw-hand: 400;
 
   /* vp-min: 500px, vp-max: 1000px */
   --fs: clamp(1.125rem, 0.875rem + 0.8vw, 1.375rem);

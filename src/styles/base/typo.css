@@ -232,7 +232,7 @@ strong {
 
 .handwriting {
   font-family: var(--ff-hand);
-  font-weight: 400;
+  font-weight: var(--fw-hand);
 }
 
 .tw-kbd {

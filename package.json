@@ -47,9 +47,6 @@
   },
   "packageManager": "pnpm@11.5.0",
   "dependencies": {
-    "@fontsource-variable/bricolage-grotesque": "^5.2.10",
-    "@fontsource-variable/caveat": "^5.2.8",
-    "@fontsource-variable/manrope": "^5.2.8",
     "@fontsource-variable/material-symbols-outlined": "^5.2.45"
   }
 }

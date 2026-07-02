@@ -1,7 +1,4 @@
 /** FONTS */
-import '@fontsource-variable/bricolage-grotesque/standard.css'
-import '@fontsource-variable/manrope'
-import '@fontsource-variable/caveat'
 import '@fontsource-variable/material-symbols-outlined/fill.css'
 
 /* STYLES */
