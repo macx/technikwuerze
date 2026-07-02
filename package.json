@@ -1,6 +1,6 @@
 {
   "name": "technikwuerze",
-  "version": "3.18.0",
+  "version": "3.19.0",
   "description": "Website of the first ever podcast for developers in Germany",
   "type": "module",
   "browserslist": [
@@ -47,9 +47,6 @@
   },
   "packageManager": "pnpm@11.5.0",
   "dependencies": {
-    "@fontsource-variable/bricolage-grotesque": "^5.2.10",
-    "@fontsource-variable/caveat": "^5.2.8",
-    "@fontsource-variable/manrope": "^5.2.8",
     "@fontsource-variable/material-symbols-outlined": "^5.2.45"
   }
 }

@@ -14,7 +14,7 @@
     &.handwriting {
       color: var(--clr-secondary);
       font-size: 1.5rem;
-      font-weight: var(--fw-bold);
+      font-weight: 400;
     }
   }
 

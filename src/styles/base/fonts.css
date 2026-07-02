@@ -17,3 +17,11 @@
   font-weight: 50 1000;
   src: url('/assets/fonts/CaseVAR.woff2') format('woff2') tech(variations);
 }
+
+@font-face {
+  font-family: 'Supermarker';
+  font-style: italic;
+  font-display: swap;
+  font-weight: 50 1000;
+  src: url('/assets/fonts/SupermarkerVAR-Italic.woff2') format('woff2');
+}

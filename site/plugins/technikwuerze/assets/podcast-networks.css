@@ -61,7 +61,7 @@
 
     .pointer {
       font-size: var(--pointer-font-size);
-      font-weight: var(--fw-bold);
+      font-weight: var(--fw-hand);
       color: var(--clr-secondary);
       display: none;
       pointer-events: none;
@@ -79,7 +79,7 @@
 
     .pointer-mobile {
       font-size: var(--pointer-font-size);
-      font-weight: var(--fw-bold);
+      font-weight: var(--fw-hand);
       color: var(--clr-secondary);
       line-height: 1;
       text-align: center;
