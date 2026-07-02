@@ -24,6 +24,10 @@ storage/
 .htpasswd
 public/.htpasswd
 
+# host-managed Kirby license (never present on CI runner checkout; excluding
+# it stops rsync --delete from wiping the activated license on the server)
+site/config/.license
+
 # local dev/runtime files
 .DS_Store
 *.log
