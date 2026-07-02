@@ -1,4 +1,8 @@
 <?php
+/**
+ * @var Kirby\Cms\Block $block
+ */
+
 $networksSpritemapUrl = '/dist/assets/networks.svg';
 $networksIconSourceDir = kirby()->root('base') . '/src/assets/networks/';
 
@@ -13,6 +17,7 @@ $networkOptions = [
   'amazonmusic' => 'Amazon Music',
   'spotify' => 'Spotify',
   'pocketcasts' => 'Pocket Casts',
+  'youtube' => 'YouTube',
   'twitch' => 'Twitch',
 ];
 
@@ -31,12 +36,18 @@ foreach ($networks as $network) {
     $mode = 'open';
   }
 
+  $type = trim((string) $network->type()->value());
+  if ($type !== 'video') {
+    $type = 'audio';
+  }
+
   $activeNetworks[] = [
     'id' => $networkKey,
     'label' => $networkOptions[$networkKey],
     'url' => esc($url),
     'icon' => $networkKey,
     'mode' => $mode,
+    'type' => $type,
     'hoverText' => trim((string) $network->hover_text()->value()),
     'copiedText' => trim((string) $network->copied_text()->value()),
   ];
@@ -60,12 +71,29 @@ if ($favoriteNetwork !== '') {
 }
 
 $defaultIsCustom = $defaultNetwork['mode'] === 'copy' && $defaultNetwork['hoverText'] !== '';
+$isVideoDefault = $defaultNetwork['type'] === 'video';
+
+$pointerStart = $isVideoDefault ? $block->watch_start() : $block->listento_start();
+$pointerEnd = $isVideoDefault ? $block->watch_end() : $block->listento_end();
+$pointerMobileField = $isVideoDefault ? $block->watch_mobile() : $block->listento_mobile();
+
 $mobilePointerText = trim((string) $block->pointer_mobile()->value());
 if ($mobilePointerText === '') {
-  $mobilePointerText = trim((string) $block->listento_mobile()->value());
+  $mobilePointerText = trim((string) $pointerMobileField->value());
 }
+
+$listenStartText = trim((string) $block->listento_start()->value());
+$listenEndText = trim((string) $block->listento_end()->value());
+$watchStartText = trim((string) $block->watch_start()->value());
+$watchEndText = trim((string) $block->watch_end()->value());
 ?>
-<div class="tw-brand-networks<?= $hasFavoritePointer ? ' has-default-pointer' : '' ?>">
+<div
+  class="tw-brand-networks<?= $hasFavoritePointer ? ' has-default-pointer' : '' ?>"
+  data-listen-start="<?= esc($listenStartText, 'attr') ?>"
+  data-listen-end="<?= esc($listenEndText, 'attr') ?>"
+  data-watch-start="<?= esc($watchStartText, 'attr') ?>"
+  data-watch-end="<?= esc($watchEndText, 'attr') ?>"
+>
   <?php if ($mobilePointerText !== ''): ?>
     <p class="pointer-mobile handwriting">
       <?= esc($mobilePointerText) ?>
@@ -75,13 +103,13 @@ if ($mobilePointerText === '') {
   <div class="pointer">
     <span class="pointer-text handwriting<?= $defaultIsCustom ? ' is-rss-custom' : '' ?>">
       <span class="pointer-start">
-        <?= esc($block->listento_start()->value()) ?>
+        <?= esc($pointerStart->value()) ?>
       </span>
       <span class="pointer-network">
         <?= esc($defaultNetwork['label']) ?>
       </span>
       <span class="pointer-end">
-        <?= esc($block->listento_end()->value()) ?>
+        <?= esc($pointerEnd->value()) ?>
       </span>
       <span class="pointer-custom"><?= $defaultIsCustom
         ? esc($defaultNetwork['hoverText'])
@@ -109,6 +137,7 @@ if ($mobilePointerText === '') {
           data-network-id="<?= esc($network['id'], 'attr') ?>"
           data-network-label="<?= esc($network['label'], 'attr') ?>"
           data-network-mode="<?= esc($network['mode'], 'attr') ?>"
+          data-network-type="<?= esc($network['type'], 'attr') ?>"
           data-network-hover-text="<?= esc($network['hoverText'], 'attr') ?>"
           data-network-copied-text="<?= esc($network['copiedText'], 'attr') ?>"
         >

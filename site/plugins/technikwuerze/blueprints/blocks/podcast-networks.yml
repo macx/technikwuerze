@@ -11,25 +11,49 @@ fields:
     type: text
     width: 1/3
     label:
-      en: 'Pointer text (start)'
-      de: 'Pointer-Text (Start)'
+      en: 'Listen: Pointer text (start)'
+      de: 'Anhören: Pointer-Text (Start)'
     placeholder: 'Jetzt auf'
 
   listento_end:
     type: text
     width: 1/3
     label:
-      en: 'Pointer text (end)'
-      de: 'Pointer-Text (Ende)'
+      en: 'Listen: Pointer text (end)'
+      de: 'Anhören: Pointer-Text (Ende)'
     placeholder: 'anhören'
 
   listento_mobile:
     type: text
     width: 1/3
     label:
-      en: 'Pointer text (mobile)'
-      de: 'Pointer-Text (Mobil)'
+      en: 'Listen: Pointer text (mobile)'
+      de: 'Anhören: Pointer-Text (Mobil)'
     placeholder: 'Jetzt anhören auf'
+
+  watch_start:
+    type: text
+    width: 1/3
+    label:
+      en: 'Watch: Pointer text (start)'
+      de: 'Ansehen: Pointer-Text (Start)'
+    placeholder: 'Jetzt auf'
+
+  watch_end:
+    type: text
+    width: 1/3
+    label:
+      en: 'Watch: Pointer text (end)'
+      de: 'Ansehen: Pointer-Text (Ende)'
+    placeholder: 'ansehen'
+
+  watch_mobile:
+    type: text
+    width: 1/3
+    label:
+      en: 'Watch: Pointer text (mobile)'
+      de: 'Ansehen: Pointer-Text (Mobil)'
+    placeholder: 'Jetzt ansehen auf'
 
   networks:
     type: structure
@@ -63,6 +87,7 @@ fields:
           amazonmusic: Amazon Music
           spotify: Spotify
           pocketcasts: Pocket Casts
+          youtube: YouTube
           twitch: Twitch
         width: 1/3
 
@@ -80,6 +105,21 @@ fields:
           copy:
             en: Copy URL
             de: URL kopieren
+
+      type:
+        type: select
+        label:
+          en: Type
+          de: Typ
+        width: 1/3
+        default: audio
+        options:
+          audio:
+            en: Audio
+            de: Audio
+          video:
+            en: Video
+            de: Video
 
       url:
         type: url
