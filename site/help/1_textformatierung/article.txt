@@ -1,47 +1,47 @@
-Title: Text Formatting
+Title: Textformatierung
 ----
 Icon: text
 ----
 Color: gray-600
 ----
 Text:
-Here you will find all the important information for formatting text using Markdown and specialized KirbyTags. 
+Hier findest du alle wichtigen Informationen zur Formatierung von Texten mit Markdown und spezialisierten Kirby-Tags.
 
 ## Standard Markdown
 
-You can use standard Markdown for most text formatting needs:
+Du kannst die gängigsten Textformatierungen einfach über Markdown schreiben:
 
-- **Bold**: `**bold text**`
-- *Italic*: `*italic text*`
-- Lists: Start a line with `- ` (for bullet points) or `1. ` (for numbered lists).
-- Blockquotes: Start a line with `> `.
+- **Fett**: `**fetter Text**`
+- *Kursiv*: `*kursiver Text*`
+- Listen: Einfach mit `- ` (für Aufzählungen) oder `1. ` (für nummerierte Listen) am Zeilenanfang.
+- Zitate: Mit `> ` am Zeilenanfang.
 
-Additionally, you can use the standard KirbyTags for links or images:
-- Links: `(link: https://example.com text: Link Text)`
+Außerdem gibt es die Standard-Kirby-Tags für Links oder Bilder:
+- Links: `(link: https://example.com text: Linktext)`
 
-## Custom Technikwürze KirbyTags
+## Eigene Kirby-Tags der Technikwürze
 
-For special content elements, we have added custom KirbyTags to the system:
+Für spezielle inhaltliche Elemente haben wir im Redaktionssystem eigene Kirby-Tags hinterlegt:
 
-### Small Text
-Makes the text slightly smaller. You can optionally add `tone: light`.
-- Syntax: `(small: Small addition)`
+### Kleiner Text (Small)
+Setzt einen Text etwas kleiner. Du kannst optional `tone: light` verwenden.
+- Syntax: `(small: Kleiner Zusatz)`
 
-### Keyboard Shortcuts (Kbd)
-Displays keyboard shortcuts visually as keys.
+### Tastenkürzel (Kbd)
+Stellt Tastenkombinationen visuell als Tasten dar.
 - Syntax: `(kbd: Cmd + K)`
 
-### Abbreviations (Abbr)
-Declares an abbreviation and shows an explanation as a tooltip when the user hovers over it.
+### Abkürzungen (Abbr)
+Deklariert eine Abkürzung und zeigt dem Nutzer beim Darüberfahren mit der Maus eine Erklärung an.
 - Syntax: `(abbr: API title: Application Programming Interface)`
 
 ### Badges
-Highlights a short word as a small badge. Supports different colors via the `tone` attribute.
-- Default: `(badge: New)`
-- Positive: `(badge: Stable tone: ok)`
-- Warning: `(badge: Attention tone: warn)`
+Hebt ein kurzes Wort als kleines "Schildchen" hervor. Unterstützt verschiedene Farbtöne über das Attribut `tone`.
+- Standard: `(badge: Neu)`
+- Positiv: `(badge: Stabil tone: ok)`
+- Warnung: `(badge: Achtung tone: warn)`
 
-### Notices (Asides / Callouts)
-Renders a contextual notice as a highlighted callout box. You can use `hinweis` or the alias `note`.
-- Syntax: `(hinweis: This is important context that is highlighted.)`
-- Alias: `(note: This works as well.)`
+### Hinweise (Asides / Callouts)
+Rendert einen inhaltlichen Hinweis als hervorgehobene Box, ähnlich wie in Dokumentationen. Du kannst hierfür `hinweis` oder den englischen Alias `note` verwenden.
+- Syntax: `(hinweis: Das ist ein wichtiger Kontext, der hervorgehoben wird.)`
+- Alias: `(note: Das geht ebenfalls.)`

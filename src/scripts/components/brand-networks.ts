@@ -3,12 +3,22 @@ export const initBrandNetworks = (): void => {
 
   for (const block of blocks) {
     const pointerLabel = block.querySelector<HTMLElement>('.pointer-network')
+    const pointerStart = block.querySelector<HTMLElement>('.pointer-start')
+    const pointerEnd = block.querySelector<HTMLElement>('.pointer-end')
     const pointerText = block.querySelector<HTMLElement>('.pointer-text')
     const pointerCustom = block.querySelector<HTMLElement>('.pointer-custom')
     const pointer = block.querySelector<HTMLElement>('.pointer')
     const links = block.querySelectorAll<HTMLAnchorElement>('a[data-network-label]')
 
-    if (!pointerLabel || !pointerText || !pointerCustom || !pointer || links.length === 0) {
+    if (
+      !pointerLabel ||
+      !pointerStart ||
+      !pointerEnd ||
+      !pointerText ||
+      !pointerCustom ||
+      !pointer ||
+      links.length === 0
+    ) {
       continue
     }
 
@@ -25,8 +35,25 @@ export const initBrandNetworks = (): void => {
       linksArray.map((link, index) => [link, index])
     )
 
+    const listenStartText = block.dataset.listenStart ?? ''
+    const listenEndText = block.dataset.listenEnd ?? ''
+    const watchStartText = block.dataset.watchStart ?? ''
+    const watchEndText = block.dataset.watchEnd ?? ''
+    const defaultPointerStart = pointerStart.textContent?.trim() ?? ''
+    const defaultPointerEnd = pointerEnd.textContent?.trim() ?? ''
+
     const setLabel = (label: string): void => {
       pointerLabel.textContent = label
+    }
+
+    const setPointerCopyByType = (type: string | undefined): void => {
+      if (type === 'video') {
+        pointerStart.textContent = watchStartText || defaultPointerStart
+        pointerEnd.textContent = watchEndText || defaultPointerEnd
+      } else if (type === 'audio') {
+        pointerStart.textContent = listenStartText || defaultPointerStart
+        pointerEnd.textContent = listenEndText || defaultPointerEnd
+      }
     }
 
     const showStandardText = (label: string): void => {
@@ -63,6 +90,7 @@ export const initBrandNetworks = (): void => {
         showStandardText(defaultLabel)
       }
 
+      setPointerCopyByType(defaultLink.dataset.networkType?.trim())
       setArrowSideByLink(defaultLink)
       setPointerTarget(defaultLink)
     }
@@ -78,6 +106,7 @@ export const initBrandNetworks = (): void => {
         showStandardText(label)
       }
 
+      setPointerCopyByType(link.dataset.networkType?.trim())
       setArrowSideByLink(link)
       setPointerTarget(link)
     }

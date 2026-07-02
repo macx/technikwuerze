@@ -174,6 +174,7 @@ Maintain and evolve the Technikwürze Kirby site safely and consistently:
 - `content/` is a dedicated Git repository on production and must exist as `content/.git`.
 - Main code deployment must never overwrite `content/`, `media/`, accounts, cache or sessions.
 - Main code deployment must preserve host-managed HTTP auth secrets (`.htpasswd`, including `public/.htpasswd`) via `.rsyncignore`.
+- Main code deployment must preserve the activated Kirby license (`site/config/.license`) via `.rsyncignore`. It is gitignored (never present on the CI checkout), so without this exclude `rsync --delete` wipes it from production on every deploy.
 - Keep `.htaccess` deploy-managed so Kirby rewrite rules in `public/.htaccess` stay consistent.
 - Runtime binaries/state are not in Git:
   - `content/audio/` (audio files)

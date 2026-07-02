@@ -1,0 +1,75 @@
+Title: Podcastverzeichnisse
+
+----
+
+Icon: url
+
+----
+
+Color: blue-600
+
+----
+
+Text:
+
+## Verwaltung
+
+<table class="k-table">
+	<thead>
+		<tr>
+			<th>Verzeichnis</th>
+			<th>Verwaltung</th>
+			<th>URL</th>
+			<th>E-Mail-Adresse</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>Apple</td>
+			<td><a href="https://podcastsconnect.apple.com/my-podcasts/show/technikw%C3%BCrze/84320ae3-da4d-45cc-baaf-30d1b20830d9">Verwaltung</a></td>
+			<td><a href="https://podcasts.apple.com/de/podcast/technikw%C3%BCrze/id6786310730">Podcast</a></td>
+			<td>sozial@technikwuerze.de</td>
+		</tr>
+		<tr>
+			<td>Spotify</td>
+			<td><a href="https://creators.spotify.com">Verwaltung</a></td>
+			<td><a href="https://open.spotify.com/show/033I0Lbs7ERbumWHyVkNDI">Podcast</a></td>
+			<td>sozial@technikwuerze.de</td>
+		</tr>
+		<tr>
+			<td>Amazon</td>
+			<td><a href="https://podcasters.amazon.com/podcasts/d019f258-e9d2-4c91-92d7-917c4038f0a4">Verwaltung</a></td>
+			<td><a href="https://music.amazon.de/podcasts/d019f258-e9d2-4c91-92d7-917c4038f0a4/technikw%C3%BCrze">Podcast</a></td>
+			<td>realmacx@gmail.com</td>
+		</tr>
+		<tr>
+			<td>Overcast</td>
+			<td><a href="https://overcast.fm/podcasterinfo">Verwaltung</a></td>
+			<td><a href="https://overcast.fm/itunes6786310730">Podcast</a></td>
+			<td>-</td>
+		</tr>
+		<tr>
+			<td>Pocket Casts</td>
+			<td><a href="https://pocketcasts.com/submit">Verwaltung</a></td>
+			<td><a href="https://pca.st/6qprmkrc">Podcast</a></td>
+			<td>-</td>
+		</tr>
+		<tr>
+			<td>YouTube (Video + Music)</td>
+			<td>
+        <a href="https://studio.youtube.com/channel/UCBCHc1juTZLh0xz7j_Mreuw">YouTube Studio</a>
+      </td>
+			<td>
+        <a href="https://www.youtube.com/@technikwuerze">Videos</a><br />
+        <a href="https://www.youtube.com/channel/UCBCHc1juTZLh0xz7j_Mreuw/community">Community</a>
+      </td>
+			<td>realmacx@gmail.com</td>
+		</tr>
+		<tr>
+			<td>Twitch</td>
+			<td><a href="https://www.twitch.tv/technikwuerze">Verwaltung</a></td>
+			<td><a href="https://www.twitch.tv/technikwuerze">Twitch</a></td>
+			<td>sozial@technikwuerze.de</td>
+		</tr>
+	</tbody>
+</table>
