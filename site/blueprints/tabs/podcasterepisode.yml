@@ -160,22 +160,12 @@ columns:
               de: Mitwirkende
               en: Contributors
             type: headline
-          podcasterAuthor:
-            label:
-              de: Autor (Kirby-Account)
-              en: Author (Kirby account)
-            type: users
-            max: 1
-            help:
-              de: Leer lassen, wenn derselbe Autor wie in den Feed-Einstellungen gelten soll.
-              en: Leave empty if the author is the same as in feed settings.
-            width: 1/3
           podcasterHosts:
             label:
               de: Moderatoren (Hosts)
               en: Moderators (Hosts)
             type: pages
-            width: 1/3
+            width: 1/2
             multiple: true
             query: site.find("teilnehmende").children
             text: '{{ page.first_name }} {{ page.last_name }}'
@@ -185,7 +175,7 @@ columns:
               de: Gäste
               en: Guests
             type: pages
-            width: 1/3
+            width: 1/2
             multiple: true
             query: site.find("teilnehmende").children
             text: '{{ page.first_name }} {{ page.last_name }}'
