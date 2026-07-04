@@ -23,6 +23,11 @@ return [
     'css' => 'assets/panel.css',
   ],
 
+  // Enable tables, definition lists, footnotes syntax etc. in Markdown/Kirbytext
+  'markdown' => [
+    'extra' => true,
+  ],
+
   'arnoson.kirby-form-builder' => [
     'clientValidation' => true,
     'gridColumns' => 6,

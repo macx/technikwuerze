@@ -19,7 +19,8 @@
     "fabianmichael/kirby-markdown-field": "^4.0",
     "mauricerenck/indieconnector": "^2.15",
     "macx/kirby-tw-transcript": "^0.10.0-beta.3",
-    "scottboms/link-scanner": "^1.0"
+    "scottboms/link-scanner": "^1.0",
+    "sylvainjule/footnotes": "dev-main"
   },
   "require-dev": {
     "lukaskleinschmidt/kirby-types": "^2.0"
@@ -28,6 +29,10 @@
     {
       "type": "vcs",
       "url": "https://github.com/macx/kirby-tw-transcript"
+    },
+    {
+      "type": "vcs",
+      "url": "https://github.com/macx/kirby-footnotes"
     }
   ],
   "config": {

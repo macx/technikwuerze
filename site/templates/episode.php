@@ -28,7 +28,8 @@ if ($episodeTotal === '') {
 }
 
 $podloveTemplate = asset('assets/podlove/tw-player-template.html')->url();
-$contentBlocks = $page->blocks()->toBlocks();
+$contentBlocks = $page->blocks()->toBlocks()->collectFootnotes();
+$footnotesHtml = count(Footnotes::$footnotes) > 0 ? Footnotes::footnotes() : '';
 
 $getInitials = static function (Kirby\Cms\Page $participant): string {
   $firstName = trim((string) $participant->first_name()->value());
@@ -135,7 +136,7 @@ snippet('layout', slots: true);
           ); ?>
           <?php slot(); ?>
             <div class="text-xs">
-              <strong class="text-strong text-secondary">
+              <strong class="text-eyebrow">
                 <a href="<?= $page->parent()->url() ?>" class="link-inherit">P<?= $page
   ->podcasterseason()
   ->or('-') ?></a>
@@ -152,7 +153,7 @@ snippet('layout', slots: true);
               <div class="episode-participants" aria-label="Mitwirkende">
                 <?php if ($hosts->isNotEmpty()): ?>
                   <div class="episode-participants-row">
-                    <strong class="text-xs text-strong text-secondary">
+                    <strong class="text-eyebrow">
                       Moderation
                     </strong>
 
@@ -163,7 +164,7 @@ snippet('layout', slots: true);
                 <?php endif; ?>
                 <?php if ($guests->isNotEmpty()): ?>
                   <div class="episode-participants-row">
-                    <strong class="text-xs text-strong text-secondary">
+                    <strong class="text-eyebrow">
                       Gäste
                     </strong>
 
@@ -179,9 +180,13 @@ snippet('layout', slots: true);
         </div>
       <?php endif; ?>
 
-      <?php if ($contentBlocks->isNotEmpty()): ?>
+      <?php if ($contentBlocks !== ''): ?>
         <section class="content-text content narrow">
           <?= $contentBlocks ?>
+
+          <?php if ($footnotesHtml !== ''): ?>
+            <?= $footnotesHtml ?>
+          <?php endif; ?>
         </section>
       <?php endif; ?>
     </div>

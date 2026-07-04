@@ -111,9 +111,15 @@
 
       .p-author,
       .u-author {
+        display: -webkit-box;
+        overflow: hidden;
         font-weight: 700;
         color: var(--clr-text);
         text-decoration: none;
+        text-overflow: ellipsis;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        line-clamp: 2;
       }
 
       .u-author:hover {

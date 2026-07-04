@@ -169,8 +169,10 @@
 
   .u-author,
   .p-author {
+    display: -webkit-box;
     grid-column: 2;
     grid-row: 1;
+    overflow: hidden;
 
     font-weight: var(--fs-medium);
     font-size: var(--fs-s);
@@ -178,6 +180,12 @@
     text-decoration: none;
     align-self: end;
     line-height: var(--lh-s);
+    hyphens: auto;
+    text-wrap: pretty;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    line-clamp: 2;
   }
 
   .u-url {

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3e8be95c4b505807893e3388442b522b",
+    "content-hash": "06d835f833c070e7650d93f579e01b84",
     "packages": [
         {
             "name": "arnoson/kirby-form-builder",
@@ -2557,6 +2557,52 @@
             "time": "2026-04-05T05:47:23+00:00"
         },
         {
+            "name": "sylvainjule/footnotes",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/macx/kirby-footnotes.git",
+                "reference": "a41f604c7c3d0402370a94c2e19da486a945a1b8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/macx/kirby-footnotes/zipball/a41f604c7c3d0402370a94c2e19da486a945a1b8",
+                "reference": "a41f604c7c3d0402370a94c2e19da486a945a1b8",
+                "shasum": ""
+            },
+            "require": {
+                "getkirby/composer-installer": "^1.1"
+            },
+            "type": "kirby-plugin",
+            "extra": {
+                "installer-name": "footnotes"
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sylvain Julé",
+                    "email": "contact@sylvain-jule.fr"
+                }
+            ],
+            "description": "Footnotes plugin for Kirby 3, 4 and 5",
+            "support": {
+                "source": "https://github.com/macx/kirby-footnotes/tree/main"
+            },
+            "funding": [
+                {
+                    "type": "github",
+                    "url": "https://github.com/sylvainjule"
+                },
+                {
+                    "type": "custom",
+                    "url": "https://www.paypal.me/sylvainjl"
+                }
+            ],
+            "time": "2026-07-04T07:55:52+00:00"
+        },
+        {
             "name": "symfony/deprecation-contracts",
             "version": "v3.7.1",
             "source": {
@@ -3699,7 +3745,8 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "macx/kirby-tw-transcript": 10
+        "macx/kirby-tw-transcript": 10,
+        "sylvainjule/footnotes": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

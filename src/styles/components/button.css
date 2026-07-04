@@ -1,14 +1,3 @@
-@keyframes button-icon-nudge {
-  0%,
-  100% {
-    transform: translateX(0);
-  }
-
-  50% {
-    transform: translateX(25%);
-  }
-}
-
 :is(.button, [class^='button-'], [class*=' button-'], button[type='submit']) {
   --button-bg: transparent;
   --button-scheme: var(--color-scheme, var(--clr-primary));

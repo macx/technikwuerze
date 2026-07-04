@@ -1,0 +1,60 @@
+@scope (.content-text) {
+  sup.footnote a {
+    color: var(--clr-primary);
+    font-weight: var(--fw-bold);
+    text-decoration: none;
+
+    &:hover,
+    &:focus-visible {
+      text-decoration: underline;
+    }
+  }
+
+  .footnotes-container {
+    margin-block-start: var(--sp-xl);
+    color: var(--clr-text-light);
+    font-size: var(--fs-s);
+
+    .footnotes-heading {
+      position: relative;
+      display: block;
+      padding-block-start: var(--sp);
+      margin-block-end: 0.6em;
+
+      &::before {
+        content: '';
+        position: absolute;
+        inset-block-start: 0;
+        inset-inline-start: 0;
+        inline-size: 5ch;
+        block-size: 1px;
+        background-color: var(--clr-border);
+      }
+    }
+
+    .footnotes-list {
+      padding-inline-start: 1.4em;
+
+      li {
+        margin-block-end: 0.5em;
+      }
+
+      .footnote-entry {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        gap: 0.8em;
+      }
+    }
+
+    .footnotereverse a {
+      color: var(--clr-primary);
+      text-decoration: none;
+
+      &:hover,
+      &:focus-visible {
+        text-decoration: underline;
+      }
+    }
+  }
+}
