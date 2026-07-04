@@ -7,6 +7,15 @@ p {
   color: var(--clr-text);
 }
 
+main :target,
+main :has(> :target) {
+  background-color: var(--clr-mark);
+
+  @media (prefers-reduced-motion: no-preference) {
+    animation: target-highlight 2.5s ease-in forwards;
+  }
+}
+
 a:any-link {
   accent-color: var(--clr-accent);
   outline-color: var(--clr-accent);
@@ -217,6 +226,14 @@ strong {
 }
 
 .text-secondary {
+  color: var(--clr-secondary);
+}
+
+.text-eyebrow {
+  display: inline-block;
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-title);
+  line-height: var(--lh);
   color: var(--clr-secondary);
 }
 
