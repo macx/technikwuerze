@@ -5,6 +5,8 @@
     font-size: var(--fs-r);
     line-height: var(--lh);
     margin-block: var(--sp-xl);
+    padding-block: var(--sp-m);
+    padding-inline: var(--sp-m);
   }
 
   h2 {
@@ -34,6 +36,7 @@
     inline-size: 100%;
     overflow: hidden;
     border-radius: var(--radius-button);
+    corner-shape: squircle;
     background-color: var(--clr-bg-light);
     border: 1px solid var(--clr-border);
     padding: var(--sp-s);

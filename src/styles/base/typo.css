@@ -120,12 +120,14 @@ a:any-link {
     padding: var(--sp-s) var(--sp);
     border: 1px solid var(--clr-border);
     border-radius: var(--c-radius);
+    corner-shape: squircle;
 
     img {
       display: block;
       max-inline-size: 100%;
       block-size: auto;
       border-radius: --inner-radius(var(--c-radius), var(--c-padding));
+      corner-shape: squircle;
       overflow: clip;
       border-block-end: 2px solid var(--clr-border-dark);
     }

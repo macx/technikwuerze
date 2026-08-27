@@ -26,6 +26,7 @@
       inline-size: 0;
       background-color: var(--clr-bg-dark);
       border-radius: var(--radius-button-xs);
+      corner-shape: squircle;
       transition: inline-size 200ms var(--ease-drawer-transform);
     }
 
@@ -34,6 +35,7 @@
       background-color: var(--clr-bg-dark);
       color: var(--clr-primary);
       border-radius: var(--radius-button-xs);
+      corner-shape: squircle;
       grid-area: number;
       transition:
         background-color 120ms var(--ease-drawer-transform),
@@ -59,6 +61,7 @@
 
     &:has(:focus-visible) {
       border-radius: var(--radius-button-xs);
+      corner-shape: squircle;
       outline: var(--focus-outline);
       outline-offset: var(--focus-outline-offset);
 

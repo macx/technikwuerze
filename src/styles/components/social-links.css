@@ -7,6 +7,9 @@
   --social-links-tooltip-text: var(--social-links-tooltip-text-context, #fff);
   --social-links-gap: 0;
 
+  --social-link-size: 3.75rem;
+  --social-link-icon-size: 2rem;
+
   display: flex;
   align-items: center;
   flex-wrap: wrap;
@@ -27,9 +30,10 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  inline-size: 2.45rem;
-  block-size: 2.45rem;
+  inline-size: var(--social-link-size);
+  block-size: var(--social-link-size);
   border-radius: var(--radius-button-s);
+  corner-shape: squircle;
   color: inherit;
   text-decoration: none;
   transition: background-color var(--transition-short);
@@ -59,8 +63,8 @@
 
   svg {
     display: block;
-    inline-size: 1.25rem;
-    block-size: 1.25rem;
+    inline-size: var(--social-link-icon-size);
+    block-size: var(--social-link-icon-size);
   }
 }
 

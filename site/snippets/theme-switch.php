@@ -22,4 +22,10 @@
       <span>Dunkel</span>
     </option>
   </select>
+
+  <span class="theme-switch-fallback-icon main-nav-button" aria-hidden="true">
+    <i class="msi-routine" data-mode-icon="system"></i>
+    <i class="msi-light-mode" data-mode-icon="light"></i>
+    <i class="msi-dark-mode" data-mode-icon="dark"></i>
+  </span>
 </div>

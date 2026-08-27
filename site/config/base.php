@@ -65,6 +65,8 @@ return [
   'mauricerenck.komments.panel.webmentions' => true,
   'mauricerenck.komments.panel.showPublished' => true,
   'mauricerenck.komments.privacy.storeEmail' => true,
+  'mauricerenck.komments.avatar.service' => 'initials',
+  'mauricerenck.komments.avatar.webmentionAvatars' => false,
   'mauricerenck.komments.autoDisable.datefield' => 'date',
   'mauricerenck.komments.form.submit.classNames' => 'button',
 ];

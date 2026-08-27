@@ -52,6 +52,7 @@
       font-size: var(--fs-xs);
       padding-inline: 0.4em;
       border-radius: 2px;
+      corner-shape: squircle;
     }
 
     :is(input, textarea, select) {
@@ -59,6 +60,7 @@
       padding: 0.875rem 1rem;
       border: 2px solid var(--clr-border);
       border-radius: var(--radius-button-s);
+      corner-shape: squircle;
       background: var(--clr-surface);
 
       transition:
@@ -119,6 +121,7 @@
     padding-block: var(--sp-xs);
     padding-inline: var(--sp);
     border-radius: var(--radius-button-s);
+    corner-shape: squircle;
     font-size: var(--fs-s);
     margin-block-end: var(--sp);
 
