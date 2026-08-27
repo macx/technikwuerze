@@ -29,6 +29,7 @@
       flex-direction: column;
       border: 2px solid var(--clr-border);
       border-radius: var(--radius-button);
+      corner-shape: squircle;
       background-color: var(--clr-bg-light);
       box-shadow: var(--shadow-size) var(--shadow-size) 0 0 var(--clr-shadow);
     }
@@ -41,7 +42,6 @@
       padding: var(--sp);
       color: currentColor;
       text-decoration: none;
-      border-radius: var(--radius-button);
       outline-color: var(--c-outline-color);
       transition: outline-color var(--transition);
     }

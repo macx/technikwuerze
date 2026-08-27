@@ -23,6 +23,7 @@
     text-decoration-color: var(--c-clr-border);
     transition: all 200ms ease;
     border-radius: var(--radius-button);
+    corner-shape: squircle;
 
     &:hover,
     &:focus-visible {

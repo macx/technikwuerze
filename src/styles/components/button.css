@@ -16,6 +16,7 @@
   padding-inline: var(--button-sp-inline);
   border: 2px solid var(--button-border);
   border-radius: var(--radius-button-s);
+  corner-shape: squircle;
   background-color: var(--button-bg);
   color: var(--button-color);
   font: inherit;

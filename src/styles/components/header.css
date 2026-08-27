@@ -28,6 +28,7 @@
   padding-block: 0.5rem;
   padding-inline: 1rem;
   border-radius: var(--radius-button);
+  corner-shape: squircle;
   background-color: transparent;
   transition: background-color 120ms var(--ease-drawer-transform);
 
@@ -95,6 +96,7 @@
   border-block-start-width: 0;
   border-inline-end-width: 0;
   border-radius: 0 0 0 var(--radius-button);
+  corner-shape: squircle;
   box-shadow: var(--shadow-size) var(--shadow-size) 0 0 var(--clr-shadow);
 
   opacity: 0;
@@ -129,6 +131,7 @@
   text-decoration: none;
   color: var(--clr-secondary);
   border-radius: var(--radius-button);
+  corner-shape: squircle;
   text-align: end;
 
   &:focus-visible {
@@ -226,6 +229,7 @@ body:has(:is(.main-nav-toggle, [aria-controls='main-nav-list'])[aria-expanded='t
       position: absolute;
       z-index: 0;
       border-radius: var(--radius-button);
+      corner-shape: squircle;
       background-color: var(--clr-hover);
       opacity: 0;
       transition:

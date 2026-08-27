@@ -82,6 +82,7 @@
         display: block;
         padding: var(--sp-m);
         border-radius: var(--radius-button);
+        corner-shape: squircle;
         transition: background-color var(--transition-short);
 
         &:hover,
