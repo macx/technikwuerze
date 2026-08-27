@@ -32,6 +32,10 @@
       corner-shape: squircle;
       background-color: var(--clr-bg-light);
       box-shadow: var(--shadow-size) var(--shadow-size) 0 0 var(--clr-shadow);
+
+      h3 {
+        margin-block-start: 0;
+      }
     }
 
     .card-grid-link {
