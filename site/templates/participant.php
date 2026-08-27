@@ -116,7 +116,12 @@ snippet('layout', slots: true);
           <section class="card participant-meta-card">
             <?php if ($image): ?>
               <figure class="participant-image">
-                <img src="<?= $image->url() ?>" alt="<?= esc(
+                <img src="<?= $image->crop(198, 198)->url() ?>" srcset="<?= $image->srcset([
+  '240w' => ['width' => 240, 'height' => 240, 'crop' => true],
+  '360w' => ['width' => 360, 'height' => 360, 'crop' => true],
+  '480w' => ['width' => 480, 'height' => 480, 'crop' => true],
+  '680w' => ['width' => 680, 'height' => 680, 'crop' => true],
+]) ?>" sizes="(min-width: 48em) 250px, calc(100vw - 5.5rem)" alt="<?= esc(
   $fullName,
 ) ?>" class="participant-image" data-vt-group="participant-image" data-vt-name="<?= esc(
   $transitionImageName,
