@@ -103,7 +103,7 @@ Maintain and evolve the Technikwürze Kirby site safely and consistently:
 
 - Episodes live under `content/2_mediathek/staffel-*/...`.
 - Hosts/Guests are assigned via participant page references, always as `page://<uuid>` (never path ids like `teilnehmende/slug` – Kirby does not resolve them there).
-- `podcasterHosts` („Team & Gastmoderation“) holds team members of the episode plus guests who host it; `podcasterGuests` holds all other guests. The episode page labels the first group „Moderation“ when it contains a guest host, otherwise „Team“.
+- `podcasterHosts` („Team & Gastmoderation“) holds team members of the episode plus guests who host it; `podcasterGuests` holds all other guests. The episode page always labels the first group „Moderation“ (participant pages keep the roles „Team“ / „Gast“).
 - Audio field in episode panel is configured to select/upload from central `site.find("audio")`.
 - Kirby status for episodes is folder-name driven (no `Status:` field in `episode.txt`):
   - `draft`: episode folder is inside `_drafts/`

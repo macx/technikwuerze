@@ -8,12 +8,6 @@
 
 $hosts = $page->podcasterhosts()->toPages();
 $guests = $page->podcasterguests()->toPages();
-// Gastmoderation: Gäste im Feld „Team & Gastmoderation“ → Überschrift „Moderation“ statt „Team“
-$hostsLabel = $hosts
-  ->filter(fn($host) => $host->participant_role()->value() === 'guest')
-  ->isNotEmpty()
-  ? 'Moderation'
-  : 'Team';
 $publishedDate = $page->date()->isNotEmpty() ? $page->date() : null;
 $publishedDatetime = $publishedDate ? $publishedDate->toDate('c') : '';
 $publishedLabel = $publishedDate ? $publishedDate->toDate('d.m.Y H:i') : '';
@@ -177,7 +171,7 @@ snippet('layout', slots: true);
                 <?php if ($hosts->isNotEmpty()): ?>
                   <div class="episode-participants-row">
                     <strong class="text-eyebrow">
-                      <?= $hostsLabel ?>
+                      Moderation
                     </strong>
 
                     <ul class="episode-participants-list">
