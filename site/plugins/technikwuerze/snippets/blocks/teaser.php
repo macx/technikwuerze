@@ -17,7 +17,7 @@ if ($title === '' && $foreword === '' && $afterword === '') {
 <section class="tw-teaser content medium">
   <header class="tw-teaser-title-wrap">
     <?php if ($title !== ''): ?>
-      <h2 class="tw-teaser-title"><?= $block->title()->kt() ?></h2>
+      <h2 class="tw-teaser-title"><?= $block->title()->kti() ?></h2>
     <?php endif; ?>
 
     <?php if ($hasBadge): ?>

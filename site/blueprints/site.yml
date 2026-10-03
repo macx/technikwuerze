@@ -163,6 +163,85 @@ tabs:
               - network: x
                 url: https://x.com/
 
+  provider:
+    label:
+      en: Provider
+      de: Anbieter
+    icon: account
+    columns:
+      - width: 1/2
+        fields:
+          providerHeadline:
+            label:
+              en: Legal provider
+              de: Anbieter & Verantwortlicher
+            type: headline
+          providerInfo:
+            type: info
+            text:
+              en: Single source for imprint, privacy policy and the parcel label on the contact page.
+              de: Zentrale Angaben für Impressum, Datenschutz und das Paketlabel auf der Kontaktseite.
+          providerName:
+            label:
+              en: Name
+              de: Name
+            type: text
+            required: true
+          providerStreet:
+            label:
+              en: Street and number
+              de: Straße und Hausnummer
+            type: text
+          providerZip:
+            label:
+              en: ZIP
+              de: PLZ
+            type: text
+            width: 1/4
+          providerCity:
+            label:
+              en: City
+              de: Ort
+            type: text
+            width: 3/4
+          providerEmail:
+            label:
+              en: Email
+              de: E-Mail
+            type: email
+
+      - width: 1/2
+        fields:
+          packstationHeadline:
+            label:
+              en: Packstation
+              de: Packstation
+            type: headline
+          providerPostnummer:
+            label:
+              en: DHL Postnummer
+              de: DHL-Postnummer
+            type: text
+            width: 1/2
+          providerPackstation:
+            label:
+              en: Packstation number
+              de: Packstation (Nummer)
+            type: text
+            width: 1/2
+          providerPackstationZip:
+            label:
+              en: ZIP
+              de: PLZ
+            type: text
+            width: 1/4
+          providerPackstationCity:
+            label:
+              en: City
+              de: Ort
+            type: text
+            width: 3/4
+
   email:
     label:
       en: Form

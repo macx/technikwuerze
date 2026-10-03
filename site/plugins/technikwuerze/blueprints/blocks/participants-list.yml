@@ -29,8 +29,8 @@ fields:
         en: Publishers only
         de: Herausgeber
       hosts_without_publishers:
-        en: Moderators without publishers
-        de: Moderatoren ohne Herausgeber
+        en: Team without publishers
+        de: Team ohne Herausgeber
       guests:
         en: Guests
         de: Gäste

@@ -116,8 +116,8 @@ tabs:
                 required: true
                 options:
                   host:
-                    de: Host (Moderator)
-                    en: Host (Moderator)
+                    de: Team
+                    en: Team
                   guest:
                     de: Gast
                     en: Guest
@@ -130,9 +130,28 @@ tabs:
                   publisher:
                     de: Herausgeber
                     en: Publisher
-                max: 1
+                  moderation:
+                    de: Moderation
+                    en: Host
+                  editorial:
+                    de: Redaktion
+                    en: Editorial
                 when:
                   participant_role: host
+              guest_roles:
+                label:
+                  de: Zusätzliche Rollen
+                  en: Additional roles
+                type: checkboxes
+                options:
+                  guest_moderation:
+                    de: Gastmoderation
+                    en: Guest host
+                help:
+                  de: Moderiert als Gast einzelne Folgen – dort unter „Team & Gastmoderation“ eintragen.
+                  en: Hosts individual episodes as a guest – add them under “Team & guest hosts” there.
+                when:
+                  participant_role: guest
               gender_identities:
                 label:
                   de: Geschlechtsidentitäten
@@ -180,9 +199,9 @@ tabs:
                 text:
                   de: |
                     Gesamt: **{{ page.participationTotalCount }}**
-                    Als Host: **{{ page.participationHostCount }}**
+                    Im Team: **{{ page.participationHostCount }}**
                     Als Gast: **{{ page.participationGuestCount }}**
                   en: |
                     Total: **{{ page.participationTotalCount }}**
-                    As host: **{{ page.participationHostCount }}**
+                    As team: **{{ page.participationHostCount }}**
                     As guest: **{{ page.participationGuestCount }}**

@@ -4,6 +4,7 @@ require_once __DIR__ . '/lib/icon-sprite.php';
 require_once __DIR__ . '/lib/participant-image.php';
 require_once __DIR__ . '/lib/participant-stats.php';
 require_once __DIR__ . '/lib/site-search.php';
+require_once __DIR__ . '/lib/episode-stats.php';
 require_once __DIR__ . '/lib/contact-form-action.php';
 
 $pageMethods = require __DIR__ . '/extensions/page-methods.php';
@@ -25,6 +26,7 @@ Kirby::plugin('tw/brand', [
     'blocks/handwritten' => __DIR__ . '/blueprints/blocks/handwritten.yml',
     'blocks/testimonials' => __DIR__ . '/blueprints/blocks/testimonials.yml',
     'blocks/address' => __DIR__ . '/blueprints/blocks/address.yml',
+    'blocks/provider' => __DIR__ . '/blueprints/blocks/provider.yml',
     'blocks/recommendation' => __DIR__ . '/blueprints/blocks/recommendation.yml',
   ],
   'snippets' => [
@@ -38,6 +40,7 @@ Kirby::plugin('tw/brand', [
     'blocks/handwritten' => __DIR__ . '/snippets/blocks/handwritten.php',
     'blocks/testimonials' => __DIR__ . '/snippets/blocks/testimonials.php',
     'blocks/address' => __DIR__ . '/snippets/blocks/address.php',
+    'blocks/provider' => __DIR__ . '/snippets/blocks/provider.php',
     'blocks/heading' => __DIR__ . '/snippets/blocks/heading.php',
     'blocks/recommendation' => __DIR__ . '/snippets/blocks/recommendation.php',
   ],

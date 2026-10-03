@@ -1,6 +1,6 @@
 @scope (.content-text) {
   sup.footnote a {
-    color: var(--clr-primary);
+    color: var(--clr-primary-text);
     font-weight: var(--fw-bold);
     text-decoration: none;
 
@@ -48,7 +48,7 @@
     }
 
     .footnotereverse a {
-      color: var(--clr-primary);
+      color: var(--clr-primary-text);
       text-decoration: none;
 
       &:hover,

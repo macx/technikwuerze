@@ -87,10 +87,24 @@ if (!in_array($displayLayout, ['cards', 'list'], true)) {
         <?php $fullName = trim(
           $participant->first_name()->value() . ' ' . $participant->last_name()->value(),
         ); ?>
+        <?php $meta = twParticipantMeta($participant); ?>
         <li>
           <a href="<?= $participant->url() ?>">
             <?= esc($fullName) ?>
           </a>
+          <?php if ($meta !== null): ?>
+            <span class="tw-participants-meta">
+              <?php if ($meta['label'] !== ''): ?>
+                <?= esc($meta['label']) ?> ·
+              <?php endif; ?>
+              <?php if ($meta['topic'] !== ''): ?>
+                <a href="<?= esc($meta['url']) ?>" class="tw-participants-topic"><?= esc(
+  $meta['topic'],
+) ?></a> ·
+              <?php endif; ?>
+              <?= esc($meta['text']) ?>
+            </span>
+          <?php endif; ?>
         </li>
       <?php endforeach; ?>
     </ul>
@@ -113,10 +127,23 @@ if (!in_array($displayLayout, ['cards', 'list'], true)) {
                 ->url() ?>" alt="" aria-hidden="true" class="participant-image" data-vt-group="participant-image" data-vt-name="<?= esc(
   $transitionImageName,
 ) ?>" loading="lazy">
+            <?php else: ?>
+              <div class="participant-image" data-vt-group="participant-image" data-vt-name="<?= esc(
+                $transitionImageName,
+              ) ?>">
+              </div>
             <?php endif; ?>
             <span class="participant-name" data-vt-group="participant-name" data-vt-name="<?= esc(
               $transitionName,
             ) ?>"><?= esc($fullName) ?></span>
+            <?php $meta = twParticipantMeta($participant); ?>
+            <?php if ($meta !== null): ?>
+              <span class="tw-participants-meta">
+                <?= esc(
+                  implode(' · ', array_filter([$meta['label'], $meta['topic'], $meta['text']])),
+                ) ?>
+              </span>
+            <?php endif; ?>
           </a>
         </li>
       <?php endforeach; ?>

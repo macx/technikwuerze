@@ -14,10 +14,13 @@ columns:
       featured:
         type: fields
         fields:
-          popularEpisodes:
-            label: Beliebteste Folgen (manuell)
-            type: pages
-            multiple: true
-            max: 3
-            query: site.find('mediathek').index.filterBy('intendedTemplate', 'episode')
-            help: Optional. Wenn leer, werden die neuesten Folgen als Fallback genutzt.
+          seoTitle:
+            label:
+              en: Page title (browser tab & search results)
+              de: Seitentitel (Browser-Tab & Suchergebnis)
+            type: text
+            maxlength: 60
+            placeholder: Technikwürze · Podcast für Medienschaffende
+            help:
+              en: Used as `<title>` on the home page only. Empty falls back to the site title.
+              de: Wird nur auf der Startseite als `<title>` genutzt. Leer = Site-Titel.

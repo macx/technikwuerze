@@ -73,7 +73,7 @@ a:any-link {
   }
 
   a:any-link {
-    color: var(--clr-primary);
+    color: var(--clr-primary-text);
     text-decoration: underline;
     text-underline-offset: 0.2em;
 

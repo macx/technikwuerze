@@ -69,7 +69,7 @@
       margin-inline: auto;
       font-size: var(--fs-r);
       font-weight: 600;
-      color: var(--clr-primary);
+      color: var(--clr-primary-text);
       letter-spacing: -0.025rem;
     }
 

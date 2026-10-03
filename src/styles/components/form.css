@@ -20,6 +20,17 @@
     gap: var(--form-gap);
   }
 
+  .form-alternative {
+    margin: 0;
+    font-size: var(--fs-s);
+  }
+
+  .form-privacy {
+    font-size: var(--fs-s);
+    line-height: var(--lh);
+    color: var(--clr-text-light);
+  }
+
   .form-row {
     display: grid;
     gap: var(--form-gap);

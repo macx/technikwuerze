@@ -17,15 +17,44 @@
 
     li {
       break-inside: avoid;
+      padding-block-end: 1em;
+    }
+
+    /* TN-1: Meta-Zeile unter dem Namen */
+    .tw-participants-meta {
+      display: block;
+      margin-block-start: -0.2em;
+      font-size: var(--fs-xs);
+      font-weight: var(--fw);
+      color: var(--clr-text-light);
+
+      a {
+        display: inline;
+        padding: 0;
+        border-radius: 0;
+        color: inherit;
+        text-decoration: underline;
+        text-underline-offset: 0.15em;
+
+        &:hover,
+        &:focus-visible {
+          background-color: transparent;
+          color: var(--clr-primary-text);
+        }
+      }
     }
 
     a {
       display: inline-block;
       text-decoration: none;
-      color: var(--clr-primary);
+      color: var(--clr-primary-text);
       border-radius: var(--radius-button);
       padding-block: 0.35em;
       padding-inline: 1.25em;
+
+      &:has(+ .tw-participants-meta) {
+        padding-block-end: 0.2em;
+      }
 
       &:hover,
       &:focus-visible {
@@ -93,13 +122,16 @@
 .participant-image {
   display: block;
   margin: 0;
+  inline-size: 192px;
+  block-size: 192px;
+  background-color: var(--clr-shade-dark);
+  border-radius: 50%;
 
   img {
     display: block;
     inline-size: 100%;
     aspect-ratio: 1 / 1;
     object-fit: cover;
-    border-radius: 50%;
   }
 }
 
@@ -151,11 +183,11 @@
 }
 
 .participant-stats .participant-data-list dd {
-  color: var(--clr-primary);
+  color: var(--clr-primary-text);
 }
 
 .participant-profiles {
-  color: var(--clr-primary);
+  color: var(--clr-primary-text);
 
   .participant-social {
     margin-inline-start: -0.6rem;

@@ -12,3 +12,30 @@ fields:
     label:
       en: Title
       de: Titel
+  staleAfterDays:
+    type: number
+    default: 60
+    min: 1
+    width: 1/2
+    label:
+      en: Stale after (days)
+      de: Gilt als veraltet nach (Tagen)
+    help:
+      en: If the newest episode is older, the stale headline and notice are shown instead.
+      de: Ist die neueste Folge älter, erscheinen stattdessen die Überschrift und der Hinweis unten.
+  staleHeader:
+    type: text
+    default: Zuletzt erschienen
+    width: 1/2
+    label:
+      en: Stale headline
+      de: Überschrift, wenn veraltet
+  staleNotice:
+    type: textarea
+    size: small
+    buttons:
+      - bold
+      - link
+    label:
+      en: Stale notice
+      de: Hinweis, wenn veraltet

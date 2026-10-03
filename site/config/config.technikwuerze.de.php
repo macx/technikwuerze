@@ -9,6 +9,9 @@ $options = [
   'debug' => false,
   'panel.vue.compiler' => true,
 
+  // Webmentions nur auf dem Live-Server senden (beim Veröffentlichen einer Folge)
+  'mauricerenck.indieConnector.send.enabled' => true,
+
   // Git Content on production: manual commits/pushes via panel area
   'thathoff.git-content' => [
     'commit' => true,

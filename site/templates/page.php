@@ -11,6 +11,25 @@
 
     <div class="page-content content-text content narrow">
       <?= $page->blocks()->toBlocks() ?>
+
+      <?php if ($page->revisedAt()->isNotEmpty()): ?>
+        <p class="page-revised text-s text-light">
+          Stand: <?= [
+            1 => 'Januar',
+            'Februar',
+            'März',
+            'April',
+            'Mai',
+            'Juni',
+            'Juli',
+            'August',
+            'September',
+            'Oktober',
+            'November',
+            'Dezember',
+          ][(int) $page->revisedAt()->toDate('n')] ?> <?= $page->revisedAt()->toDate('Y') ?>
+        </p>
+      <?php endif; ?>
     </div>
   <?php endslot(); ?>
 

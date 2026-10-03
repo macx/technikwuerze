@@ -6,7 +6,7 @@
 $sharing = [
   'url' => $page->url(),
   'title' => $page->isHomePage()
-    ? $site->title()->html()
+    ? $page->seoTitle()->or($site->title())->html()
     : $page->title()->html() . ' · ' . $site->title()->html(),
   'name' => 'technikwürze',
   'description' => $site->description()->value(),

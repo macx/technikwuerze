@@ -24,6 +24,17 @@ return [
   ],
 
   // Enable tables, definition lists, footnotes syntax etc. in Markdown/Kirbytext
+  'routes' => [
+    [
+      'pattern' => 'teilnehmende/daniel-jagzent',
+      'action' => fn() => go('teilnehmende/daniel-jagszent', 301),
+    ],
+    [
+      'pattern' => 'teilnehmende/ansger-hein',
+      'action' => fn() => go('teilnehmende/ansgar-hein', 301),
+    ],
+  ],
+
   'markdown' => [
     'extra' => true,
   ],
@@ -31,7 +42,7 @@ return [
   'arnoson.kirby-form-builder' => [
     'clientValidation' => true,
     'gridColumns' => 6,
-    'autoComplete' => false,
+    'autoComplete' => true,
     'addEmptyPlaceholder' => true,
     'defaultEntryStatus' => 'draft',
     'fromEmails' => array_values(array_filter([$emailOptions['email']['noreply'] ?? null])),
@@ -57,6 +68,12 @@ return [
   // Komments setup
   'mauricerenck.indieConnector.sqlitePath' => $dbPath,
   'mauricerenck.indieConnector.stats.enabled' => true,
+  // Webmentions senden: nur live (siehe config.technikwuerze.de.php) und nur beim
+  // Statuswechsel (Veröffentlichen) einer Folge, nicht bei jeder Änderung.
+  'mauricerenck.indieConnector.send.enabled' => false,
+  'mauricerenck.indieConnector.send.automatically' => false,
+  'mauricerenck.indieConnector.send.allowedTemplates' => ['episode'],
+  'mauricerenck.indieConnector.send.url-fields' => ['blocks:block', 'podcasterdescription:text'],
 
   'mauricerenck.komments.storage.type' => 'sqlite',
   'mauricerenck.komments.storage.sqlitePath' => $dbPath,

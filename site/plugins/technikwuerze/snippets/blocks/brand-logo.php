@@ -5,11 +5,11 @@ if ($byline === '') {
 }
 ?>
 <div class="tw-brand content medium">
-  <div class="animation">
+  <h1 class="animation">
     <span class="word">Technik</span><span class="word">würze</span>
-  </div>
+  </h1>
 
-  <div class="byline">
+  <p class="byline">
     <?= esc($byline) ?>
-  </div>
+  </p>
 </div>

@@ -118,3 +118,23 @@ export function initKomments() {
     }
   })
 }
+
+export function openCommentFromHash(): void {
+  const openTarget = (): void => {
+    const id = decodeURIComponent(location.hash.slice(1))
+    if (id === '') {
+      return
+    }
+
+    const target = document.getElementById(id)
+    const details = target?.closest<HTMLDetailsElement>('details[data-comments-more]')
+
+    if (target && details && !details.open) {
+      details.open = true
+      target.scrollIntoView()
+    }
+  }
+
+  openTarget()
+  window.addEventListener('hashchange', openTarget)
+}

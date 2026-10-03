@@ -17,9 +17,14 @@ snippet('layout', slots: true);
 
 <?php slot(); ?>
   <div class="page-header content">
+    <?php snippet('breadcrumb'); ?>
     <h1 class="title">
       <?= $page->title()->html() ?>
     </h1>
+
+    <?php if ($seasonMeta = twSeasonMeta($page)): ?>
+      <p class="season-meta"><?= esc($seasonMeta) ?></p>
+    <?php endif; ?>
 
     <?php if ($page->lead()->isNotEmpty()): ?>
       <p class="lead">
@@ -29,6 +34,12 @@ snippet('layout', slots: true);
   </div>
 
   <?= $page->blocks()->toBlocks() ?>
+
+  <?php if ($episodes->isEmpty() && $page->upcomingNote()->isNotEmpty()): ?>
+    <section class="season content">
+      <p class="season-upcoming"><?= $page->upcomingNote()->kti() ?></p>
+    </section>
+  <?php endif; ?>
 
   <?php if ($episodes->isNotEmpty()): ?>
     <section class="season content">
@@ -44,6 +55,9 @@ snippet('layout', slots: true);
               <span class="text-s">
                 <?php if ($episode->date()->isNotEmpty()): ?>
                   <span><?= $episode->date()->toDate('d.m.Y') ?></span>
+                <?php endif; ?>
+                <?php if ($episode->podcasterAudio()->isEmpty()): ?>
+                  <span class="episode-unavailable">· nicht mehr verfügbar</span>
                 <?php endif; ?>
               </span>
             </a>

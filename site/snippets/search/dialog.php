@@ -5,7 +5,7 @@ declare(strict_types=1);
 $searchPage = page('suche');
 $searchUrl = $searchPage ? $searchPage->url() : url('suche');
 $queryValue = trim((string) get('q'));
-$selectedCategory = 'content';
+$selectedCategory = twSearchNormalizeCategory((string) get('category'));
 $categories = twSearchCategories();
 $settings = twSearchSettings();
 ?>

@@ -9,8 +9,8 @@ options:
 tabs:
   content:
     label:
-      de: Inhalt & Moderatoren
-      en: Content & Moderators
+      de: Inhalt & Team
+      en: Content & Team
     columns:
       - width: 1/2
         sections:
@@ -37,8 +37,8 @@ tabs:
               ratio: 1/1
           hosts:
             label:
-              de: Moderatoren
-              en: Hosts
+              de: Team
+              en: Team
             type: pages
             query: page.children.filterBy("participant_role", "host").filterBy("additional_roles", "!*=", "publisher")
             status: all

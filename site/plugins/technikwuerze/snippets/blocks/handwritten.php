@@ -15,14 +15,16 @@ if (!in_array($arrowAlign, ['left', 'right'], true)) {
   $arrowAlign = 'right';
 }
 
-$arrowAsset = asset('assets/networks/pointer.svg');
-$hasArrow = $showArrow && $arrowAsset->exists();
+$arrowPath = kirby()->root('base') . '/src/assets/networks/pointer.svg';
+$hasArrow = $showArrow && is_file($arrowPath);
 ?>
 <section class="tw-handwritten<?= $hasArrow
   ? ' has-arrow arrow-' . esc($arrowAlign, 'attr')
   : '' ?>">
   <?php if ($hasArrow): ?>
-    <span class="tw-handwritten-arrow" aria-hidden="true"><?= $arrowAsset->read() ?></span>
+    <span class="tw-handwritten-arrow" aria-hidden="true"><?= file_get_contents(
+      $arrowPath,
+    ) ?></span>
   <?php endif; ?>
 
   <div class="tw-handwritten-text">

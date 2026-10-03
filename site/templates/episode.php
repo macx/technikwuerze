@@ -8,6 +8,12 @@
 
 $hosts = $page->podcasterhosts()->toPages();
 $guests = $page->podcasterguests()->toPages();
+// Gastmoderation: Gäste im Feld „Team & Gastmoderation“ → Überschrift „Moderation“ statt „Team“
+$hostsLabel = $hosts
+  ->filter(fn($host) => $host->participant_role()->value() === 'guest')
+  ->isNotEmpty()
+  ? 'Moderation'
+  : 'Team';
 $publishedDate = $page->date()->isNotEmpty() ? $page->date() : null;
 $publishedDatetime = $publishedDate ? $publishedDate->toDate('c') : '';
 $publishedLabel = $publishedDate ? $publishedDate->toDate('d.m.Y H:i') : '';
@@ -104,6 +110,7 @@ snippet('layout', slots: true);
 <?php slot(); ?>
   <article class="episode-view">
     <header class="page-header content">
+      <?php snippet('breadcrumb'); ?>
       <h1 class="title">
         <?= $page->title()->html() ?>
         <?php if ($page->podcastersubtitle()->isNotEmpty()): ?>
@@ -147,6 +154,22 @@ snippet('layout', slots: true);
               <span class="text-light">
                 <?= esc($episodeTypeLabel) ?>
               </span>
+              <?php if (
+                $downloadFile = (new \mauricerenck\Podcaster\Podcast())->getAudioFile($page)
+              ): ?>
+                · <a
+                  href="<?= $page->url() .
+                    '/' .
+                    option('mauricerenck.podcaster.downloadTriggerPath', 'download') .
+                    '/' .
+                    $downloadFile->filename() ?>"
+                  download
+                  class="episode-download"
+                >Download (MP3, <?= max(
+                  1,
+                  (int) round($downloadFile->size() / 1048576),
+                ) ?>&nbsp;MB)</a>
+              <?php endif; ?>
             </div>
 
             <?php if ($hosts->isNotEmpty() || $guests->isNotEmpty()): ?>
@@ -154,7 +177,7 @@ snippet('layout', slots: true);
                 <?php if ($hosts->isNotEmpty()): ?>
                   <div class="episode-participants-row">
                     <strong class="text-eyebrow">
-                      Moderation
+                      <?= $hostsLabel ?>
                     </strong>
 
                     <ul class="episode-participants-list">

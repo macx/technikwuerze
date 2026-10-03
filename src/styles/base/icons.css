@@ -117,3 +117,7 @@
 .msi-tag {
   --msi-icon: 'sell';
 }
+
+.msi-content-copy {
+  --msi-icon: 'content_copy';
+}

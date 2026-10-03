@@ -8,26 +8,28 @@
 
 snippet('layout', slots: true); ?>
   <?php slot(); ?>
-    <?php if ($page->header()->isNotEmpty()): ?>
-      <div class="page-header">
-        <h1 class="title">
-          <?= $page->header()->html() ?>
-        </h1>
+    <div class="content">
+      <?php if ($page->header()->isNotEmpty()): ?>
+        <div class="page-header">
+          <h1 class="title">
+            <?= $page->header()->html() ?>
+          </h1>
 
-        <?php if ($page->lead()->isNotEmpty()): ?>
-          <p class="lead">
-            <?= $page->lead()->kti() ?>
-          </p>
-        <?php endif; ?>
-      </div>
-    <?php endif; ?>
+          <?php if ($page->lead()->isNotEmpty()): ?>
+            <p class="lead">
+              <?= $page->lead()->kti() ?>
+            </p>
+          <?php endif; ?>
+        </div>
+      <?php endif; ?>
 
-    <?= $page->blocks()->toBlocks() ?>
+      <?= $page->blocks()->toBlocks() ?>
 
-    <?php if ($page->text()->isNotEmpty()): ?>
-      <div class="teilnehmende-intro">
-        <?= $textBlocks->isNotEmpty() ? $textBlocks : $page->text()->kt() ?>
-      </div>
-    <?php endif; ?>
+      <?php if ($page->text()->isNotEmpty()): ?>
+        <div class="teilnehmende-intro">
+          <?= $textBlocks->isNotEmpty() ? $textBlocks : $page->text()->kt() ?>
+        </div>
+      <?php endif; ?>
+    </div>
   <?php endslot(); ?>
 <?php endsnippet(); ?>

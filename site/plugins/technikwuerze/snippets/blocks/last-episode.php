@@ -28,6 +28,22 @@ if ($episodeCandidates && $episodeCandidates->isNotEmpty()) {
 }
 ?>
 
+<?php
+$isStale = false;
+if ($latestEpisode) {
+  twShownEpisodes($latestEpisode);
+
+  $staleAfterDays = $block->staleAfterDays()->or(60)->toInt();
+  $episodeTimestamp = $latestEpisode->date()->toTimestamp();
+  $isStale =
+    $episodeTimestamp !== false && $episodeTimestamp < strtotime('-' . $staleAfterDays . ' days');
+
+  if ($isStale) {
+    $headline = trim((string) $block->staleHeader()->or('Zuletzt erschienen')->value());
+  }
+}
+?>
+
 <?php if ($latestEpisode): ?>
   <section class="tw-last-episode content narrow">
     <?php snippet(
@@ -42,6 +58,18 @@ if ($episodeCandidates && $episodeCandidates->isNotEmpty()) {
     ); ?>
       <?php slot(); ?>
         <h2><?= esc($headline) ?></h2>
+
+        <?php if ($isStale): ?>
+          <p class="podcast-player-date text-s">
+            Erschienen am <?= $latestEpisode->date()->toDate('d.m.Y') ?>
+          </p>
+
+          <?php if ($block->staleNotice()->isNotEmpty()): ?>
+            <p class="podcast-player-notice">
+              <?= $block->staleNotice()->kti() ?>
+            </p>
+          <?php endif; ?>
+        <?php endif; ?>
 
         <p class="podcast-player-text">
           <?= $latestEpisode->podcasterdescription()->kti()->short(150) ?>
