@@ -22,8 +22,12 @@ $customPlayerRequested =
 if ($customPlayerRequested) {
 
   $playerContainerId = 'podlove-player-' . uniqid();
+  $podloveConfig = $podcast->getPodloveConfigJson($episode);
+  $podloveBase = url('assets/podlove/web-player') . '/';
+  $podloveConfig['base'] = $podloveBase;
+  $podloveConfig['reference'] = ['base' => $podloveBase];
   $configJson = json_encode(
-    $podcast->getPodloveConfigJson($episode),
+    $podloveConfig,
     JSON_UNESCAPED_SLASHES |
       JSON_UNESCAPED_UNICODE |
       JSON_HEX_TAG |
@@ -45,6 +49,7 @@ if ($customPlayerRequested) {
     id="<?= $playerContainerId ?>"
     class="podlove-player-host"
     data-podlove-player
+    data-podlove-embed-src="<?= url('assets/podlove/web-player/embed.js') ?>"
     data-podlove-config="<?= esc($configJson ?? 'null', 'attr') ?>"
     data-podlove-episode="<?= esc($episodeJson ?? 'null', 'attr') ?>"
     <?php if ($variant !== ''): ?>
