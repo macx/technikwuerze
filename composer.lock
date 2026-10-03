@@ -1482,16 +1482,16 @@
         },
         {
             "name": "macx/kirby-tw-transcript",
-            "version": "v0.10.0-beta.3",
+            "version": "v0.10.0-beta.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/macx/kirby-tw-transcript.git",
-                "reference": "afe50ddd40e604610bf0b887f19cc8de0d15280f"
+                "reference": "7c9d6cd5d9a465dc55e33799e81ac6544a6620d4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/macx/kirby-tw-transcript/zipball/afe50ddd40e604610bf0b887f19cc8de0d15280f",
-                "reference": "afe50ddd40e604610bf0b887f19cc8de0d15280f",
+                "url": "https://api.github.com/repos/macx/kirby-tw-transcript/zipball/7c9d6cd5d9a465dc55e33799e81ac6544a6620d4",
+                "reference": "7c9d6cd5d9a465dc55e33799e81ac6544a6620d4",
                 "shasum": ""
             },
             "require": {
@@ -1534,7 +1534,7 @@
                 "source": "https://github.com/macx/kirby-tw-transcript",
                 "docs": "https://github.com/macx/kirby-tw-transcript#readme"
             },
-            "time": "2026-06-08T07:36:21+00:00"
+            "time": "2026-10-03T09:54:16+00:00"
         },
         {
             "name": "matomo/matomo-php-tracker",
