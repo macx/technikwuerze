@@ -63,12 +63,6 @@ if ($latestEpisode) {
           <p class="podcast-player-date text-s">
             Erschienen am <?= $latestEpisode->date()->toDate('d.m.Y') ?>
           </p>
-
-          <?php if ($block->staleNotice()->isNotEmpty()): ?>
-            <p class="podcast-player-notice">
-              <?= $block->staleNotice()->kti() ?>
-            </p>
-          <?php endif; ?>
         <?php endif; ?>
 
         <p class="podcast-player-text">
@@ -82,6 +76,12 @@ if ($latestEpisode) {
           </a>
         </div>
       <?php endslot(); ?>
+
+      <?php if ($isStale && $block->staleNotice()->isNotEmpty()): ?>
+        <?php slot('mediaNote'); ?>
+          <span class="podcast-player-notice"><?= $block->staleNotice()->kti() ?></span>
+        <?php endslot(); ?>
+      <?php endif; ?>
     <?php endsnippet(); ?>
   </section>
 <?php endif; ?>

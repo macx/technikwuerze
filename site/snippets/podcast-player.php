@@ -27,6 +27,7 @@ if (!in_array($mediaPosition, ['left', 'right'], true)) {
 
 $sectionClasses = trim('podcast-player' . ($sectionClass !== '' ? ' ' . $sectionClass : ''));
 $introSlot = trim((string) ($slot ?? ''));
+$mediaNote = isset($slots) ? trim((string) ($slots->mediaNote() ?? '')) : '';
 ?>
 
 <div class="<?= esc($sectionClasses) ?>" data-media-position="<?= esc($mediaPosition, 'attr') ?>">
@@ -37,15 +38,25 @@ $introSlot = trim((string) ($slot ?? ''));
       <?php endif; ?>
     </div>
 
-    <div class="podcast-player-media">
-      <?php snippet('podcast-media', [
-        'page' => $page,
-        'template' => $template,
-        'variant' => $variant,
-        'templateInline' => $templateInline,
-        'transparent' => $transparent,
-        'debug' => $debug,
-      ]); ?>
-    </div>
+    <?php if ($mediaNote !== ''): ?>
+      <div class="podcast-player-aside">
+    <?php endif; ?>
+      <div class="podcast-player-media">
+        <?php snippet('podcast-media', [
+          'page' => $page,
+          'template' => $template,
+          'variant' => $variant,
+          'templateInline' => $templateInline,
+          'transparent' => $transparent,
+          'debug' => $debug,
+        ]); ?>
+      </div>
+
+      <?php if ($mediaNote !== ''): ?>
+        <div class="podcast-player-media-note text-s text-light">
+          <?= $mediaNote ?>
+        </div>
+      </div>
+    <?php endif; ?>
   </div>
 </div>

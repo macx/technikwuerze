@@ -14,7 +14,7 @@
     list-style: none;
 
     background-color: var(--clr-border-dark);
-    border: 1px solid var(--clr-border);
+    border: 1px solid color-mix(in oklab, var(--clr-bg-dark), var(--clr-text) 10%);
     border-radius: var(--radius);
     corner-shape: squircle;
     overflow: hidden;
@@ -25,10 +25,6 @@
     --c-padding-x: 1em;
 
     background-color: var(--clr-bg-dark);
-
-    padding: var(--c-padding-y) calc(var(--c-padding-x) + var(--breadcrumb-arrow) / 2)
-      var(--c-padding-y) calc(var(--c-padding-x) + var(--breadcrumb-arrow));
-
     margin-inline-start: calc(2px - var(--breadcrumb-arrow));
 
     border-shape: polygon(
@@ -40,9 +36,30 @@
       var(--breadcrumb-arrow) 50%
     );
 
+    > a:any-link {
+      transition: background-color 0.2s ease;
+    }
+
+    > a:any-link,
+    &:not(&:has(> a:any-link)) {
+      display: block;
+      color: inherit;
+      text-decoration: none;
+
+      padding: var(--c-padding-y) calc(var(--c-padding-x) + var(--breadcrumb-arrow) / 2)
+        var(--c-padding-y) calc(var(--c-padding-x) + var(--breadcrumb-arrow));
+    }
+
+    &:has(> a:any-link) {
+      &:hover,
+      &:focus {
+        background-color: var(--clr-secondary);
+        color: var(--clr-text-bright);
+      }
+    }
+
     &:first-child {
       margin-inline-start: 0;
-      padding-left: var(--c-padding-x);
 
       border-shape: polygon(
         0% 0%,
@@ -51,6 +68,10 @@
         calc(100% - var(--breadcrumb-arrow)) 100%,
         0% 100%
       );
+
+      > a:any-link {
+        padding-inline-start: var(--c-padding-x);
+      }
     }
 
     &:last-child {
@@ -59,16 +80,6 @@
 
     &[aria-current] {
       background-color: var(--clr-shade-dark);
-    }
-  }
-
-  a:any-link {
-    color: inherit;
-    text-decoration: none;
-
-    &:not(:last-child):hover {
-      background-color: #005999;
-      cursor: pointer;
     }
   }
 }
