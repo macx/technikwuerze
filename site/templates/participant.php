@@ -232,7 +232,7 @@ snippet('layout', slots: true);
                   $episodeNumber !== '',
                   ' data-episode-number="' . esc($episodeNumber) . '"',
                 ); ?>>
-                  <a href="<?= $episode->url() ?>">
+                  <a href="<?= $episode->url() ?>" class="episode-title">
                     <?= $episode->title()->value() ?><br />
                     <span class="text-s">
                       <?php if ($episode->date()->isNotEmpty()): ?>

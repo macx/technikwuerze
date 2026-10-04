@@ -21,8 +21,12 @@
   }
 
   .form-alternative {
-    margin: 0;
+    margin-block: var(--sp-s) 0;
+    padding-block-start: var(--sp-s);
+    border-block-start: 1px solid var(--clr-border);
     font-size: var(--fs-s);
+    color: var(--clr-text-light);
+    text-wrap: pretty;
   }
 
   .form-privacy {

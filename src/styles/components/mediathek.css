@@ -1,14 +1,5 @@
 .season {
   margin-block: var(--sp-xxl);
-
-  .season-upcoming {
-    display: inline-block;
-    padding-block: var(--sp-s);
-    padding-inline: var(--sp-m);
-    border-inline-start: 3px solid var(--clr-secondary);
-    background-color: var(--clr-bg-light);
-    font-weight: var(--fw-bold);
-  }
 }
 
 .episodes-list {
@@ -74,13 +65,13 @@
       outline: var(--focus-outline);
       outline-offset: var(--focus-outline-offset);
 
-      a {
+      .episode-title {
         outline: none;
       }
     }
   }
 
-  a {
+  .episode-title {
     display: block;
     font-weight: var(--fw-bold);
     text-decoration: none;
@@ -98,4 +89,9 @@
   color: var(--clr-text-light);
   font-size: var(--fs-s);
   font-weight: var(--fw-bold);
+
+  .title + .lead + & {
+    margin-block: var(--sp) 0;
+    text-align: center;
+  }
 }

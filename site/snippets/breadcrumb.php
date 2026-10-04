@@ -26,7 +26,7 @@ $items[] = [
   'item' => $page->url(),
 ];
 ?>
-<nav class="breadcrumb" aria-label="Brotkrumen">
+<nav class="breadcrumb" aria-label="Brotkrumennavigation">
   <ol>
     <?php foreach ($trail as $parent): ?>
       <li><a href="<?= $parent->url() ?>"><?= $parent->title()->html() ?></a></li>

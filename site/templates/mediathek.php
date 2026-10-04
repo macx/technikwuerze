@@ -59,30 +59,38 @@ $seasons = $page
           <?= $season->lead()->kt() ?>
 
           <?php if ($isAnnounced && $season->upcomingNote()->isNotEmpty()): ?>
-            <p class="season-upcoming"><?= $season->upcomingNote()->kti() ?></p>
+            <ul class="episodes-list">
+              <li data-episode-number="→">
+                <div class="episode-title">
+                  <?= $season->upcomingNote()->kti() ?>
+                </div>
+              </li>
+            </ul>
           <?php endif; ?>
 
-          <ul class="episodes-list">
-            <?php foreach ($seasonEpisodes as $episode): ?>
-              <?php $episodeNumber = trim((string) $episode->podcasterepisodetotal()->value()); ?>
-              <li<?php e(
-                $episodeNumber !== '',
-                ' data-episode-number="' . esc($episodeNumber) . '"',
-              ); ?>>
-                <a href="<?= $episode->url() ?>">
-                  <?= $episode->title()->value() ?><br />
-                  <span class="text-s">
-                    <?php if ($episode->date()->isNotEmpty()): ?>
-                      <span><?= $episode->date()->toDate('d.m.Y') ?></span>
-                    <?php endif; ?>
-                    <?php if ($episode->podcasterAudio()->isEmpty()): ?>
-                      <span class="episode-unavailable">· nicht mehr verfügbar</span>
-                    <?php endif; ?>
-                  </span>
-                </a>
-              </li>
-            <?php endforeach; ?>
-          </ul>
+          <?php if ($seasonEpisodes->isNotEmpty()): ?>
+            <ul class="episodes-list">
+              <?php foreach ($seasonEpisodes as $episode): ?>
+                <?php $episodeNumber = trim((string) $episode->podcasterepisodetotal()->value()); ?>
+                <li<?php e(
+                  $episodeNumber !== '',
+                  ' data-episode-number="' . esc($episodeNumber) . '"',
+                ); ?>>
+                  <a href="<?= $episode->url() ?>" class="episode-title">
+                    <?= $episode->title()->value() ?><br />
+                    <span class="text-s">
+                      <?php if ($episode->date()->isNotEmpty()): ?>
+                        <span><?= $episode->date()->toDate('d.m.Y') ?></span>
+                      <?php endif; ?>
+                      <?php if ($episode->podcasterAudio()->isEmpty()): ?>
+                        <span class="episode-unavailable">· nicht mehr verfügbar</span>
+                      <?php endif; ?>
+                    </span>
+                  </a>
+                </li>
+              <?php endforeach; ?>
+            </ul>
+          <?php endif; ?>
         </section>
       <?php endif; ?>
     <?php endforeach; ?>
