@@ -31,3 +31,4 @@ site/config/.license
 # local dev/runtime files
 .DS_Store
 *.log
+.work/

@@ -47,5 +47,8 @@ node_modules
 # Test coverage
 coverage
 
+# Local work data (transcript toolkit: raw API responses, intermediate files, venv, logs)
+/.work
+
 # Kirby MCP (local runtime config, dumps, oauth sessions)
 /.kirby-mcp

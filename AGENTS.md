@@ -65,6 +65,13 @@ Maintain and evolve the Technikwürze Kirby site safely and consistently:
 - Content repo ignores `*.sqlite`, `*.db`, audio/video binaries and avatar binaries in `content/avatars/`.
 - Keep placeholders like `.gitkeep` tracked where needed.
 
+### Transcripts
+
+- Every episode can carry a `tw-transcript` block as its first block (speaker, timestamp, text segments). Create and update it only through the skills `transkript-import` and `transkript-metadaten` (`.claude/skills/`), which use the versioned toolkit in `scripts/transcripts/` (see its README); never write throwaway helper scripts for this.
+- Word-level archives (timestamps, raw speaker ids, id→label mapping) live in `content/.transcripts/tw<N>.json.gz` in the content repo (Kirby ignores dot folders, like `content/.db`) so they can be reused for subtitles, a synced player or search. Raw API responses, intermediate transcripts, venv, logs and draft backups stay in the git-ignored `.work/` (API keys in the git-ignored `.env`); `.work/` is excluded from deployments via `.rsyncignore`. `migration/` is not used for transcripts.
+- ElevenLabs credits are paid by David: never buy credits, and stop on `quota_exceeded`. The local Whisper fallback is free but needs proofreading.
+- Run `scripts/transcripts/verify.py <N>` after every import (quality gate: speakers, participants, timestamps, language, known misspellings). All published episodes with audio have a transcript (as of 2026-10-04); a newly produced episode gets one through the skill `transkript-import`.
+
 ### Kirby User Accounts
 
 - `site/accounts/` is never versioned or synced (gitignored, excluded from `.rsyncignore`) — each environment (local, production) manages its own accounts independently.
