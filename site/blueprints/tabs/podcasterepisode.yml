@@ -162,8 +162,11 @@ columns:
             type: headline
           podcasterHosts:
             label:
-              de: Moderatoren (Hosts)
-              en: Moderators (Hosts)
+              de: Team & Gastmoderation
+              en: Team & guest hosts
+            help:
+              de: Team-Mitglieder dieser Folge und Gäste, die sie moderieren.
+              en: Team members of this episode and guests hosting it.
             type: pages
             width: 1/2
             multiple: true
@@ -180,6 +183,19 @@ columns:
             query: site.find("teilnehmende").children
             text: '{{ page.first_name }} {{ page.last_name }}'
             info: '{{ page.profession }}'
+          topics:
+            label:
+              de: Themen
+              en: Topics
+            type: tags
+            max: 3
+            accept: all
+            options:
+              type: query
+              query: site.find("mediathek").index.pluck("topics", ",", true)
+            help:
+              de: 'Hauptthema zuerst, nicht zu kleinteilig (nicht „CSS“, wenn es um ein CMS geht). Themenmix → generisches Thema (z. B. „News“). Bei Magazinfolgen mit Gast: Thema des Gastbeitrags zuerst.'
+              en: 'Main topic first, not too granular. Mixed topics → generic topic. Magazine episodes with a guest: guest topic first.'
           line:
             type: line
           headlineBreakingchanges:

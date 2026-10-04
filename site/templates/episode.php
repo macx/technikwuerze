@@ -104,6 +104,7 @@ snippet('layout', slots: true);
 <?php slot(); ?>
   <article class="episode-view">
     <header class="page-header content">
+      <?php snippet('breadcrumb'); ?>
       <h1 class="title">
         <?= $page->title()->html() ?>
         <?php if ($page->podcastersubtitle()->isNotEmpty()): ?>
@@ -147,6 +148,22 @@ snippet('layout', slots: true);
               <span class="text-light">
                 <?= esc($episodeTypeLabel) ?>
               </span>
+              <?php if (
+                $downloadFile = (new \mauricerenck\Podcaster\Podcast())->getAudioFile($page)
+              ): ?>
+                · <a
+                  href="<?= $page->url() .
+                    '/' .
+                    option('mauricerenck.podcaster.downloadTriggerPath', 'download') .
+                    '/' .
+                    $downloadFile->filename() ?>"
+                  download
+                  class="episode-download"
+                >Download (MP3, <?= max(
+                  1,
+                  (int) round($downloadFile->size() / 1048576),
+                ) ?>&nbsp;MB)</a>
+              <?php endif; ?>
             </div>
 
             <?php if ($hosts->isNotEmpty() || $guests->isNotEmpty()): ?>

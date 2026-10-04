@@ -56,10 +56,11 @@
 
   --clr-bg-footer: light-dark(hsl(18 18% 18%), hsl(24 16% 14%));
   --clr-text: light-dark(hsl(0 0% 18%), hsl(44 27% 92%));
-  --clr-text-light: light-dark(hsl(0 0% 0% / 0.5), hsl(44 20% 80% / 0.7));
+  --clr-text-light: light-dark(hsl(0 0% 0% / 0.6), hsl(44 20% 80% / 0.7));
   --clr-text-bright: light-dark(hsl(0 0% 100%), hsl(56 100% 88%));
   --clr-text-opposite: light-dark(hsl(44 27% 92%), hsl(0 0% 18%));
   --clr-primary: light-dark(hsl(129 100% 26%), hsl(56 100% 79%));
+  --clr-primary-text: light-dark(hsl(129 100% 24%), hsl(56 100% 79%));
   --clr-secondary: light-dark(hsl(263 60% 50%), hsl(263 100% 82%));
   --clr-line: light-dark(
     color-mix(in oklab, var(--clr-surface), black 15%),
@@ -92,6 +93,8 @@
   --radius-button-s: 0.75rem;
   --radius-button-xs: 0.625rem;
   --shadow-size: 0.5rem;
+
+  --breadcrumb-arrow: 0.5rem;
 
   --focus-color: var(--clr-secondary);
   --focus-outline: 4px solid var(--focus-color, var(--clr-secondary));

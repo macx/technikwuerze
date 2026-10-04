@@ -17,6 +17,13 @@
           <h2 id="form-heading">Schreib uns</h2>
 
           <?php snippet('form', ['formPage' => $page]); ?>
+
+          <?php if ($site->providerEmail()->isNotEmpty()): ?>
+            <p class="form-alternative">
+              Lieber per Mail? Schreib an <?= Html::email($site->providerEmail()->value()) ?>.
+              Wir antworten in der Regel innerhalb weniger Tage.
+            </p>
+          <?php endif; ?>
         </div>
       <?php endif; ?>
 

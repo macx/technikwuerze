@@ -110,7 +110,7 @@ if (!is_null($user) && $user->isLoggedIn()) {
       </div>
     </div>
 
-    <input type="text" name="url" id="url" placeholder="Leave empty" tabindex="-1">
+    <input type="text" name="url" id="url" tabindex="-1" autocomplete="off" aria-hidden="true">
     <input type="hidden" name="replyTo" value="">
     <input type="hidden" name="replyHandle" value="">
     <input type="hidden" name="language" value="<?= $pageLanguage ?>">

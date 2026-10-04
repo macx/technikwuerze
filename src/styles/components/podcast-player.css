@@ -23,6 +23,35 @@
     flex-direction: column;
     gap: 1rem;
     align-self: start;
+
+    a:any-link {
+      &[download] {
+        color: var(--clr-secondary);
+        text-decoration: none;
+      }
+
+      &:is(:hover, :focus-visible) {
+        color: var(--clr-secondary);
+        text-decoration: underline;
+        text-underline-offset: 0.2em;
+      }
+    }
+  }
+
+  .podcast-player-date {
+    margin-block: 0;
+  }
+
+  /* Rechte Spalte, wenn unter dem Player ein Hinweis steht (Slot `mediaNote`) */
+  .podcast-player-aside {
+    display: grid;
+    gap: var(--sp-s);
+    align-self: start;
+    min-inline-size: 0;
+  }
+
+  .podcast-player-media-note {
+    text-wrap: pretty;
   }
 
   .podcast-player-text {
@@ -63,7 +92,7 @@
       order: 2;
     }
 
-    .podcast-player-media {
+    :is(.podcast-player-media, .podcast-player-aside) {
       order: 1;
     }
   }

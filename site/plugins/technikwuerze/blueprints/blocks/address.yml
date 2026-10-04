@@ -1,6 +1,13 @@
 name: Adresse
 icon: map
 fields:
+  source:
+    label: Quelle
+    type: radio
+    default: site
+    options:
+      site: Anbieter-Angaben (Site → Anbieter)
+      custom: Eigene Angaben
   addresstype:
     label: Adress-Typ
     type: radio
@@ -11,37 +18,48 @@ fields:
   name:
     label: Name
     type: text
+    when:
+      source: custom
   company:
     label: Firma
     type: text
     when:
+      source: custom
       addresstype: normal
   street:
     label: Straße und Hausnummer
     type: text
     when:
+      source: custom
       addresstype: normal
   postnummer:
     label: Postnummer
     type: text
     when:
+      source: custom
       addresstype: packstation
   packstation:
     label: Packstation (Nummer)
     type: text
     when:
+      source: custom
       addresstype: packstation
   zip:
     label: PLZ
     type: text
     width: 1/4
+    when:
+      source: custom
   city:
     label: Ort
     type: text
     width: 3/4
+    when:
+      source: custom
   country:
     label: Land
     type: text
     default: GERMANY
     when:
+      source: custom
       addresstype: normal

@@ -14,8 +14,8 @@ $formatInteger = static function (int $value): string {
 };
 
 $formatPercent = static function (float $value): string {
-  $percentString = rtrim(rtrim(number_format($value, 2, '.', ''), '0'), '.');
-  return $percentString . '%';
+  $percentString = preg_replace('/,0$/', '', number_format($value, 1, ',', '.'));
+  return $percentString . "\u{00A0}%";
 };
 
 $publishedEpisodeCount =
@@ -108,41 +108,30 @@ $resolveTopTenShare = static function (?int $totalDownloads): ?float {
     return null;
   }
 
-  if (option('mauricerenck.podcaster.statsInternal', false) !== true) {
-    return null;
-  }
-
-  $feedPage = site()->index()->filterBy('intendedTemplate', 'podcasterfeed')->first();
-  if ($feedPage === null) {
-    return null;
-  }
-
-  $podcastId = trim((string) $feedPage->podcastId()->value());
-  if ($podcastId === '') {
-    return null;
-  }
-
-  $dbType = option('mauricerenck.podcaster.statsType', 'sqlite');
-  $stats =
-    $dbType === 'sqlite'
-      ? new \mauricerenck\Podcaster\PodcasterStatsSqlite()
-      : new \mauricerenck\Podcaster\PodcasterStatsMysql();
-
-  $topEpisodes = $stats->getTopEpisodes($podcastId);
-  if ($topEpisodes === false) {
-    return null;
-  }
-
-  $topTenDownloads = 0;
-  foreach ($topEpisodes->toArray() as $episode) {
-    $topTenDownloads += (int) round((float) ($episode->downloads ?? 0));
-  }
+  $topTenDownloads = array_sum(array_slice(twEpisodeDownloads(), 0, 10));
 
   if ($topTenDownloads <= 0) {
     return null;
   }
 
   return min(100.0, ($topTenDownloads / $totalDownloads) * 100.0);
+};
+
+$resolveYearsActive = static function (): ?int {
+  $firstEpisode = site()
+    ->find('mediathek')
+    ?->index()
+    ->filterBy('intendedTemplate', 'episode')
+    ->listed()
+    ->sortBy('date', 'asc')
+    ->first();
+
+  if ($firstEpisode === null || $firstEpisode->date()->isEmpty()) {
+    return null;
+  }
+
+  $firstDate = new DateTimeImmutable('@' . $firstEpisode->date()->toTimestamp());
+  return $firstDate->diff(new DateTimeImmutable())->y;
 };
 
 $totalDownloads = $resolveTotalDownloads();
@@ -187,6 +176,13 @@ foreach ($block->stats()->toStructure() as $item) {
     } else {
       $value = $formatPercent((float) $topTenShare);
     }
+  } elseif ($valueType === 'years_active') {
+    $yearsActive = $resolveYearsActive();
+    if ($yearsActive === null) {
+      continue;
+    }
+
+    $value = $formatInteger($yearsActive);
   } elseif ($valueType === 'published_episodes') {
     $value = $formatInteger((int) $listedEpisodeCount);
   } elseif ($valueType === 'total_episodes') {

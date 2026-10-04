@@ -46,17 +46,21 @@ $episodeA11yDetail = static function (Kirby\Cms\Page $ep): string {
     $parts[] = 'Phase ' . $s;
   }
   if ($e !== '') {
-    $parts[] = 'Folge ' . $e;
+    $parts[] = 'Episode ' . $e;
   }
-  $detail = $parts !== [] ? implode(', ', $parts) . ' – ' . esc($ep->title()) : esc($ep->title());
-  return $detail;
+
+  if ($parts === []) {
+    return '';
+  }
+
+  return ' (' . implode(', ', $parts) . ') – ' . esc($ep->title());
 };
 
 $prevVisualLabel = $prevEpisode ? $episodeShortLabel($prevEpisode) : '';
-$prevAriaLabel = $prevEpisode ? 'Vorige Folge: ' . $episodeA11yDetail($prevEpisode) : '';
+$prevA11yDetail = $prevEpisode ? $episodeA11yDetail($prevEpisode) : '';
 
 $nextVisualLabel = $nextEpisode ? $episodeShortLabel($nextEpisode) : '';
-$nextAriaLabel = $nextEpisode ? 'Nächste Folge: ' . $episodeA11yDetail($nextEpisode) : '';
+$nextA11yDetail = $nextEpisode ? $episodeA11yDetail($nextEpisode) : '';
 
 $currentVisualLabel = (static function (Kirby\Cms\Page $ep): string {
   $s = trim((string) $ep->podcasterseason()->value());
@@ -78,13 +82,9 @@ $currentVisualLabel = (static function (Kirby\Cms\Page $ep): string {
 <nav class="pagination-nav content medium" aria-label="Navigation zwischen Folgen">
   <div class="pagination-nav-slot pagination-nav-prev">
     <?php if ($prevEpisode): ?>
-      <a
-        href="<?= $prevEpisode->url() ?>"
-        class="button"
-        aria-label="<?= $prevAriaLabel ?>"
-      >
+      <a href="<?= $prevEpisode->url() ?>" class="button">
         <i class="msi-arrow-back" aria-hidden="true"></i>
-        <span aria-hidden="true"><?= $prevVisualLabel ?></span>
+        <span><span class="sr-only">Vorige Folge: </span><?= $prevVisualLabel ?><span class="sr-only"><?= $prevA11yDetail ?></span></span>
       </a>
     <?php endif; ?>
   </div>
@@ -95,14 +95,9 @@ $currentVisualLabel = (static function (Kirby\Cms\Page $ep): string {
 
   <div class="pagination-nav-slot pagination-nav-next">
     <?php if ($nextEpisode): ?>
-      <a
-        href="<?= $nextEpisode->url() ?>"
-        class="button button-primary"
-        data-icon-position="right"
-        aria-label="<?= $nextAriaLabel ?>"
-      >
+      <a href="<?= $nextEpisode->url() ?>" class="button button-primary" data-icon-position="right">
         <i class="msi-arrow-forward" aria-hidden="true"></i>
-        <span aria-hidden="true"><?= $nextVisualLabel ?></span>
+        <span><span class="sr-only">Nächste Folge: </span><?= $nextVisualLabel ?><span class="sr-only"><?= $nextA11yDetail ?></span></span>
       </a>
     <?php endif; ?>
   </div>

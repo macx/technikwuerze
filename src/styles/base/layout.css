@@ -5,11 +5,14 @@
 }
 
 html {
-  scroll-behavior: smooth;
   scroll-padding-block-start: 12rem;
 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  @media (prefers-reduced-motion: no-preference) {
+    scroll-behavior: smooth;
+  }
 }
 
 body {

@@ -65,6 +65,13 @@ Maintain and evolve the Technikwürze Kirby site safely and consistently:
 - Content repo ignores `*.sqlite`, `*.db`, audio/video binaries and avatar binaries in `content/avatars/`.
 - Keep placeholders like `.gitkeep` tracked where needed.
 
+### Transcripts
+
+- Every episode can carry a `tw-transcript` block as its first block (speaker, timestamp, text segments). Create and update it only through the skills `transkript-import` and `transkript-metadaten` (`.claude/skills/`), which use the versioned toolkit in `scripts/transcripts/` (see its README); never write throwaway helper scripts for this.
+- Word-level archives (timestamps, raw speaker ids, id→label mapping) live in `content/.transcripts/tw<N>.json.gz` in the content repo (Kirby ignores dot folders, like `content/.db`) so they can be reused for subtitles, a synced player or search. Raw API responses, intermediate transcripts, venv, logs and draft backups stay in the git-ignored `.work/` (API keys in the git-ignored `.env`); `.work/` is excluded from deployments via `.rsyncignore`. `migration/` is not used for transcripts.
+- ElevenLabs credits are paid by David: never buy credits, and stop on `quota_exceeded`. The local Whisper fallback is free but needs proofreading.
+- Run `scripts/transcripts/verify.py <N>` after every import (quality gate: speakers, participants, timestamps, language, known misspellings). All published episodes with audio have a transcript (as of 2026-10-04); a newly produced episode gets one through the skill `transkript-import`.
+
 ### Kirby User Accounts
 
 - `site/accounts/` is never versioned or synced (gitignored, excluded from `.rsyncignore`) — each environment (local, production) manages its own accounts independently.
@@ -78,6 +85,16 @@ Maintain and evolve the Technikwürze Kirby site safely and consistently:
 - Do not alter technical identifiers when normalizing language:
   - do not touch UUIDs, `file://...`, `user://...`, slugs, URLs.
 - Panel labels should be bilingual where already established (German + English).
+- Controlled vocabulary for user-facing German text:
+  - A podcast episode is called **„Folge“** (plural „Folgen“), never „Episode“ in frontend copy.
+  - The short notation stays international: Phase = `P`, episode within phase = `E`, overall episode number = `#` (e.g. `P3 · E61 · #188`).
+  - When the short notation is spelled out (legend, screen-reader text), use „Phase“, „Episode“, „Technikwürze“ (e.g. „Phase 3 · Episode 61 · Technikwürze 188“); everywhere else in copy use „Folge“.
+  - Brand green: `--clr-primary` for brand surfaces and large type; `--clr-primary-text` (darker in light mode, WCAG AA on yellow) for links and small text.
+  - The legal provider name, address and email live only in Site → „Anbieter“ (`provider*` fields); output them via the `provider` block or the address block with source „Anbieter“, never as typed text.
+
+- Podlove Web Player is self-hosted under `public/assets/podlove/web-player/` (npm `@podlove/web-player`, without source maps). Never load it from `cdn.podlove.org` (privacy policy promises no third-party requests). To update: `npm pack @podlove/web-player@<version>`, copy the package contents without `*.map` and `report.html`, keep `base`/`reference.base` in `site/snippets/podcast-media.php` and `site/snippets/podcaster-podlove-player.php`.
+
+- IndieConnector sends webmentions only on production (`config.technikwuerze.de.php`) and only on status change of an episode (publishing), never on plain updates (`send.automatically` = false). The outbox file `indieConnector.json` is git-ignored in the content repo.
 
 ## 6) Participant Model (Current State)
 
@@ -87,11 +104,13 @@ Maintain and evolve the Technikwürze Kirby site safely and consistently:
   - `unlisted/draft` = not public
 - Public participant listing page uses one HTML list, CSS columns.
 - Participant detail page includes computed participation stats from episode host/guest assignments.
+- Roles: `participant_role` is `host` („Team“) or `guest` („Gast“). Team members can have `additional_roles` (publisher/Herausgeber, moderation/Moderation, editorial/Redaktion); guests can have `guest_roles: guest_moderation` („Gastmoderation“).
 
 ## 7) Podcast/Episode Model (Current State)
 
 - Episodes live under `content/2_mediathek/staffel-*/...`.
-- Hosts/Guests are assigned via participant page references.
+- Hosts/Guests are assigned via participant page references, always as `page://<uuid>` (never path ids like `teilnehmende/slug` – Kirby does not resolve them there).
+- `podcasterHosts` („Team & Gastmoderation“) holds team members of the episode plus guests who host it; `podcasterGuests` holds all other guests. The episode page always labels the first group „Moderation“ (participant pages keep the roles „Team“ / „Gast“).
 - Audio field in episode panel is configured to select/upload from central `site.find("audio")`.
 - Kirby status for episodes is folder-name driven (no `Status:` field in `episode.txt`):
   - `draft`: episode folder is inside `_drafts/`

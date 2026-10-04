@@ -23,13 +23,10 @@ fields:
       de: Statistik-Kacheln
     min: 4
     max: 4
-    columns: label
-      label:
-        text: true
-      integer_value:
-        text: true
-      percent_value:
-        text: true
+    columns:
+      label: true
+      integer_value: true
+      percent_value: true
     fields:
       label:
         type: text
@@ -62,7 +59,6 @@ fields:
           msi-av-timer: msi-av-timer
           msi-person-filled: msi-person-filled
           msi-donut: msi-donut
-          msi-podcasts: msi-podcasts
           msi-play-circle: msi-play-circle
           msi-ssid-chart: msi-ssid-chart
       value_type:
@@ -90,7 +86,10 @@ fields:
             de: Top-10-Anteil (live)
           published_episodes:
             en: Published episodes (live)
-            de: Veröffentlichte Episoden (live)
+            de: Veröffentlichte Folgen (live)
+          years_active:
+            en: Years since first episode (live)
+            de: Jahre seit erster Folge (live)
           total_episodes:
             en: Total episodes (determined, legacy)
             de: Folgen gesamt (ermittelt, Altbestand)

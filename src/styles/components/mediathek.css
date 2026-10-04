@@ -33,7 +33,7 @@
     &[data-episode-number]::before {
       content: attr(data-episode-number);
       background-color: var(--clr-bg-dark);
-      color: var(--clr-primary);
+      color: var(--clr-primary-text);
       border-radius: var(--radius-button-xs);
       corner-shape: squircle;
       grid-area: number;
@@ -65,13 +65,13 @@
       outline: var(--focus-outline);
       outline-offset: var(--focus-outline-offset);
 
-      a {
+      .episode-title {
         outline: none;
       }
     }
   }
 
-  a {
+  .episode-title {
     display: block;
     font-weight: var(--fw-bold);
     text-decoration: none;
@@ -82,5 +82,16 @@
     span {
       font-weight: var(--fw);
     }
+  }
+}
+
+.season-meta {
+  color: var(--clr-text-light);
+  font-size: var(--fs-s);
+  font-weight: var(--fw-bold);
+
+  .title + .lead + & {
+    margin-block: var(--sp) 0;
+    text-align: center;
   }
 }

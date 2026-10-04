@@ -53,6 +53,7 @@
   flex-direction: column;
   gap: var(--sp);
   font-size: var(--fs-root);
+  margin-block-end: var(--sp);
 
   > li {
     position: relative;
@@ -161,5 +162,16 @@
       inset-inline-end: calc(anchor(--reply start) + 12px);
       inset-block-end: anchor(--reply 50%);
     }
+  }
+
+  .comments-more & {
+    margin-block: var(--sp) 0;
+  }
+}
+
+.comments-more {
+  summary {
+    display: flex;
+    justify-content: center;
   }
 }

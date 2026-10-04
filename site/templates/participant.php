@@ -37,7 +37,7 @@ $genderValue = trim((string) $page->gender_identities()->value());
 $pronouns = trim((string) $page->pronouns()->value());
 
 $roleLabels = [
-  'host' => 'Host',
+  'host' => 'Team',
   'guest' => 'Gast',
 ];
 
@@ -52,6 +52,11 @@ $genderLabels = [
 ];
 
 $roleLabel = $roleLabels[$roleValue] ?? $roleValue;
+$isGuestHost =
+  $roleValue === 'guest' && in_array('guest_moderation', $page->guest_roles()->split(), true);
+if ($isGuestHost) {
+  $roleLabel .= ' · Gastmoderation';
+}
 $genderLabel = $genderLabels[$genderValue] ?? $genderValue;
 $hasParticipantFacts = $roleLabel !== '' || $genderLabel !== '' || $pronouns !== '';
 
@@ -85,11 +90,26 @@ foreach ($allEpisodes as $episode) {
   }
 }
 
+$teamRoleLabels = [
+  'publisher' => 'Herausgeber',
+  'moderation' => 'Moderation',
+  'editorial' => 'Redaktion',
+];
+$teamRoles = [];
+if ($page->participant_role()->value() === 'host') {
+  foreach ($page->additional_roles()->split() as $role) {
+    if (isset($teamRoleLabels[$role])) {
+      $teamRoles[] = $teamRoleLabels[$role];
+    }
+  }
+}
+
 snippet('layout', slots: true);
 ?>
 <?php slot(); ?>
   <article class="participant-detail content narrow">
     <header class="page-header">
+      <?php snippet('breadcrumb'); ?>
       <h1 class="title">
         <span class="participant-name" data-vt-group="participant-name" data-vt-name="<?= esc(
           $transitionName,
@@ -132,14 +152,22 @@ snippet('layout', slots: true);
             <section class="participant-panel participant-stats" aria-labelledby="participant-stats-heading">
               <h2 id="participant-stats-heading">Statistik</h2>
               <dl class="participant-data-list">
+                <?php if ($teamRoles !== []): ?>
+                  <div>
+                    <dt>Im Team als</dt>
+                    <dd><?= esc(implode(' · ', $teamRoles)) ?></dd>
+                  </div>
+                <?php endif; ?>
                 <div>
                   <dt>Teilnahmen</dt>
                   <dd><?= $totalParticipationCount ?></dd>
                 </div>
-                <div>
-                  <dt>als Moderator</dt>
-                  <dd><?= $hostCount ?></dd>
-                </div>
+                <?php if ($roleValue === 'host' || $hostCount > 0): ?>
+                  <div>
+                    <dt><?= $roleValue === 'host' ? 'im Team' : 'moderiert' ?></dt>
+                    <dd><?= $hostCount ?></dd>
+                  </div>
+                <?php endif; ?>
                 <div>
                   <dt>als Gast</dt>
                   <dd><?= $guestCount ?></dd>
@@ -204,7 +232,7 @@ snippet('layout', slots: true);
                   $episodeNumber !== '',
                   ' data-episode-number="' . esc($episodeNumber) . '"',
                 ); ?>>
-                  <a href="<?= $episode->url() ?>">
+                  <a href="<?= $episode->url() ?>" class="episode-title">
                     <?= $episode->title()->value() ?><br />
                     <span class="text-s">
                       <?php if ($episode->date()->isNotEmpty()): ?>

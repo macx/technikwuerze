@@ -11,6 +11,7 @@ fieldsets:
       - text
       - list
       - address
+      - provider
   media:
     label:
       en: Media

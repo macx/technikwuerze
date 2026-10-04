@@ -4,8 +4,23 @@ title:
 icon: page
 
 columns:
-  - width: 1/1
+  - width: 2/3
     sections:
       content:
         type: fields
         extends: fields/lead-blocks
+
+  - width: 1/3
+    sections:
+      meta:
+        type: fields
+        fields:
+          revisedAt:
+            label:
+              de: Stand
+              en: Last revised
+            type: date
+            display: MM.YYYY
+            help:
+              de: 'Optional. Wird am Seitenende als „Stand: Monat Jahr“ angezeigt – bei Rechtstexten nach inhaltlicher Prüfung setzen.'
+              en: 'Optional. Shown at the end of the page as “Stand: month year”.'

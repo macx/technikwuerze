@@ -17,3 +17,22 @@ columns:
     sections:
       lead-blocks:
         extends: fields/lead-blocks
+      upcoming:
+        type: fields
+        fields:
+          announce:
+            type: toggle
+            label:
+              en: Announce in media library
+              de: In der Mediathek ankündigen
+            help:
+              en: Shows this phase even before its first episode is published.
+              de: Zeigt die Phase schon, bevor die erste Folge veröffentlicht ist.
+          upcomingNote:
+            type: text
+            default: Die erste Folge ist in Vorbereitung.
+            label:
+              en: Note while empty
+              de: Hinweis, solange keine Folge erschienen ist
+            when:
+              announce: true

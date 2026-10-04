@@ -52,3 +52,16 @@
     }
   }
 }
+
+.tw-address-text {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  justify-content: center;
+  gap: var(--sp-s) var(--sp);
+  margin-block: calc(var(--sp) * -1) var(--sp-l);
+
+  address {
+    font-style: normal;
+  }
+}

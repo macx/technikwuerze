@@ -33,39 +33,64 @@ $seasons = $page
         ->filterBy('intendedTemplate', 'episode')
         ->published()
         ->sortBy('date', 'desc'); ?>
-      <?php if ($seasonEpisodes->isNotEmpty()): ?>
+      <?php $isAnnounced = $seasonEpisodes->isEmpty() && $season->announce()->toBool(); ?>
+      <?php if ($seasonEpisodes->isNotEmpty() || $isAnnounced): ?>
         <section class="season content">
           <header class="section-header">
-            <h2>
-              <?= $season->title()->html() ?>
-            </h2>
+            <div>
+              <h2>
+                <?= $season->title()->html() ?>
+              </h2>
 
-            <a href="<?= $season->url() ?>" class="button" data-icon-position="right">
-              <i class="msi-arrow-forward" aria-hidden="true"></i>
-              Zur Phase
-            </a>
+              <?php if ($seasonMeta = twSeasonMeta($season)): ?>
+                <span class="season-meta"><?= esc($seasonMeta) ?></span>
+              <?php endif; ?>
+            </div>
+
+            <?php if (!$isAnnounced): ?>
+              <a href="<?= $season->url() ?>" class="button" data-icon-position="right">
+                <i class="msi-arrow-forward" aria-hidden="true"></i>
+                Zur Phase
+              </a>
+            <?php endif; ?>
           </header>
+
 
           <?= $season->lead()->kt() ?>
 
-          <ul class="episodes-list">
-            <?php foreach ($seasonEpisodes as $episode): ?>
-              <?php $episodeNumber = trim((string) $episode->podcasterepisodetotal()->value()); ?>
-              <li<?php e(
-                $episodeNumber !== '',
-                ' data-episode-number="' . esc($episodeNumber) . '"',
-              ); ?>>
-                <a href="<?= $episode->url() ?>">
-                  <?= $episode->title()->value() ?><br />
-                  <span class="text-s">
-                    <?php if ($episode->date()->isNotEmpty()): ?>
-                      <span><?= $episode->date()->toDate('d.m.Y') ?></span>
-                    <?php endif; ?>
-                  </span>
-                </a>
+          <?php if ($isAnnounced && $season->upcomingNote()->isNotEmpty()): ?>
+            <ul class="episodes-list">
+              <li data-episode-number="→">
+                <div class="episode-title">
+                  <?= $season->upcomingNote()->kti() ?>
+                </div>
               </li>
-            <?php endforeach; ?>
-          </ul>
+            </ul>
+          <?php endif; ?>
+
+          <?php if ($seasonEpisodes->isNotEmpty()): ?>
+            <ul class="episodes-list">
+              <?php foreach ($seasonEpisodes as $episode): ?>
+                <?php $episodeNumber = trim((string) $episode->podcasterepisodetotal()->value()); ?>
+                <li<?php e(
+                  $episodeNumber !== '',
+                  ' data-episode-number="' . esc($episodeNumber) . '"',
+                ); ?>>
+                  <a href="<?= $episode->url() ?>" class="episode-title">
+                    <?= $episode->title()->value() ?><br />
+                    <span class="text-s">
+                      <?php if ($episode->date()->isNotEmpty()): ?>
+                        <span><?= $episode->date()->toDate('d.m.Y') ?></span>
+                      <?php endif; ?>
+                      <?php if ($episode->podcasterAudio()->isEmpty()): ?>
+                        <span class="episode-unavailable">· nicht mehr verfügbar</span>
+                      <?php endif; ?>
+                    </span>
+                  </a>
+                </li>
+              <?php endforeach; ?>
+            </ul>
+          <?php endif; ?>
         </section>
       <?php endif; ?>
     <?php endforeach; ?>

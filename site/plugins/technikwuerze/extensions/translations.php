@@ -12,6 +12,8 @@ $customTranslations = [
   'mauricerenck.komments.action.reply.text' => 'Antworten',
   'mauricerenck.komments.form.privacy' =>
     'Mit dem Absenden stimmst du zu, dass deine eingegebenen Daten gespeichert und als Kommentar veröffentlicht werden dürfen (weitere Infos in der <a href="/datenschutz">Datenschutzerklärung</a>). Dein Beitrag spiegelt deine persönliche Meinung wider – bitte behandle andere respektvoll und halte dich an geltendes Recht. Rechtswidrige Inhalte behalten wir uns vor zu entfernen.',
+  'tw.form.privacy' =>
+    'Deine Angaben nutzen wir ausschließlich, um deine Anfrage zu beantworten – eine Weitergabe an Dritte findet nicht statt. Mehr dazu in der <a href="/datenschutz#kontaktformular">Datenschutzerklärung</a>.',
 ];
 
 return [

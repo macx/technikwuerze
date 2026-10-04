@@ -146,11 +146,11 @@ function twSearchReadPageFieldValue(Page $page, string $key): string
 function twSearchCategories(): array
 {
   $categories = [
-    'all' => 'Alle',
-    'content' => 'Inhalte',
-    'episode' => 'Episoden',
-    'participant' => 'Teilnehmende',
-    'comment' => 'Kommentare',
+    'content' => 'Alles außer Kommentare',
+    'all' => 'Alles inkl. Kommentare',
+    'episode' => 'Nur Folgen',
+    'participant' => 'Nur Teilnehmende',
+    'comment' => 'Nur Kommentare',
   ];
 
   if (twSearchSettings()['comments_enabled'] !== true) {
@@ -168,7 +168,7 @@ function twSearchCategoryLabel(string $category): string
 function twSearchEntityLabel(string $entity): string
 {
   $labels = [
-    'episode' => 'Episode',
+    'episode' => 'Folge',
     'participant' => 'Teilnehmende',
     'comment' => 'Kommentar',
     'content' => 'Inhalt',

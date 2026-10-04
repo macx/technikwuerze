@@ -11,4 +11,11 @@
   .card-grid-meta .tw-podcast-episodes-persons {
     gap: 0;
   }
+
+  .card-grid-intro {
+    margin-block: calc(var(--sp) * -0.5) var(--sp);
+    color: var(--clr-text-light);
+    font-size: var(--fs-s);
+    text-align: center;
+  }
 }

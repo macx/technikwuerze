@@ -3,8 +3,6 @@
  * @var Kirby\Cms\Block $block
  */
 
-use Kirby\Cms\Pages;
-
 $headline = trim((string) $block->headline()->value());
 $source = trim((string) $block->source()->value());
 $showMediathekButton = $block->show_mediathek_button()->toBool();
@@ -33,107 +31,41 @@ if ($episodesBase === null || $episodesBase->isEmpty()) {
   return;
 }
 
-$latestFallback = $episodesBase->sortBy(
-  'date',
-  'desc',
-  'podcasterseason',
-  'desc',
-  'podcasterepisode',
-  'desc',
+$shownEpisodes = twShownEpisodes();
+$availableEpisodes = $episodesBase->filter(
+  static fn($episode) => !isset($shownEpisodes[$episode->id()]),
 );
 
-$resolvePopularEpisodes = function () use ($episodesBase, $latestFallback, $amount): Pages {
-  if (option('mauricerenck.podcaster.statsInternal', false) !== true) {
-    return $latestFallback->limit($amount);
-  }
-
-  $podcastUtil = new \mauricerenck\Podcaster\Podcast();
-  $statsEpisode = $latestFallback->first();
-  $feed = $statsEpisode ? $podcastUtil->getFeedOfEpisode($statsEpisode) : null;
-
-  if ($feed === null) {
-    return $latestFallback->limit($amount);
-  }
-
-  $dbType = option('mauricerenck.podcaster.statsType', 'sqlite');
-  $stats =
-    $dbType === 'sqlite'
-      ? new \mauricerenck\Podcaster\PodcasterStatsSqlite()
-      : new \mauricerenck\Podcaster\PodcasterStatsMysql();
-
-  $results = $stats->getTopEpisodes((string) $feed->podcastId()->value());
-  if ($results === false) {
-    return $latestFallback->limit($amount);
-  }
-
-  $slugOrder = [];
-  foreach ($results->toArray() as $row) {
-    $slug = trim((string) ($row->slug ?? ''));
-    if ($slug !== '') {
-      $slugOrder[] = $slug;
-    }
-  }
-
-  if ($slugOrder === []) {
-    return $latestFallback->limit($amount);
-  }
-
-  $lookup = [];
-  $lookupByTwNumber = [];
-  foreach ($episodesBase as $episode) {
-    $lookup[$episode->uid()] = $episode;
-    if (preg_match('~Technikw(?:u|ü|uer)rze\s+(\d+)~iu', (string) $episode->title()->value(), $m)) {
-      $lookupByTwNumber[(int) $m[1]] = $episode;
-    }
-  }
-
-  $popularEpisodes = [];
-  foreach ($slugOrder as $slug) {
-    if (isset($lookup[$slug])) {
-      $popularEpisodes[] = $lookup[$slug];
-      continue;
-    }
-
-    if (preg_match('~tw(\d+)~i', $slug, $m)) {
-      $twNumber = (int) $m[1];
-      if (isset($lookupByTwNumber[$twNumber])) {
-        $popularEpisodes[] = $lookupByTwNumber[$twNumber];
-      }
-    }
-  }
-
-  if ($popularEpisodes === []) {
-    return $latestFallback->limit($amount);
-  }
-
-  $popularPages = new Pages($popularEpisodes);
-  if ($popularPages->count() >= $amount) {
-    return $popularPages->limit($amount);
-  }
-
-  // If stats data returns only a subset, fill up with latest episodes.
-  $seenIds = $popularPages->pluck('id');
-  foreach ($latestFallback as $episode) {
-    if (in_array($episode->id(), $seenIds, true)) {
-      continue;
-    }
-    $popularPages = $popularPages->add($episode);
-    $seenIds[] = $episode->id();
-    if ($popularPages->count() >= $amount) {
-      break;
-    }
-  }
-
-  return $popularPages->limit($amount);
-};
-
-// Important: stats are only used for "popular".
 if ($source === 'random') {
-  $episodes = $episodesBase->shuffle()->limit($amount);
+  $popularIds = twPopularEpisodes($availableEpisodes, $amount)->pluck('id');
+  $episodes = $availableEpisodes
+    ->filter(static fn($episode) => !in_array($episode->id(), $popularIds, true))
+    ->shuffle()
+    ->limit($amount);
 } elseif ($source === 'popular') {
-  $episodes = $resolvePopularEpisodes();
+  $episodes = twPopularEpisodes($availableEpisodes, $amount);
 } else {
-  $episodes = $latestFallback->limit($amount);
+  $episodes = $availableEpisodes
+    ->sortBy('date', 'desc', 'podcasterseason', 'desc', 'podcasterepisode', 'desc')
+    ->limit($amount);
+}
+
+if ($episodes->isEmpty()) {
+  return;
+}
+
+foreach ($episodes as $episode) {
+  twShownEpisodes($episode);
+}
+
+$intro = '';
+if ($source === 'random') {
+  $firstEpisode = $episodesBase->sortBy('date', 'asc')->first();
+  $intro = sprintf(
+    'Zufällig aus %d Folgen seit %s',
+    $episodesBase->count(),
+    $firstEpisode?->date()->toDate('Y') ?? '2005',
+  );
 }
 
 $formatDuration = static function ($episode): string {
@@ -217,6 +149,10 @@ $formatDuration = static function ($episode): string {
     <h2><?= esc($headline) ?></h2>
   <?php endif; ?>
 
+  <?php if ($intro !== ''): ?>
+    <p class="card-grid-intro"><?= esc($intro) ?></p>
+  <?php endif; ?>
+
   <ul class="card-grid-list">
     <?php foreach ($episodes as $episode): ?>
       <?php
@@ -257,7 +193,7 @@ $formatDuration = static function ($episode): string {
 
               <div class="tw-podcast-episodes-persons" aria-label="Mitwirkende">
                 <span class="sr-only">
-                  <?= esc($hostCount) ?> Moderator<?= $hostCount === 1 ? '' : 'en' ?>,
+                  <?= esc($hostCount) ?> aus dem Team,
                   <?= esc($guestCount) ?> <?= $guestCount === 1 ? 'Gast' : 'Gäste' ?>
                 </span>
                 <?php for ($i = 0; $i < $hostCount; $i++): ?>
@@ -267,6 +203,16 @@ $formatDuration = static function ($episode): string {
                   <span class="msi-person-filled" aria-hidden="true"></span>
                 <?php endfor; ?>
               </div>
+
+              <?php if (
+                $source === 'popular' &&
+                ($downloads = twEpisodeDownloadCount($episode)) !== null
+              ): ?>
+                <div class="tw-podcast-episodes-downloads">
+                  <span class="msi-download" aria-hidden="true"></span>
+                  <?= esc(number_format($downloads, 0, ',', '.')) ?> Downloads
+                </div>
+              <?php endif; ?>
 
               <?php if ($publishedDate !== ''): ?>
                 <div class="tw-podcast-episodes-date">

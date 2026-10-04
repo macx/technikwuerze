@@ -36,6 +36,7 @@
 COMPONENTS
 └──────────────────────────────────┘
 */
+@import './components/breadcrumb.css' layer(components);
 @import './components/card.css' layer(components);
 @import './components/card-grid.css' layer(components);
 @import './components/header.css' layer(components);
