@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "kirby": {
+      "type": "stdio",
+      "command": "vendor/bin/kirby-mcp",
+      "args": [],
+      "env": {}
+    }
+  }
+}

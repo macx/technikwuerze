@@ -46,3 +46,6 @@ node_modules
 
 # Test coverage
 coverage
+
+# Kirby MCP (local runtime config, dumps, oauth sessions)
+/.kirby-mcp

@@ -23,7 +23,8 @@
     "sylvainjule/footnotes": "dev-main"
   },
   "require-dev": {
-    "lukaskleinschmidt/kirby-types": "^2.0"
+    "lukaskleinschmidt/kirby-types": "^2.0",
+    "bnomei/kirby-mcp": "^1.14"
   },
   "repositories": [
     {
