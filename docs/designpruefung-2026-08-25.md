@@ -33,7 +33,7 @@ Legende: `[x]` erledigt · `[~]` war bei Prüfung am 01.10. bereits behoben, bit
 
 ## 4 – Folgendetailseite
 
-- [ ] **FD-1** Keine Kapitelmarken, kein Transkript – Technik vorhanden (`kirby-tw-transcript`, 4 von 188 transkribiert); Arbeitsliste + Agent-Briefing in `docs/transkripte/arbeitsliste.md` (Generator `scripts/build-transcript-worklist.py`); Kapitelmarken danach aus Transkripten ableiten
+- [ ] **FD-1** Keine Kapitelmarken, kein Transkript – Technik vorhanden (`kirby-tw-transcript`); Transkripte für alle Folgen mit Audio erstellt und importiert (Stand 2026-10-04, Skills `transkript-import` und `transkript-metadaten`, Skripte in `scripts/transcripts/`, Wortdaten-Archiv in `content/.transcripts/`); Kapitelmarken daraus ableiten bleibt offen
 - [x] **FD-2** Breadcrumb (`snippet breadcrumb`, Folge/Phase/Teilnehmende, JSON-LD `BreadcrumbList`); Blätter-Buttons: sichtbarer Text Teil des zugänglichen Namens (WCAG 2.5.3, `sr-only` statt `aria-label`/`aria-hidden`); Regel „Auflösung der Kurzform = Episode“ in AGENTS.md
 - [x] **FD-3** Rollenmodell „Team / Gast“ (statt Moderation/Host) in Panel und Frontend; Zusatzrollen Herausgeber · Moderation · Redaktion (Mehrfachauswahl); 7 Personen zu Team befördert, 6 echte Gäste in 18 Folgen aus „Team“ zu „Gäste“ verschoben, TW45 bereinigt (`migration/scripts/fd3_team_roles.py`)
 - [x] **FD-4** Kommentare: erste 5 Threads sichtbar, Rest in `<details>` („Weitere 29 Kommentare anzeigen“), Sprungmarken öffnen den Bereich automatisch (`openCommentFromHash`)
