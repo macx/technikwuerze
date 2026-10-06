@@ -94,8 +94,6 @@
   --radius-button-xs: 0.625rem;
   --shadow-size: 0.5rem;
 
-  --breadcrumb-arrow: 0.5rem;
-
   --focus-color: var(--clr-secondary);
   --focus-outline: 4px solid var(--focus-color, var(--clr-secondary));
   --focus-outline-offset: 2px;
@@ -106,7 +104,6 @@
   --transition-short: 90ms ease-out;
 
   /* tw-transcript plugin */
-  --podlove-player-margin-top: 1rem;
   --twt-color-bg: var(--clr-shade-light);
   --twt-color-accent: var(--clr-primary);
 

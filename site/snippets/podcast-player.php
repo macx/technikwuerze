@@ -15,11 +15,7 @@ if (!$page) {
 
 $containerClass = trim((string) ($containerClass ?? 'content narrow'));
 $sectionClass = trim((string) ($sectionClass ?? ''));
-$template = isset($template) ? trim((string) $template) : '';
-$variant = isset($variant) ? trim((string) $variant) : '';
-$templateInline = isset($templateInline) ? trim((string) $templateInline) : '';
-$transparent = !empty($transparent);
-$debug = !empty($debug);
+$dock = ($dock ?? 'always') === 'started' ? 'started' : 'always';
 $mediaPosition = trim((string) ($mediaPosition ?? 'right'));
 if (!in_array($mediaPosition, ['left', 'right'], true)) {
   $mediaPosition = 'right';
@@ -42,18 +38,11 @@ $mediaNote = isset($slots) ? trim((string) ($slots->mediaNote() ?? '')) : '';
       <div class="podcast-player-aside">
     <?php endif; ?>
       <div class="podcast-player-media">
-        <?php snippet('podcast-media', [
-          'page' => $page,
-          'template' => $template,
-          'variant' => $variant,
-          'templateInline' => $templateInline,
-          'transparent' => $transparent,
-          'debug' => $debug,
-        ]); ?>
+        <?php snippet('audio-player', ['page' => $page, 'dock' => $dock]); ?>
       </div>
 
       <?php if ($mediaNote !== ''): ?>
-        <div class="podcast-player-media-note text-s text-light">
+        <div class="podcast-player-media-note text-xs text-light">
           <?= $mediaNote ?>
         </div>
       </div>

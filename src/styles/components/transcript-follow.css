@@ -1,0 +1,30 @@
+.transcript-shell {
+  position: relative;
+  display: flow-root;
+
+  summary {
+    padding-inline-end: calc(var(--follow-w, 0px) + var(--twt-spacing-gap, 1rem) * 2);
+  }
+
+  .transcript-follow {
+    position: absolute;
+    inset-block-start: var(--follow-y, 1.5rem);
+    inset-inline-end: var(--twt-spacing-gap, 1rem);
+    translate: 0 -50%;
+
+    &[aria-pressed='true'] {
+      --button-bg: var(--button-scheme);
+      --button-color: var(--button-on-solid);
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+}
+
+::highlight(twt-word) {
+  background-color: var(--clr-mark);
+  color: var(--clr-text);
+}

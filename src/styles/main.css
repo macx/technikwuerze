@@ -46,6 +46,8 @@ COMPONENTS
 @import './components/form.css' layer(components);
 @import './components/pagination-nav.css' layer(components);
 @import './components/episode.css' layer(components);
+@import './components/audio-player.css' layer(components);
+@import './components/transcript-follow.css' layer(components);
 @import './components/social-links.css' layer(components);
 @import './components/tooltip.css' layer(components);
 @import './components/podcaster-player.css' layer(components);

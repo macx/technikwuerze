@@ -6,6 +6,8 @@
  * @var Kirby\Cms\Pages $pages
  */
 
+use Kirby\Toolkit\Str;
+
 $hosts = $page->podcasterhosts()->toPages();
 $guests = $page->podcasterguests()->toPages();
 $publishedDate = $page->date()->isNotEmpty() ? $page->date() : null;
@@ -27,8 +29,21 @@ if ($episodeTotal === '') {
   $episodeTotal = '-';
 }
 
-$podloveTemplate = asset('assets/podlove/tw-player-template.html')->url();
-$contentBlocks = $page->blocks()->toBlocks()->collectFootnotes();
+$contentBlocks = $page
+  ->blocks()
+  ->toBlocks()
+  ->map(function ($block) {
+    if (
+      $block->type() === 'tw-transcript' &&
+      trim((string) $block->headline()->value()) === 'Transkript'
+    ) {
+      $block->content()->update(['headline' => 'Transkript der Folge']);
+    }
+
+    return $block;
+  })
+  ->collectFootnotes();
+$transcriptWordsUrl = $page->transcriptWordsUrl();
 $footnotesHtml = count(Footnotes::$footnotes) > 0 ? Footnotes::footnotes() : '';
 
 $getInitials = static function (Kirby\Cms\Page $participant): string {
@@ -104,7 +119,6 @@ snippet('layout', slots: true);
 <?php slot(); ?>
   <article class="episode-view">
     <header class="page-header content">
-      <?php snippet('breadcrumb'); ?>
       <h1 class="title">
         <?= $page->title()->html() ?>
         <?php if ($page->podcastersubtitle()->isNotEmpty()): ?>
@@ -119,86 +133,78 @@ snippet('layout', slots: true);
           <?= $page->podcasterdescription()->kti() ?>
         </p>
       <?php endif; ?>
+      <?php snippet('breadcrumb', ['visible' => false]); ?>
     </header>
 
     <div class="episode-sections">
       <?php if ($page->podcasterAudio()->isNotEmpty()): ?>
         <div class="episode-player-wrapper">
-          <div class="content narrow episode-player-sticky">
+          <div class="content narrow">
           <?php snippet(
             'podcast-player',
             [
               'page' => $page,
-              'template' => $podloveTemplate,
-              'transparent' => true,
               'mediaPosition' => 'left',
             ],
             slots: true,
           ); ?>
           <?php slot(); ?>
-            <div class="text-xs">
-              <strong class="text-eyebrow">
-                <a href="<?= $page->parent()->url() ?>" class="link-inherit">P<?= $page
-  ->podcasterseason()
-  ->or('-') ?></a>
-                ·
-                E<?= $page->podcasterepisode()->or('-') ?>
-                · #<?= esc($episodeTotal) ?>
-              </strong><br />
-              <span class="text-light">
-                <?= esc($episodeTypeLabel) ?>
-              </span>
-              <?php if (
-                $downloadFile = (new \mauricerenck\Podcaster\Podcast())->getAudioFile($page)
+            <div class="episode-info">
+              <?php snippet('episode-ordinal', [
+                'page' => $page,
+                'episodeTotal' => $episodeTotal,
+                'typeLabel' => $episodeTypeLabel,
+              ]); ?>
+
+              <?php foreach (
+                ['Moderation' => $hosts, 'Gäste' => $guests]
+                as $groupLabel => $groupParticipants
               ): ?>
-                · <a
-                  href="<?= $page->url() .
-                    '/' .
-                    option('mauricerenck.podcaster.downloadTriggerPath', 'download') .
-                    '/' .
-                    $downloadFile->filename() ?>"
-                  download
-                  class="episode-download"
-                >Download (MP3, <?= max(
-                  1,
-                  (int) round($downloadFile->size() / 1048576),
-                ) ?>&nbsp;MB)</a>
-              <?php endif; ?>
+                <?php if ($groupParticipants->isNotEmpty()): ?>
+                  <div class="episode-participants" role="group" aria-labelledby="participants-<?= Str::slug(
+                    $groupLabel,
+                  ) ?>">
+                    <strong class="text-eyebrow" id="participants-<?= Str::slug($groupLabel) ?>">
+                      <?= $groupLabel ?>
+                    </strong>
+
+                    <ul class="episode-participants-list">
+                      <?php $renderParticipantAvatars($groupParticipants); ?>
+                    </ul>
+                  </div>
+                <?php endif; ?>
+              <?php endforeach; ?>
             </div>
-
-            <?php if ($hosts->isNotEmpty() || $guests->isNotEmpty()): ?>
-              <div class="episode-participants" aria-label="Mitwirkende">
-                <?php if ($hosts->isNotEmpty()): ?>
-                  <div class="episode-participants-row">
-                    <strong class="text-eyebrow">
-                      Moderation
-                    </strong>
-
-                    <ul class="episode-participants-list">
-                      <?php $renderParticipantAvatars($hosts); ?>
-                    </ul>
-                  </div>
-                <?php endif; ?>
-                <?php if ($guests->isNotEmpty()): ?>
-                  <div class="episode-participants-row">
-                    <strong class="text-eyebrow">
-                      Gäste
-                    </strong>
-
-                    <ul class="episode-participants-list">
-                      <?php $renderParticipantAvatars($guests); ?>
-                    </ul>
-                  </div>
-                <?php endif; ?>
-              </div>
-            <?php endif; ?>
           <?php endslot(); ?>
+
+          <?php if (
+            $downloadFile = (new \mauricerenck\Podcaster\Podcast())->getAudioFile($page)
+          ): ?>
+            <?php slot('mediaNote'); ?>
+              <a
+                href="<?= $page->url() .
+                  '/' .
+                  option('mauricerenck.podcaster.downloadTriggerPath', 'download') .
+                  '/' .
+                  $downloadFile->filename() ?>"
+                download
+              >Download (MP3, <?= max(
+                1,
+                (int) round($downloadFile->size() / 1048576),
+              ) ?>&nbsp;MB)</a>
+            <?php endslot(); ?>
+          <?php endif; ?>
         <?php endsnippet(); ?>
         </div>
       <?php endif; ?>
 
       <?php if ($contentBlocks !== ''): ?>
-        <section class="content-text content narrow">
+        <section
+          class="content-text content narrow"
+          <?= $transcriptWordsUrl
+            ? 'data-transcript-words="' . esc($transcriptWordsUrl, 'attr') . '"'
+            : '' ?>
+        >
           <?= $contentBlocks ?>
 
           <?php if ($footnotesHtml !== ''): ?>

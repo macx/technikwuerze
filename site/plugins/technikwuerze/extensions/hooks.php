@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use Kirby\Cms\File;
 use Kirby\Cms\Page;
-use Kirby\Http\Response;
+use Kirby\Http\Range;
 use Kirby\Toolkit\Str;
 
 return [
@@ -71,6 +71,42 @@ return [
       return $result;
     }
 
-    return Response::file($result->root());
+    $file = $result->root();
+    $size = filesize($file);
+    $rangeHeader = kirby()->request()->header('Range');
+    $range = $rangeHeader ? Range::parse($rangeHeader, $size) : [0, $size - 1];
+
+    if ($range === false) {
+      http_response_code(416);
+      header('Content-Range: bytes */' . $size);
+      exit();
+    }
+
+    [$start, $end] = $range;
+    http_response_code($rangeHeader ? 206 : 200);
+    header('Content-Type: ' . $result->mime());
+    header('Accept-Ranges: bytes');
+    header('Content-Length: ' . ($end - $start + 1));
+    if ($rangeHeader) {
+      header("Content-Range: bytes {$start}-{$end}/{$size}");
+    }
+
+    while (ob_get_level() > 0) {
+      ob_end_clean();
+    }
+
+    $handle = fopen($file, 'rb');
+    fseek($handle, $start);
+    for ($left = $end - $start + 1; $left > 0 && !connection_aborted(); ) {
+      $chunk = fread($handle, min(1048576, $left));
+      if ($chunk === false || $chunk === '') {
+        break;
+      }
+      echo $chunk;
+      flush();
+      $left -= strlen($chunk);
+    }
+    fclose($handle);
+    exit();
   },
 ];

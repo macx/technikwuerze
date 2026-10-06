@@ -42,16 +42,25 @@
     margin-block: 0;
   }
 
-  /* Rechte Spalte, wenn unter dem Player ein Hinweis steht (Slot `mediaNote`) */
   .podcast-player-aside {
     display: grid;
-    gap: var(--sp-s);
+    gap: var(--sp-xs);
     align-self: start;
     min-inline-size: 0;
   }
 
   .podcast-player-media-note {
     text-wrap: pretty;
+
+    a:any-link[download] {
+      color: var(--clr-secondary);
+      text-decoration: none;
+
+      &:is(:hover, :focus-visible) {
+        text-decoration: underline;
+        text-underline-offset: 0.2em;
+      }
+    }
   }
 
   .podcast-player-text {
@@ -71,20 +80,6 @@
     padding: var(--sp-s);
     align-self: start;
     justify-self: center;
-
-    :where([id^='podlove-player-']) {
-      min-inline-size: 0;
-      inline-size: 100%;
-      max-inline-size: 100%;
-    }
-
-    :where([id^='podlove-player-'] iframe) {
-      display: block;
-      min-inline-size: 0;
-      inline-size: 100% !important;
-      max-inline-size: 100% !important;
-      border: 0;
-    }
   }
 
   &[data-media-position='left'] {
@@ -92,7 +87,7 @@
       order: 2;
     }
 
-    :is(.podcast-player-media, .podcast-player-aside) {
+    .podcast-player-container > :is(.podcast-player-media, .podcast-player-aside) {
       order: 1;
     }
   }
@@ -120,17 +115,9 @@
 
     &[data-media-position='left'] {
       .podcast-player-container {
-        grid-template-columns: minmax(30rem, 1.7fr) minmax(0, 1fr);
+        /* grid-template-columns: minmax(25rem, 1fr) minmax(0, 1fr); */
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
     }
-  }
-}
-
-/* Sticky Player */
-@media (width >= 48em) {
-  .episode-player-sticky.is-sticky-enabled {
-    position: sticky;
-    top: calc(var(--header-size) - 0.5rem);
-    z-index: 20;
   }
 }
