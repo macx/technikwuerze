@@ -45,7 +45,7 @@ All commands from the repository root; `N` = episode number.
    ```
 
    Creates `content/3_teilnehmende/<slug>/participant.txt` **without** numeric prefix (unlisted, stays out of the public
-   list), role `guest`, profile fields empty, Lead marked `⚠ TODO: Profil vervollständigen`. Never invent profession, bio or
+   list), role `guest`, profile fields empty, Description marked `⚠ TODO: Profil vervollständigen`. Never invent profession, bio or
    links. Slug = lowercase `first-last` with umlauts transliterated (ä→ae, ö→oe, ü→ue, ß→ss), no collisions.
 4. **Gastmoderation only if guest moderated:** `python3 scripts/transcripts/meta.py guestmod "Name"`.
 5. **Add to the episode** (appends, no duplicates, keeps the list style of the file):

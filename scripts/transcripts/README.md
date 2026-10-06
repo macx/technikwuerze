@@ -95,6 +95,7 @@ All paths are defined once in `lib/paths.py`. Nothing in this toolkit uses the l
 - **`rename_speaker.py N old new`** — Renames a speaker label inside a published block.
 - **`setspeaker.py N <timestamp> <speaker>`** — Relabels one segment of a published block (e.g. a screen-reader sample that was
   attributed to a host).
+- **`swap_speakers.py N A B --from <timestamp> [--dry-run]`** — Swaps two speaker labels from the first segment with the given timestamp to the end of the block. Index based, so duplicate timestamps are safe. Use it when the diarization exchanged two speaker ids mid-episode (tw184: David ↔ Dirk Jesse from 06:08).
 - **`jinglefix.py`** — Relabels pure jingle turns (intro/outro boilerplate) as `Einspieler` in all episodes.
 - **`proofread.py [N …]`** — Flags suspicious words in local transcripts: words missing from the vocabulary of all
   ElevenLabs transcripts and rejected by the macOS spell checker (`spell.swift`), with context. Review output, then fix with
@@ -109,7 +110,7 @@ All paths are defined once in `lib/paths.py`. Nothing in this toolkit uses the l
   misspellings. Exit status 1 on errors. Must be clean (or each warning explained) after every import.
 - **`meta.py list | stub First Last slug TW<N> | add N H|G Name… | remove N H|G Name | guestmod Name`** — Participant helper:
   `list` prints uuid and title of all participants; `stub` creates an unlisted participant page (no numeric prefix, empty
-  profile, TODO lead); `add`/`remove` edit `Podcasterhosts` (H, "Team & Gastmoderation") or `Podcasterguests` (G, "Gäste") of an
+  profile, TODO description); `add`/`remove` edit `Podcasterhosts` (H, "Team & Gastmoderation") or `Podcasterguests` (G, "Gäste") of an
   episode as `page://<uuid>` lists; `guestmod` gives a guest the extra role "Gastmoderation".
 
 ### Archive
