@@ -20,6 +20,8 @@ a:any-link {
   accent-color: var(--clr-accent);
   outline-color: var(--clr-accent);
   outline-width: 4px;
+  border-radius: var(--radius-s);
+  border-shape: squircle;
 
   &:focus-visible {
     outline: var(--focus-outline);

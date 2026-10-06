@@ -17,7 +17,6 @@ snippet('layout', slots: true);
 
 <?php slot(); ?>
   <div class="page-header content">
-    <?php snippet('breadcrumb'); ?>
     <h1 class="title">
       <?= $page->title()->html() ?>
     </h1>
@@ -29,9 +28,12 @@ snippet('layout', slots: true);
       </p>
     <?php endif; ?>
 
-    <?php if ($seasonMeta = twSeasonMeta($page)): ?>
-      <p class="season-meta"><?= esc($seasonMeta) ?></p>
-    <?php endif; ?>
+    <div class="page-meta">
+      <?php snippet('breadcrumb'); ?>
+      <?php if ($seasonMeta = twSeasonMeta($page)): ?>
+        <p class="season-meta"><?= esc($seasonMeta) ?></p>
+      <?php endif; ?>
+    </div>
   </div>
 
   <?= $page->blocks()->toBlocks() ?>

@@ -109,7 +109,6 @@ snippet('layout', slots: true);
 <?php slot(); ?>
   <article class="participant-detail content narrow">
     <header class="page-header">
-      <?php snippet('breadcrumb'); ?>
       <h1 class="title">
         <span class="participant-name" data-vt-group="participant-name" data-vt-name="<?= esc(
           $transitionName,
@@ -123,11 +122,6 @@ snippet('layout', slots: true);
         <?php endif; ?>
       </h1>
 
-      <?php if ($page->lead()->isNotEmpty()): ?>
-        <p class="lead">
-          <?= $page->lead()->kti() ?>
-        </p>
-      <?php endif; ?>
     </header>
 
     <div class="participant-stage">
