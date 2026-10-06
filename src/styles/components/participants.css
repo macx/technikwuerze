@@ -23,7 +23,6 @@
     /* TN-1: Meta-Zeile unter dem Namen */
     .tw-participants-meta {
       display: block;
-      margin-block-start: -0.2em;
       font-size: var(--fs-xs);
       font-weight: var(--fw);
       color: var(--clr-text-light);

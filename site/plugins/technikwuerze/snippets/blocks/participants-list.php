@@ -95,14 +95,16 @@ if (!in_array($displayLayout, ['cards', 'list'], true)) {
           <?php if ($meta !== null): ?>
             <span class="tw-participants-meta">
               <?php if ($meta['label'] !== ''): ?>
-                <?= esc($meta['label']) ?> ·
+                <?= esc($meta['label']) ?><br/>
               <?php endif; ?>
               <?php if ($meta['topic'] !== ''): ?>
                 <a href="<?= esc($meta['url']) ?>" class="tw-participants-topic"><?= esc(
   $meta['topic'],
-) ?></a> ·
+) ?></a> (<?= esc($meta['text']) ?>)
               <?php endif; ?>
-              <?= esc($meta['text']) ?>
+              <?php if ($meta['topic'] === ''): ?>
+                <?= esc($meta['text']) ?>
+              <?php endif; ?>
             </span>
           <?php endif; ?>
         </li>
@@ -140,7 +142,15 @@ if (!in_array($displayLayout, ['cards', 'list'], true)) {
             <?php if ($meta !== null): ?>
               <span class="tw-participants-meta">
                 <?= esc(
-                  implode(' · ', array_filter([$meta['label'], $meta['topic'], $meta['text']])),
+                  implode(
+                    ', ',
+                    array_filter([
+                      $meta['label'],
+                      $meta['topic'] !== ''
+                        ? $meta['topic'] . ' (' . $meta['text'] . ')'
+                        : $meta['text'],
+                    ]),
+                  ),
                 ) ?>
               </span>
             <?php endif; ?>

@@ -7,7 +7,6 @@ $headline = trim((string) $block->header()->value());
 if ($headline === '') {
   $headline = 'Aktuelle Folge';
 }
-$podloveTemplate = asset('assets/podlove/tw-player-template.html')->url();
 
 $mediathek = site()->find('mediathek');
 $episodeCandidates = $mediathek
@@ -50,8 +49,7 @@ if ($latestEpisode) {
       'podcast-player',
       [
         'page' => $latestEpisode,
-        'template' => $podloveTemplate,
-        'transparent' => true,
+        'dock' => 'started',
         'containerClass' => '',
       ],
       slots: true,

@@ -6,9 +6,11 @@ require_once __DIR__ . '/lib/participant-stats.php';
 require_once __DIR__ . '/lib/site-search.php';
 require_once __DIR__ . '/lib/episode-stats.php';
 require_once __DIR__ . '/lib/contact-form-action.php';
+require_once __DIR__ . '/lib/transcript-words.php';
 
 $pageMethods = require __DIR__ . '/extensions/page-methods.php';
 $hooks = require __DIR__ . '/extensions/hooks.php';
+$routes = require __DIR__ . '/extensions/routes.php';
 $api = require __DIR__ . '/extensions/api.php';
 $tags = require __DIR__ . '/extensions/tags.php';
 $translations = require __DIR__ . '/extensions/translations.php';
@@ -51,4 +53,5 @@ Kirby::plugin('tw/brand', [
   'tags' => $tags,
   'pageMethods' => $pageMethods,
   'hooks' => $hooks,
+  'routes' => $routes,
 ]);

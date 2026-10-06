@@ -18,7 +18,7 @@ def new_uuid():
 def stub(first, last, slug, source):
     d = ROOT + 'content/3_teilnehmende/' + slug; assert not os.path.exists(d), d
     os.makedirs(d); u = new_uuid()
-    body = f"""Title: {first} {last}\n\n----\n\nFirst-name: {first}\n\n----\n\nLast-name: {last}\n\n----\n\nProfession:\n\n----\n\nLead: ⚠ TODO: Profil vervollständigen (automatisch angelegt durch transkript-metadaten, Quelle: {source})\n\n----\n\nDescription:\n\n----\n\nExternal-profiles:\n\n----\n\nLinked-user:\n\n----\n\nProfile-image:\n\n----\n\nParticipant-role: guest\n\n----\n\nAdditional-roles:\n\n----\n\nGender-identities:\n\n----\n\nSelf-described-gender:\n\n----\n\nPronouns:\n\n----\n\nUuid: {u}\n"""
+    body = f"""Title: {first} {last}\n\n----\n\nFirst-name: {first}\n\n----\n\nLast-name: {last}\n\n----\n\nProfession:\n\n----\n\nDescription: ⚠ TODO: Profil vervollständigen (automatisch angelegt durch transkript-metadaten, Quelle: {source})\n\n----\n\nExternal-profiles:\n\n----\n\nLinked-user:\n\n----\n\nProfile-image:\n\n----\n\nParticipant-role: guest\n\n----\n\nAdditional-roles:\n\n----\n\nGender-identities:\n\n----\n\nSelf-described-gender:\n\n----\n\nPronouns:\n\n----\n\nUuid: {u}\n"""
     open(d + '/participant.txt', 'w', encoding='utf-8').write(body); print('stub', slug, u)
 def add(n, field, names):
     P = parts()

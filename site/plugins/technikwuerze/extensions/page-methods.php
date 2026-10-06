@@ -12,6 +12,9 @@ return [
   'participationTotalCount' => function (): int {
     return twParticipantStats($this)['totalCount'];
   },
+  'transcriptWordsUrl' => function (): ?string {
+    return twTranscriptWordsFile($this) === null ? null : $this->url() . '/transcript-words';
+  },
   'episodeTypeLabel' => function (): string {
     $episodeType = trim((string) $this->podcasterepisodetype()->value());
     if ($episodeType === '') {

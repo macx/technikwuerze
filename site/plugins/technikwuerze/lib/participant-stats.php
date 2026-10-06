@@ -99,8 +99,8 @@ if (!function_exists('twParticipantMeta')) {
   /**
    * Meta-Zeile für die Teilnehmenden-Liste (TN-1).
    * - Herausgeber: keine
-   * - Gast mit genau einer Folge: Hauptthema (Link zur Folge) + Jahr, sonst „1 Folge · Jahr“
-   * - alle anderen: „N Folgen · Zeitraum“, bei Gastmoderation mit Präfix
+   * - Gast mit genau einer Folge: Hauptthema (Link zur Folge) + Jahr in Klammern, sonst „1 Folge (Jahr)“
+   * - alle anderen: „N Folgen (Zeitraum)“, bei Gastmoderation mit Präfix
    *
    * @return array{label: string, topic: string, url: string, text: string}|null
    */
@@ -134,7 +134,7 @@ if (!function_exists('twParticipantMeta')) {
       }
     }
 
-    $text = ($count === 1 ? '1 Folge' : $count . ' Folgen') . ' · ' . $period;
+    $text = ($count === 1 ? '1 Folge' : $count . ' Folgen') . ' (' . $period . ')';
 
     return ['label' => $label, 'topic' => '', 'url' => '', 'text' => $text];
   }

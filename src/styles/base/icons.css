@@ -121,3 +121,31 @@
 .msi-content-copy {
   --msi-icon: 'content_copy';
 }
+
+.msi-list {
+  --msi-icon: 'format_list_bulleted';
+}
+
+.msi-play-arrow {
+  --msi-icon: 'play_arrow';
+}
+
+.msi-pause {
+  --msi-icon: 'pause';
+}
+
+.msi-replay {
+  --msi-icon: 'replay';
+}
+
+.msi-volume-up {
+  --msi-icon: 'volume_up';
+}
+
+.msi-volume-off {
+  --msi-icon: 'volume_off';
+}
+
+.msi-subtitles {
+  --msi-icon: 'subtitles';
+}

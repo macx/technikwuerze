@@ -1,0 +1,404 @@
+.audio-player {
+  --c-cover-size: 3.75rem;
+
+  display: block;
+
+  &:not(:defined) {
+    min-block-size: var(--c-cover-size);
+  }
+
+  audio {
+    inline-size: 100%;
+  }
+
+  &[data-ready] audio {
+    display: none;
+  }
+
+  .player-ui {
+    container: audio-layout / inline-size;
+  }
+
+  .layout {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-areas:
+      'cover info'
+      'transport transport'
+      'timeline timeline'
+      'options options'
+      'chapters chapters';
+    align-items: center;
+    gap: var(--sp-xs) var(--sp-s);
+    font-size: var(--fs-s);
+    color: var(--clr-text);
+  }
+
+  .cover {
+    grid-area: cover;
+    inline-size: var(--c-cover-size);
+    block-size: var(--c-cover-size);
+    border-radius: var(--radius-s);
+    object-fit: cover;
+  }
+
+  .info {
+    grid-area: info;
+    min-inline-size: 0;
+
+    p {
+      margin-block: 0;
+    }
+
+    .show {
+      font-size: var(--fs-xs);
+      color: var(--clr-text-light);
+    }
+
+    .title {
+      font-weight: var(--fw-bold);
+      text-wrap: balance;
+    }
+  }
+
+  button,
+  select {
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+  }
+
+  .transport {
+    grid-area: transport;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--sp-s);
+  }
+
+  .skip {
+    position: relative;
+    display: grid;
+    place-items: center;
+    inline-size: 2.75rem;
+    block-size: 2.75rem;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+
+    [class^='msi-'] {
+      font-size: 2.25rem;
+    }
+
+    &.forward [class^='msi-'] {
+      transform: scaleX(-1);
+    }
+
+    .skip-value {
+      position: absolute;
+      font-size: 0.6875rem;
+      font-weight: 700;
+      line-height: 1;
+      padding-block-start: 0.1rem;
+    }
+
+    &:is(:hover, :focus-visible) {
+      background: var(--clr-hover);
+    }
+  }
+
+  .toggle {
+    display: grid;
+    place-items: center;
+    inline-size: 3.5rem;
+    block-size: 3.5rem;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: var(--clr-primary);
+    color: var(--clr-text-opposite);
+
+    [class^='msi-'] {
+      font-size: 2.25rem;
+      font-variation-settings:
+        'FILL' 1,
+        'wght' 500,
+        'GRAD' 0,
+        'opsz' 24;
+    }
+
+    &:is(:hover, :focus-visible) {
+      background: color-mix(in oklab, var(--clr-primary), var(--clr-text) 15%);
+    }
+  }
+
+  .timeline {
+    grid-area: timeline;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: var(--sp-xs);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .seek,
+  .volume {
+    --progress: 0%;
+    appearance: none;
+    inline-size: 100%;
+    block-size: 2.75rem;
+    margin: 0;
+    background: transparent;
+    cursor: pointer;
+
+    &::-webkit-slider-runnable-track {
+      block-size: 0.375rem;
+      border-radius: 0.1875rem;
+      background: linear-gradient(
+        to right,
+        var(--clr-primary) var(--progress),
+        var(--clr-border) var(--progress)
+      );
+    }
+
+    &::-moz-range-track {
+      block-size: 0.375rem;
+      border-radius: 0.1875rem;
+      background: linear-gradient(
+        to right,
+        var(--clr-primary) var(--progress),
+        var(--clr-border) var(--progress)
+      );
+    }
+
+    &::-webkit-slider-thumb {
+      appearance: none;
+      inline-size: 1.25rem;
+      block-size: 1.25rem;
+      margin-block-start: -0.4375rem;
+      border: 0;
+      border-radius: 50%;
+      background: var(--clr-primary);
+    }
+
+    &::-moz-range-thumb {
+      inline-size: 1.25rem;
+      block-size: 1.25rem;
+      border: 0;
+      border-radius: 50%;
+      background: var(--clr-primary);
+    }
+  }
+
+  .options {
+    grid-area: options;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--sp-xs);
+
+    select {
+      min-block-size: 2.75rem;
+      padding-inline: var(--sp-xxs);
+      border: 1px solid var(--clr-border);
+      border-radius: var(--radius-button-xs);
+      background: transparent;
+    }
+
+    .mute {
+      display: grid;
+      place-items: center;
+      inline-size: 2.75rem;
+      block-size: 2.75rem;
+      padding: 0;
+      border: 0;
+      border-radius: 50%;
+      background: transparent;
+
+      &:is(:hover, :focus-visible) {
+        background: var(--clr-hover);
+      }
+    }
+
+    .volume {
+      inline-size: 6rem;
+    }
+  }
+
+  .chapters {
+    grid-area: chapters;
+
+    summary {
+      cursor: pointer;
+      min-block-size: 2.75rem;
+      display: flex;
+      align-items: center;
+      font-weight: var(--fw-title);
+    }
+
+    ol {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    button {
+      display: grid;
+      grid-template-columns: 4.5rem minmax(0, 1fr);
+      inline-size: 100%;
+      padding: var(--sp-xxs);
+      border: 0;
+      border-radius: var(--radius-s);
+      background: transparent;
+      text-align: start;
+      font-variant-numeric: tabular-nums;
+
+      &:is(:hover, :focus-visible),
+      &[aria-current] {
+        background: var(--clr-hover);
+      }
+
+      &[aria-current] {
+        font-weight: var(--fw-title);
+      }
+    }
+  }
+
+  .error {
+    grid-column: 1 / -1;
+    margin-block: 0;
+    color: var(--clr-text);
+    font-weight: var(--fw-title);
+  }
+
+  &.is-busy .toggle {
+    opacity: 0.7;
+  }
+
+  :is(button, select, input):focus-visible,
+  summary:focus-visible {
+    outline: var(--focus-outline);
+    outline-offset: 2px;
+  }
+
+  &[data-docked] {
+    .player-ui {
+      position: fixed;
+      inset-inline: 0;
+      inset-block-end: 0;
+      z-index: 30;
+      padding-block: var(--sp-xxs);
+      padding-block-end: max(var(--sp-xxs), env(safe-area-inset-bottom));
+      padding-inline: max(var(--sp-content), env(safe-area-inset-left));
+      background: var(--clr-bg-light);
+      border-block-start: 1px solid var(--clr-border);
+      box-shadow: 0 -0.5rem 1.5rem -0.75rem var(--clr-shadow);
+    }
+
+    .layout {
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      grid-template-areas:
+        'cover info transport'
+        'timeline timeline timeline';
+      gap: 0 var(--sp-xs);
+      max-inline-size: 70rem;
+      margin-inline: auto;
+    }
+
+    .cover {
+      inline-size: 2.75rem;
+      block-size: 2.75rem;
+    }
+
+    .info {
+      :is(.title, .show) {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .title {
+        font-size: var(--fs-s);
+      }
+    }
+
+    .transport {
+      gap: var(--sp-xxs);
+    }
+
+    .options,
+    .chapters,
+    .error {
+      display: none;
+    }
+
+    @media (width >= 48em) {
+      .layout {
+        grid-template-columns: auto minmax(8rem, 18rem) auto minmax(12rem, 1fr);
+        grid-template-areas: 'cover info transport timeline';
+        gap: 0 var(--sp-s);
+      }
+    }
+  }
+
+  @media (hover: none) {
+    .volume,
+    .mute {
+      display: none;
+    }
+  }
+
+  @container audio-layout (width >= 30em) {
+    .layout {
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      grid-template-areas:
+        'cover info info'
+        'timeline timeline timeline'
+        'transport transport options'
+        'chapters chapters chapters';
+    }
+
+    .transport {
+      justify-content: start;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .audio-player .toggle {
+    transition: background-color 0.15s;
+  }
+}
+
+@media (forced-colors: active) {
+  .audio-player .toggle {
+    border: 2px solid ButtonText;
+  }
+}
+
+html:has(tw-audio-player[data-docked]) {
+  scroll-padding-block-end: 6rem;
+
+  body {
+    padding-block-end: 5.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .audio-player[data-docked] .player-ui {
+    animation: audio-dock-in 0.2s ease-out;
+  }
+
+  @keyframes audio-dock-in {
+    from {
+      transform: translateY(100%);
+    }
+  }
+}
+
+@media print {
+  .audio-player[data-docked] .player-ui {
+    display: none;
+  }
+}
