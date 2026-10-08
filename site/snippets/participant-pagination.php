@@ -3,7 +3,7 @@
  * @var Kirby\Cms\Page $page  The current participant page
  */
 
-$participants = $page->siblings()->listed()->sortBy('last_name', 'asc', 'first_name', 'asc');
+$participants = $page->siblings()->listed()->sortBy('first_name', 'asc', 'last_name', 'asc');
 $position = $participants->indexOf($page);
 
 if ($position === false || $participants->count() < 2) {
