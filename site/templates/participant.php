@@ -24,10 +24,13 @@ foreach ($profiles as $profile) {
   $label = trim((string) $profile->profile_label()->value());
   $network = trim((string) $profile->network()->value());
 
+  $iconNetwork = is_file(kirby()->root('base') . '/src/assets/social/' . $network . '.svg')
+    ? $network
+    : 'website';
+
   $profileLinks[] = [
-    'label' => $label,
-    'network' => $network,
-    'rel' => 'noopener nofollow',
+    'label' => in_array($label, ['', 'Website'], true) ? Kirby\Http\Url::short($url) : $label,
+    'network' => $iconNetwork,
     'url' => $url,
   ];
 }
@@ -69,7 +72,7 @@ $recentParticipations = $allEpisodes
       $episode->podcasterguests()->toPages()->has($page);
   })
   ->sortBy('date', 'desc')
-  ->limit(5);
+  ->limit(8);
 
 $hostCount = 0;
 $guestCount = 0;
@@ -91,23 +94,32 @@ foreach ($allEpisodes as $episode) {
 }
 
 $teamRoleLabels = [
-  'publisher' => 'Herausgeber',
-  'moderation' => 'Moderation',
-  'editorial' => 'Redaktion',
+  'publisher' => [
+    'female' => 'Herausgeberin',
+    'male' => 'Herausgeber',
+    'other' => 'Herausgeber:in',
+  ],
+  'moderation' => ['female' => 'Moderatorin', 'male' => 'Moderator', 'other' => 'Moderator:in'],
+  'editorial' => ['female' => 'Redakteurin', 'male' => 'Redakteur', 'other' => 'Redakteur:in'],
 ];
+$genderKey = in_array($genderValue, ['female', 'male'], true) ? $genderValue : 'other';
 $teamRoles = [];
 if ($page->participant_role()->value() === 'host') {
   foreach ($page->additional_roles()->split() as $role) {
     if (isset($teamRoleLabels[$role])) {
-      $teamRoles[] = $teamRoleLabels[$role];
+      $teamRoles[] = $teamRoleLabels[$role][$genderKey];
     }
   }
 }
+$teamRolesSentence =
+  count($teamRoles) > 1
+    ? implode(', ', array_slice($teamRoles, 0, -1)) . ' und ' . end($teamRoles)
+    : $teamRoles[0] ?? '';
 
 snippet('layout', slots: true);
 ?>
 <?php slot(); ?>
-  <article class="participant-detail content narrow">
+  <article class="participant-detail content medium">
     <header class="page-header">
       <h1 class="title">
         <span class="participant-name" data-vt-group="participant-name" data-vt-name="<?= esc(
@@ -121,7 +133,6 @@ snippet('layout', slots: true);
           </span>
         <?php endif; ?>
       </h1>
-
     </header>
 
     <div class="participant-stage">
@@ -129,29 +140,34 @@ snippet('layout', slots: true);
         <div class="participant-meta">
           <section class="card participant-meta-card">
             <?php if ($image): ?>
-              <figure class="participant-image">
-                <img src="<?= $image->crop(198, 198)->url() ?>" srcset="<?= $image->srcset([
+              <?php $blurredBackground = $image->thumb([
+                'width' => 64,
+                'height' => 40,
+                'crop' => true,
+                'blur' => 16,
+                'quality' => 60,
+              ]); ?>
+              <div class="participant-card-header" style="--participant-blur: url('<?= esc(
+                $blurredBackground->url(),
+                'attr',
+              ) ?>')">
+                <figure class="participant-image">
+                  <img src="<?= $image->crop(304, 304)->url() ?>" srcset="<?= $image->srcset([
   '240w' => ['width' => 240, 'height' => 240, 'crop' => true],
   '360w' => ['width' => 360, 'height' => 360, 'crop' => true],
   '480w' => ['width' => 480, 'height' => 480, 'crop' => true],
-  '680w' => ['width' => 680, 'height' => 680, 'crop' => true],
-]) ?>" sizes="(min-width: 48em) 250px, calc(100vw - 5.5rem)" alt="<?= esc(
+]) ?>" sizes="9.5rem" alt="<?= esc(
   $fullName,
 ) ?>" class="participant-image" data-vt-group="participant-image" data-vt-name="<?= esc(
   $transitionImageName,
 ) ?>" loading="lazy">
-              </figure>
+                </figure>
+              </div>
             <?php endif; ?>
 
             <section class="participant-panel participant-stats" aria-labelledby="participant-stats-heading">
               <h2 id="participant-stats-heading">Statistik</h2>
               <dl class="participant-data-list">
-                <?php if ($teamRoles !== []): ?>
-                  <div>
-                    <dt>Im Team als</dt>
-                    <dd><?= esc(implode(' · ', $teamRoles)) ?></dd>
-                  </div>
-                <?php endif; ?>
                 <div>
                   <dt>Teilnahmen</dt>
                   <dd><?= $totalParticipationCount ?></dd>
@@ -194,6 +210,32 @@ snippet('layout', slots: true);
                 </dl>
               </section>
             <?php endif; ?>
+
+            <?php if ($profileLinks !== []): ?>
+              <section class="participant-panel participant-profiles" aria-labelledby="participant-profiles-heading">
+                <h2 id="participant-profiles-heading">Im Netz</h2>
+                <ul class="participant-profile-list">
+                  <?php foreach ($profileLinks as $profileLink): ?>
+                    <li>
+                      <a href="<?= esc($profileLink['url']) ?>" target="_blank" rel="noopener">
+                        <span class="participant-profile-icon" aria-hidden="true">
+                          <?= tw_sprite_icon(
+                            kirby()->root('base') .
+                              '/src/assets/social/' .
+                              $profileLink['network'] .
+                              '.svg',
+                            '/dist/assets/social.svg',
+                            $profileLink['network'],
+                          ) ?>
+                        </span>
+                        <span><?= str_replace('@', '<wbr>@', esc($profileLink['label'])) ?></span>
+                        <span class="sr-only">(externer Link, öffnet in neuem Tab)</span>
+                      </a>
+                    </li>
+                  <?php endforeach; ?>
+                </ul>
+              </section>
+            <?php endif; ?>
           </section>
         </div>
       </aside>
@@ -203,16 +245,10 @@ snippet('layout', slots: true);
           <?= $page->description()->kt() ?>
         <?php endif; ?>
 
-        <?php if ($profileLinks !== []): ?>
-          <section class="participant-profiles">
-            <h2>Externe Profile</h2>
-            <?php snippet('social-links', [
-              'links' => $profileLinks,
-              'label' =>
-                'Externe Profile von ' . ($fullName !== '' ? $fullName : $page->title()->value()),
-              'class' => 'participant-social',
-            ]); ?>
-          </section>
+        <?php if ($teamRoles !== []): ?>
+          <p><?= esc(
+            $fullName !== '' ? $fullName : $page->title()->value(),
+          ) ?> ist bei Technikwürze <?= esc($teamRolesSentence) ?>.</p>
         <?php endif; ?>
 
         <?php if ($recentParticipations->isNotEmpty()): ?>
@@ -242,9 +278,7 @@ snippet('layout', slots: true);
       </div>
     </div>
 
-
-
-
+    <?php snippet('participant-pagination', ['page' => $page]); ?>
   </article>
 <?php endslot(); ?>
 <?php endsnippet(); ?>

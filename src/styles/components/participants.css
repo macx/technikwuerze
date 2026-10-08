@@ -118,11 +118,35 @@
   }
 }
 
+.participant-card-header {
+  --participant-image-size: 9.5rem;
+  --participant-header-height: 10rem;
+  --participant-image-protrusion: 2rem;
+
+  position: relative;
+  margin: calc(-1 * var(--sp)) calc(-1 * var(--sp)) 0;
+  block-size: var(--participant-header-height);
+  margin-block-end: var(--participant-image-protrusion);
+  background: var(--participant-blur) center / cover no-repeat var(--clr-shade-dark);
+
+  figure.participant-image {
+    position: absolute;
+    inset-inline: 0;
+    inset-block-start: calc(
+      var(--participant-header-height) - var(--participant-image-size) +
+        var(--participant-image-protrusion)
+    );
+    margin-inline: auto;
+    overflow: hidden;
+    box-shadow: 0 0 0 0.25rem var(--clr-bg-dark);
+  }
+}
+
 .participant-image {
   display: block;
   margin: 0;
-  inline-size: 192px;
-  block-size: 192px;
+  inline-size: var(--participant-image-size, 9.5rem);
+  block-size: var(--participant-image-size, 9.5rem);
   background-color: var(--clr-shade-dark);
   border-radius: 50%;
 
@@ -140,7 +164,40 @@
 
 .participant-meta-card {
   display: grid;
-  gap: var(--sp);
+  gap: var(--sp-m) var(--sp-l);
+  overflow: clip;
+
+  .participant-panel {
+    inline-size: 100%;
+    max-inline-size: 22rem;
+    justify-self: center;
+  }
+
+  @media (width >= 30em) {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+
+    .participant-card-header,
+    .participant-profiles {
+      grid-column: 1 / -1;
+    }
+
+    .participant-panel {
+      max-inline-size: none;
+    }
+
+    .participant-profile-list {
+      grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+    }
+  }
+
+  @media (width >= 48em) {
+    grid-template-columns: 1fr;
+
+    .participant-profile-list {
+      grid-template-columns: 1fr;
+    }
+  }
 }
 
 .participant-panel {
@@ -172,7 +229,7 @@
   }
 
   dt {
-    color: var(--clr-text-soft);
+    color: var(--clr-text-light);
   }
 
   dd {
@@ -185,25 +242,62 @@
   color: var(--clr-primary-text);
 }
 
-.participant-profiles {
-  color: var(--clr-primary-text);
+.participant-profile-list {
+  display: grid;
+  gap: 0.125rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: var(--fs-s);
 
-  .participant-social {
-    margin-inline-start: -0.6rem;
+  a {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-xs);
+    padding-block: 0.25rem;
+    color: var(--clr-primary-text);
+    text-decoration: none;
+    overflow-wrap: break-word;
+
+    &:is(:hover, :focus-visible) {
+      text-decoration: underline;
+      text-underline-offset: 0.2em;
+    }
   }
+
+  .participant-profile-icon {
+    display: inline-flex;
+    flex: none;
+    color: var(--clr-text-light);
+
+    svg {
+      display: block;
+      inline-size: 1.125rem;
+      block-size: 1.125rem;
+    }
+  }
+}
+
+.participant-content .episodes-list {
+  --episodes-column-min: 22ch;
+}
+
+.participant-detail .pagination-nav {
+  padding-block: var(--sp-m);
+  margin-block-start: var(--sp-m);
 }
 
 .participant-stage {
   display: flex;
   flex-direction: column;
-  gap: var(--sp);
+  gap: var(--sp-l);
 
   @media (width >= 48em) {
     flex-direction: row;
     gap: var(--sp-col-gap);
 
     > aside {
-      flex: 0 0 min(30%, 250px);
+      flex: 0 0 clamp(15rem, 30%, 16rem);
     }
 
     .participant-meta {

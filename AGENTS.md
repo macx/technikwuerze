@@ -108,6 +108,9 @@ Maintain and evolve the Technikwürze Kirby site safely and consistently:
   - `listed` = public
   - `unlisted/draft` = not public
 - Public participant listing page uses one HTML list, CSS columns.
+- The participant aside card starts with a blurred header band (pre-blurred Kirby thumb of the profile photo via `--participant-blur`, 64×40 upscaled, `blur` 16) with the round photo centered and protruding only slightly below the band's lower edge; there is deliberately no full-width hero, the page keeps the standard heading. Between 30em and 48em the panels „Statistik“ and „Profil“ sit side by side and „Im Netz“ spans both columns.
+- Participant detail pages list external profiles in the aside card (panel „Im Netz“): small network icon plus the profile label, so private websites read well; networks without an icon file in `src/assets/social/` (e.g. `other`) fall back to the `website` icon. The team roles are written as a gendered sentence in the content column („… ist bei Technikwürze Herausgeber und Moderator.“).
+- Participant detail pages end with a previous/next navigation (`site/snippets/participant-pagination.php`, same `.pagination-nav` look as the episode pagination) over all listed participants sorted by last name, then first name, with „Person X von Y“ in the middle.
 - Participant detail page includes computed participation stats from episode host/guest assignments.
 - Roles: `participant_role` is `host` („Team“) or `guest` („Gast“). Team members can have `additional_roles` (publisher/Herausgeber, moderation/Moderation, editorial/Redaktion); guests can have `guest_roles: guest_moderation` („Gastmoderation“).
 
