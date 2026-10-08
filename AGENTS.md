@@ -90,6 +90,7 @@ Maintain and evolve the Technikwürze Kirby site safely and consistently:
 - Controlled vocabulary for user-facing German text:
   - A podcast episode is called **„Folge“** (plural „Folgen“), never „Episode“ in frontend copy.
   - The short notation stays international: Phase = `P`, episode within phase = `E`, overall episode number = `#` (e.g. `P3 · E61 · #188`).
+  - Exception: the previous/next buttons and the current-episode label in `site/snippets/episode-pagination.php` omit the episode within the phase; the buttons separate the parts with an en space (U+2002), no glyph: `P3 TW187` (screen-reader text „Phase 3, Technikwürze 187“) and „Phase 3, Technikwürze 188“ (comma) in between.
   - When the short notation is spelled out (legend, screen-reader text), use „Phase“, „Episode“, „Technikwürze“ (e.g. „Phase 3 · Episode 61 · Technikwürze 188“); everywhere else in copy use „Folge“.
   - Brand green: `--clr-primary` for brand surfaces and large type; `--clr-primary-text` (darker in light mode, WCAG AA on yellow) for links and small text.
   - The legal provider name, address and email live only in Site → „Anbieter“ (`provider*` fields); output them via the `provider` block or the address block with source „Anbieter“, never as typed text.
