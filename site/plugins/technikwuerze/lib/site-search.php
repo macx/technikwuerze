@@ -8,7 +8,36 @@ use Loupe\Loupe\Loupe;
 use Loupe\Loupe\LoupeFactory;
 use Loupe\Loupe\SearchParameters;
 
-const TW_SEARCH_META_VERSION = 4;
+const TW_SEARCH_META_VERSION = 5;
+
+const TW_SEARCH_SKIPPED_BLOCK_KEYS = [
+  'id',
+  'type',
+  'isHidden',
+  'level',
+  'crop',
+  'ratio',
+  'location',
+  'link',
+  'src',
+  'image',
+  'category',
+  'source',
+  'addresstype',
+  'showemail',
+  'arrow_align',
+  'show_arrow',
+  'display_layout',
+  'participant_scope',
+  'participants_page',
+  'sort_by',
+  'amount',
+  'color_scheme',
+  'show_mediathek_button',
+  'initialstate',
+  'hiderepeatedspeakersuntilchange',
+  'repeatspeakerpersegment',
+];
 
 function twSearchEnsureDirectory(string $path): string
 {
@@ -308,12 +337,90 @@ function twSearchPlainText(string $value): string
   return trim($value);
 }
 
+function twSearchCollectBlockStrings(mixed $value, array &$texts): void
+{
+  if (is_string($value)) {
+    $trimmed = trim($value);
+    if ($trimmed !== '' && !in_array(strtolower($trimmed), ['true', 'false'], true)) {
+      $texts[] = $trimmed;
+    }
+    return;
+  }
+
+  if (!is_array($value)) {
+    return;
+  }
+
+  foreach ($value as $key => $item) {
+    if (is_string($key) && in_array($key, TW_SEARCH_SKIPPED_BLOCK_KEYS, true)) {
+      continue;
+    }
+
+    twSearchCollectBlockStrings($item, $texts);
+  }
+}
+
+function twSearchBlocksFromValue(mixed $value): ?array
+{
+  if (is_string($value)) {
+    $trimmed = trim($value);
+    if ($trimmed === '' || $trimmed[0] !== '[') {
+      return null;
+    }
+
+    $value = json_decode($trimmed, true);
+  }
+
+  if (!is_array($value) || $value === []) {
+    return null;
+  }
+
+  foreach ($value as $block) {
+    if (!is_array($block) || !isset($block['type']) || !is_array($block['content'] ?? null)) {
+      return null;
+    }
+  }
+
+  return $value;
+}
+
+function twSearchBlocksText(array $blocks): string
+{
+  $texts = [];
+
+  foreach ($blocks as $block) {
+    if (($block['isHidden'] ?? false) === true) {
+      continue;
+    }
+
+    $content = $block['content'];
+
+    if ($block['type'] === 'tw-transcript') {
+      twSearchCollectBlockStrings($content['intro'] ?? '', $texts);
+      foreach ($content['segments'] ?? [] as $segment) {
+        twSearchCollectBlockStrings($segment['text'] ?? '', $texts);
+      }
+      continue;
+    }
+
+    twSearchCollectBlockStrings($content, $texts);
+  }
+
+  return twSearchPlainText(implode(' ', $texts));
+}
+
 function twSearchPageText(Page $page): string
 {
   $chunks = [];
 
   foreach ($page->content()->toArray() as $key => $value) {
     if (strtolower((string) $key) === 'uuid') {
+      continue;
+    }
+
+    $blocks = twSearchBlocksFromValue($value);
+    if ($blocks !== null) {
+      $chunks[] = twSearchBlocksText($blocks);
       continue;
     }
 
@@ -343,7 +450,9 @@ function twSearchPageText(Page $page): string
           continue;
         }
       }
-      $chunks[] = $raw;
+      if (!in_array(strtolower(trim($raw)), ['true', 'false'], true)) {
+        $chunks[] = $raw;
+      }
     }
   }
 
@@ -417,21 +526,9 @@ function twSearchPageDisplayText(Page $page): string
     }
 
     $contentData = array_change_key_case($page->content()->toArray(), CASE_LOWER);
-    $rawBlocks = $contentData['blocks'] ?? null;
-    $blocksArray = is_array($rawBlocks)
-      ? $rawBlocks
-      : (is_string($rawBlocks) && $rawBlocks !== ''
-        ? json_decode($rawBlocks, true)
-        : null);
-
-    if (is_array($blocksArray)) {
-      $texts = [];
-      array_walk_recursive($blocksArray, static function (mixed $v) use (&$texts): void {
-        if (is_string($v) && trim($v) !== '') {
-          $texts[] = trim($v);
-        }
-      });
-      $blocksText = twSearchPlainText(implode(' ', $texts));
+    $blocks = twSearchBlocksFromValue($contentData['blocks'] ?? null);
+    if ($blocks !== null) {
+      $blocksText = twSearchBlocksText($blocks);
       if ($blocksText !== '') {
         $parts[] = $blocksText;
       }
