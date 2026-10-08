@@ -24,7 +24,9 @@ return [
   'page.create:after' => function (Page $page) {
     twSearchIndexPageAndComments($page);
   },
-  'page.update:after' => function (Page $newPage) {
+  'page.update:after' => function (Page $newPage, Page $oldPage) {
+    twSortExternalProfilesLinkedinFirst($newPage);
+    twFlagEpisodeParticipantsForTextReview($newPage, $oldPage);
     twSearchIndexPageAndComments($newPage);
 
     if ($newPage->id() === 'suche') {
@@ -42,7 +44,8 @@ return [
       }
     }
   },
-  'page.changeStatus:after' => function (Page $newPage) {
+  'page.changeStatus:after' => function (Page $newPage, Page $oldPage) {
+    twFlagEpisodeParticipantsForTextReview($newPage, $oldPage);
     twSearchIndexPageAndComments($newPage);
   },
   'komments.comment.received' => function ($comment) {

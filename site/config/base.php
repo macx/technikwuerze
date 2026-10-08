@@ -34,6 +34,10 @@ return [
       'action' => fn() => go('teilnehmende/ansgar-hein', 301),
     ],
     [
+      'pattern' => 'teilnehmende/nadja-mueller-schade',
+      'action' => fn() => go('teilnehmende/nadja-katzer', 301),
+    ],
+    [
       'pattern' => 'feed',
       'action' => fn() => go('mediathek/feed', 301),
     ],
