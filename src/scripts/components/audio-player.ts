@@ -4,6 +4,7 @@ const SEEK_STEP_SECONDS = 5
 const SEEK_PAGE_STEP_SECONDS = 30
 const PLAYBACK_RATES = [0.75, 1, 1.25, 1.5, 2]
 const VALUETEXT_INTERVAL_MS = 5_000
+const SHARE_LABEL = 'Link zur aktuellen Stelle teilen'
 const STORAGE_PREFIX = 'tw-player:position:'
 const STORAGE_INTERVAL_MS = 3_000
 const STORAGE_MIN_SECONDS = 5
@@ -109,6 +110,15 @@ class TwAudioPlayer extends HTMLElement {
     const title = this.dataset.title ?? ''
     const show = [this.dataset.show, this.dataset.number].filter(Boolean).join(' ')
 
+    const shareItem = `
+      <span class="share-item has-tooltip">
+        <button type="button" class="share" data-share-current aria-label="${SHARE_LABEL}">
+          <span class="msi-share" aria-hidden="true"></span>
+        </button>
+        <span class="tooltip" role="tooltip" aria-hidden="true">${SHARE_LABEL}</span>
+      </span>
+    `
+
     const ui = document.createElement('div')
     ui.className = 'player-ui'
     ui.innerHTML = `
@@ -130,6 +140,7 @@ class TwAudioPlayer extends HTMLElement {
           <span class="msi-replay" aria-hidden="true"></span>
           <span class="skip-value" aria-hidden="true">${this.#skipForward}</span>
         </button>
+        ${shareItem}
       </div>
       <div class="timeline">
         <time class="current">0:00</time>
@@ -150,6 +161,7 @@ class TwAudioPlayer extends HTMLElement {
           <span class="msi-volume-up" aria-hidden="true"></span>
         </button>
         <input type="range" class="volume" aria-label="Lautstärke" min="0" max="1" step="0.05" value="1">
+        ${shareItem}
       </div>
       <p class="status sr-only" role="status"></p>
       <p class="error" role="alert" hidden></p>

@@ -146,6 +146,14 @@
   --msi-icon: 'volume_off';
 }
 
+.msi-share {
+  --msi-icon: 'share';
+}
+
+.msi-check {
+  --msi-icon: 'check';
+}
+
 .msi-subtitles {
   --msi-icon: 'subtitles';
 }

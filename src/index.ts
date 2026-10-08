@@ -14,6 +14,7 @@ import { initViewTransitions } from './scripts/components/view-transitions'
 
 /* Transcript */
 import '@plugins/kirby-tw-transcript/assets/tw-transcript.css'
+import { initDeepLink } from './scripts/components/deep-link'
 import { initTranscriptSync } from './scripts/components/transcript-sync'
 import { initTranscriptWords } from './scripts/components/transcript-words'
 
@@ -27,6 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initAudioPlayers()
   initTranscriptSync()
   initTranscriptWords()
+  initDeepLink()
   initViewTransitions()
   initKomments()
   openCommentFromHash()
