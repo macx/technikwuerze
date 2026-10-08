@@ -40,6 +40,11 @@ $chapters = array_map(
   $data['chapters'] ?? [],
 );
 
+$season = trim((string) $episode->podcasterseason()->value());
+$publishedDate = $episode->date()->isNotEmpty() ? $episode->date() : null;
+$publishedDatetime = $publishedDate?->toDate('c') ?? '';
+$publishedLabel = $publishedDate?->toDate('d.m.Y') ?? '';
+
 $jsonFlags =
   JSON_UNESCAPED_SLASHES |
   JSON_UNESCAPED_UNICODE |
@@ -54,6 +59,9 @@ $jsonFlags =
   data-dock="<?= ($dock ?? 'always') === 'started' ? 'started' : 'always' ?>"
   data-title="<?= esc((string) $data['title'], 'attr') ?>"
   data-number="<?= esc(trim((string) $episode->podcasterepisodetotal()->value()), 'attr') ?>"
+  data-phase="<?= esc($season, 'attr') ?>"
+  data-published="<?= esc($publishedDatetime, 'attr') ?>"
+  data-published-label="<?= esc($publishedLabel, 'attr') ?>"
   data-show="<?= esc((string) $data['show']['title'], 'attr') ?>"
   data-poster="<?= esc((string) ($data['poster'] ?? ''), 'attr') ?>"
   data-duration="<?= $toSeconds((string) $data['duration']) ?>"
@@ -62,4 +70,10 @@ $jsonFlags =
   data-skip-forward="30"
 >
   <audio controls preload="none" src="<?= esc($audioUrl, 'attr') ?>"></audio>
+  <?php if ($publishedLabel !== ''): ?>
+    <time class="published-fallback" datetime="<?= htmlspecialchars(
+      $publishedDatetime,
+      ENT_QUOTES,
+    ) ?>" pubdate><?= esc($publishedLabel) ?></time>
+  <?php endif; ?>
 </tw-audio-player>
