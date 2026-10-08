@@ -23,7 +23,7 @@ $parts = [
   <?php if ($library): ?>
     <a class="library-link" href="<?= $library->url() ?>">
       <span class="msi-list" aria-hidden="true"></span>
-      <?= $library->title()->html() ?>
+      <span class="label"><?= $library->title()->html() ?></span>
     </a>
   <?php endif; ?>
   <dl>

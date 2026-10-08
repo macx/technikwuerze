@@ -58,6 +58,10 @@
       color: var(--card-grid-scheme);
       text-align: start;
       text-wrap: balance;
+
+      .tw-tag + & {
+        margin-block-start: var(--sp-xs);
+      }
     }
 
     .card-grid-subtitle {

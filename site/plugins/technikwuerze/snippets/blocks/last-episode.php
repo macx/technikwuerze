@@ -68,7 +68,7 @@ if ($latestEpisode) {
         </p>
 
         <div class="podcast-player-actions">
-          <a href="<?= $latestEpisode->url() ?>" class="button-primary" data-icon-position="right" style="--color-scheme: var(--clr-secondary)">
+          <a href="<?= $latestEpisode->url() ?>" class="button-primary" data-icon-position="right">
             <i class="msi-arrow-forward" aria-hidden="true"></i>
             <span>Zur Folge</span>
           </a>
