@@ -116,6 +116,7 @@ Maintain and evolve the Technikwürze Kirby site safely and consistently:
 - Hosts/Guests are assigned via participant page references, always as `page://<uuid>` (never path ids like `teilnehmende/slug` – Kirby does not resolve them there).
 - `podcasterHosts` („Team & Gastmoderation“) holds team members of the episode plus guests who host it; `podcasterGuests` holds all other guests. The episode page always labels the first group „Moderation“ (participant pages keep the roles „Team“ / „Gast“).
 - Audio field in episode panel is configured to select/upload from central `site.find("audio")`.
+- Episode topics: `Topics` („Hauptthema“, 1 to 3 free tags, shown on the participant stats) and `General-topics` („Allgemeine Themen“, tags restricted to the catalog the team maintains in Panel → Site → Settings → „Themenkatalog“, stored as `General-topics-catalog` in `content/site.txt`). The skill `transkript-metadaten` fills both while they are empty (`scripts/transcripts/meta.py catalog | topics | settopics`); it never extends the catalog.
 - Kirby status for episodes is folder-name driven (no `Status:` field in `episode.txt`):
   - `draft`: episode folder is inside `_drafts/`
   - `unlisted`: episode folder name is `NNN-slug` (example: `001-tw188-...`)

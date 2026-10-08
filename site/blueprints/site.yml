@@ -97,6 +97,14 @@ tabs:
           tags:
             label: Tags
             type: tags
+          general_topics_catalog:
+            label:
+              de: Themenkatalog
+              en: Topic catalog
+            type: tags
+            help:
+              de: 'Auswahl für das Feld „Allgemeine Themen“ in den Folgen. Eher grob halten, nicht zu kleinteilig.'
+              en: 'Options for the “General topics” field of episodes. Keep it coarse, not too granular.'
 
       - width: 1/3
         fields:
