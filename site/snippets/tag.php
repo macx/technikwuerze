@@ -5,4 +5,4 @@
 if (empty($text)) {
   return;
 } ?>
-<span class="tw-tag"><?= esc($text) ?></span>
+<span class="tag secondary"><?= esc($text) ?></span>

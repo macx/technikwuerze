@@ -1,14 +1,49 @@
-.tw-tag {
-  display: inline-block;
+.tag {
+  --tag-bg: color-mix(in srgb, var(--clr-primary) 15%, transparent);
+  --tag-color: var(--clr-primary);
+
+  display: inline-flex;
+  align-items: center;
   align-self: start;
-  padding-block: 0.2em;
-  padding-inline: 0.8em;
-  border: 1px solid var(--clr-secondary);
-  border-radius: 99rem;
-  background-color: color-mix(in srgb, var(--clr-secondary) 12%, transparent);
-  color: var(--clr-secondary);
-  font-size: var(--fs-xs);
+  padding-block: 0.12em;
+  padding-inline: 0.58em;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, currentcolor 30%, transparent);
+  background-color: var(--tag-bg);
+  color: var(--tag-color);
+  font-size: 0.84em;
   font-weight: var(--fw-bold);
-  line-height: 1.2;
+  line-height: 1.15;
   white-space: nowrap;
+
+  &.secondary {
+    --tag-bg: color-mix(in srgb, var(--clr-secondary) 12%, transparent);
+    --tag-color: var(--clr-secondary);
+
+    padding-block: 0.2em;
+    padding-inline: 0.8em;
+    border-color: var(--clr-secondary);
+    font-size: var(--fs-xs);
+    line-height: 1.2;
+  }
+
+  &.ok {
+    --tag-bg: color-mix(in srgb, #23a55a 20%, transparent);
+    --tag-color: #1d7f46;
+  }
+
+  &.warn {
+    --tag-bg: color-mix(in srgb, #e3a700 24%, transparent);
+    --tag-color: #8a6500;
+  }
+
+  &.danger {
+    --tag-bg: color-mix(in srgb, #cf2f2f 20%, transparent);
+    --tag-color: #9b1f1f;
+  }
+
+  &.info {
+    --tag-bg: color-mix(in srgb, #2164da 20%, transparent);
+    --tag-color: #1e4fa9;
+  }
 }

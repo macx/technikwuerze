@@ -272,44 +272,6 @@ strong {
   white-space: nowrap;
 }
 
-.tw-badge {
-  --badge-bg: color-mix(in srgb, var(--clr-primary) 15%, transparent);
-  --badge-color: var(--clr-primary);
-
-  display: inline-flex;
-  align-items: center;
-  padding-block: 0.12em;
-  padding-inline: 0.58em;
-  border-radius: 999px;
-  border: 1px solid color-mix(in srgb, currentcolor 30%, transparent);
-  background-color: var(--badge-bg);
-  color: var(--badge-color);
-  font-size: 0.84em;
-  font-weight: var(--fw-bold);
-  line-height: 1.15;
-  white-space: nowrap;
-
-  &.ok {
-    --badge-bg: color-mix(in srgb, #23a55a 20%, transparent);
-    --badge-color: #1d7f46;
-  }
-
-  &.warn {
-    --badge-bg: color-mix(in srgb, #e3a700 24%, transparent);
-    --badge-color: #8a6500;
-  }
-
-  &.danger {
-    --badge-bg: color-mix(in srgb, #cf2f2f 20%, transparent);
-    --badge-color: #9b1f1f;
-  }
-
-  &.info {
-    --badge-bg: color-mix(in srgb, #2164da 20%, transparent);
-    --badge-color: #1e4fa9;
-  }
-}
-
 .tw-abbr {
   text-decoration: underline dotted;
   text-decoration-color: color-mix(in srgb, var(--clr-primary) 50%, transparent);

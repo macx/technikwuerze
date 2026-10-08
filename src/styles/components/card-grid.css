@@ -59,7 +59,7 @@
       text-align: start;
       text-wrap: balance;
 
-      .tw-tag + & {
+      .tag + & {
         margin-block-start: var(--sp-xs);
       }
     }
