@@ -54,7 +54,7 @@ return [
       }
 
       $tone = $renderBadgeTone($tag->tone);
-      $classes = ['tw-badge'];
+      $classes = ['tag'];
 
       if ($tone !== 'default') {
         $classes[] = $tone;

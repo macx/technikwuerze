@@ -140,6 +140,8 @@ pnpm run build
 
 ### Keep Local Runtime Data in Sync
 
+Every sync command asks interactively (y/n): a push asks whether you pulled before editing, a pull asks whether you pushed your local changes first; a pull also lists local files that would be deleted. No input aborts.
+
 ```bash
 # pull all DB files from content/.db
 pnpm run sync:pull:db
@@ -147,8 +149,9 @@ pnpm run sync:pull:db
 # pull only audio
 pnpm run sync:pull:audio
 
-# pull covers + avatars
+# pull only covers / only avatars (lists local files that would be deleted and asks first)
 pnpm run sync:pull:covers
+pnpm run sync:pull:avatars
 
 # push all DB files from content/.db (asks for confirmation)
 pnpm run sync:push:db
@@ -156,8 +159,9 @@ pnpm run sync:push:db
 # push only audio (asks for confirmation)
 pnpm run sync:push:audio
 
-# push covers + avatars (asks for confirmation)
+# push only covers / only avatars (asks for confirmation)
 pnpm run sync:push:covers
+pnpm run sync:push:avatars
 ```
 
 ## License

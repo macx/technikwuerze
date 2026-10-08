@@ -1,6 +1,6 @@
 {
   "name": "technikwuerze",
-  "version": "3.26.0",
+  "version": "3.27.0",
   "description": "Website of the first ever podcast for developers in Germany",
   "type": "module",
   "browserslist": [
@@ -24,29 +24,32 @@
     "release:minor": "release-it minor",
     "release:major": "release-it major",
     "generate:search-blacklist": "node scripts/generate-search-blacklist.mjs",
+    "search:reindex": "bash ops/reindex-search.sh",
     "sync:pull:db": "bash ops/sync-runtime-from-prod.sh db",
     "sync:pull:audio": "bash ops/sync-runtime-from-prod.sh audio",
     "sync:pull:covers": "bash ops/sync-runtime-from-prod.sh covers",
+    "sync:pull:avatars": "bash ops/sync-runtime-from-prod.sh avatars",
     "sync:pull:accounts": "bash ops/sync-runtime-from-prod.sh accounts",
     "sync:push:db": "bash ops/sync-runtime-to-prod.sh db",
     "sync:push:audio": "bash ops/sync-runtime-to-prod.sh audio",
-    "sync:push:covers": "bash ops/sync-runtime-to-prod.sh covers"
+    "sync:push:covers": "bash ops/sync-runtime-to-prod.sh covers",
+    "sync:push:avatars": "bash ops/sync-runtime-to-prod.sh avatars"
   },
   "devDependencies": {
     "@2toad/profanity": "^3.3.0",
     "@prettier/plugin-php": "^0.25.0",
-    "@spiriit/vite-plugin-svg-spritemap": "^7.0.0",
-    "@types/node": "^25.9.1",
-    "open": "^11.0.0",
-    "prettier": "^3.8.3",
-    "release-it": "^20.2.0",
-    "typescript": "^6.0.3",
-    "vite": "^8.0.15",
+    "@spiriit/vite-plugin-svg-spritemap": "^7.2.0",
+    "@types/node": "^24.19.1",
+    "open": "^11.0.4",
+    "prettier": "^3.9.9",
+    "release-it": "^21.1.0",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.3",
     "vite-plugin-kirby": "^5.7.1",
-    "vitest": "^4.1.7"
+    "vitest": "^5.0.3"
   },
   "packageManager": "pnpm@11.5.0",
   "dependencies": {
-    "@fontsource-variable/material-symbols-outlined": "^5.2.45"
+    "@fontsource-variable/material-symbols-outlined": "^5.3.8"
   }
 }

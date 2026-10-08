@@ -8,7 +8,7 @@ use Loupe\Loupe\Loupe;
 use Loupe\Loupe\LoupeFactory;
 use Loupe\Loupe\SearchParameters;
 
-const TW_SEARCH_META_VERSION = 5;
+const TW_SEARCH_META_VERSION = 7;
 
 const TW_SEARCH_SKIPPED_BLOCK_KEYS = [
   'id',
@@ -567,8 +567,11 @@ function twSearchPageDocument(Page $page): array
     $subtitle = $profession;
   }
 
-  $text = twSearchPageText($page);
-  $displayText = twSearchPageDisplayText($page);
+  $text =
+    $entity === 'participant'
+      ? twSearchPlainText((string) $page->description()->value())
+      : twSearchPageText($page);
+  $displayText = $entity === 'participant' ? $text : twSearchPageDisplayText($page);
 
   return [
     'id' => twSearchPageDocumentId($page->uuid()->toString()),
@@ -580,7 +583,7 @@ function twSearchPageDocument(Page $page): array
     'text' => $text,
     'displayText' => $displayText,
     'author' => '',
-    'url' => $page->url(),
+    'url' => $page->uri(),
     'pageTitle' => $title,
     'updatedTs' => twSearchTimestampFromPage($page),
   ];
@@ -628,7 +631,7 @@ function twSearchCommentDocuments(Page $page): array
       'subtitle' => 'Zu: ' . $page->title()->value(),
       'text' => $content,
       'author' => $author,
-      'url' => $page->url() . '#c' . $comment->id(),
+      'url' => $page->uri() . '#c' . $comment->id(),
       'pageTitle' => $page->title()->value(),
       'updatedTs' => (int) $timestamp,
     ];
@@ -964,7 +967,7 @@ function twSearchSearch(
       'subtitle' => (string) ($hit['subtitle'] ?? ''),
       'text' => twSearchQueryContextExcerpt($displayText, $query),
       'author' => (string) ($hit['author'] ?? ''),
-      'url' => (string) ($hit['url'] ?? ''),
+      'url' => url((string) ($hit['url'] ?? '')),
       'pageTitle' => (string) ($hit['pageTitle'] ?? ''),
       'updatedTs' => (int) ($hit['updatedTs'] ?? 0),
       'score' => $score * twSearchHitWeight($entity),

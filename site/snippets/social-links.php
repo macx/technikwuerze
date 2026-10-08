@@ -22,7 +22,6 @@ $networkLabels = [
   'instagram' => 'Instagram',
   'linkedin' => 'LinkedIn',
   'mastodon' => 'Mastodon',
-  'other' => 'Profil',
   'threads' => 'Threads',
   'tiktok' => 'TikTok',
   'twitch' => 'Twitch',

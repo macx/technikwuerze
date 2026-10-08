@@ -3,6 +3,8 @@ title:
   en: Participant
 icon: user
 
+info: "{{ page.textReviewInfo }}"
+
 status:
   draft:
     label:
@@ -72,8 +74,10 @@ tabs:
                       en: Label
                     type: text
                     help:
-                      de: Optionaler Anzeigetext für die Frontend-Ausgabe.
-                      en: Optional display text for frontend output.
+                      de: Optionaler Anzeigetext, sonst wird die URL gezeigt.
+                      en: Optional display text, the URL is shown otherwise.
+                    when:
+                      network: website
               linked_user:
                 label:
                   de: Verknüpfter Benutzeraccount
@@ -182,6 +186,17 @@ tabs:
                   de: Pronomen
                   en: Pronouns
                 type: text
+              text_review:
+                label:
+                  de: Text prüfen
+                  en: Review text
+                type: toggle
+                text:
+                  de: Beschreibung auf Aktualität prüfen
+                  en: Check description for accuracy
+                help:
+                  de: Wird automatisch gesetzt, wenn eine Folge mit dieser Person veröffentlicht oder ihre Besetzung geändert wurde. Nach der Prüfung des Technikwürze-Absatzes abhaken.
+                  en: Set automatically when an episode with this person is published or its cast changed. Clear it after checking the Technikwürze paragraph.
               participation_stats:
                 label:
                   de: Mitwirkungen

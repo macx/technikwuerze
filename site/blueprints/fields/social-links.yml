@@ -26,9 +26,6 @@ fields:
       website:
         de: Website
         en: Website
-      other:
-        de: Sonstiges
-        en: Other
     required: true
   url:
     label: URL

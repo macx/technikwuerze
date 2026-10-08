@@ -12,6 +12,20 @@ $transitionName = 'participant-name-' . $page->slug();
 $transitionImageName = 'participant-image-' . $page->slug();
 $image = $page->profile_image()->toFile();
 $profiles = $page->external_profiles()->toStructure();
+$networkNames = [
+  'bluesky' => 'Bluesky',
+  'mastodon' => 'Mastodon',
+  'threads' => 'Threads',
+  'instagram' => 'Instagram',
+  'tiktok' => 'TikTok',
+  'youtube' => 'YouTube',
+  'discord' => 'Discord',
+  'linkedin' => 'LinkedIn',
+  'twitch' => 'Twitch',
+  'x' => 'X',
+  'github' => 'GitHub',
+  'amazon' => 'Amazon',
+];
 $profileLinks = [];
 
 foreach ($profiles as $profile) {
@@ -21,15 +35,15 @@ foreach ($profiles as $profile) {
     continue;
   }
 
-  $label = trim((string) $profile->profile_label()->value());
   $network = trim((string) $profile->network()->value());
+  $label = $network === 'website' ? trim((string) $profile->profile_label()->value()) : '';
 
   $iconNetwork = is_file(kirby()->root('base') . '/src/assets/social/' . $network . '.svg')
     ? $network
     : 'website';
 
   $profileLinks[] = [
-    'label' => in_array($label, ['', 'Website'], true) ? Kirby\Http\Url::short($url) : $label,
+    'label' => $label !== '' ? $label : $networkNames[$network] ?? Kirby\Http\Url::short($url),
     'network' => $iconNetwork,
     'url' => $url,
   ];
@@ -111,10 +125,7 @@ if ($page->participant_role()->value() === 'host') {
     }
   }
 }
-$teamRolesSentence =
-  count($teamRoles) > 1
-    ? implode(', ', array_slice($teamRoles, 0, -1)) . ' und ' . end($teamRoles)
-    : $teamRoles[0] ?? '';
+$participantRoles = $isGuestHost ? ['Gastmoderation'] : $teamRoles;
 
 snippet('layout', slots: true);
 ?>
@@ -245,10 +256,15 @@ snippet('layout', slots: true);
           <?= $page->description()->kt() ?>
         <?php endif; ?>
 
-        <?php if ($teamRoles !== []): ?>
-          <p><?= esc(
-            $fullName !== '' ? $fullName : $page->title()->value(),
-          ) ?> ist bei Technikwürze <?= esc($teamRolesSentence) ?>.</p>
+        <?php if ($participantRoles !== []): ?>
+          <div class="participant-roles">
+            <p id="participant-roles-label">Rollen bei Technikwürze:</p>
+            <ul class="tags" aria-labelledby="participant-roles-label">
+              <?php foreach ($participantRoles as $participantRole): ?>
+                <li class="tag"><?= esc($participantRole) ?></li>
+              <?php endforeach; ?>
+            </ul>
+          </div>
         <?php endif; ?>
 
         <?php if ($recentParticipations->isNotEmpty()): ?>

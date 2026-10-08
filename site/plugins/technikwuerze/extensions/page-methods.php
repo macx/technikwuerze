@@ -12,6 +12,9 @@ return [
   'participationTotalCount' => function (): int {
     return twParticipantStats($this)['totalCount'];
   },
+  'textReviewInfo' => function (): string {
+    return $this->text_review()->toBool() ? 'Text prüfen' : '';
+  },
   'transcriptWordsUrl' => function (): ?string {
     return twTranscriptWordsFile($this) === null ? null : $this->url() . '/transcript-words';
   },
