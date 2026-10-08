@@ -108,7 +108,10 @@ class TwAudioPlayer extends HTMLElement {
   #render(): void {
     const poster = this.dataset.poster ?? ''
     const title = this.dataset.title ?? ''
-    const show = [this.dataset.show, this.dataset.number].filter(Boolean).join(' ')
+    const phase = this.dataset.phase ? `(Phase ${this.dataset.phase})` : ''
+    const show = [this.dataset.show, this.dataset.number, phase].filter(Boolean).join(' ')
+    const published = this.dataset.published ?? ''
+    const publishedLabel = this.dataset.publishedLabel ?? ''
 
     const shareItem = `
       <span class="share-item has-tooltip">
@@ -127,6 +130,7 @@ class TwAudioPlayer extends HTMLElement {
       <div class="info">
         <p class="title"></p>
         <p class="show"></p>
+        <p class="date"><time pubdate></time></p>
       </div>
       <div class="transport">
         <button type="button" class="skip back">
@@ -173,6 +177,13 @@ class TwAudioPlayer extends HTMLElement {
     const query = <T extends HTMLElement>(selector: string): T => ui.querySelector<T>(selector)!
     ui.querySelector('.show')!.textContent = show
     ui.querySelector('.title')!.textContent = title
+    const date = ui.querySelector<HTMLTimeElement>('.date time')!
+    if (publishedLabel) {
+      date.textContent = publishedLabel
+      date.dateTime = published
+    } else {
+      date.parentElement!.remove()
+    }
     const cover = ui.querySelector<HTMLImageElement>('.cover')
     if (cover) cover.src = poster
 

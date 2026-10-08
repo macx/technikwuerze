@@ -84,6 +84,7 @@
     background-color: var(--clr-bg-light);
     border: 1px solid var(--clr-border);
     padding: var(--sp-s);
+    padding-block-end: var(--sp-xs);
     align-self: start;
     justify-self: center;
   }

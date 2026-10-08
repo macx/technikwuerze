@@ -99,6 +99,7 @@ Maintain and evolve the Technikwürze Kirby site safely and consistently:
 
 - Deep links: `<episode>#t=<seconds>` seeks the player, opens the transcript, marks and scrolls to the segment (`src/scripts/components/deep-link.ts`, helpers in `deep-link-time.ts`, scroll/mark via `revealPlaytime` in `transcript-sync.ts`). One share button in the player (`data-share-current`, inline and docked) shares the current position; there are deliberately no per-segment share buttons. Autoplay is attempted but usually blocked by browsers, so the visitor starts playback with one click. A cross-page persistent player is only a concept so far: `docs/concept-persistent-player.md`.
 
+- The publication date is the third line of the native audio player (`<time datetime pubdate>`, rendered by `audio-player.ts` from `data-published*`; `.published-fallback` serves no-JS). The second line reads „Technikwürze 7 (Phase 1)“. The episode type („Reguläre Folge,“) is plain text before the download link. Episode pages also output a schema.org `PodcastEpisode` JSON-LD block with `datePublished` (and `dateModified` only when `rerelease` is set) in `site/templates/episode.php`. The right column of the player card shows only the participants.
 - IndieConnector sends webmentions only on production (`config.technikwuerze.de.php`) and only on status change of an episode (publishing), never on plain updates (`send.automatically` = false). The outbox file `indieConnector.json` is git-ignored in the content repo.
 
 ## 6) Participant Model (Current State)

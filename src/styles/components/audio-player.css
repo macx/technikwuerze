@@ -1,5 +1,5 @@
 .audio-player {
-  --c-cover-size: 3.75rem;
+  --c-cover-size: 4.5rem;
 
   display: block;
 
@@ -11,7 +11,7 @@
     inline-size: 100%;
   }
 
-  &[data-ready] audio {
+  &[data-ready] :is(audio, .published-fallback) {
     display: none;
   }
 
@@ -32,6 +32,14 @@
     gap: var(--sp-xs) var(--sp-s);
     font-size: var(--fs-s);
     color: var(--clr-text);
+
+    &:not(:has(.chapters)) {
+      grid-template-areas:
+        'cover info'
+        'transport transport'
+        'timeline timeline'
+        'options options';
+    }
   }
 
   .cover {
@@ -50,7 +58,7 @@
       margin-block: 0;
     }
 
-    .show {
+    :is(.show, .date) {
       font-size: var(--fs-xs);
       color: var(--clr-text-light);
     }
@@ -74,6 +82,8 @@
     align-items: center;
     justify-content: center;
     gap: var(--sp-s);
+    padding-block-start: var(--sp-s);
+    border-block-start: 1px solid var(--clr-border);
   }
 
   .share {
@@ -124,9 +134,15 @@
     border: 0;
     border-radius: 50%;
     background: transparent;
+    color: var(--clr-text-light);
 
     [class^='msi-'] {
       font-size: 2.25rem;
+      font-variation-settings:
+        'FILL' 0,
+        'wght' 300,
+        'GRAD' 0,
+        'opsz' 24;
     }
 
     &.forward [class^='msi-'] {
@@ -143,14 +159,15 @@
 
     &:is(:hover, :focus-visible) {
       background: var(--clr-hover);
+      color: var(--clr-text);
     }
   }
 
   .toggle {
     display: grid;
     place-items: center;
-    inline-size: 3.5rem;
-    block-size: 3.5rem;
+    inline-size: 3.125rem;
+    block-size: 3.125rem;
     padding: 0;
     border: 0;
     border-radius: 50%;
@@ -158,7 +175,7 @@
     color: var(--clr-text-opposite);
 
     [class^='msi-'] {
-      font-size: 2.25rem;
+      font-size: 2rem;
       font-variation-settings:
         'FILL' 1,
         'wght' 500,
@@ -178,6 +195,11 @@
     align-items: center;
     gap: var(--sp-xs);
     font-variant-numeric: tabular-nums;
+
+    time {
+      font-size: var(--fs-xs);
+      color: var(--clr-text-light);
+    }
   }
 
   .seek,
@@ -185,7 +207,7 @@
     --progress: 0%;
     appearance: none;
     inline-size: 100%;
-    block-size: 2.75rem;
+    block-size: 2rem;
     margin: 0;
     background: transparent;
     cursor: pointer;
@@ -230,25 +252,45 @@
   }
 
   .options {
+    --c-control: 2.25rem;
+    --c-share-inset: calc(((var(--c-control) - 1.5rem) / 2 + 0.25rem) * -1);
+
     grid-area: options;
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr auto auto 1fr;
     align-items: center;
-    justify-content: center;
-    gap: var(--sp-xs);
+    padding-block-start: var(--sp-xs);
+    border-block-start: 1px solid var(--clr-border);
+
+    .rate {
+      justify-self: start;
+    }
+
+    .share-item {
+      justify-self: end;
+      margin-inline-end: var(--c-share-inset);
+    }
+
+    .share {
+      inline-size: var(--c-control);
+      block-size: var(--c-control);
+    }
 
     select {
-      min-block-size: 2.75rem;
-      padding-inline: var(--sp-xxs);
+      min-block-size: 2rem;
+      padding-block: 0;
+      padding-inline: 0.5em 0.25em;
       border: 1px solid var(--clr-border);
       border-radius: var(--radius-button-xs);
       background: transparent;
+      font-size: var(--fs-xs);
     }
 
     .mute {
       display: grid;
       place-items: center;
-      inline-size: 2.75rem;
-      block-size: 2.75rem;
+      inline-size: var(--c-control);
+      block-size: var(--c-control);
       padding: 0;
       border: 0;
       border-radius: 50%;
@@ -350,6 +392,10 @@
     }
 
     .info {
+      .date {
+        display: none;
+      }
+
       :is(.title, .show) {
         overflow: hidden;
         text-overflow: ellipsis;
@@ -363,6 +409,8 @@
 
     .transport {
       gap: var(--sp-xxs);
+      padding-block-start: 0;
+      border-block-start: 0;
 
       .share-item {
         display: inline-flex;
@@ -377,9 +425,23 @@
 
     @media (width >= 48em) {
       .layout {
-        grid-template-columns: auto minmax(8rem, 18rem) auto minmax(12rem, 1fr);
-        grid-template-areas: 'cover info transport timeline';
+        grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+        grid-template-areas: 'info transport timeline';
         gap: 0 var(--sp-s);
+      }
+
+      .cover {
+        grid-area: info;
+        justify-self: start;
+      }
+
+      .info {
+        padding-inline-start: calc(2.75rem + var(--sp-s));
+      }
+
+      .timeline {
+        justify-self: end;
+        inline-size: min(100%, 16rem);
       }
     }
   }

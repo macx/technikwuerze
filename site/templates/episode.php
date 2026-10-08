@@ -24,6 +24,9 @@ if ($updatedLabel === '') {
 
 $episodeType = trim((string) $page->podcasterepisodetype()->value());
 $episodeTypeLabel = $page->episodeTypeLabel();
+$downloadFile = (new \mauricerenck\Podcaster\Podcast())->getAudioFile($page) ?: null;
+$episodeTypeNote =
+  $episodeTypeLabel !== '-' ? esc($episodeTypeLabel) . ($downloadFile !== null ? ',' : '') : '';
 $episodeTotal = trim((string) $page->podcasterepisodetotal()->value());
 if ($episodeTotal === '') {
   $episodeTotal = '-';
@@ -118,6 +121,29 @@ snippet('layout', slots: true);
 
 <?php slot(); ?>
   <article class="episode-view">
+    <?php if ($publishedDatetime !== ''): ?>
+      <script type="application/ld+json"><?= json_encode(
+        array_filter([
+          '@context' => 'https://schema.org',
+          '@type' => 'PodcastEpisode',
+          'name' => $page->title()->value(),
+          'url' => $page->url(),
+          'datePublished' => $publishedDatetime,
+          'dateModified' => $reReleaseDate ? $updatedDatetime : null,
+          'description' => $page->podcasterdescription()->isNotEmpty()
+            ? trim(strip_tags((string) $page->podcasterdescription()->kti()))
+            : null,
+          'episodeNumber' => ctype_digit($episodeTotal) ? (int) $episodeTotal : null,
+          'inLanguage' => 'de',
+          'partOfSeries' => [
+            '@type' => 'PodcastSeries',
+            'name' => $site->title()->value(),
+            'url' => $page->parent()?->parent()?->url() ?? $site->url(),
+          ],
+        ]),
+        JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG,
+      ) ?></script>
+    <?php endif; ?>
     <header class="page-header content">
       <h1 class="title">
         <?= $page->title()->html() ?>
@@ -150,12 +176,6 @@ snippet('layout', slots: true);
           ); ?>
           <?php slot(); ?>
             <div class="episode-info">
-              <?php snippet('episode-ordinal', [
-                'page' => $page,
-                'episodeTotal' => $episodeTotal,
-                'typeLabel' => $episodeTypeLabel,
-              ]); ?>
-
               <?php foreach (
                 ['Moderation' => $hosts, 'Gäste' => $guests]
                 as $groupLabel => $groupParticipants
@@ -177,21 +197,22 @@ snippet('layout', slots: true);
             </div>
           <?php endslot(); ?>
 
-          <?php if (
-            $downloadFile = (new \mauricerenck\Podcaster\Podcast())->getAudioFile($page)
-          ): ?>
+          <?php if ($downloadFile !== null || $episodeTypeNote !== ''): ?>
             <?php slot('mediaNote'); ?>
-              <a
-                href="<?= $page->url() .
-                  '/' .
-                  option('mauricerenck.podcaster.downloadTriggerPath', 'download') .
-                  '/' .
-                  $downloadFile->filename() ?>"
-                download
-              >Download (MP3, <?= max(
-                1,
-                (int) round($downloadFile->size() / 1048576),
-              ) ?>&nbsp;MB)</a>
+              <?= $episodeTypeNote ?>
+              <?php if ($downloadFile !== null): ?>
+                <a
+                  href="<?= $page->url() .
+                    '/' .
+                    option('mauricerenck.podcaster.downloadTriggerPath', 'download') .
+                    '/' .
+                    $downloadFile->filename() ?>"
+                  download
+                >Download (MP3, <?= max(
+                  1,
+                  (int) round($downloadFile->size() / 1048576),
+                ) ?>&nbsp;MB)</a>
+              <?php endif; ?>
             <?php endslot(); ?>
           <?php endif; ?>
         <?php endsnippet(); ?>
