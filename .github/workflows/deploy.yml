@@ -120,8 +120,20 @@ jobs:
             set -e
             cd '${DEPLOY_PATH}'
             mkdir -p site/cache site/sessions
-            rm -rf site/cache/* || true
+            find site/cache -mindepth 1 -maxdepth 1 ! -name 'twz-search' ! -name 'twz-search-meta.json' -exec rm -rf {} + || true
             if [ ! -d content/.git ]; then
               echo 'WARNING: content/.git not found. Content repo must be cloned separately on production.'
             fi
           "
+
+      - name: Rebuild search index if its format changed
+        continue-on-error: true
+        env:
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+          DEPLOY_PORT: ${{ secrets.DEPLOY_PORT }}
+          DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+          DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
+        run: |
+          ssh -p "${DEPLOY_PORT:-22}" "${DEPLOY_USER}@${DEPLOY_HOST}" \
+            "cd '${DEPLOY_PATH}' && TW_BASE='${DEPLOY_PATH}' php -d error_reporting=0 -d max_execution_time=0 -d memory_limit=2G" \
+            < ops/reindex-search.php

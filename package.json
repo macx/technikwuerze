@@ -24,6 +24,7 @@
     "release:minor": "release-it minor",
     "release:major": "release-it major",
     "generate:search-blacklist": "node scripts/generate-search-blacklist.mjs",
+    "search:reindex": "bash ops/reindex-search.sh",
     "sync:pull:db": "bash ops/sync-runtime-from-prod.sh db",
     "sync:pull:audio": "bash ops/sync-runtime-from-prod.sh audio",
     "sync:pull:covers": "bash ops/sync-runtime-from-prod.sh covers",
