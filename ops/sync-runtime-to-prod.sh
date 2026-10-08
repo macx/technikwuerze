@@ -34,21 +34,41 @@ RSYNC_SSH=(ssh -p "$SYNC_PORT")
 mkdir -p content/.db content/audio
 mkdir -p content/covers content/avatars
 
-ssh -p "$SYNC_PORT" "${SYNC_USER}@${SYNC_HOST}" "mkdir -p '${REMOTE_CONTENT_PATH}/.db' '${REMOTE_CONTENT_PATH}/audio' '${REMOTE_CONTENT_PATH}/covers' '${REMOTE_CONTENT_PATH}/avatars'"
+ssh -n -p "$SYNC_PORT" "${SYNC_USER}@${SYNC_HOST}" "mkdir -p '${REMOTE_CONTENT_PATH}/.db' '${REMOTE_CONTENT_PATH}/audio' '${REMOTE_CONTENT_PATH}/covers' '${REMOTE_CONTENT_PATH}/avatars'"
+
+ask_yes_no() {
+  local question="$1"
+  local reply
+
+  while true; do
+    printf '%s [y/n] ' "$question"
+    if ! read -r reply; then
+      echo "No input, aborting." >&2
+      exit 1
+    fi
+    case "$reply" in
+      y|Y|yes|j|J|ja) return 0 ;;
+      n|N|no|nein) return 1 ;;
+      *) echo "Please answer y or n." ;;
+    esac
+  done
+}
 
 confirm_overwrite() {
   local source_path="$1"
   local target_path="$2"
 
-  printf 'This will overwrite remote data via rsync (--delete):\n  %s -> %s\nContinue? [y/N] ' "$source_path" "$target_path"
-  read -r reply
-  case "$reply" in
-    y|Y) ;;
-    *)
-      echo "Aborted."
-      exit 1
-      ;;
-  esac
+  printf 'Push (--delete): %s -> %s\n' "$source_path" "$target_path"
+
+  if ! ask_yes_no "Did you PULL from production right before editing locally?"; then
+    echo "Aborted. Pull first, otherwise changes made on production since then are lost."
+    exit 1
+  fi
+
+  if ! ask_yes_no "Really overwrite production with the local data?"; then
+    echo "Aborted."
+    exit 1
+  fi
 }
 
 push_db() {
@@ -87,10 +107,13 @@ case "$MODE" in
   covers)
     confirm_overwrite "./content/covers/" "${SYNC_USER}@${SYNC_HOST}:${REMOTE_CONTENT_PATH}/covers/"
     push_covers
+    ;;
+  avatars)
+    confirm_overwrite "./content/avatars/" "${SYNC_USER}@${SYNC_HOST}:${REMOTE_CONTENT_PATH}/avatars/"
     push_avatars
     ;;
   *)
-    echo "Unknown mode: $MODE (use: db|audio|covers)" >&2
+    echo "Unknown mode: $MODE (use: db|audio|covers|avatars)" >&2
     exit 1
     ;;
 esac

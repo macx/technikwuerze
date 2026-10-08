@@ -33,34 +33,68 @@ RSYNC_SSH=(ssh -p "$SYNC_PORT")
 
 mkdir -p content/.db content/audio content/covers content/avatars
 
+ask_yes_no() {
+  local question="$1"
+  local reply
+
+  while true; do
+    printf '%s [y/n] ' "$question"
+    if ! read -r reply; then
+      echo "No input, aborting." >&2
+      exit 1
+    fi
+    case "$reply" in
+      y|Y|yes|j|J|ja) return 0 ;;
+      n|N|no|nein) return 1 ;;
+      *) echo "Please answer y or n." ;;
+    esac
+  done
+}
+
+pull_dir() {
+  local remote_path="$1"
+  local local_path="$2"
+  local deletions
+
+  printf 'Pull (--delete): %s -> %s\n' "$remote_path" "$local_path"
+
+  if ! ask_yes_no "Did you already PUSH your local changes for this data to production (if you have any)?"; then
+    echo "Aborted. Push first, otherwise local-only files are lost."
+    exit 1
+  fi
+
+  deletions="$(rsync -a --delete --dry-run --itemize-changes -e "${RSYNC_SSH[*]}" "$remote_path" "$local_path" | grep '^\*deleting' || true)"
+
+  if [[ -n "$deletions" ]]; then
+    printf 'These local files do not exist on production and will be DELETED:\n%s\n' "$deletions"
+  fi
+
+  if ! ask_yes_no "Really overwrite the local data with the production data?"; then
+    echo "Aborted."
+    exit 1
+  fi
+
+  rsync -avz --delete -e "${RSYNC_SSH[*]}" "$remote_path" "$local_path"
+}
+
 pull_db() {
-  rsync -avz --delete -e "${RSYNC_SSH[*]}" \
-    "${SYNC_USER}@${SYNC_HOST}:${REMOTE_CONTENT_PATH}/.db/" \
-    "./content/.db/"
+  pull_dir "${SYNC_USER}@${SYNC_HOST}:${REMOTE_CONTENT_PATH}/.db/" "./content/.db/"
 }
 
 pull_audio() {
-  rsync -avz --delete -e "${RSYNC_SSH[*]}" \
-    "${SYNC_USER}@${SYNC_HOST}:${REMOTE_CONTENT_PATH}/audio/" \
-    "./content/audio/"
+  pull_dir "${SYNC_USER}@${SYNC_HOST}:${REMOTE_CONTENT_PATH}/audio/" "./content/audio/"
 }
 
 pull_covers() {
-  rsync -avz --delete -e "${RSYNC_SSH[*]}" \
-    "${SYNC_USER}@${SYNC_HOST}:${REMOTE_CONTENT_PATH}/covers/" \
-    "./content/covers/"
+  pull_dir "${SYNC_USER}@${SYNC_HOST}:${REMOTE_CONTENT_PATH}/covers/" "./content/covers/"
 }
 
 pull_avatars() {
-  rsync -avz --delete -e "${RSYNC_SSH[*]}" \
-    "${SYNC_USER}@${SYNC_HOST}:${REMOTE_CONTENT_PATH}/avatars/" \
-    "./content/avatars/"
+  pull_dir "${SYNC_USER}@${SYNC_HOST}:${REMOTE_CONTENT_PATH}/avatars/" "./content/avatars/"
 }
 
 pull_accounts() {
-  rsync -avz --delete -e "${RSYNC_SSH[*]}" \
-    "${SYNC_USER}@${SYNC_HOST}:${SYNC_REMOTE_PROJECT_PATH%/}/site/accounts/" \
-    "./site/accounts/"
+  pull_dir "${SYNC_USER}@${SYNC_HOST}:${SYNC_REMOTE_PROJECT_PATH%/}/site/accounts/" "./site/accounts/"
 }
 
 case "$MODE" in
@@ -72,13 +106,15 @@ case "$MODE" in
     ;;
   covers)
     pull_covers
+    ;;
+  avatars)
     pull_avatars
     ;;
   accounts)
     pull_accounts
     ;;
   *)
-    echo "Unknown mode: $MODE (use: db|audio|covers|accounts)" >&2
+    echo "Unknown mode: $MODE (use: db|audio|covers|avatars|accounts)" >&2
     exit 1
     ;;
 esac

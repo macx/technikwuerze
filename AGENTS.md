@@ -56,7 +56,7 @@ Maintain and evolve the Technikwürze Kirby site safely and consistently:
 - We do work local for sqlite edits. Workflow for any change to runtime sqlite data (e.g. `komments.sqlite`):
   1. `pnpm run sync:pull:db` — pull the current production DB into local `content/.db/`.
   2. Make the change locally (migration/backfill/manual fix), verify it.
-  3. `pnpm run sync:push:db` — push the updated local DB back to production (`ops/sync-runtime-to-prod.sh db`, requires interactive confirmation, uses `rsync --delete`).
+  3. `pnpm run sync:push:db` — push the updated local DB back to production (`ops/sync-runtime-to-prod.sh db`, requires interactive y/n confirmation, uses `rsync --delete`). Every pull and push asks whether the opposite step was done first; `sync:pull:covers` and `sync:pull:avatars` are separate modes.
      Always pull immediately before editing so the push doesn't clobber production writes that happened since the last pull.
 
 ### Gitignore intent
