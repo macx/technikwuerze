@@ -33,6 +33,10 @@ return [
       'pattern' => 'teilnehmende/ansger-hein',
       'action' => fn() => go('teilnehmende/ansgar-hein', 301),
     ],
+    [
+      'pattern' => 'feed',
+      'action' => fn() => go('mediathek/feed', 301),
+    ],
   ],
 
   'markdown' => [

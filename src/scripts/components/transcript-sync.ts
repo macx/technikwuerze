@@ -80,15 +80,43 @@ const follow = (button: HTMLButtonElement): void => {
   lastFollowAt = now
 }
 
-const syncActive = (playtime: number): void => {
-  const points = getPoints()
-  if (points.length === 0) return
-
+const findActivePoint = (points: Array<TimestampPoint>, playtime: number): TimestampPoint => {
   let active = points[0]
   for (const point of points) {
     if (point.playtime > playtime) break
     active = point
   }
+  return active
+}
+
+export const revealPlaytime = (
+  playtime: number,
+  behavior: ScrollBehavior = 'auto'
+): HTMLButtonElement | null => {
+  const points = getPoints()
+  if (points.length === 0) return null
+
+  const active = findActivePoint(points, playtime)
+  setActive(active.button)
+  lastActivePlaytime = active.playtime
+  lastFollowAt = Date.now()
+
+  const segment = active.button.closest<HTMLElement>('.twt-segment')
+  if (segment) {
+    const top = Math.max(
+      window.scrollY + segment.getBoundingClientRect().top - getFollowOffset(),
+      0
+    )
+    window.scrollTo({ top, behavior })
+  }
+  return active.button
+}
+
+const syncActive = (playtime: number): void => {
+  const points = getPoints()
+  if (points.length === 0) return
+
+  const active = findActivePoint(points, playtime)
 
   const changed = setActive(active.button)
   const previous = lastActivePlaytime

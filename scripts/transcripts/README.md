@@ -112,6 +112,10 @@ All paths are defined once in `lib/paths.py`. Nothing in this toolkit uses the l
   `list` prints uuid and title of all participants; `stub` creates an unlisted participant page (no numeric prefix, empty
   profile, TODO description); `add`/`remove` edit `Podcasterhosts` (H, "Team & Gastmoderation") or `Podcasterguests` (G, "Gäste") of an
   episode as `page://<uuid>` lists; `guestmod` gives a guest the extra role "Gastmoderation".
+- **`meta.py catalog | topics N | settopics N main|general Topic…`** — Topic helper: `catalog` prints the general topics
+  catalog (Panel: Site → Settings → „Themenkatalog“, stored in `content/site.txt`); `topics` shows an episode's main
+  topic (`Topics`) and general topics (`General-topics`); `settopics` sets them (`main`: 1 to 3 free values, `general`:
+  values from the catalog only, matched case-insensitively, anything else is refused).
 
 ### Archive
 

@@ -1,5 +1,6 @@
 """Participant helpers for episode metadata.
 usage: meta.py list | stub First Last slug TW<N> | add N H|G Name... | remove N H|G Name | guestmod Name
+       meta.py catalog | topics N | settopics N main|general "Topic" ["Topic" ...]
 H = Team & Gastmoderation (Podcasterhosts), G = Gäste (Podcasterguests). Stubs are created unlisted (no numeric folder prefix)."""
 import glob, re, os, random, string
 from pathlib import Path
@@ -56,6 +57,52 @@ def remove(n, field, name):
     open(f, 'w', encoding='utf-8').write(t[:m.start()] + new + t[m.end():]); print(n, k, ids)
 
 
+def catalog():
+    """General topics catalog maintained in the Panel (Site > Settings > Topic catalog)."""
+    t = open(ROOT + 'content/site.txt', encoding='utf-8').read()
+    m = re.search(r'^General-topics-catalog:[ \t]*(.*)$', t, re.M)
+    return [x.strip() for x in m.group(1).split(',') if x.strip()] if m else []
+
+
+def episode_file(n):
+    f = glob.glob(ROOT + f'content/2_mediathek/*/*tw{n}-*/episode.txt'); assert len(f) == 1, f'episode tw{n} not found'
+    return f[0]
+
+
+def read_field(t, key):
+    m = re.search(r'^' + key + r':[ \t]*(.*?)\n\n----', t, re.M | re.S | re.I)
+    return [x.strip() for x in m.group(1).split(',') if x.strip()] if m else []
+
+
+def topics(n):
+    t = open(episode_file(n), encoding='utf-8').read()
+    print('main topic     (Topics):         ', ', '.join(read_field(t, 'Topics')) or '-')
+    print('general topics (General-topics): ', ', '.join(read_field(t, 'General-topics')) or '-')
+    print('catalog:', ', '.join(catalog()))
+
+
+def settopics(n, kind, values):
+    """Set the main topic(s) (kind 'main', field Topics, max 3) or general topics (kind 'general', field
+    General-topics, only values from the catalog). Replaces the field value; creates the field before Uuid if missing."""
+    key = {'main': 'Topics', 'general': 'General-topics'}[kind]
+    if kind == 'general':
+        allowed = {c.lower(): c for c in catalog()}
+        unknown = [v for v in values if v.lower() not in allowed]
+        assert not unknown, f'not in the topic catalog: {unknown} (catalog: {sorted(allowed.values())})'
+        values = [allowed[v.lower()] for v in values]
+    else:
+        assert 1 <= len(values) <= 3, 'main topic: 1 to 3 values'
+    f = episode_file(n); t = open(f, encoding='utf-8').read()
+    line = f'{key}: ' + ', '.join(values)
+    m = re.search(r'^' + key + r':.*?(?=\n\n----)', t, re.M | re.S | re.I)
+    if m:
+        t = t[:m.start()] + line + t[m.end():]
+    else:
+        u = re.search(r'^Uuid:', t, re.M); assert u, 'Uuid field not found'
+        t = t[:u.start()] + line + '\n\n----\n\n' + t[u.start():]
+    open(f, 'w', encoding='utf-8').write(t); print(n, line)
+
+
 if __name__ == '__main__':
     import sys
     cmd = sys.argv[1] if len(sys.argv) > 1 else ''
@@ -69,5 +116,11 @@ if __name__ == '__main__':
         remove(sys.argv[2], sys.argv[3], sys.argv[4])
     elif cmd == 'guestmod':  # meta.py guestmod "Name"
         guestmod(sys.argv[2])
+    elif cmd == 'catalog':   # meta.py catalog
+        print('\n'.join(catalog()))
+    elif cmd == 'topics':    # meta.py topics <N>
+        topics(sys.argv[2])
+    elif cmd == 'settopics': # meta.py settopics <N> main|general "Topic" ["Topic" ...]
+        settopics(sys.argv[2], sys.argv[3], sys.argv[4:])
     else:
-        print(__doc__ or 'usage: meta.py list | stub First Last slug TW<N> | add N H|G Name... | remove N H|G Name | guestmod Name')
+        print(__doc__ or 'usage: meta.py list | stub ... | add ... | remove ... | guestmod Name | catalog | topics N | settopics N main|general Topic...')

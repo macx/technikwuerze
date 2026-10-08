@@ -76,6 +76,44 @@
     gap: var(--sp-s);
   }
 
+  .share {
+    display: grid;
+    place-items: center;
+    inline-size: 2.75rem;
+    block-size: 2.75rem;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+
+    &:is(:hover, :focus-visible) {
+      background: var(--clr-hover);
+    }
+  }
+
+  .share-item {
+    --tooltip-bg: var(--clr-text);
+    --tooltip-text: var(--clr-text-opposite);
+  }
+
+  .transport .share-item {
+    display: none;
+  }
+
+  .options .share-item .tooltip {
+    inset-inline: auto 0;
+    transform: translate(0, 0.2rem);
+
+    &::after {
+      inset-inline: auto 1.1rem;
+      transform: none;
+    }
+  }
+
+  .options .share-item:is(:hover, :focus-within) .tooltip {
+    transform: none;
+  }
+
   .skip {
     position: relative;
     display: grid;
@@ -116,7 +154,7 @@
     padding: 0;
     border: 0;
     border-radius: 50%;
-    background: var(--clr-primary);
+    background: var(--color-scheme, var(--clr-primary));
     color: var(--clr-text-opposite);
 
     [class^='msi-'] {
@@ -129,7 +167,7 @@
     }
 
     &:is(:hover, :focus-visible) {
-      background: color-mix(in oklab, var(--clr-primary), var(--clr-text) 15%);
+      background: color-mix(in oklab, var(--color-scheme, var(--clr-primary)), var(--clr-text) 15%);
     }
   }
 
@@ -157,7 +195,7 @@
       border-radius: 0.1875rem;
       background: linear-gradient(
         to right,
-        var(--clr-primary) var(--progress),
+        var(--color-scheme, var(--clr-primary)) var(--progress),
         var(--clr-border) var(--progress)
       );
     }
@@ -167,7 +205,7 @@
       border-radius: 0.1875rem;
       background: linear-gradient(
         to right,
-        var(--clr-primary) var(--progress),
+        var(--color-scheme, var(--clr-primary)) var(--progress),
         var(--clr-border) var(--progress)
       );
     }
@@ -179,7 +217,7 @@
       margin-block-start: -0.4375rem;
       border: 0;
       border-radius: 50%;
-      background: var(--clr-primary);
+      background: var(--color-scheme, var(--clr-primary));
     }
 
     &::-moz-range-thumb {
@@ -187,7 +225,7 @@
       block-size: 1.25rem;
       border: 0;
       border-radius: 50%;
-      background: var(--clr-primary);
+      background: var(--color-scheme, var(--clr-primary));
     }
   }
 
@@ -325,6 +363,10 @@
 
     .transport {
       gap: var(--sp-xxs);
+
+      .share-item {
+        display: inline-flex;
+      }
     }
 
     .options,
@@ -345,6 +387,10 @@
   @media (hover: none) {
     .volume,
     .mute {
+      display: none;
+    }
+
+    .tooltip {
       display: none;
     }
   }

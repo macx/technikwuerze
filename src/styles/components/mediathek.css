@@ -4,7 +4,7 @@
 
 .episodes-list {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(25ch, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(var(--episodes-column-min, 25ch), 1fr));
   gap: var(--sp-s) var(--sp-m);
   padding: 0;
   margin-block: 0;

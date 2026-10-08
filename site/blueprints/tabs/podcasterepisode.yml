@@ -185,8 +185,8 @@ columns:
             info: '{{ page.profession }}'
           topics:
             label:
-              de: Themen
-              en: Topics
+              de: Hauptthema
+              en: Main topic
             type: tags
             max: 3
             accept: all
@@ -196,6 +196,18 @@ columns:
             help:
               de: 'Hauptthema zuerst, nicht zu kleinteilig (nicht „CSS“, wenn es um ein CMS geht). Themenmix → generisches Thema (z. B. „News“). Bei Magazinfolgen mit Gast: Thema des Gastbeitrags zuerst.'
               en: 'Main topic first, not too granular. Mixed topics → generic topic. Magazine episodes with a guest: guest topic first.'
+          general_topics:
+            label:
+              de: Allgemeine Themen
+              en: General topics
+            type: tags
+            accept: options
+            options:
+              type: query
+              query: site.general_topics_catalog.split
+            help:
+              de: 'Allgemeine Themen, die in der Folge vorkommen. Die Auswahl pflegt das Team unter Site → Einstellungen („Themenkatalog“).'
+              en: 'General topics covered in the episode. The selection is maintained under Site → Settings (“Topic catalog”).'
           line:
             type: line
           headlineBreakingchanges:

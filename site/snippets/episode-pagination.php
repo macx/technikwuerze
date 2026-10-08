@@ -27,26 +27,26 @@ if (!$nextEpisode) {
 
 $episodeShortLabel = static function (Kirby\Cms\Page $ep): string {
   $s = trim((string) $ep->podcasterseason()->value());
-  $e = trim((string) $ep->podcasterepisode()->value());
+  $total = trim((string) $ep->podcasterepisodetotal()->value());
   $parts = [];
   if ($s !== '') {
     $parts[] = 'P' . $s;
   }
-  if ($e !== '') {
-    $parts[] = 'E' . $e;
+  if ($total !== '') {
+    $parts[] = 'TW' . $total;
   }
-  return $parts !== [] ? implode(' · ', $parts) : esc($ep->title());
+  return $parts !== [] ? implode("\u{2002}", $parts) : esc($ep->title());
 };
 
 $episodeA11yDetail = static function (Kirby\Cms\Page $ep): string {
   $s = trim((string) $ep->podcasterseason()->value());
-  $e = trim((string) $ep->podcasterepisode()->value());
+  $total = trim((string) $ep->podcasterepisodetotal()->value());
   $parts = [];
   if ($s !== '') {
     $parts[] = 'Phase ' . $s;
   }
-  if ($e !== '') {
-    $parts[] = 'Episode ' . $e;
+  if ($total !== '') {
+    $parts[] = 'Technikwürze ' . $total;
   }
 
   if ($parts === []) {
@@ -64,19 +64,15 @@ $nextA11yDetail = $nextEpisode ? $episodeA11yDetail($nextEpisode) : '';
 
 $currentVisualLabel = (static function (Kirby\Cms\Page $ep): string {
   $s = trim((string) $ep->podcasterseason()->value());
-  $e = trim((string) $ep->podcasterepisode()->value());
   $total = trim((string) $ep->podcasterepisodetotal()->value());
   $parts = [];
   if ($s !== '') {
     $parts[] = "Phase\u{00A0}" . $s;
   }
-  if ($e !== '') {
-    $parts[] = "Episode\u{00A0}" . $e;
-  }
   if ($total !== '') {
     $parts[] = "Technikwürze\u{00A0}" . $total;
   }
-  return implode(' · ', $parts);
+  return implode(', ', $parts);
 })($page);
 ?>
 <nav class="pagination-nav content medium" aria-label="Navigation zwischen Folgen">

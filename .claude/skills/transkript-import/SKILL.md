@@ -132,7 +132,7 @@ interviews are expected warnings). Then read the first and last two minutes and 
 
 ### 7. Metadata
 
-Run the skill `transkript-metadaten` for the same episode (adds missing hosts/guests, creates participant stubs). Then
+Run the skill `transkript-metadaten` for the same episode (adds missing hosts/guests, creates participant stubs, sets the main and general topics from the team's topic catalog while they are empty). Then
 re-run `verify.py N`.
 
 ### 8. Archive the word-level data

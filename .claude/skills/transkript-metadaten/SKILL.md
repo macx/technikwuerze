@@ -1,6 +1,6 @@
 ---
 name: transkript-metadaten
-description: After a transcript was imported (skill transkript-import), make the episode's hosts/guests match the audio - add missing participants to "Team & Gastmoderation" / "Gäste", create minimal participant stubs, set Gastmoderation - with the scripts in scripts/transcripts/ (meta.py, verify.py). Always run right after transkript-import for the same episode.
+description: After a transcript was imported (skill transkript-import), make the episode's hosts/guests match the audio - add missing participants to "Team & Gastmoderation" / "Gäste", create minimal participant stubs, set Gastmoderation, and fill in the episode's topics (main topic, general topics from the team's topic catalog) when still empty - with the scripts in scripts/transcripts/ (meta.py, verify.py). Always run right after transkript-import for the same episode.
 ---
 
 # Technikwürze metadata follow-up
@@ -55,15 +55,32 @@ All commands from the repository root; `N` = episode number.
    python3 scripts/transcripts/meta.py add N G "Name" ["Name" ...]     # Gäste
    ```
 
-6. **Re-run `verify.py N`:** participants and speaker labels should now agree; only listener/audience warnings remain.
+6. **Topics, only if still empty** (never overwrite what the team already set). Read the shownotes and the transcript and
+   look at what the episode is actually about:
 
-Mention in your report: created stubs, additions, open questions. Do not commit; the content repo is committed only on
+   ```
+   python3 scripts/transcripts/meta.py topics N                         # current values + catalog
+   python3 scripts/transcripts/meta.py settopics N main "Topic" [...]   # main topic (field "Hauptthema", 1-3 values)
+   python3 scripts/transcripts/meta.py settopics N general "Topic" ...  # general topics, from the catalog only
+   ```
+
+   - **Main topic** (`Topics`): main topic first, not too granular (not „CSS“ when it is about a CMS); a mix of topics
+     becomes a generic one (e.g. „News“); for magazine episodes with a guest the guest's topic comes first. If the main
+     topic is unclear, leave the field empty and ask David.
+   - **General topics** (`General-topics`): choose **only from the catalog** that the team maintains in the Panel
+     (Site → Settings → „Themenkatalog“, `meta.py catalog`). `settopics … general` refuses values that are not in the
+     catalog. Pick the few topics that really take up time in the episode (typically 1 to 4), not every term that is
+     mentioned. Never add catalog entries yourself; if an important topic is missing, mention it in the report so Stefan
+     can extend the catalog.
+7. **Re-run `verify.py N`:** participants and speaker labels should now agree; only listener/audience warnings remain.
+
+Mention in your report: created stubs, additions, the topics you set (and which are still open), open questions. Do not commit; the content repo is committed only on
 request.
 
 ## Hard stop-rules
 
 - Never remove people or change `participant_role` (host ↔ guest); only add, plus the Gastmoderation toggle.
-- Never publish an episode, rename folders or touch unrelated fields (title, description, audio, dates, other blocks).
+- Never publish an episode, rename folders or touch unrelated fields (title, description, audio, dates, other blocks). Topics are the only content fields besides hosts/guests that this skill sets, and only while they are empty.
 - Never invent a profession, bio or external profile for a stub.
 - Check for a Panel draft (`content/.../_changes/episode.txt`) before editing an episode; `imp.py` prints `CHANGES`.
   Editing `episode.txt` does not touch the draft — report it, do not delete or merge drafts unasked.

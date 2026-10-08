@@ -1,4 +1,15 @@
 .podcast-player {
+  --color-scheme: var(--clr-secondary);
+  --c-outline-color: var(--color-scheme);
+
+  :where(a:any-link:not([class*='button'])) {
+    color: var(--color-scheme);
+  }
+
+  .text-eyebrow {
+    color: var(--color-scheme);
+  }
+
   .podcast-player-container {
     display: grid;
     gap: clamp(var(--sp), 1vw + var(--sp-s), var(--sp-l));
@@ -13,7 +24,7 @@
     margin-block: 0;
     font-size: var(--fs-m);
     font-weight: var(--fw-title);
-    color: var(--clr-secondary);
+    color: var(--color-scheme);
     text-box: trim-both cap alphabetic;
     text-align: start;
   }
@@ -24,14 +35,10 @@
     gap: 1rem;
     align-self: start;
 
-    a:any-link {
-      &[download] {
-        color: var(--clr-secondary);
-        text-decoration: none;
-      }
+    a:any-link[download] {
+      text-decoration: none;
 
       &:is(:hover, :focus-visible) {
-        color: var(--clr-secondary);
         text-decoration: underline;
         text-underline-offset: 0.2em;
       }
@@ -53,7 +60,6 @@
     text-wrap: pretty;
 
     a:any-link[download] {
-      color: var(--clr-secondary);
       text-decoration: none;
 
       &:is(:hover, :focus-visible) {
