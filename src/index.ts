@@ -18,8 +18,6 @@ import { initDeepLink } from './scripts/components/deep-link'
 import { initTranscriptSync } from './scripts/components/transcript-sync'
 import { initTranscriptWords } from './scripts/components/transcript-words'
 
-import { initKomments, openCommentFromHash } from './scripts/components/komments'
-
 document.addEventListener('DOMContentLoaded', () => {
   initHeaderNav()
   initCopyButtons()
@@ -30,8 +28,13 @@ document.addEventListener('DOMContentLoaded', () => {
   initTranscriptWords()
   initDeepLink()
   initViewTransitions()
-  initKomments()
-  openCommentFromHash()
+
+  if (document.querySelector('#kommentform, [data-comments-more]')) {
+    void import('./scripts/components/komments').then(({ initKomments, openCommentFromHash }) => {
+      initKomments()
+      openCommentFromHash()
+    })
+  }
 
   if (document.querySelector('.tw-brand-networks')) {
     void import('./scripts/components/brand-networks').then(({ initBrandNetworks }) => {
