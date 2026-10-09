@@ -50,6 +50,7 @@ return [
   },
   'komments.comment.received' => function ($comment) {
     twSearchHandleCommentChange($comment);
+    twSendKommentNotificationsAfterResponse();
   },
   'komments.comment.published' => function ($comment) {
     twSearchHandleCommentChange($comment);
