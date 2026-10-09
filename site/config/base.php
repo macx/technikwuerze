@@ -85,7 +85,6 @@ return [
 
   'mauricerenck.komments.storage.type' => 'sqlite',
   'mauricerenck.komments.storage.sqlitePath' => $dbPath,
-  'mauricerenck.komments.spam.verification.filterUnverified' => false,
   'mauricerenck.komments.panel.enabled' => true,
   'mauricerenck.komments.panel.webmentions' => true,
   'mauricerenck.komments.panel.showPublished' => true,
@@ -94,4 +93,11 @@ return [
   'mauricerenck.komments.avatar.webmentionAvatars' => false,
   'mauricerenck.komments.autoDisable.datefield' => 'date',
   'mauricerenck.komments.form.submit.classNames' => 'button',
+  'mauricerenck.komments.notifications.email.enable' => true,
+  'mauricerenck.komments.notifications.email.sender' => $_ENV['TW_MAIL_NOREPLY'] ?? null,
+  'mauricerenck.komments.notifications.email.emailReceiverList' => array_filter([
+    $_ENV['TW_CONTACT_RECIPIENT'] ?? null,
+  ]),
+  'mauricerenck.komments.notifications.email.notificationMode' => 'deferred',
+  'mauricerenck.komments.notifications.skipSpam' => true,
 ];

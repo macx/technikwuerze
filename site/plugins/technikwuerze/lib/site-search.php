@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Kirby\Cms\Page;
+use Kirby\Content\Content;
 use Loupe\Loupe\Configuration;
 use Loupe\Loupe\Loupe;
 use Loupe\Loupe\LoupeFactory;
@@ -692,7 +693,7 @@ function twSearchHandleCommentChange(mixed $comment): void
 {
   $pageUuid = '';
 
-  if (is_object($comment) && method_exists($comment, 'pageuuid')) {
+  if ($comment instanceof Content) {
     $pageUuid = trim((string) $comment->pageuuid()->value());
   } elseif (is_array($comment) && isset($comment['pageUuid'])) {
     $pageUuid = trim((string) $comment['pageUuid']);

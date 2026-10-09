@@ -6,6 +6,7 @@ require_once __DIR__ . '/lib/participant-profiles.php';
 require_once __DIR__ . '/lib/participant-text-review.php';
 require_once __DIR__ . '/lib/participant-stats.php';
 require_once __DIR__ . '/lib/site-search.php';
+require_once __DIR__ . '/lib/komments-notifications.php';
 require_once __DIR__ . '/lib/episode-stats.php';
 require_once __DIR__ . '/lib/contact-form-action.php';
 require_once __DIR__ . '/lib/transcript-words.php';
