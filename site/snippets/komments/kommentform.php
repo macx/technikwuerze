@@ -126,4 +126,3 @@ if (!is_null($user) && $user->isLoggedIn()) {
     </button>
   </form>
 </div>
-<?= js(['/media/plugins/mauricerenck/komments/komments.js']) ?>
