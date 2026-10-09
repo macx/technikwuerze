@@ -81,9 +81,41 @@
       "dependsOrder": "parallel"
     },
     {
+      "label": "🌐 Open Chrome (dev profile)",
+      "type": "shell",
+      "command": ". ./.env 2>/dev/null || true; [ -n \"$DEV_HOST\" ] || DEV_HOST=127.0.0.1; [ -n \"$DEV_PHP_PORT\" ] || DEV_PHP_PORT=8000; URL=\"http://$DEV_HOST:$DEV_PHP_PORT\"; echo \"Chrome launcher waiting for $URL\"; until curl -s -o /dev/null \"$URL/\"; do sleep 0.5; done; open -n -a \"Google Chrome\" --args --user-data-dir=\"$HOME/.tw-dev-chrome\" --no-first-run --no-default-browser-check \"$URL/\" \"$URL/panel\"; echo \"Chrome opened\"",
+      "presentation": {
+        "reveal": "never",
+        "panel": "new",
+        "close": true
+      },
+      "isBackground": true,
+      "problemMatcher": {
+        "owner": "chrome-launcher",
+        "pattern": {
+          "regexp": "."
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": ".",
+          "endsPattern": "Chrome launcher waiting"
+        }
+      }
+    },
+    {
+      "label": "Prepare Development Session",
+      "dependsOn": ["⚡ Vite Dev Server", "🌐 Open Chrome (dev profile)"],
+      "dependsOrder": "parallel"
+    },
+    {
+      "label": "Prepare Build-Dev Session",
+      "dependsOn": ["🏗️ Vite Build Watch", "🌐 Open Chrome (dev profile)"],
+      "dependsOrder": "parallel"
+    },
+    {
       "label": "🛑 Stop Development Environment",
       "type": "shell",
-      "command": ". ./.env 2>/dev/null || true; [ -n \"$DEV_HOST\" ] || DEV_HOST=127.0.0.1; [ -n \"$DEV_PHP_PORT\" ] || DEV_PHP_PORT=8000; pkill -INT -f \"php -S $DEV_HOST:$DEV_PHP_PORT\" 2>/dev/null || true; pkill -INT -f \"vite\" 2>/dev/null || true",
+      "command": ". ./.env 2>/dev/null || true; [ -n \"$DEV_HOST\" ] || DEV_HOST=127.0.0.1; [ -n \"$DEV_PHP_PORT\" ] || DEV_PHP_PORT=8000; [ -n \"$DEV_VITE_PORT\" ] || DEV_VITE_PORT=5173; pkill -INT -f \"php -S $DEV_HOST:$DEV_PHP_PORT\" 2>/dev/null || true; pkill -INT -f \"vite.*--port $DEV_VITE_PORT\" 2>/dev/null || true; pkill -INT -f \"vite build --watch\" 2>/dev/null || true; pkill -f tw-dev-chrome 2>/dev/null || true; rm -f .dev; true",
       "presentation": {
         "reveal": "never",
         "panel": "new",

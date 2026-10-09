@@ -214,6 +214,7 @@ Maintain and evolve the Technikwürze Kirby site safely and consistently:
 - Main code deployment must preserve host-managed HTTP auth secrets (`.htpasswd`, including `public/.htpasswd`) via `.rsyncignore`.
 - Main code deployment must preserve the activated Kirby license (`site/config/.license`) via `.rsyncignore`. It is gitignored (never present on the CI checkout), so without this exclude `rsync --delete` wipes it from production on every deploy.
 - Keep `.htaccess` deploy-managed so Kirby rewrite rules in `public/.htaccess` stay consistent.
+- HTTP caching lives in `public/.htaccess` (cache classes set via `RewriteRule ... [E=TW_CACHE_*]`, applied with `Header ... env=`): `dist/` and `media/(pages|site|users|panel)/` are `immutable` for a year (URL changes with the content), `assets/` and `media/plugins/` (fixed URLs) get 30 days + `stale-while-revalidate`, everything else (HTML, feeds, API) falls back to `no-cache`. Never put an unhashed file under an immutable path; JavaScript is gzip-compressed via `text/javascript`.
 - Runtime binaries/state are not in Git:
   - `content/audio/` (audio files)
   - `content/avatars/` (participant avatar image files)

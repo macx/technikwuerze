@@ -5,27 +5,17 @@
       "name": "🚀 Development",
       "type": "node-terminal",
       "request": "launch",
-      "preLaunchTask": "⚡ Vite Dev Server",
+      "preLaunchTask": "Prepare Development Session",
       "postDebugTask": "🛑 Stop Development Environment",
-      "command": ". ./.env 2>/dev/null || true; DEV_HOST=${DEV_HOST:-127.0.0.1}; DEV_PHP_PORT=${DEV_PHP_PORT:-8000}; php -S \"$DEV_HOST:$DEV_PHP_PORT\" -t public kirby/router.php",
-      "serverReadyAction": {
-        "action": "openIntegratedBrowser",
-        "pattern": "Development Server \\(([^)]+)\\) started",
-        "uriFormat": "%s/"
-      }
+      "command": ". ./.env 2>/dev/null || true; DEV_HOST=${DEV_HOST:-127.0.0.1}; DEV_PHP_PORT=${DEV_PHP_PORT:-8000}; php -S \"$DEV_HOST:$DEV_PHP_PORT\" -t public kirby/router.php"
     },
     {
       "name": "🏗️ Dev Build",
       "type": "node-terminal",
       "request": "launch",
-      "preLaunchTask": "🏗️ Vite Build Watch",
+      "preLaunchTask": "Prepare Build-Dev Session",
       "postDebugTask": "🛑 Stop Development Environment",
-      "command": ". ./.env 2>/dev/null || true; DEV_HOST=${DEV_HOST:-127.0.0.1}; DEV_PHP_PORT=${DEV_PHP_PORT:-8000}; php -S \"$DEV_HOST:$DEV_PHP_PORT\" -t public kirby/router.php",
-      "serverReadyAction": {
-        "action": "openIntegratedBrowser",
-        "pattern": "Development Server \\(([^)]+)\\) started",
-        "uriFormat": "%s/"
-      }
+      "command": ". ./.env 2>/dev/null || true; DEV_HOST=${DEV_HOST:-127.0.0.1}; DEV_PHP_PORT=${DEV_PHP_PORT:-8000}; php -S \"$DEV_HOST:$DEV_PHP_PORT\" -t public kirby/router.php"
     }
   ]
 }
