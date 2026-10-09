@@ -21,6 +21,6 @@ ssh -p "${DEPLOY_PORT}" "${DEPLOY_USER}@${DEPLOY_HOST}" "cd '${DEPLOY_PATH}' && 
 
 ssh -p "${DEPLOY_PORT}" "${DEPLOY_USER}@${DEPLOY_HOST}" \
   "cd '${DEPLOY_PATH}' && TW_BASE='${DEPLOY_PATH}' php -d error_reporting=0 -d max_execution_time=0 -d memory_limit=2G" \
-  < ops/reindex-search.php || echo "WARNING: search index rebuild failed; run 'pnpm run search:reindex'."
+  < ops/reindex-search.php || echo "WARNING: search index rebuild failed; run 'pnpm run search:reindex-production'."
 
 echo "Manual rsync deploy completed."
